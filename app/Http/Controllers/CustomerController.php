@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\ErrorLog;
 use App\Models\JobOrder;
+use App\Models\JobPaymentHistory;
 class CustomerController extends Controller
 {
     /**
@@ -33,11 +34,10 @@ class CustomerController extends Controller
         return view('customers.customer_job_orders', compact('customer','job_orders'));
     }
 
-    public function transaction_history(){
+    public function transaction_history($id){
         $customer = Customer::find($id);
-        $job_orders =  JobOrder::where('customer_id', $id)->get();
-
-        return view('customers.transaction_history', compact('customer','job_orders'));
+        $job_pay_history =  JobPaymentHistory::where('customer_id',$id)->get();
+        return view('customers.transaction_history', compact('customer','job_pay_history'));
     }
 
 

@@ -46,12 +46,12 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         });
 
         Route::get('/all_orders', 'JobOrderController@index')->name('all_orders');
-
         Route::get('/view_order/{job_title}/{id}', 'JobOrderController@view_order')->name('view_order');
         Route::post('/view_order/{job_title}/{id}', 'JobOrderController@changeJobStatus')->name('view_order');
         Route::get('/delete_order/{id}', 'JobOrderController@delete_job_order')->name('delete_order');
         Route::get('/track_order/{job_title}/{id}', 'JobOrderController@track_job_order')->name('track_order');
         Route::get('/transaction_history/{job_title}/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
+        Route::post('/transaction_history/{job_title}/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
 
 
         Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
@@ -94,6 +94,12 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/all_requisition', 'RequisitionController@index')->name('all_requisitions');
         Route::get('/edit_requisition/{id}', 'RequisitionController@edit')->name('edit_requisition');
         Route::post('/edit_requisition/{id}', 'RequisitionController@update')->name('edit_requisition');
+    });
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'],  function () {
+    Route::group(['prefix' => '/transactions', 'as' => 'transactions.'], function () {
+        Route::get('/all_transactions', 'RequisitionController@index')->name('all_transactions');
     });
 });
 

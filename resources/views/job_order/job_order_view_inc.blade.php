@@ -42,6 +42,45 @@
         </div>
     </div>
 </form>
+
+{{-- add pay --}}
+<form method="POST"  action="{{route('job_order.transaction_history',[request()->job_title, request()->id])}}" class="order_status">
+    @csrf
+    @method('POST')
+    <div class="modal fade" id="exampleModal2" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Job Order Payment</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                        <label for="proof_needed">Select Payment Type</label>
+                        <select class="form-control" name="payment_type" required>
+                            <option value="">--Select Payment Type--</option>
+                            <option value="Full Payment">Full Payment</option>
+                            <option value="Part Payment">Part Payment</option>
+                        </select> <br>
+
+                        <label for="amount_paid">Amount Paid</label>
+                        <input type="number"  name="amount_paid" class="form-control"
+                        id="amount_paid" placeholder="eg: 10000" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-danger" type="submit" name="pay">
+                        <i class="text-white me-2" data-feather="check-circle"></i>Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="col-md-3 col-xl-3">
     <div class="card mb-3">
         <div class="card-body text-center">
@@ -59,10 +98,17 @@
                  aria-selected="false">Edit Order</a>
                 <div class="dropdown-divider"></div>
 
+              
 
                 <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link <?php if($page == 'status_order') echo 'active active_red'  ?>"
 
                 aria-selected="false">Change Order Status</a>
+
+               <div class="dropdown-divider"></div>
+
+               <a style="cursor: pointer" id="myBtn2" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="nav-link <?php if($page == 'add_pay') echo 'active active_red'  ?>"
+
+                aria-selected="false">Update Order Payment</a>
 
                <div class="dropdown-divider"></div>
 

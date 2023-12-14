@@ -117,6 +117,24 @@
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
+								class="data-feather theme-item" data-feather="grid"></i> <span
+								class="theme-item"> Transactions</span><i
+								class="sidenaviconopen float-end" id="sidenavicon"
+								data-feather="chevron-up"></i></a>
+
+							<div class="dropdown-container">
+								<a href="{{route('transactions.all_transactions')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">View All</span>
+                                </a>
+							</div>
+						</div>
+					</li>
+
+                    <li>
+						<div class="sidebardropdown">
+							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
+								id="dropdown-btn" onclick="myFunction()"><i
 								class="data-feather theme-item" data-feather="shopping-cart"></i> <span
 								class="theme-item"> Orders</span><i
 								class="sidenaviconopen float-end" id="sidenavicon"
@@ -462,22 +480,7 @@
 							href="#">Clients</a> <a href="#">Contact</a>
 					</div>
 				</div>
-                {{-- @if($errors->any())
-                    <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                        @foreach($errors->all() as $error)
-                            {!! $error !!}<br/>
-                        @endforeach
-                    </div>
-                @endif --}}
-
-
-
                 @yield('content')
-
 
             </div>
 

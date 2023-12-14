@@ -51,17 +51,13 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($job_pay_history as  $val)
-                                                        {{-- @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp --}}
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                {{-- <td>{{$val->customer->firstname.' '. $val->customer->lastname}}</td> --}}
                                                                 <td>{{$val->payment_type}}</td>
                                                                 <td>&#8358;{{$val->amount}}</td>
                                                                 <td>{{date('D M d, Y', strtotime($val->payment_date))}}</td>
-                                                                {{-- <td><a href="{{route('job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td> --}}
                                                             </tr>
                                                         @endforeach
-
                                                 </table>
                                             </div>
                                         </div>

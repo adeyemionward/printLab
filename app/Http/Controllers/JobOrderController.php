@@ -19,6 +19,7 @@ use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class JobOrderController extends Controller
 {
@@ -105,6 +106,26 @@ class JobOrderController extends Controller
         return back()->with("flash_success","Order status changed successfully");
     }
 
+    public function updateJobPayment(Request $request, $job_title, $id){
+        $user = Auth::user();
+        $order_date = date('Y-m-d');
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
+
+        $job_order =  JobOrder::find($id);
+
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $id;
+        $job_pay->customer_id     = $job_order->customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
+        return back()->with("flash_success","Order Payment updated successfully");
+    }
+
     public function delete_job_order(Request $request, $id){
         $job_orders =  JobOrder::all();
         $job_order =  JobOrder::find($id);
@@ -112,15 +133,21 @@ class JobOrderController extends Controller
         return redirect(route('job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
     }
 
-    public function view_order($job_title,$id){
+    public function view_order($job_title, $id){
         $job_order =  JobOrder::find($id);
-        return view('job_order/view_order', compact('job_order'));
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+            ->where('job_order_id',$id)
+            ->first();
+        return view('job_order/view_order', compact('job_order','job_order_pay'));
     }
 
     public function track_job_order($job_title,$id){
         $job_order =  JobOrder::find($id);
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+            ->where('job_order_id',$id)
+            ->first();
         $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
-        return view('job_order.track_order', compact('job_order','job_order_track'));
+        return view('job_order.track_order', compact('job_order','job_order_track','job_order_pay'));
     }
 
     public function transaction_history($job_title,$id){

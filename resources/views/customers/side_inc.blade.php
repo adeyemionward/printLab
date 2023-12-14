@@ -26,7 +26,7 @@
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'transaction') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('customers.edit_customer', request()->id)}}"
+                href="{{route('customers.transaction_history', request()->id)}}"
                 aria-selected="false"> Customer Transaction History </a>
                <div class="dropdown-divider"></div>
 

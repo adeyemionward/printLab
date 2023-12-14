@@ -1,17 +1,17 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'Customer Job Orders')
+@section('title', 'Customer Transaction History')
 @php $page = 'transaction'; @endphp
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Job Orders for {{$customer->firstname.' '.$customer->lastname}} </h4>
+                    <h4 class="m-0 text-dark text-muted">Transaction Histrory for {{$customer->firstname.' '.$customer->lastname}} </h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Customer Job Order</a></li>
+                        <li class="breadcrumb-item"><a href="#"> Customer Transaction History</a></li>
                         <li class="breadcrumb-item active">All Orders</li>
                     </ol>
                 </div>
@@ -33,31 +33,18 @@
                                                     <thead>
                                                         <tr>
                                                             <th>S/N</th>
-                                                            <th>Customer&nbsp;Name</th>
-                                                            <th>Job&nbsp;Type</th>
-                                                            <th>Quantity</th>
-                                                            <th>Ink</th>
-                                                            <th>Paper&nbsp;Type</th>
-                                                            <th>Production&nbsp;Days</th>
-                                                            <th>Cost</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th>Payment Type</th>
+                                                            <th>Amount</th>
+                                                            <th>Payment Date</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($job_orders as $index => $val)
-                                                        @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp
+                                                        @foreach ($job_pay_history as $index => $val)
                                                             <tr>
-                                                                <td>{{$index+1}}</td>
-                                                                <td>{{$val->customer->firstname.' '. $val->customer->lastname}}</td>
-                                                                <td>{{$val->job_order_name}}</td>
-                                                                <td>{{$val->quantity}}</td>
-                                                                <td>{{$val->ink}}</td>
-                                                                <td>{{$val->paper_type}}</td>
-                                                                <td>{{$val->production_days}}</td>
-                                                                <td>{{'₦'.$val->total_cost}} </td>
-                                                                <td>{{$val->status}}</td>
-                                                                <td><a href="{{route('job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$val->payment_type}}</td>
+                                                                <td>&#8358;{{$val->amount}}</td>
+                                                                <td>{{date('D M d, Y', strtotime($val->payment_date))}}</td>
                                                             </tr>
                                                         @endforeach
 
