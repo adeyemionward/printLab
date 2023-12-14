@@ -132,9 +132,24 @@
                                                                                         <input type="number" required name="total_cost" class="form-control"
                                                                                             id="total_cost" placeholder="eg: 24000">
                                                                                     </div>
+
+                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                        <label for="proof_needed">Payment Type</label>
+                                                                                        <select class="form-control" name="payment_type" required>
+                                                                                            <option value="">--Select Payment Type--</option>
+                                                                                            <option value="Full Payment">Full Payment</option>
+                                                                                            <option value="Part Payment">Part Payment</option>
+                                                                                        </select>
+                                                                                    </div>
+
+                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                        <label for="amount_paid">Amount Paid</label>
+                                                                                        <input type="number"  name="amount_paid" class="form-control"
+                                                                                            id="amount_paid" placeholder="eg: 10000" required>
+                                                                                    </div>
                                                                                 </div>
 
-                                                                                
+
                                                                                 <button class="btn btn-sm btn-danger" type="submit">
                                                                                     <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                                 </button>

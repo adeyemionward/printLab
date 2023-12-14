@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('job_payment_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('job_order_id')->constrained('job_orders')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->string('payment_type');
+            $table->string('amount');
+            $table->string('payment_date');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

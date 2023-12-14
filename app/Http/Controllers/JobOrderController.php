@@ -15,6 +15,7 @@ use App\Models\Notepad;
 use App\Models\Booklet;
 use App\Models\Sticker;
 use App\Models\JobOrderTracking;
+use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -141,6 +142,10 @@ class JobOrderController extends Controller
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
 
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
+
+
         //save to job
         $job_order = new JobOrder();
         $job_order->customer_id     = $customer_id;
@@ -167,6 +172,17 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
     }
 
@@ -190,6 +206,9 @@ class JobOrderController extends Controller
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -217,6 +236,16 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
 
         return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
 
@@ -247,6 +276,9 @@ class JobOrderController extends Controller
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
 
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
+
         //save to job
         $job_order = new JobOrder();
         $job_order->customer_id     = $customer_id;
@@ -273,9 +305,18 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return redirect(route('job_order.view_order',['Forty_Leaves',$job_order->id]))->with('flash_success','Forty Leaves Book order saved successfully');
-
-
     }
 
     public function eighty_leaves()
@@ -297,6 +338,9 @@ class JobOrderController extends Controller
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -324,6 +368,18 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
+
         return redirect(route('job_order.view_order',['Eighty_Leaves',$job_order->id]))->with('flash_success','Eighty Leaves Book order saved successfully');
 
     }
@@ -355,6 +411,9 @@ class JobOrderController extends Controller
         $numbering_needed           =  request('numbering_needed');
         $start_number               =  request('start_number');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -391,6 +450,16 @@ class JobOrderController extends Controller
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
 
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return back()->with("flash_success","Booklet order saved successfully");
     }
 
@@ -414,6 +483,9 @@ class JobOrderController extends Controller
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -443,6 +515,18 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
+
         return redirect(route('job_order.view_order',['Bronchures',$job_order->id]))->with('flash_success','Bronchure order saved successfully');
 
     }
@@ -467,6 +551,9 @@ class JobOrderController extends Controller
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -495,6 +582,16 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
         return redirect(route('job_order.view_order',['Business_Cards',$job_order->id]))->with('flash_success','Business card order saved successfully');
 
     }
@@ -518,6 +615,9 @@ class JobOrderController extends Controller
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -547,6 +647,16 @@ class JobOrderController extends Controller
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
 
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return redirect(route('job_order.view_order',['Envelopes',$job_order->id]))->with('flash_success','Envelopes order saved successfully');
 
     }
@@ -572,6 +682,9 @@ class JobOrderController extends Controller
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -602,6 +715,16 @@ class JobOrderController extends Controller
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
 
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return redirect(route('job_order.view_order',['Flyer',$job_order->id]))->with('flash_success','Flyer order saved successfully');
 
     }
@@ -623,7 +746,7 @@ class JobOrderController extends Controller
         $ink                        =  request('ink');
         $paper_type                 =  request('paper_type');
         $page_count                 =  request('page_count');
-        $perforating            =  request('perforating');
+        $perforating                =  request('perforating');
         $production_time            =  request('production_time');
         $back_sided_print           =  request('back_sided_print');
         $proof_needed               =  request('proof_needed');
@@ -634,6 +757,9 @@ class JobOrderController extends Controller
         $numbering_needed           =  request('numbering_needed');
         $start_number               =  request('start_number');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -670,6 +796,17 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return redirect(route('job_order.view_order',['Notepad',$job_order->id]))->with('flash_success','Notepad order saved successfully');
 
     }
@@ -701,6 +838,9 @@ class JobOrderController extends Controller
         $start_number               =  request('start_number');
         $shrink_wrap                =  request('shrink_wrap');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -737,6 +877,16 @@ class JobOrderController extends Controller
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
 
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
+
         return redirect(route('job_order.view_order',['Small_Invoice',$job_order->id]))->with('flash_success','Small Invoice order saved successfully');
 
 
@@ -761,6 +911,9 @@ class JobOrderController extends Controller
         $production_time            =  request('production_time');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
+
+        $amount_paid                =  request('amount_paid');
+        $payment_type               =  request('payment_type');
 
         //save to job
         $job_order = new JobOrder();
@@ -788,6 +941,17 @@ class JobOrderController extends Controller
         $job_tracking->pending_status   = 1;
         $job_tracking->pending_date     = $order_date;
         $job_tracking->save();
+
+
+        //save to payment history
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $job_order->id;
+        $job_pay->customer_id     = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->created_by      = $user->id;
+        $job_pay->save();
 
         return redirect(route('job_order.view_order',['Stickers',$job_order->id]))->with('flash_success','Stickers order saved successfully');
     }
