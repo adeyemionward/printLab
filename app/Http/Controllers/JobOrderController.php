@@ -123,6 +123,14 @@ class JobOrderController extends Controller
         return view('job_order.track_order', compact('job_order','job_order_track'));
     }
 
+    public function transaction_history($job_title,$id){
+        $job_order =  JobOrder::find($id);
+        $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
+        return view('job_order.transaction_history', compact('job_order','job_pay_history'));
+    }
+
+
+
     public function higher_education()
     {
         $customers =  Customer::all();

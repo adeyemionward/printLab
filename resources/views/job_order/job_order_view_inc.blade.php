@@ -72,6 +72,11 @@
                 aria-selected="false">Track Order</a>
                <div class="dropdown-divider"></div>
 
+               <a  class="nav-link  <?php if($page == 'transaction') echo 'active active_red'  ?>"
+                href="{{route('job_order.transaction_history',[request()->job_title,request()->id])}}"
+                aria-selected="false">Order Transaction History</a>
+               <div class="dropdown-divider"></div>
+
                 <a class="nav-link <?php if($page == 'delete_order') echo 'active active_red'  ?>"
                     onclick="return confirm('Are you sure you want to delete this job order?');"  href="{{route('job_order.delete_order',[ request()->id])}}"
                 aria-selected="false">Delete Order</a>

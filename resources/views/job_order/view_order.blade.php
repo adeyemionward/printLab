@@ -54,7 +54,7 @@
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Customer Name :</td>
-                                                                        <td>{{$job_order->customer->firstname.' '.$job_order->customer->lastname ?? 'N/A'}}</td>
+                                                                       <td> <a style="text-decoration:underline" href="{{route('customers.view_customer',$job_order->customer_id)}}">{{$job_order->customer->firstname.' '.$job_order->customer->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Job Order Type :</td>
