@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\User;
 use App\Models\ErrorLog;
 use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
+use Illuminate\Support\Facades\Hash;
 class CustomerController extends Controller
 {
     /**
@@ -25,6 +27,8 @@ class CustomerController extends Controller
 
         return view('customers.all_customers', compact('customers'));
     }
+
+
 
     public function customer_job_orders($id)
     {
@@ -62,26 +66,41 @@ class CustomerController extends Controller
         $validatedData = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            // 'email' => 'stemaring',
+            'email' => 'email|string|unique:users,email',
             'phone' => 'required|string',
             'address' => 'required|string',
-            // Add more rules as needed
+            // 'password' => 'required|string',
         ], [
             'firstname.required' => 'Please enter customer firstname.',
             'lastname.required' => 'Please enter customer lastname.',
-            // 'email.required' => 'Please enter customer email address.',
+            'email.required' => 'Please enter customer email address.',
             // 'email.email' => 'Please enter a valid email address.',
             'phone.required' => 'Please enter customer phone number.',
             'address.required' => 'Please enter customer address.',
         ]);
 
         try{
+            $user = new User();
+            $user->firstname    = request('firstname');
+            $user->lastname     = request('lastname');
+            $user->email        = request('email');
+            $user->phone        = request('phone');
+            $user->gender       = 'm';
+            $user->address      = request('address');
+            $user->status       = 'active';
+            $user->user_type    = '2';
+            $user->password     = bcrypt(request('firstname'));
+            $user->save();
+
+
             $customer = new Customer();
             $customer->firstname    = request('firstname');
             $customer->lastname     = request('lastname');
             $customer->email        = request('email');
             $customer->phone        = request('phone');
             $customer->address      = request('address');
+            $customer->password     = bcrypt(request('password'));
+            $customer->user_id      = $user->id;
 
             $customer->save();
             return back()->with("flash_success","Customer saved successfully");
@@ -90,6 +109,7 @@ class CustomerController extends Controller
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");
         }
+
     }
 
     /**

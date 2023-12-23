@@ -143,7 +143,7 @@ class JobOrderController extends Controller
 
     public function track_job_order($job_title,$id){
         $job_order =  JobOrder::find($id);
-        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount')) 
             ->where('job_order_id',$id)
             ->first();
         $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();

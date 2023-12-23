@@ -1,0 +1,265 @@
+@extends('layout.landing_master')
+@section('content')
+@section('title', 'Add Supplier')
+<section class="slider-area ">
+<div class="slider-active">
+
+<div class="single-slider slider-bg1 slider-height d-flex align-items-center">
+<div class="container">
+<div class="row">
+<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
+<div class="hero-caption text-center">
+<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#fff">An Innovative Printing  Lab</h1>
+<p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
+<a href="#buy_products" style="background-color: #FF2020; border-color: transparent;" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Now</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+
+
+<div class="latest-items section-padding fix">
+<div class="container">
+<div class="row justify-content-between">
+<div class="col-xl-12">
+<div class="nav-button">
+
+<nav>
+<div class="nav-tittle" id="buy_products">
+<h2>Popular Products</h2>
+</div>
+<!-- <div class="nav nav-tabs" id="nav-tab" role="tablist">
+<a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">Men</a>
+<a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Women</a>
+<a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false">Baby</a>
+<a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-four" aria-selected="false">Fashion</a>
+</div> -->
+</nav>
+
+</div>
+</div>
+</div>
+</div>
+<div class="container" >
+
+<div class="tab-content" id="nav-tabContent">
+<div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+
+<div class="latest-items-active">
+
+<div class="properties pb-30">
+<div class="properties-card">
+<div class="properties-img">
+<a href="{{route('product_categories','Higher_Education')}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
+<div class="socal_icon">
+<a href="#"><i class="ti-shopping-cart"></i></a>
+<a href="#"><i class="ti-heart"></i></a>
+<a href="#"><i class="ti-zoom-in"></i></a>
+</div>
+</div>
+<div class="properties-caption properties-caption2">
+<h3><a href="{{route('product_categories','Higher_Education')}}">Higher Education Note Book</a></h3>
+<div class="properties-footer">
+<div class="price">
+    <a href="{{route('product_categories','Higher_Education')}}"><span><button class="btn btn-primary">Browse Higher Educat...</button></span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="properties pb-30">
+<div class="properties-card">
+<div class="properties-img">
+<a href="{{route('product_categories','Eighty_Leaves')}}"><img src="assets/img/gallery/80-leaves.jpg" style="height: 320px;" alt></a>
+<div class="socal_icon">
+<a href="#"><i class="ti-shopping-cart"></i></a>
+<a href="#"><i class="ti-heart"></i></a>
+<a href="#"><i class="ti-zoom-in"></i></a>
+</div>
+</div>
+<div class="properties-caption properties-caption2">
+<h3><a href="{{route('product_categories','Eighty_Leaves')}}">80 Leaves Note Book</a></h3>
+<div class="properties-footer">
+<div class="price">
+    <a href="{{route('product_categories','Eighty_Leaves')}}"><span><button class="btn btn-primary">Browse 80 Leaves...</button></span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="properties pb-30">
+<div class="properties-card">
+<div class="properties-img">
+<a href="{{route('product_categories','Forty_Leaves')}}"><img src="assets/img/gallery/40_leaves1.jpg" style="height: 320px;"  alt></a>
+<div class="socal_icon">
+<a href="#"><i class="ti-shopping-cart"></i></a>
+<a href="#"><i class="ti-heart"></i></a>
+<a href="#"><i class="ti-zoom-in"></i></a>
+</div>
+</div>
+<div class="properties-caption properties-caption2">
+<h3><a href="{{route('product_categories','Forty_Leaves')}}">40 Leaves Note Book</a></h3>
+<div class="properties-footer">
+<div class="price">
+    <a href="{{route('product_categories','Forty_Leaves')}}"><span><button class="btn btn-primary">Browse 40 Leaves...</button></span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="properties pb-30">
+<div class="properties-card">
+<div class="properties-img">
+<a href="{{route('product_categories','Twenty_Leaves')}}"><img src="assets/img/gallery/note20.jpg" style="height: 320px;" alt></a>
+<div class="socal_icon">
+<a href="#"><i class="ti-shopping-cart"></i></a>
+<a href="#"><i class="ti-heart"></i></a>
+<a href="#"><i class="ti-zoom-in"></i></a>
+</div>
+</div>
+<div class="properties-caption properties-caption2">
+<h3><a href="{{route('product_categories','Twenty_Leaves')}}">20 Leaves Note Book</a></h3>
+<div class="properties-footer">
+<div class="price">
+    <a href="{{route('product_categories','Twenty_Leaves')}}"><span><button class="btn btn-primary">Browse 20 Leaves...</button></span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="testimonial-area testimonial-padding">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-xl-10 col-lg-10 col-md-11">
+<div class="h1-testimonial-active">
+
+<div class="single-testimonial text-center">
+<div class="testimonial-caption ">
+<div class="testimonial-top-cap">
+<h2>Customer Testimonial</h2>
+<p>Everybody is different, which is why we offer styles for every body. Laborum fuga incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla earum.</p>
+</div>
+
+<div class="testimonial-founder d-flex align-items-center justify-content-center">
+
+<div class="founder-text">
+<span>Name here</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="single-testimonial text-center">
+<div class="testimonial-caption ">
+<div class="testimonial-top-cap">
+<h2>Customer Testimonial</h2>
+<p>Everybody is different, which is why we offer styles for every body. Laborum fuga incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla earum.</p>
+</div>
+
+<div class="testimonial-founder d-flex align-items-center justify-content-center">
+
+<div class="founder-text">
+<span>Name here</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div class="categories-area">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".2s">
+<div class="cat-icon">
+<img src="assets/img/icon/services1.svg" alt>
+</div>
+<div class="cat-cap">
+<h5>Attention to Detail</h5>
+<p>
+    We understand that every project is unique. Our team pays meticulous attention to detail,
+    ensuring that every aspect of your
+    service experience is carefully considered and executed to perfection.
+</p>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 col-sm-6">
+<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".2s">
+<div class="cat-icon">
+<img src="assets/img/icon/services2.svg" alt>
+</div>
+<div class="cat-cap">
+<h5>Professional Expertise</h5>
+<p>
+    With a team of skilled professionals, we bring expertise to the table.
+    From project initiation to completion, you can trust that your requirements are in the hands
+    of seasoned professionals who are committed to delivering the best
+</p>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 col-sm-6">
+<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".4s">
+<div class="cat-icon">
+<img src="assets/img/icon/services3.svg" alt>
+</div>
+<div class="cat-cap">
+<h5>Cutting-Edge Technology</h5>
+<p>
+    We invest in the latest technologies to ensure that our services are at the forefront of industry standards.
+    This commitment allows us to deliver high-quality results efficiently and effectively.
+</p>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 col-sm-6">
+<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".5s">
+<div class="cat-icon">
+<img src="assets/img/icon/services4.svg" alt>
+</div>
+<div class="cat-cap">
+<h5>Timely Delivery</h5>
+<p>
+    We understand the importance of deadlines. Our efficient processes and proactive approach enable us to
+    consistently deliver services on time, providing you with the reliability you deserve.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</main>
+@endsection

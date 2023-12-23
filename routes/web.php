@@ -19,12 +19,29 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
+        Route::get('/', 'FrontPageController@index')->name('index');
+        Route::get('product_details/{title?}/{id?}', 'FrontPageController@product_details')->name('product_details');
+        Route::post('product_details/{title?}/{id?}', 'FrontPageController@addCart')->name('product_details');
+        Route::get('/{title}/product_categories', 'FrontPageController@product_categories')->name('product_categories');
+        Route::post('get_price', 'FrontPageController@getPrice')->name('get_price');
+
+        Route::group(['prefix' => '/track_orders', 'as' => 'track_orders.'], function () {
+            Route::get('/', 'FrontPageController@track_orders')->name('index');
+            Route::get('/view/{id}', 'FrontPageController@vieworder')->name('view');
+        });
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'],  function () {
+    Route::get('cart', 'CartController@index')->name('cart');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 });
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-        Route::get('/', 'AuthController@login')->name('/');
-        Route::post('/', 'AuthController@postLogin')->name('/');
+        Route::get('login/', 'AuthController@login')->name('login');
+        Route::post('login/', 'AuthController@postLogin')->name('login');
 
         Route::get('/register', 'AuthController@register')->name('register');
         Route::post('/register', 'AuthController@postregister')->name('post.register');
@@ -87,6 +104,56 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     });
 });
 
+
+Route::group(['namespace' => 'App\Http\Controllers'],  function () {
+    Route::group(['prefix' => '/external_job_order', 'as' => 'external_job_order.'], function () {
+        //status
+        Route::group(['prefix' => '/status', 'as' => 'status.'], function () {
+            Route::get('/pending', 'ExternalJobOrderController@pending')->name('pending');
+            Route::get('/designed', 'ExternalJobOrderController@designed')->name('designed');
+            Route::get('/binded', 'ExternalJobOrderController@binded')->name('binded');
+            Route::get('/completed', 'ExternalJobOrderController@completed')->name('completed');
+            Route::get('/customer_approved', 'ExternalJobOrderController@approved')->name('customer_approved');
+            Route::get('/delivered', 'ExternalJobOrderController@delivered')->name('delivered');
+            Route::get('/prepressed', 'ExternalJobOrderController@prepressed')->name('prepressed');
+            Route::get('/printed', 'ExternalJobOrderController@printed')->name('printed');
+            Route::get('/proof_read', 'ExternalJobOrderController@proof_read')->name('proof_read');
+        });
+        Route::get('/all_orders', 'ExternalJobOrderController@index')->name('all_orders');
+        Route::get('/view_order/{id}', 'ExternalJobOrderController@view_order')->name('view_order');
+        Route::post('/view_order/{id}', 'ExternalJobOrderController@changeJobStatus')->name('view_order');
+        Route::get('/edit_order/{id}', 'ExternalJobOrderController@edit_order')->name('edit_order');
+        Route::post('/edit_order/{id}', 'ExternalJobOrderController@update_order')->name('edit_order');
+        Route::get('/delete_order/{id}', 'ExternalJobOrderController@delete_job_order')->name('delete_order');
+        Route::get('/track_order/{id}', 'ExternalJobOrderController@track_job_order')->name('track_order');
+        Route::get('/transaction_history/{id}', 'ExternalJobOrderController@transaction_history')->name('transaction_history');
+        Route::post('/transaction_history/{id}', 'ExternalJobOrderController@updateJobPayment')->name('transaction_history');
+    });
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'],  function () {
+    Route::group(['prefix' => '/products', 'as' => 'products.'], function () {
+        Route::get('/all_products', 'ProductController@index')->name('all_products');
+
+        Route::get('/view/{job_title}/{id}', 'ProductController@show')->name('view');
+
+        Route::get('/add_higher_education', 'ProductController@create_higher_education')->name('add_higher_education');
+        Route::post('/add_higher_education', 'ProductController@store_higher_education')->name('add_higher_education');
+
+        Route::get('/add_eighty_leaves', 'ProductController@create_eighty_leaves')->name('add_eighty_leaves');
+        Route::post('/add_eighty_leaves', 'ProductController@store_eighty_leaves')->name('add_eighty_leaves');
+
+        Route::get('/add_forty_leaves', 'ProductController@create_forty_leaves')->name('add_forty_leaves');
+        Route::post('/add_forty_leaves', 'ProductController@store_forty_leaves')->name('add_forty_leaves');
+
+        Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
+        Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
+
+
+
+    });
+});
+
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
         Route::get('/add_requisition', 'RequisitionController@create')->name('add_requisition');
@@ -118,6 +185,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/delete_customer/{id}', 'CustomerController@destroy')->name('delete_customer');
     });
 });
+
+
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     Route::group(['prefix' => '/users', 'as' => 'users.'], function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Customer;
 use App\Models\ErrorLog;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -38,16 +39,28 @@ class AuthController extends Controller
             $email = request('email');
             $email_details = User::where('email', $email)->first();
 
+            $user_type =  $email_details->user_type;
+
 
 
             if (Auth::attempt($user_cred)) {
-                return response()->json([ [1] ]);
+                if($user_type == 2){
+                    if(request()->status == 'order'){
+                        return response()->json([ [12] ]);
+                    }else{
+                        return response()->json([ [13] ]); //go to user page dashboard
+                    }
+                }else{
+                    return response()->json([ [1] ]); //go to admin page dashboard
+                }
+
+
             }else{
                 return response()->json([ [7] ]);
             }
 
         }catch (\Throwable $th){
-            ErrorLog::log('auth', 'signup', $th->getMessage()); //log error
+            ErrorLog::log('auth', 'signin', $th->getMessage()); //log error
             return response()->json([ [5] ]);
         }
 
@@ -92,51 +105,34 @@ class AuthController extends Controller
             }
 
 
+
             $user = new User();
             $user->firstname    = request('firstname');
             $user->lastname     = request('lastname');
             $user->email        = request('email');
+            $user->phone        = request('phone');
+             $user->gender      = 'm';
+             $user->status      = 'active';
+             $user->user_type      = '2';
             $user->password     = bcrypt(request('password'));
-
             $user->save();
-            $user_id1          = $user->id; //id generated for this user
 
+            $customer = new Customer();
+            $customer->firstname    = request('firstname');
+            $customer->lastname     = request('lastname');
+            $customer->email        = request('email');
+            $customer->password     = bcrypt(request('password'));
+            $customer->user_id      = $user->id;
+
+            $customer->save();
+
+            $user_id1          = $customer->id; //id generated for this user
             $user_cred  =  $request->only('email', 'password');
 
 
             if (Auth::attempt($user_cred)) {
                 return response()->json([ [1] ]);
             }
-             //  }catch (\Throwable $th){
-                //      ErrorLog::log('auth', 'signup', $th->getMessage()); //log error
-                //      return response()->json([ [5] ]);
-
-                //  }
-                //  }else{
-                    // LOGIN USER
-
-            //         $validator = Validator::make($request->all(), [
-            //             'email' => ['required',  'email', 'max:50'],
-            //             'password'  =>  'required',
-            //         ]);
-            //         if(!$validator->passes()){
-            //             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-            //         }
-
-            //         $user_cred   = $request->only('email', 'password');
-
-            //         $email = request('email');
-            //         $email_details = User::where('email', $email)->first();
-
-
-
-            //         if (Auth::attempt($user_cred)) {
-            //             return response()->json([ [1] ]);
-            //    //     }
-            //     }
-
-
-
      }
 
      public function logout()

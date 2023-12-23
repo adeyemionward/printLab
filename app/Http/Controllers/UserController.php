@@ -29,7 +29,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::all();
+        $users = User::where('user_type',1)->get();
         return view('users.all_users', compact('users'));
     }
 
@@ -80,20 +80,10 @@ class UserController extends Controller
             'address.required' => 'Please enter user address.',
         ]);
 
-        // $user = new User();
-        // $user->firstname         =  request('firstname');
-        // $user->lastname         =  request('lastname');
-        // $user->phone            =  request('phone');
-        // $user->email            =  request('email');
-        // $user->gender           =  request('gender');
-        // $user->password         =  bcrypt(request('password'));
-        // $user->status           =  request('status');
-        // $user->address          =  request('address');
-        // $user->save();
-
         $input = $request->all();
+
         $input['password'] = Hash::make($input['password']);
-        //dd($input);
+        $input['user_type'] = 1;
         $user = User::create($input);
 
         //$user->assignRole('admin');
