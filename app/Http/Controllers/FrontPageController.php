@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Cart;
-use App\Models\Customer;
-use App\Models\ExternalJobOrderTracking;
+use App\Models\JobOrder;
+use App\Models\User;
+use App\Models\JobOrderTracking;
 use App\Models\ProductCost;
 use Illuminate\Support\Facades\Auth;
 class FrontPageController extends Controller
@@ -90,28 +90,30 @@ class FrontPageController extends Controller
         $thickness                  =  request('thickness');
         $quantity                   =  request('quantity');
         $total_cost                 =  request('total_cost');
+        $product_name                 =  request('product_name');
 
         $order_date = date('Y-m-d');
 
         if (Auth::check()) {
-            if($user->user_type == 1){
-                return redirect()->back()->with('flash_error','Please register/login as a customer');
-            }
-            $customer_detail = Customer::where('user_id', $user->id)->first();
+
              //save to job
-            $cart = new Cart();
+            $cart = new JobOrder();
             $cart->product_id      = $product_id;
+            $cart->job_order_name  = $product_name;
             $cart->ink             = $ink;
             $cart->paper_type      = $paper_type;
             $cart->quantity        = $quantity;
             $cart->thickness       = $thickness;
             $cart->total_cost      = $total_cost;
-            $cart->customer_id     = $customer_detail->id;
+            $cart->order_date      = $order_date;
+            $cart->order_type      = 'external';
+            $cart->user_id         = $user->id;
+            $cart->created_by      = $user->id;
             $cart->save();
 
             //save to cart
-            $job_tracking = new ExternalJobOrderTracking();
-            $job_tracking->cart_id     = $cart->id;
+            $job_tracking = new JobOrderTracking();
+            $job_tracking->job_order_id     = $cart->id;
             $job_tracking->pending_status   = 1;
             $job_tracking->pending_date     = $order_date;
             $job_tracking->save();
@@ -127,11 +129,7 @@ class FrontPageController extends Controller
 
     public function track_orders(){
         $user = Auth::user();
-        if($user->user_type != 2){
-            return redirect()->back()->with('flash_error','Please register/login as a customer');
-        }
-        $customer_detail = Customer::where('user_id', $user->id)->first();
-        $carts = Cart::where('customer_id', $customer_detail->id)->get();
+        $carts = JobOrder::where('user_id', $user->id)->get();
         return view('track_orders.index', compact('carts'));
     }
 
@@ -144,9 +142,8 @@ class FrontPageController extends Controller
     public function vieworder($id)
     {
         $user = Auth::user();
-        $job_order_track =  ExternalJobOrderTracking::where('cart_id', $id)->first();
-        $customer_detail = Customer::where('user_id', $user->id)->first();
-        $order =  Cart::where('customer_id',$customer_detail->id)->where('id', $id)->first();
+        $job_order_track =  JobOrderTracking::where('job_order_id', $id)->first();
+        $order =  JobOrder::where('user_id',$user->id)->where('id', $id)->first();
         return view('track_orders.view', compact('job_order_track','order'));
     }
 

@@ -114,7 +114,7 @@
 
                                                                     <table id="products">
 
-                                                                        <a id="add-product" class="btn btn-primary" >Add Product</a>
+                                                                        <a id="add-product" class="btn btn-primary" >Add Pricing</a>
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Quantity</th>

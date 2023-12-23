@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\JobOrder;
-use App\Models\Cart;
 use App\Models\HigherNoteBook;
 use App\Models\TwentyLeavesBook;
 use App\Models\FortyLeavesBook;
@@ -15,8 +14,8 @@ use App\Models\BusinessCard;
 use App\Models\Notepad;
 use App\Models\Booklet;
 use App\Models\Sticker;
-use App\Models\ExternalJobOrderTracking;
-use App\Models\ExternalJobPaymentHistory;
+use App\Models\JobOrderTracking;
+use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -37,74 +36,74 @@ class ExternalJobOrderController extends Controller
 
     public function index()
     {
-        $job_orders =  Cart::all();
+        $job_orders =  JobOrder::where('order_type','external')->get();
         return view('external_job_order.all_orders', compact('job_orders'));
     }
 
     public function view_order($id){
-        $job_order =  Cart::find($id);
-        $job_order_pay  = ExternalJobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-            ->where('cart_id',$id)->first();
+        $job_order =  JobOrder::find($id);
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+            ->where('job_order_id',$id)->first();
         return view('external_job_order.view_order', compact('job_order','job_order_pay'));
     }
 
     public function changeJobStatus(Request $request,  $id){
-        $job_order =  Cart::find($id);
+        $job_order =  JobOrder::find($id);
         $job_order->status =  request('order_status');
        // $job_order->updated_by =  2;
         $order_date = date('Y-m-d');
 
         if(request('order_status') == 'Designed'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->designed_status   = 1;
             $job_tracking->designed_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Proof Read'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->proof_read_status   = 1;
             $job_tracking->proof_read_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Customer Approved'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->customer_approved_status   = 1;
             $job_tracking->customer_approved_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Prepressed'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->prepressed_status   = 1;
             $job_tracking->prepressed_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Printed'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->printed_status   = 1;
             $job_tracking->printed_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Binded'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->binded_status   = 1;
             $job_tracking->binded_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Completed'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->completed_status   = 1;
             $job_tracking->completed_date     = $order_date;
             $job_tracking->update();
         }
 
         if(request('order_status') == 'Delivered'){
-            $job_tracking =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
             $job_tracking->delivered_status   = 1;
             $job_tracking->delivered_date     = $order_date;
             $job_tracking->update();
@@ -120,11 +119,11 @@ class ExternalJobOrderController extends Controller
         $amount_paid                =  request('amount_paid');
         $payment_type               =  request('payment_type');
 
-        $job_order =  Cart::find($id);
+        $job_order =  JobOrder::find($id);
 
-        $job_pay = new ExternalJobPaymentHistory();
-        $job_pay->cart_id    = $id;
-        $job_pay->customer_id     = $job_order->customer_id;
+        $job_pay = new JobPaymentHistory();
+        $job_pay->job_order_id    = $id;
+        $job_pay->user_id     = $job_order->user_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -135,8 +134,8 @@ class ExternalJobOrderController extends Controller
     }
 
     public function delete_job_order(Request $request, $id){
-        $job_orders =  Cart::all();
-        $job_order =  Cart::find($id);
+        $job_orders =  JobOrder::all();
+        $job_order =  JobOrder::find($id);
         $job_order->delete();
         return redirect(route('job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
     }
@@ -144,17 +143,17 @@ class ExternalJobOrderController extends Controller
 
 
     public function track_job_order($id){
-        $job_order =  Cart::find($id);
-        $job_order_pay  = ExternalJobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+        $job_order =  JobOrder::find($id);
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)
             ->first();
-        $job_order_track =  ExternalJobOrderTracking::where('cart_id',$id)->first();
+        $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
         return view('external_job_order.track_order', compact('job_order','job_order_track','job_order_pay'));
     }
 
     public function transaction_history($id){
         $job_order =  JobOrder::find($id);
-        $job_pay_history =  ExternalJobPaymentHistory::where('cart_id',$id)->get();
+        $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
         return view('external_job_order.transaction_history', compact('job_order','job_pay_history'));
     }
 
@@ -515,49 +514,49 @@ class ExternalJobOrderController extends Controller
     }
 
     public function pending (){
-        $job_orders =  JobOrder::where('status','Pending')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Pending')->get();
         return view('external_job_order.status.pending', compact('job_orders'));
     }
 
 
 
     public function designed (){
-        $job_orders =  Cart::where('status','Designed')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Designed')->get();
         return view('external_job_order.status.designed', compact('job_orders'));
     }
 
     public function prepressed (){
-        $job_orders =  Cart::where('status','Prepressed')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Prepressed')->get();
         return view('external_job_order.status.prepressed', compact('job_orders'));
     }
 
     public function proof_read (){
-        $job_orders =  Cart::where('status','Proof Read')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Proof Read')->get();
         return view('external_job_order.status.proof_read', compact('job_orders'));
     }
 
     public function approved (){
-        $job_orders =  Cart::where('status','Customer Approved')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Customer Approved')->get();
         return view('external_job_order.status.customer_approved', compact('job_orders'));
     }
 
     public function printed (){
-        $job_orders =  Cart::where('status','Printed')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Printed')->get();
         return view('external_job_order.status.printed', compact('job_orders'));
     }
 
     public function binded (){
-        $job_orders =  Cart::where('status','Binded')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Binded')->get();
         return view('external_job_order.status.binded', compact('job_orders'));
     }
 
     public function completed (){
-        $job_orders =  Cart::where('status','Completed')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Completed')->get();
         return view('external_job_order.status.completed', compact('job_orders'));
     }
 
     public function delivered (){
-        $job_orders =  Cart::where('status','Delivered')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('status','Delivered')->get();
         return view('external_job_order.status.delivered', compact('job_orders'));
     }
 

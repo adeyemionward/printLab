@@ -13,8 +13,8 @@ class Cart extends Model
         return $this->hasOne(Product::class,'id','product_id');
     }
 
-    public function customer(){
-        return $this->belongsTo(Customer::class,'customer_id','id');
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
     }
 
     public function createdBy(){

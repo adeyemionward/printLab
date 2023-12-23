@@ -162,7 +162,7 @@
 
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Customer Name :</td>
-                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('customers.view_customer',$job_order->customer_id)}}">{{$job_order->customer->firstname.' '.$job_order->customer->lastname ?? 'N/A'}}</a></td>
+                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td width="10%" class="question">Created At :</td>

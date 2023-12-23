@@ -45,7 +45,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="customer_name">Customer Name</label>
                                                                             <select name="customer_id" required class="form-control form-select" id="customer_name">
-                                                                                <option value="">--Select Customer--</option>
+                                                                                <option >--Select Customer Name--</option>
                                                                                 @foreach ($customers as $val)
                                                                                     <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname }}</option>
                                                                                 @endforeach
@@ -60,28 +60,37 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Ink
-
-                                                                            </label>
-                                                                            <select name="ink" class="form-control form-select"
+                                                                                </label>
+                                                                            <select name="ink" required class="form-control form-select"
                                                                                 id="exampleFormControlSelect1">
-                                                                                <option value="">--Select Ink--</option>
-                                                                                <option value="black">Black</option>
-                                                                                <option value="full ink">Full Ink</option>
+                                                                                <option value="">--Select Color Type--</option>
+                                                                                <option value="single">Single Color</option>
+                                                                                <option value="full">Full Color</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="paper_type">Paper Type
-                                                                                </label>
-                                                                            <select name="paper_type" class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                <option value="">--Select Paper Type--</option>
-                                                                                <option value="2 Part White | Canary">2 Part White | Canary</option>
-                                                                                <option value="2 Part White | Pink">2 Part White | Pink</option>
-                                                                                <option value="3 Part White | Canary | Pink">3 Part White | Canary | Pink</option>
-                                                                                <option value="4 Part White | Canary | Pink | Goldenrod">4 Part White | Canary | Pink | Goldenrod</option>
+                                                                            <label for="thickness"> Cover Thickness</label>
+                                                                            <select class="form-control form-select" required  name="thickness" id="thickness">
+                                                                                <option value="">--Select Cover Thickness--</option>
+                                                                                <option value="199g">199g</option>
+                                                                                <option value="280g">280g</option>
+                                                                                <option value="300g">300g</option>
                                                                             </select>
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlSelect1">Paper Type
+                                                                                </label>
+                                                                                <select name="paper_type" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Paper Type--</option>
+                                                                                    <option value="50g">50g</option>
+                                                                                    <option value="60g">60g</option>
+                                                                                    <option value="70g">70g</option>
+                                                                                    <option value="80g">80g</option>
+                                                                                </select>
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
@@ -89,24 +98,15 @@
                                                                                 </label> <input required type="number" name="production_time" class="form-control"
                                                                                 id="quantity" placeholder="eg: 4">
                                                                         </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="backsided">Back Sided Print</label>
-                                                                            <select class="form-control form-select"  name="back_sided_print" id="backsided">
-                                                                                <option value="">--Select Back Sided Print--</option>
-                                                                                <option value="yes">Yes</option>
-                                                                                <option value="no">No</option>
-                                                                            </select>
-                                                                        </div>
                                                                     </div>
                                                                     <div class="row">
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Proof Needed</label>
                                                                             <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
-                                                                                <option value="">--Select Proof Needed--</option>
-                                                                                <option value="yes">Yes</option>
-                                                                                <option value="no">No</option>
+                                                                                <option >--Select Proof Needed--</option>
+                                                                                <option value="Yes">Yes</option>
+                                                                                <option value="No">No</option>
                                                                             </select>
                                                                         </div>
 
@@ -118,30 +118,28 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
-                                                                            <select class="form-control" name="payment_type">
-                                                                                <Option>--Select Payment Type</Option>
-                                                                                <option value="Full Payment"></option>
-                                                                                <option value="Part Payment"></option>
+                                                                            <select class="form-control" name="payment_type" required>
+                                                                                <option value="">--Select Payment Type--</option>
+                                                                                <option value="Full Payment">Full Payment</option>
+                                                                                <option value="Part Payment">Part Payment</option>
                                                                             </select>
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="amount_paid">Amount Paid</label>
-                                                                            <input type="number" required name="amount_paid" class="form-control"
-                                                                                id="amount_paid" placeholder="eg: 10000">
+                                                                            <input type="number"  name="amount_paid" class="form-control"
+                                                                                id="amount_paid" placeholder="eg: 10000" required>
                                                                         </div>
-
-
                                                                     </div>
 
+                                                                    <button class="btn btn-sm btn-danger" type="submit">
+                                                                        <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                         <hr/>
                                                     </div>
-                                                    <button class="btn btn-sm btn-danger" type="submit">
-                                                        <i class="text-white me-2" data-feather="check-circle"></i>Save
-                                                    </button>
-                                                </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,8 +149,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 							Canvas Wrapper End -->
 
             </div>
 

@@ -41,7 +41,7 @@
                                 @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp
                                     <tr>
                                         <td>{{$index+1}}</td>
-                                        <td>{{$val->customer->firstname.' '. $val->customer->lastname}}</td>
+                                        <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
                                         <td>{{$val->job_order_name}}</td>
                                         <td>{{$val->quantity}}</td>
                                         <td>{{$val->ink}}</td>
@@ -52,7 +52,7 @@
                                         <td><a href="{{route('job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
-
+                            </tbody>
 
                         </table>
                     </div>

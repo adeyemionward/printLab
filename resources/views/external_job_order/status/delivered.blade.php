@@ -30,7 +30,7 @@
                                     <th>Quantity</th>
                                     <th>Ink</th>
                                     <th>Paper Type</th>
-                                    <th>Production Days</th>
+                                    <th>Thickness</th>
                                     <th>Cost</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -38,22 +38,22 @@
                             </thead>
                             <tbody>
                                 @foreach ($job_orders as $index => $val)
-                                @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp
+                                @php $product_name = str_replace('_',' ', $val->productName->name)   @endphp
                                     <tr>
                                         <td>{{$index+1}}</td>
-                                        <td>{{$val->customer->firstname.' '. $val->customer->lastname}}</td>
-                                        <td>{{$val->job_order_name}}</td>
+                                        <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
+                                        <td>{{ucwords($product_name)}}</td>
                                         <td>{{$val->quantity}}</td>
-                                        <td>{{$val->ink}}</td>
+                                        <td>{{$val->ink}} Color</td>
                                         <td>{{$val->paper_type}}</td>
-                                        <td>{{$val->production_days}}</td>
+                                        <td>{{$val->thickness}}</td>
                                         <td>{{'₦'.$val->total_cost}} </td>
                                         <td>{{$val->status}}</td>
-                                        <td><a href="{{route('job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('external_job_order.view_order',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
 
-
+                            </tbody>
                         </table>
                     </div>
                 </div>

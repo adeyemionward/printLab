@@ -9,8 +9,12 @@ class JobOrder extends Model
 {
     use HasFactory;
 
-    public function customer(){
-        return $this->belongsTo(Customer::class,'customer_id','id');
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function productName(){
+        return $this->hasOne(Product::class,'id','product_id');
     }
 
     public function createdBy(){

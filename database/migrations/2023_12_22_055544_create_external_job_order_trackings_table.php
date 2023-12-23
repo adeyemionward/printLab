@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('external_job_order_trackings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cart_id');
+            $table->unsignedBigInteger('job_order_id');
 
             $table->string('pending_status')->nullable();
             $table->string('pending_date')->nullable();
@@ -46,7 +46,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+            $table->foreign('job_order_id')->references('id')->on('job_orders')->onDelete('cascade');
 
         });
     }

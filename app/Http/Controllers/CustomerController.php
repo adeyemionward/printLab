@@ -23,7 +23,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = Customer::all();
+        $customers = User::all();
 
         return view('customers.all_customers', compact('customers'));
     }
@@ -32,15 +32,15 @@ class CustomerController extends Controller
 
     public function customer_job_orders($id)
     {
-        $customer = Customer::find($id);
-        $job_orders =  JobOrder::where('customer_id', $id)->get();
+        $customer = User::find($id);
+        $job_orders =  JobOrder::where('user_id', $id)->get();
 
         return view('customers.customer_job_orders', compact('customer','job_orders'));
     }
 
     public function transaction_history($id){
-        $customer = Customer::find($id);
-        $job_pay_history =  JobPaymentHistory::where('customer_id',$id)->get();
+        $customer = User::find($id);
+        $job_pay_history =  JobPaymentHistory::where('user_id',$id)->get();
         return view('customers.transaction_history', compact('customer','job_pay_history'));
     }
 
@@ -110,7 +110,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::find($id);
+        $customer = User::find($id);
         return view('customers.view_customer', compact('customer'));
     }
 
@@ -122,7 +122,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = Customer::find($id);
+        $customer = User::find($id);
         return view('customers.edit_customer', compact('customer'));
     }
 
@@ -149,7 +149,7 @@ class CustomerController extends Controller
             'address.required' => 'Please enter customer address.',
         ]);
         try{
-            $customer = Customer::find($id);
+            $customer = User::find($id);
             $customer->firstname    = request('firstname');
             $customer->lastname     = request('lastname');
             $customer->email        = request('email');
@@ -173,7 +173,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::find($id)->delete();
+        $customer = User::find($id)->delete();
         return redirect(route('customers.all_customers'))->with('flash_success','Customer has been deleted');
     }
 }

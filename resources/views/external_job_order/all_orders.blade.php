@@ -41,7 +41,7 @@
                                 @php $product_name = str_replace('_',' ', $val->productName->name)   @endphp
                                     <tr>
                                         <td>{{$index+1}}</td>
-                                        <td>{{$val->customer->firstname.' '. $val->customer->lastname}}</td>
+                                        <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
                                         <td>{{ucwords($product_name)}}</td>
                                         <td>{{$val->quantity}}</td>
                                         <td>{{$val->ink}} Color</td>
@@ -52,7 +52,7 @@
                                         <td><a href="{{route('external_job_order.view_order',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
-
+                            </tbody>
 
                         </table>
                     </div>
