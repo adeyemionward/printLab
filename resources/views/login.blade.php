@@ -256,9 +256,9 @@ form .btn input[type="submit"] {
 						<div class="btn-layer"></div>
 						<input type="submit" id="loginBtn"  name="login"  value="Signin" style="background-color: #df4226;">
 					</div>
-					{{-- <div class="signup-link">
-						Not a member? <a href="">Signup now</a>
-					</div> --}}
+					<div class="signup-link">
+						Not a member? <a href="{{'register'}}">Signup as a Custmer</a>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -307,7 +307,19 @@ form .btn input[type="submit"] {
                         window.location.replace('{{route("dashboard")}}');
                     },2000)
 
-                }else if(data == 5){
+                }else if (data == 12){
+                    toastr.success("Login Successful");
+                    setInterval(function(){ //customer dashboard login
+                        window.location.href = document.referrer;
+                    },2000)
+
+                }else if (data == 13){ //customer dashboard login
+                    toastr.success("Login Successful");
+                    setInterval(function(){
+                        window.location.replace('{{route("track_orders.index")}}');
+                    },2000)
+
+                } else if(data == 5){
                     toastr.error("Error occured: Please try later");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');

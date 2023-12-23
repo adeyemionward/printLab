@@ -304,6 +304,20 @@
 									</ul>
 								</li>
 
+                                {{-- <li class="nav-item dropdown nav-dropdown"><a
+									class="nav-item nav-link dropdown-toggle text-secondary py-0"
+									href="#" id="navbarDropdownMenuLink1" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false"><i
+										class="data-feather theme-item" data-feather="user"></i> <span
+										class="theme-item">Transactions</span><i
+										class="data-feather theme-item" data-feather="chevron-down"></i></a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink1">
+										<li><a class="dropdown-item" href="{{route('transactions.all_transactions')}}">View All</a></li>
+
+									</ul>
+								</li> --}}
+
                                 <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
 									href="#" id="navbarDropdownMenuLink1" role="button"
@@ -320,26 +334,73 @@
 									</ul>
 								</li>
 
+                                <li class="nav-item dropdown nav-dropdown"><a
+									class="nav-item nav-link dropdown-toggle text-secondary py-0"
+									href="#" id="navbarDropdownMenuLink1" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false"><i
+										class="data-feather theme-item" data-feather="grid"></i> <span
+										class="theme-item">Orders</span><i
+										class="data-feather theme-item" data-feather="chevron-down"></i></a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink1">
+										{{-- <li><a class="dropdown-item" href="#"></a></li>
+										<li><a class="dropdown-item" href="#"></a></li> --}}
+										<li class="dropdown-submenu">
+                                            <a class="dropdown-item mr-3" href="#">External Orders <i class="data-feather" data-feather="chevron-right"></i></a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.all_orders')}}">All Orders</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.pending')}}">Pending</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.designed')}}">Designed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.proof_read')}}">Proof Read</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.customer_approved')}}">Customer Approved</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.prepressed')}}">Prepressed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.printed')}}">Printed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.binded')}}">Binded</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.completed')}}">Completed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.delivered')}}">Delivered</a></li>
+                                            </ul>
+                                        </li>
 
-								<li class="nav-item dropdown nav-dropdown"><a
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item mr-3" href="#">Internal Orders <i class="data-feather" data-feather="chevron-right"></i></a>
+											<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                                <li><a class="dropdown-item" href="{{route('job_order.all_orders')}}">All Orders</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.pending')}}">Pending</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.designed')}}">Designed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.proof_read')}}">Proof Read</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.customer_approved')}}">Customer Approved</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.prepressed')}}">Prepressed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.printed')}}">Printed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.binded')}}">Binded</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.completed')}}">Completed</a></li>
+                                                <li><a class="dropdown-item" href="{{route('job_order.status.delivered')}}">Delivered</a></li>
+                                            </ul>
+                                        </li>
+									</ul>
+								</li>
+
+
+								{{-- <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
 									href="#" id="navbarDropdownMenuLink1" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false"><i
 										class="data-feather theme-item" data-feather="shopping-cart"></i> <span
 										class="theme-item">Orders</span><i
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
+
+								</li> --}}
+
+                                <li class="nav-item dropdown nav-dropdown"><a
+									class="nav-item nav-link dropdown-toggle text-secondary py-0"
+									href="#" id="navbarDropdownMenuLink1" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false"><i
+										class="data-feather theme-item" data-feather="shopping-cart"></i> <span
+										class="theme-item">Products</span><i
+										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('job_order.all_orders')}}">All Orders</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.pending')}}">Pending</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.designed')}}">Designed</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.proof_read')}}">Proof Read</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.customer_approved')}}">Customer Approved</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.prepressed')}}">Prepressed</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.printed')}}">Printed</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.binded')}}">Binded</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.completed')}}">Completed</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.delivered')}}">Delivered</a></li>
+										<li><a class="dropdown-item" href="{{route('products.add_higher_education')}}">Create Product</a></li>
+										<li><a class="dropdown-item" href="{{route('job_order.status.pending')}}">All Products</a></li>
 
 									</ul>
 								</li>
