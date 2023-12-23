@@ -139,67 +139,50 @@
 <div class="single-footer-caption mb-20">
 
 <div class="footer-logo mb-35">
-<a href="index-2.html"><img src="{{asset('img/printlab.PNG')}}" style="width: 200px;" alt></a>
+<a href="{{route('index')}}"><img src="{{asset('img/printlab.PNG')}}" style="width: 200px;" alt></a>
 </div>
 </div>
 </div>
 </div>
-<div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
 <div class="single-footer-caption mb-50">
 <div class="footer-tittle">
-<h4>Menu 1</h4>
+<h4>Products</h4>
 <ul>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
+<li><a href="{{route('product_categories','Higher_Education')}}">Higher Eduaction</a></li>
+<li><a href="{{route('product_categories','Eighty_Leaves')}}">Eighty Leaves</a></li>
+<li><a href="{{route('product_categories', 'Forty_Leaves')}}">Forty Leaves</a></li>
+<li><a href="{{route('product_categories','Twenty_Leaves')}}">Twenty Leaves</a></li>
 </ul>
 </div>
 </div>
 </div>
-<div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
 <div class="single-footer-caption mb-50">
 <div class="footer-tittle">
-<h4>Menu 1</h4>
+<h4>Quick Links</h4>
 <ul>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
+<li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
+<li><a href="#">Contact</a></li>
+<li><a href="{{route('login')}}">Login</a></li>
+<li><a href="{{route('register')}}">Create Customer Account</a></li>
 </ul>
 </div>
 </div>
 </div>
-<div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
-<div class="single-footer-caption mb-50">
-<div class="footer-tittle">
-    <h4>Menu 1</h4>
-<ul>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-</ul>
+<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+    <div class="single-footer-caption mb-50">
+        <div class="footer-tittle">
+            <h4>Contact</h4>
+            <ul style="color: #BBB9B5">
+                <li>Address: Akiremi Street, Ikeja</li>
+                <li>Phone: 0900000000000</li>
+                <li>Email: support@printlabs.com.ng</li>
+            </ul>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-<div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
-<div class="single-footer-caption mb-50">
-<div class="footer-tittle">
-    <h4>Menu 1</h4>
-<ul>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-<li><a href="#">Lorem</a></li>
-</ul>
-</div>
-</div>
-</div>
+
 </div>
 </div>
 </div>

@@ -127,6 +127,9 @@ class FrontPageController extends Controller
 
     public function track_orders(){
         $user = Auth::user();
+        if($user->user_type != 2){
+            return redirect()->back()->with('flash_error','Please register/login as a customer');
+        }
         $customer_detail = Customer::where('user_id', $user->id)->first();
         $carts = Cart::where('customer_id', $customer_detail->id)->get();
         return view('track_orders.index', compact('carts'));

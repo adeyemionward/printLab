@@ -93,16 +93,6 @@ class CustomerController extends Controller
             $user->save();
 
 
-            $customer = new Customer();
-            $customer->firstname    = request('firstname');
-            $customer->lastname     = request('lastname');
-            $customer->email        = request('email');
-            $customer->phone        = request('phone');
-            $customer->address      = request('address');
-            $customer->password     = bcrypt(request('password'));
-            $customer->user_id      = $user->id;
-
-            $customer->save();
             return back()->with("flash_success","Customer saved successfully");
 
         }catch (\Throwable $th){

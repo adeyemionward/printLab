@@ -117,16 +117,16 @@ class AuthController extends Controller
             $user->password     = bcrypt(request('password'));
             $user->save();
 
-            $customer = new Customer();
-            $customer->firstname    = request('firstname');
-            $customer->lastname     = request('lastname');
-            $customer->email        = request('email');
-            $customer->password     = bcrypt(request('password'));
-            $customer->user_id      = $user->id;
+            // $customer = new Customer();
+            // $customer->firstname    = request('firstname');
+            // $customer->lastname     = request('lastname');
+            // $customer->email        = request('email');
+            // $customer->password     = bcrypt(request('password'));
+            // $customer->user_id      = $user->id;
 
-            $customer->save();
+            // $customer->save();
 
-            $user_id1          = $customer->id; //id generated for this user
+            // $user_id1          = $customer->id; //id generated for this user
             $user_cred  =  $request->only('email', 'password');
 
 
