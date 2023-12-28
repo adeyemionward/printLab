@@ -257,7 +257,11 @@ form .btn input[type="submit"] {
 						<input type="submit" id="loginBtn"  name="login"  value="Signin" style="background-color: #df4226;">
 					</div>
 					<div class="signup-link">
-						Not a member? <a href="{{'register'}}">Signup as a Custmer</a>
+                        @if (request()->status)
+                        Not a member? <a href="{{route('register', ['status' => 'order'])}}">Signup as a Custmer</a>
+                        @else
+                        Not a member? <a href="{{route('register')}}">Signup as a Custmer</a>
+                        @endif
 					</div>
 				</form>
 			</div>

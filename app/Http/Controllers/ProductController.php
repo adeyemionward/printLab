@@ -89,9 +89,6 @@ class ProductController extends Controller
                 ],
             );
         }
-
-
-
         return redirect(route('products.all_products'))->with('flash_success','Higher Note Book product saved successfully');
     }
 

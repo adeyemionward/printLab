@@ -15,6 +15,7 @@ use App\Models\Notepad;
 use App\Models\Booklet;
 use App\Models\Sticker;
 use App\Models\JobOrderTracking;
+use App\Models\JobLocation;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class JobOrderController extends Controller
 
     public function index()
     {
-        JobOrder::where('order_type','internal')->get();
+        $job_orders = JobOrder::where('order_type','internal')->get();
         return view('job_order/all_orders', compact('job_orders'));
     }
 
@@ -161,7 +162,8 @@ class JobOrderController extends Controller
     public function higher_education()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/higher_education', compact('customers'));
+        $locations =  JobLocation::select('id','city')->get();
+        return view('job_order.higher_education', compact('customers','locations'));
     }
 
     public function post_higher_education(Request $request)
@@ -179,6 +181,8 @@ class JobOrderController extends Controller
 
         $amount_paid                =  request('amount_paid');
         $payment_type               =  request('payment_type');
+        $location                   =  request('location');
+
 
 
         //save to job
@@ -194,6 +198,7 @@ class JobOrderController extends Controller
         $job_order->order_date      = $order_date;
         $job_order->total_cost      = $total_cost;
         $job_order->order_type      = 'internal';
+        $job_order->job_location_id        = $location;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -226,7 +231,8 @@ class JobOrderController extends Controller
     public function twenty_leaves()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/20_leaves_book', compact('customers'));
+        $locations =  JobLocation::select('id','city')->get();
+        return view('job_order.20_leaves_book', compact('customers','locations'));
 
     }
 
@@ -244,6 +250,8 @@ class JobOrderController extends Controller
         $total_cost                 =  request('total_cost');
         $amount_paid                =  request('amount_paid');
         $payment_type               =  request('payment_type');
+        $location                   =  request('location');
+
 
         //save to job
         $job_order = new JobOrder();
@@ -258,6 +266,7 @@ class JobOrderController extends Controller
         $job_order->order_date     = $order_date;
         $job_order->total_cost      = $total_cost;
         $job_order->order_type      = 'internal';
+        $job_order->job_location_id        = $location;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -290,13 +299,14 @@ class JobOrderController extends Controller
     public function edit_twenty_leaves($job_title, $id){
         $job_order =  JobOrder::find($id);
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/edit_twenty_leaves', compact('job_order','customers'));
+        return view('job_order.edit_twenty_leaves', compact('job_order','customers'));
     }
 
     public function forty_leaves()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/40_leaves_book', compact('customers'));
+        $locations =  JobLocation::select('id','city')->get();
+        return view('job_order.40_leaves_book', compact('customers','locations'));
     }
 
     public function post_forty_leaves(Request $request)
@@ -314,6 +324,10 @@ class JobOrderController extends Controller
 
         $amount_paid                =  request('amount_paid');
         $payment_type               =  request('payment_type');
+        $location                   =  request('location');
+
+
+
 
         //save to job
         $job_order = new JobOrder();
@@ -328,6 +342,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date      = $order_date;
         $job_order->order_type      = 'internal';
+        $job_order->job_location_id        = $location;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -359,7 +374,8 @@ class JobOrderController extends Controller
     public function eighty_leaves()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/80_leaves_book', compact('customers'));;
+        $locations =  JobLocation::select('id','city')->get();
+        return view('job_order.80_leaves_book', compact('customers','locationd'));
     }
 
     public function post_eighty_leaves(Request $request)
@@ -372,12 +388,13 @@ class JobOrderController extends Controller
         $ink                        =  request('ink');
         $paper_type                 =  request('paper_type');
         $production_time            =  request('production_time');
-        $thickness           =  request('thickness');
+        $thickness                  =  request('thickness');
         $proof_needed               =  request('proof_needed');
         $total_cost                 =  request('total_cost');
 
         $amount_paid                =  request('amount_paid');
         $payment_type               =  request('payment_type');
+        $location                   =  request('location');
 
         //save to job
         $job_order = new JobOrder();
@@ -392,6 +409,8 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type      = 'internal';
+
+        $job_order->job_location_id        = $location;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -425,7 +444,7 @@ class JobOrderController extends Controller
     public function booklets()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/booklets', compact('customers'));
+        return view('job_order.booklets', compact('customers'));
     }
 
     public function post_booklets(Request $request)
@@ -455,7 +474,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Booklet';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -473,6 +492,7 @@ class JobOrderController extends Controller
         $job_order->start_number     = $start_number;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -491,7 +511,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -504,7 +524,7 @@ class JobOrderController extends Controller
     public function bronchures()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/bronchures', compact('customers'));
+        return view('job_order.bronchures', compact('customers'));
     }
 
     public function post_bronchures(Request $request)
@@ -527,7 +547,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Bronchures';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -539,6 +559,7 @@ class JobOrderController extends Controller
         $job_order->proof_needed    = $proof_needed;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -557,7 +578,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -595,7 +616,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Business Cards';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -606,6 +627,7 @@ class JobOrderController extends Controller
         $job_order->proof_needed    = $proof_needed;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -624,7 +646,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -637,7 +659,7 @@ class JobOrderController extends Controller
     public function envelopes()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/envelopes', compact('customers'));
+        return view('job_order.envelopes', compact('customers'));
     }
 
     public function post_envelopes(Request $request)
@@ -659,7 +681,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Envelopes';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -670,6 +692,7 @@ class JobOrderController extends Controller
         $job_order->proof_needed    = $proof_needed;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -688,7 +711,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -702,7 +725,7 @@ class JobOrderController extends Controller
     public function flyers()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/flyers', compact('customers'));
+        return view('job_order.flyers', compact('customers'));
     }
 
     public function post_flyers(Request $request)
@@ -726,7 +749,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Flyer';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -738,6 +761,7 @@ class JobOrderController extends Controller
         $job_order->proof_needed    = $proof_needed;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -756,7 +780,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -770,7 +794,7 @@ class JobOrderController extends Controller
     public function notepads()
     {
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/notepads', compact('customers'));
+        return view('job_order.notepads', compact('customers'));
     }
 
     public function post_notepads(Request $request)
@@ -801,7 +825,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Notepads';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -820,6 +844,7 @@ class JobOrderController extends Controller
         $job_order->start_number     = $start_number;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -838,7 +863,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -882,7 +907,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Small Invoice';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -900,6 +925,7 @@ class JobOrderController extends Controller
         $job_order->shrink_wrap    = $shrink_wrap;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -918,7 +944,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -955,7 +981,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order = new JobOrder();
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Stickers';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -965,6 +991,7 @@ class JobOrderController extends Controller
         $job_order->proof_needed    = $proof_needed;
         $job_order->total_cost      = $total_cost;
         $job_order->order_date      = $order_date;
+        $job_order->order_type     = 'internal';
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -984,7 +1011,7 @@ class JobOrderController extends Controller
         //save to payment history
         $job_pay = new JobPaymentHistory();
         $job_pay->job_order_id    = $job_order->id;
-        $job_pay->customer_id     = $customer_id;
+        $job_pay->user_id     = $customer_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
@@ -1003,7 +1030,8 @@ class JobOrderController extends Controller
     public function edit_order($job_title, $id){
         $job_order =  JobOrder::find($id);
         $customers =  User::where('user_type',2)->get();
-        return view('job_order/edit_order', compact('job_order','customers'));
+        $locations =  JobLocation::select('id','city')->get();
+        return view('job_order/edit_order', compact('job_order','customers','locations'));
     }
 
     public function update_order(Request $request, $job_title, $id){
@@ -1019,21 +1047,24 @@ class JobOrderController extends Controller
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
+            $thickness                  =  request('thickness');
             $proof_needed               =  request('proof_needed');
             $total_cost                 =  request('total_cost');
+            $location                   =  request('location');
+
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Eighty Leaves';
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;
             $job_order->paper_type      = $paper_type;
             $job_order->production_days = $production_time;
-            $job_order->back_sided_print      = $back_sided_print;
+            $job_order->thickness       = $thickness;
             $job_order->proof_needed    = $proof_needed;
             $job_order->total_cost      = $total_cost;
+            $job_order->job_location_id        = $location;
             $job_order->updated_by      = $user->id;
             $job_order->save();
 
@@ -1048,22 +1079,25 @@ class JobOrderController extends Controller
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
+            $thickness                  =  request('thickness');
             $proof_needed               =  request('proof_needed');
             $total_cost                 =  request('total_cost');
+            $location                   =  request('location');
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Higher NoteBook';
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;
             $job_order->paper_type      = $paper_type;
             $job_order->production_days = $production_time;
-            $job_order->back_sided_print = $back_sided_print;
+            $job_order->thickness = $thickness;
             $job_order->proof_needed    = $proof_needed;
             //$job_order->order_date     = $order_date;
             $job_order->total_cost      = $total_cost;
+
+            $job_order->job_location_id        = $location;
             $job_order->updated_by      = $user->id;
             $job_order->save();
             return redirect(route('job_order.view_order',['Higher_NoteBook',$id]))->with('flash_success','Higher Note Book order updated successfully');
@@ -1074,22 +1108,24 @@ class JobOrderController extends Controller
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
+            $thickness           =  request('thickness');
             $proof_needed               =  request('proof_needed');
             $total_cost                 =  request('total_cost');
+            $location                   =  request('location');
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Twenty Leaves';
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;
             $job_order->paper_type      = $paper_type;
             $job_order->production_days = $production_time;
-            $job_order->back_sided_print      = $back_sided_print;
+            $job_order->thickness      = $thickness;
             $job_order->proof_needed    = $proof_needed;
             //$job_order->order_date     = $order_date;
             $job_order->total_cost      = $total_cost;
+            $job_order->job_location_id        = $location;
             $job_order->updated_by      = $user->id;
             $job_order->save();
             return redirect(route('job_order.view_order',['Twenty_Leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
@@ -1100,21 +1136,23 @@ class JobOrderController extends Controller
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
+            $thickness                  =  request('thickness');
             $proof_needed               =  request('proof_needed');
             $total_cost                 =  request('total_cost');
+            $location                   =  request('location');
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Forty Leaves';
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;
             $job_order->paper_type      = $paper_type;
             $job_order->production_days = $production_time;
-            $job_order->back_sided_print      = $back_sided_print;
+            $job_order->thickness      = $thickness;
             $job_order->proof_needed    = $proof_needed;
             $job_order->total_cost      = $total_cost;
+            $job_order->job_location_id        = $location;
             //$job_order->order_date     = $order_date;
             $job_order->updated_by      = $user->id;
             $job_order->save();
@@ -1143,7 +1181,7 @@ class JobOrderController extends Controller
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Small Invoice';
             $job_order->quantity        = $quantity;
             $job_order->size            = $size;
@@ -1178,7 +1216,7 @@ class JobOrderController extends Controller
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Bronchures';
             $job_order->quantity        = $quantity;
             $job_order->size            = $size;
@@ -1207,7 +1245,7 @@ class JobOrderController extends Controller
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Flyer';
             $job_order->quantity        = $quantity;
             $job_order->size            = $size;
@@ -1237,7 +1275,7 @@ class JobOrderController extends Controller
 
         //save to job
         $job_order =  JobOrder::find($id);
-        $job_order->customer_id     = $customer_id;
+        $job_order->user_id     = $customer_id;
         $job_order->job_order_name  = 'Business Cards';
         $job_order->quantity        = $quantity;
         $job_order->size            = $size;
@@ -1264,7 +1302,7 @@ class JobOrderController extends Controller
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Envelopes';
             $job_order->quantity        = $quantity;
             $job_order->size            = $size;
@@ -1301,7 +1339,7 @@ class JobOrderController extends Controller
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Notepads';
             $job_order->quantity        = $quantity;
             $job_order->size            = $size;
@@ -1336,7 +1374,7 @@ class JobOrderController extends Controller
 
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->customer_id     = $customer_id;
+            $job_order->user_id     = $customer_id;
             $job_order->job_order_name  = 'Stickers';
             $job_order->quantity        = $quantity;
             $job_order->size            = $size;
@@ -1359,6 +1397,8 @@ class JobOrderController extends Controller
         $job_orders =  JobOrder::where('order_type','internal')->where('status','Pending')->get();
         return view('job_order.status.pending', compact('job_orders'));
     }
+
+
 
     public function designed (){
         $job_orders =  JobOrder::where('order_type','internal')->where('status','Designed')->get();
@@ -1398,6 +1438,44 @@ class JobOrderController extends Controller
     public function delivered (){
         $job_orders =  JobOrder::where('order_type','internal')->where('status','Delivered')->get();
         return view('job_order.status.delivered', compact('job_orders'));
+    }
+
+    public function all_location(){
+        $location =  JobLocation::all();
+        return view('job_order.location.all_locations',compact('location'));
+    }
+
+    public function add_location(){
+        return view('job_order.location.add_locations');
+    }
+
+    public function post_location(){
+        $user = Auth::user();
+        //save into locations
+
+        $city                 =  request('city');
+        $state                 =  request('state');
+        for ($count=0; $count < count($city); $count++) {
+            $order_location =  JobLocation::updateOrCreate(
+                [
+                    'city'          => $city[$count],
+                    'state'         => $state[$count],
+                    'created_by'    => $user->id,
+                ],
+            );
+        }
+        return redirect(route('job_order.location.all_locations'))->with('flash_success','Order Location saved successfully');
+
+    }
+
+    public function view_location($id){
+        $location =  JobLocation::find($id);
+        return view('job_order.location.view_location', compact('location'));
+    }
+
+    public function edit_location($id){
+        $location =  JobLocation::find($id);
+        return view('job_order.location.edit_location', compact('location'));
     }
 
 

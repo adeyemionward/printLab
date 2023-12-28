@@ -130,6 +130,15 @@
                                                                             <input type="number"  name="amount_paid" class="form-control"
                                                                                 id="amount_paid" placeholder="eg: 10000" required>
                                                                         </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">

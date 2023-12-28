@@ -21,6 +21,10 @@ class JobOrder extends Model
         return $this->belongsTo(User::class,'created_by','id');
     }
 
+    public function location(){
+        return $this->belongsTo(JobLocation::class,'job_location_id','id');
+    }
+
     public function updatedBy(){
         return $this->belongsTo(User::class,'updated_by','id');
     }

@@ -4,14 +4,14 @@
 <section class="slider-area ">
 <div class="slider-active">
 
-<div class="single-slider slider-bg1 slider-height d-flex align-items-center">
+<div class=" slider-height d-flex align-items-center">
 <div class="container">
 <div class="row">
 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
 <div class="hero-caption text-center">
-<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#fff">An Innovative Printing  Lab</h1>
+<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000">Order Your Notebooks & Other Printing Services</h1>
 <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
-<a href="#buy_products" style="background-color: #FF2020; border-color: transparent;" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Now</a>
+<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Now</a>
 </div>
 </div>
 </div>
@@ -23,7 +23,7 @@
 
 
 
-<div class="latest-items section-padding fix">
+<div class="latest-items section-padding fix" style="margin-top:-200px">
 <div class="container">
 <div class="row justify-content-between">
 <div class="col-xl-12">

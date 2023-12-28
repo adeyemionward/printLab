@@ -101,6 +101,14 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/stickers', 'JobOrderController@stickers')->name('stickers');
         Route::post('/stickers', 'JobOrderController@post_stickers')->name('stickers');
         Route::get('/work_order_templates', 'JobOrderController@work_order_templates')->name('work_order_templates');
+
+        Route::group(['prefix' => '/location', 'as' => 'location.'], function () {
+            Route::get('/add_location', 'JobOrderController@add_location')->name('add_location');
+            Route::post('/add_location', 'JobOrderController@post_location')->name('add_location');
+            Route::get('/all_locations', 'JobOrderController@all_location')->name('all_locations');
+            Route::get('/view_location/{id}', 'JobOrderController@view_location')->name('view_location');
+            Route::get('/edit_location/{id}', 'JobOrderController@edit_location')->name('edit_location');
+        });
     });
 });
 

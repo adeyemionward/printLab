@@ -94,6 +94,9 @@ class AuthController extends Controller
                 'lastname' => ['required', 'string', 'max:50'],
                 'email' => ['unique:users', 'required',  'email', 'max:50'],
                 'password' => ['required', 'string', 'min:8'],
+                'company_name' => ['required', 'string'],
+                'phone' => ['required', 'string'],
+                'address' => ['required', 'string'],
             ]);
 
 
@@ -114,6 +117,9 @@ class AuthController extends Controller
              $user->gender      = 'm';
              $user->status      = 'active';
              $user->user_type      = '2';
+             $user->company_name        = request('company_name');
+             $user->phone        = request('phone');
+             $user->address        = request('address');
             $user->password     = bcrypt(request('password'));
             $user->save();
 
@@ -131,6 +137,9 @@ class AuthController extends Controller
 
 
             if (Auth::attempt($user_cred)) {
+                if(request()->status == 'order'){
+                    return response()->json([ [12] ]);
+                }
                 return response()->json([ [1] ]);
             }
      }

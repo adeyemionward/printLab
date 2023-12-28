@@ -16,20 +16,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
-
+<style>
+    .text-secondary{
+        color: #fff !important;
+    }
+</style>
 <body class="d-flex flex-column h-100">
 	<div id="page">
 
 		<div class="wrapper">
 
-			<nav id="sidebar" class="active">
+			<nav id="sidebar" class="active" >
 
 				<div class="sidebar-header text-center">
 
 					<h4 class="sidebar-title theme-item"><img src="{{asset('img/printlab.PNG')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
 				</div>
 
-				<ul class="list-unstyled components text-secondary">
+				<ul class="list-unstyled components text-secondary" style="background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);">
 					<li><a href="{{route('dashboard')}}"><i
 							class="data-feather theme-item" data-feather="home"></i> <span
 							class="theme-item"> Dashboard</span></a></li>
@@ -230,8 +234,8 @@
 
 			<div id="bodywrapper" class="container-fluid showhidetoggle">
 
-				<nav class="navbar navbar-expand-md navbar-white bg-white py-0"
-					aria-label="navbarexample" id="navbar">
+				<nav class="navbar navbar-expand-md  py-0"
+					aria-label="navbarexample" id="navbar" style="background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); color:#fff">
 					<div class="container-fluid">
 						<button type="button" id="sidebarCollapse"
 							class="btn btn-light py-0">
@@ -376,6 +380,8 @@
                                                 <li><a class="dropdown-item" href="{{route('job_order.status.delivered')}}">Delivered</a></li>
                                             </ul>
                                         </li>
+
+                                        <li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Create Job Locations</a></li>
 									</ul>
 								</li>
 

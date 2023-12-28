@@ -76,9 +76,17 @@
                                                                         <td width="10%" class="question">Customer Name :</td>
                                                                        <td> <a style="text-decoration:underline; color:blue" href="{{route('customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
+                                                                    <tr>
+                                                                        <td width="10%" class="question">Status :</td>
+                                                                        <td>{{$job_order->status ?? 'N/A'}}</td>
+                                                                    </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Job Order Type :</td>
                                                                         <td>{{$job_order->job_order_name ?? 'N/A'}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="10%" class="question">Location :</td>
+                                                                        <td>{{$job_order->location->city ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Quantity :</td>
@@ -119,10 +127,6 @@
                                                                         <td>{{$job_order->ink ?? 'N/A'}}</td>
                                                                     </tr>
 
-                                                                    <tr>
-                                                                        <td width="10%" class="question">Status :</td>
-                                                                        <td>{{$job_order->status ?? 'N/A'}}</td>
-                                                                    </tr>
 
 
 
@@ -130,7 +134,14 @@
                                                                         <td width="10%" class="question">Paper Type :</td>
                                                                         <td>{{$job_order->paper_type ?? 'N/A'}}</td>
                                                                     </tr>
-
+                                                                    <tr class="det">
+                                                                        <td width="10%" class="question">Thickness :</td>
+                                                                        <td>{{$job_order->thickness ?? 'N/A'}}</td>
+                                                                    </tr>
+                                                                    <tr class="det">
+                                                                        <td width="10%" class="question">Proof Needed :</td>
+                                                                        <td>{{$job_order->proof_needed ?? 'N/A'}}</td>
+                                                                    </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Bleed :</td>
                                                                         <td>{{$job_order->bleed ?? 'N/A'}}</td>
@@ -147,14 +158,8 @@
                                                                         <td width="10%" class="question">Shrink Wrap :</td>
                                                                         <td>{{$job_order->shrink_wrap ?? 'N/A'}}</td>
                                                                     </tr>
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Back Sided Print :</td>
-                                                                        <td>{{$job_order->back_sided_print ?? 'N/A'}}</td>
-                                                                    </tr>
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Proof Needed :</td>
-                                                                        <td>{{$job_order->proof_needed ?? 'N/A'}}</td>
-                                                                    </tr>
+
+
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Hole Drilling :</td>
                                                                         <td>{{$job_order->hole_drilling ?? 'N/A'}}</td>

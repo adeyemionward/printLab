@@ -153,6 +153,19 @@ input[type="radio"] {
 	transition: all 0.3s ease;
 }
 
+textarea{
+    margin-top: 20px;
+    height: 100px;
+	width: 100%;
+	outline: none;
+	padding-left: 15px;
+	border-radius: 5px;
+	border: 1px solid lightgrey;
+	border-bottom-width: 2px;
+	font-size: 17px;
+	transition: all 0.3s ease;
+}
+
 .form-inner form .field input:focus {
 	border-color: #fc83bb;
 	/* box-shadow: inset 0 0 3px #fb6aae; */
@@ -229,7 +242,7 @@ form .btn input[type="submit"] {
 </head>
 <body>
 	<div class="wrapper">
-		<center><img src="{{asset('img/printlab.PNG')}}" alt="" width="350px" height="170px"></center>
+		<center><img src="{{asset('img/printlab.PNG')}}" alt="" width="500px" height="170px"></center>
 		<div class="title-text">
 			<div class="title login">Register</div>
 			<div class="title signup">Register</div>
@@ -259,6 +272,22 @@ form .btn input[type="submit"] {
 						<input type="password"  name="password" placeholder="Password" required>
                         <span class="text-danger error-text password_error"></span>
 					</div>
+
+                    <div class="field">
+						<input type="text" name="phone"   placeholder="Phone" >
+                        <span class="text-danger error-text phone_error"></span>
+					</div>
+
+                    <div class="field">
+						<input type="text" name="company_name"   placeholder="Company/School Name" >
+                        <span class="text-danger error-text company_school_error"></span>
+					</div>
+
+                    <div class="field">
+
+                        <textarea placeholder="Address" name="address"></textarea>
+                        <span class="text-danger error-text lastname_error"></span>
+					</div> <br><br><br><br>
 					{{-- <div class="pass-link">
 						<a href="#">Forgot password?</a>
 					</div> --}}
@@ -268,7 +297,13 @@ form .btn input[type="submit"] {
 					</div>
 
                     <div class="signup-link">
-						Already a member? <a href="{{'login'}}">Login</a>
+                        @if (request()->status)
+                        Not a member? <a href="{{route('login', ['status' => 'order'])}}">Login</a>
+
+                        @else
+                            Not a member? <a href="{{route('login')}}">Login</a>
+                        @endif
+
 					</div>
 				</form>
 			</div>
@@ -316,6 +351,12 @@ form .btn input[type="submit"] {
                     toastr.success("Registration Successful");
                     setInterval(function(){
                         window.location.replace('{{route("track_orders.index")}}');
+                    },2000)
+
+                }else if (data == 12){
+                    toastr.success("Registration Successful");
+                    setInterval(function(){ //customer dashboard login
+                        window.location.href = document.referrer;
                     },2000)
 
                 }else if(data == 5){
