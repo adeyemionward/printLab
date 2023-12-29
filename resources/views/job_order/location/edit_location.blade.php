@@ -2,7 +2,7 @@
 @extends('layout.master')
 @section('content')
 @section('title', 'Add Product')
-@php $page = 'add_location' @endphp
+@php $page = 'edit_location' @endphp
 
     <div class="content">
         <div class="container-fluid">
@@ -24,7 +24,7 @@
                             <div class="row">
                                 @include('job_order.location.location_inc')
 
-                                <div class="col-md-12 col-xl-12">
+                                <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="card-header bg-white">
                                             <h5 class="card-title mb-0 text-muted">Edit Job Locations</h5>
@@ -54,8 +54,8 @@
                                                                         <tbody>
                                                                             <!-- Initial row, can be hidden -->
                                                                             <tr class="product-row">
-                                                                                <td style="width:50%"><input type="text" required class="form-control state"  name="state[]" value="{{$location->state}}" /></td>
-                                                                                <td style="width:50%"><input type="text" required class="form-control city"  name="city[]" value="{{$location->city}}"  /></td>
+                                                                                <td style="width:50%"><input type="text" required class="form-control state"  name="state" value="{{$location->state}}" /></td>
+                                                                                <td style="width:50%"><input type="text" required class="form-control city"  name="city" value="{{$location->city}}"  /></td>
 
 
                                                                             </tr>

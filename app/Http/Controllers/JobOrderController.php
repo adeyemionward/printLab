@@ -1478,6 +1478,31 @@ class JobOrderController extends Controller
         return view('job_order.location.edit_location', compact('location'));
     }
 
+    public function update_location($id){
+        $user = Auth::user();
+        $location =  JobLocation::find($id);
+
+        $city                =  request('city');
+        $state               =  request('state');
+
+        $order_location =  JobLocation::updateOrCreate(
+            [
+                'id'          => $location->id
+            ],
+            [
+                'city'          => $city,
+                'state'         => $state,
+                'updated_by'    => $user->id,
+            ],
+        );
+        return redirect(route('job_order.location.all_locations'))->with('flash_success','Order Location updated successfully');
+    }
+
+    public function delete_location($id){
+        $location =  JobLocation::find($id)->delete();
+        return redirect(route('job_order.location.all_locations'))->with('flash_success','Order Location deleted successfully');
+    }
+
 
 
     /**

@@ -108,6 +108,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
             Route::get('/all_locations', 'JobOrderController@all_location')->name('all_locations');
             Route::get('/view_location/{id}', 'JobOrderController@view_location')->name('view_location');
             Route::get('/edit_location/{id}', 'JobOrderController@edit_location')->name('edit_location');
+            Route::post('/edit_location/{id}', 'JobOrderController@update_location')->name('update_location');
+            Route::get('/delete_location/{id}', 'JobOrderController@delete_location')->name('delete_location');
         });
     });
 });

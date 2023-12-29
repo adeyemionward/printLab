@@ -2,7 +2,7 @@
 @extends('layout.master')
 @section('content')
 @section('title', 'Add Product')
-@php $page = 'add_location' @endphp
+@php $page = 'view_location' @endphp
 
     <div class="content">
         <div class="container-fluid">
@@ -35,6 +35,33 @@
                                                     <div class="tab-pane fade show active" id="nav-server"
                                                         role="tabpanel" aria-labelledby="nav-server-tab">
 
+                                                        <div class="row g-3 ">
+                                                            <div class="col-md-12">
+                                                                <table width="100%"  class="details">
+                                                                    <tr class="det">
+                                                                      <td width="10%" class="question">Job Id :</td>
+                                                                      <td>{{$location->id ?? 'N/A'}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="10%" class="question">Location Name :</td>
+                                                                        <td>{{@$location->city ?? 'N/A'}}</td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td width="10%" class="question">Created By :</td>
+                                                                        <td>{{@$location->createdBy->firstname.' '.@$job_order->createdBy->lastname ?? 'N/A'}}</td>
+
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td width="10%" class="question">Updated By :</td>
+                                                                        <td>{{@$location->createdBy->firstname.' '.@$job_order->createdBy->lastname ?? 'N/A'}}</td>
+
+                                                                    </tr>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                         <hr/>
                                                     </div>
                                                 </div>

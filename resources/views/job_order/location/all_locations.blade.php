@@ -12,8 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Product</li>
+                        <a href="{{route('job_order.location.add_location')}}"><li class="active btn btn-primary" style="">Add Location</li></a>
                     </ol>
                 </div>
             </div>
@@ -56,7 +55,7 @@
 
                                                                                 <td>{{$val->state}}</td>
 
-                                                                                <td><a href=""><span><i class="fa fa-eye"></i></span></a></td>
+                                                                                <td><a href="{{route('job_order.location.view_location',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                                                             </tr>
                                                                         @endforeach
 
