@@ -486,19 +486,27 @@ class ProductController extends Controller
         $quantity                 =  request('quantity');
         $total_cost                 =  request('total_cost');
 
-        $delete_cost  = ProductCost::where('product_id',$id)->delete(); //delete all cost for unique ID
 
-        for ($count=0; $count < count($quantity); $count++) {
-            $pro_cost =  ProductCost::updateOrCreate(
-                [
-                    'product_id'        => $id,
-                    'product_name'      => $job_title,
-                    'quantity'          => $quantity[$count],
-                    'total_cost'        => $total_cost[$count],
+        try{
+            $delete_cost  = ProductCost::where('product_id',$id)->delete(); //delete all cost for unique ID
 
-                ],
-            );
+            for ($count=0; $count < count($quantity); $count++) {
+                $pro_cost =  ProductCost::updateOrCreate(
+                    [
+                        'product_id'        => $id,
+                        'product_name'      => $job_title,
+                        'quantity'          => $quantity[$count],
+                        'total_cost'        => $total_cost[$count],
+
+                    ],
+                );
+            }
+        }catch (\Throwable $th){
+            ErrorLog::log('product', '__METHOD__', $th->getMessage()); //log error
+            return back()->with("flash_error","There is an error processing this request");
         }
+
+
         return redirect(route('products.edit_pricing',[$job_title, $id]))->with('flash_success','Product Pricing updated successfully');
     }
 
