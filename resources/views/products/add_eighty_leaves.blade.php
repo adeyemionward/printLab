@@ -156,14 +156,14 @@
 
                                                                     </div>
 
+                                                                    <button class="btn btn-sm btn-danger" type="submit">
+                                                                        <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                         <hr/>
                                                     </div>
-                                                    <button class="btn btn-sm btn-danger" type="submit">
-                                                        <i class="text-white me-2" data-feather="check-circle"></i>Save
-                                                    </button>
-                                                </form>
                                                 </div>
                                             </div>
                                         </div>

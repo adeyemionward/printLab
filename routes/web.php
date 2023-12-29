@@ -146,6 +146,10 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/all_products', 'ProductController@index')->name('all_products');
 
         Route::get('/view/{job_title}/{id}', 'ProductController@show')->name('view');
+        Route::get('/edit/{job_title}/{id}', 'ProductController@edit')->name('edit');
+        Route::post('/edit/{job_title}/{id}', 'ProductController@update')->name('update');
+        Route::get('/edit_pricing/{job_title}/{id}', 'ProductController@edit_pricing')->name('edit_pricing');
+        Route::post('/edit_pricing/{job_title}/{id}', 'ProductController@update_pricing')->name('edit_pricing');
 
         Route::get('/add_higher_education', 'ProductController@create_higher_education')->name('add_higher_education');
         Route::post('/add_higher_education', 'ProductController@store_higher_education')->name('add_higher_education');

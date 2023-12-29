@@ -406,7 +406,7 @@
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
 										<li><a class="dropdown-item" href="{{route('products.add_higher_education')}}">Create Product</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.status.pending')}}">All Products</a></li>
+										<li><a class="dropdown-item" href="{{route('products.all_products')}}">All Products</a></li>
 
 									</ul>
 								</li>

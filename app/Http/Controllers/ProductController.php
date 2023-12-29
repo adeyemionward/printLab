@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\ProductCost;
 class ProductController extends Controller
 {
@@ -292,9 +293,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($job_title, $id)
     {
-        //
+        $product =  Product::find($id);
+        return view('products.view', compact('product'));
     }
 
     /**
@@ -303,9 +305,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($job_title, $id)
     {
-        //
+        $product =  Product::find($id);
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -315,9 +318,188 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $job_title, $id){
+        $user = Auth::user();
+        $job_order =  Product::find($id);
+        $customers =  User::where('user_type',2)->get();
+        //dd(request()->job_title);
+        if(request()->job_title == 'eighty_leaves'){
+            $user = Auth::user();
+
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $quantity                   =  request('quantity');
+            $description                =  request('description');
+            $total_cost                 =  request('total_cost');
+
+
+            //save to job
+        $product =  Product::find($id);
+        $product->name  = 'eighty_leaves';
+        $product->ink             = $ink;
+        $product->paper_type      = $paper_type;
+        $product->production_days = $production_time;
+        $product->thickness       = $thickness;
+        // $product->total_cost      = $total_cost;
+        $product->description     = $description;
+        $product->created_by      = $user->id;
+
+        if(!empty($request->file('image'))){
+            if($eticket_img = $request->file('image')){
+                // foreach ($eticket_imgs as $eticket_img) {
+                $filename = substr (md5($eticket_img),0,8);
+                $extension = $eticket_img->extension();
+                $getFileExt = $filename.'.'.$extension;
+                $eticket_img->move(public_path('product_images/'), $getFileExt);
+                $product->image = $getFileExt;
+                // }
+            }
+        }
+
+
+        $product->save();
+
+         return redirect(route('products.view',['eighty_leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
+
+
+        }elseif(request()->job_title == 'higher_notebook'){
+
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $quantity                   =  request('quantity');
+            $description                =  request('description');
+            $total_cost                 =  request('total_cost');
+
+
+            //save to job
+            $product =  Product::find($id);
+            $product->name  = 'higher_notebook';
+            $product->ink             = $ink;
+            $product->paper_type      = $paper_type;
+            $product->production_days = $production_time;
+            $product->thickness       = $thickness;
+            // $product->total_cost      = $total_cost;
+            $product->description     = $description;
+            $product->updated_by      = $user->id;
+
+            if(!empty($request->file('image'))){
+                if($eticket_img = $request->file('image')){
+                    // foreach ($eticket_imgs as $eticket_img) {
+                    $filename = substr (md5($eticket_img),0,8);
+                    $extension = $eticket_img->extension();
+                    $getFileExt = $filename.'.'.$extension;
+                    $eticket_img->move(public_path('product_images/'), $getFileExt);
+                    $product->image = $getFileExt;
+                    // }
+                }
+            }
+            $product->save();
+
+            return redirect(route('products.view',['higher_notebook',$id]))->with('flash_success','Higher Note Book order updated successfully');
+
+        }elseif(request()->job_title == 'twenty_leaves'){
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $quantity                   =  request('quantity');
+            $description                =  request('description');
+            $total_cost                 =  request('total_cost');
+
+
+            //save to job
+            $product =  Product::find($id);
+            $product->name  = 'twenty_leaves';
+            $product->ink             = $ink;
+            $product->paper_type      = $paper_type;
+            $product->production_days = $production_time;
+            $product->thickness       = $thickness;
+            // $product->total_cost      = $total_cost;
+            $product->description     = $description;
+            $product->updated_by      = $user->id;
+
+            if(!empty($request->file('image'))){
+                if($eticket_img = $request->file('image')){
+                    // foreach ($eticket_imgs as $eticket_img) {
+                    $filename = substr (md5($eticket_img),0,8);
+                    $extension = $eticket_img->extension();
+                    $getFileExt = $filename.'.'.$extension;
+                    $eticket_img->move(public_path('product_images/'), $getFileExt);
+                    $product->image = $getFileExt;
+                    // }
+                }
+            }
+            $product->save();
+            return redirect(route('products.view',['twenty_leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
+        }elseif(request()->job_title == 'forty_leaves'){
+
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $quantity                   =  request('quantity');
+            $description                =  request('description');
+            $total_cost                 =  request('total_cost');
+
+
+            //save to job
+            $product =  Product::find($id);
+            $product->name  = 'forty_leaves';
+            $product->ink             = $ink;
+            $product->paper_type      = $paper_type;
+            $product->production_days = $production_time;
+            $product->thickness       = $thickness;
+            // $product->total_cost      = $total_cost;
+            $product->description     = $description;
+            $product->updated_by      = $user->id;
+
+            if(!empty($request->file('image'))){
+                if($eticket_img = $request->file('image')){
+                    // foreach ($eticket_imgs as $eticket_img) {
+                    $filename = substr (md5($eticket_img),0,8);
+                    $extension = $eticket_img->extension();
+                    $getFileExt = $filename.'.'.$extension;
+                    $eticket_img->move(public_path('product_images/'), $getFileExt);
+                    $product->image = $getFileExt;
+                    // }
+                }
+            }
+            $product->save();
+
+            return redirect(route('products.view',['forty_leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
+        }
+    }
+
+
+    public function edit_pricing ($job_title, $id){
+        $costs =  ProductCost::where('product_id', $id)->get();
+        return view('products.edit_pricing', compact('costs'));
+    }
+
+    public function update_pricing ($job_title, $id){
+        $costs =  ProductCost::where('product_id', $id)->get();
+
+        $quantity                 =  request('quantity');
+        $total_cost                 =  request('total_cost');
+
+        $delete_cost  = ProductCost::where('product_id',$id)->delete(); //delete all cost for unique ID
+
+        for ($count=0; $count < count($quantity); $count++) {
+            $pro_cost =  ProductCost::updateOrCreate(
+                [
+                    'product_id'        => $id,
+                    'product_name'      => $job_title,
+                    'quantity'          => $quantity[$count],
+                    'total_cost'        => $total_cost[$count],
+
+                ],
+            );
+        }
+        return redirect(route('products.edit_pricing',[$job_title, $id]))->with('flash_success','Product Pricing updated successfully');
     }
 
     /**
