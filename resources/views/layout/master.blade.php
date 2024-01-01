@@ -44,19 +44,34 @@
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
 								class="data-feather theme-item" data-feather="user"></i> <span
-								class="theme-item"> Customers</span><i
+								class="theme-item"> Customers & Users</span><i
 								class="sidenaviconopen float-end" id="sidenavicon"
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
 								<a href="{{route('customers.add_customer')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Add New</span>
+                                    <span class="data-feather theme-item">Add Customer</span>
                                 </a>
 
                                 <a href="{{route('customers.all_customers')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">View All</span>
+                                    <span class="data-feather theme-item"> All Customers</span>
+                                </a>
+
+                                <a href="{{route('users.add_user')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item">Add User</span>
+                                </a>
+
+                                <a href="{{route('users.all_users')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item"> All Users</span>
+                                </a>
+
+                                <a href="{{route('roles.add_role')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item"> Users Roles & Permission</span>
                                 </a>
 
 							</div>
@@ -254,6 +269,11 @@
                                     <span class="data-feather theme-item">Category</span>
                                 </a>
 
+                                <a href="{{route('job_order.location.add_location')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Locations</span>
+                                </a>
+
 							</div>
 						</div>
 					</li>
@@ -297,12 +317,16 @@
 									href="#" id="navbarDropdownMenuLink1" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false"><i
 										class="data-feather theme-item" data-feather="user"></i> <span
-										class="theme-item">Customers</span><i
+										class="theme-item">Customers & Users</span><i
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('customers.add_customer')}}">Add New</a></li>
-										<li><a class="dropdown-item" href="{{route('customers.all_customers')}}">View All</a></li>
+										<li><a class="dropdown-item" href="{{route('customers.add_customer')}}">Add Customer</a></li>
+										<li><a class="dropdown-item" href="{{route('customers.all_customers')}}"> All Customers</a></li>
+
+                                        <li><a class="dropdown-item" href="{{route('users.add_user')}}">Add User</a></li>
+										<li><a class="dropdown-item" href="{{route('users.all_users')}}"> All Usesr</a></li>
+                                        <li><a class="dropdown-item" href="{{route('roles.add_role')}}">Users Roles & Permission</a></li>
 
 									</ul>
 								</li>
@@ -341,21 +365,7 @@
 								</li>
 
 
-                                <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="user"></i> <span
-										class="theme-item">Users</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('users.add_user')}}">Add User</a></li>
-										<li><a class="dropdown-item" href="{{route('users.all_users')}}">View All</a></li>
-                                        <li><a class="dropdown-item" href="{{route('roles.add_role')}}">Roles & Permission</a></li>
 
-									</ul>
-								</li>
 
                                 <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
@@ -400,7 +410,7 @@
                                             </ul>
                                         </li>
 
-                                        <li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Create Job Locations</a></li>
+                                        {{-- <li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Create Job Locations</a></li> --}}
 									</ul>
 								</li>
 
@@ -427,6 +437,21 @@
 										<li><a class="dropdown-item" href="{{route('products.add_higher_education')}}">Create Product</a></li>
 										<li><a class="dropdown-item" href="{{route('products.all_products')}}">All Products</a></li>
 
+									</ul>
+								</li>
+
+
+                                <li class="nav-item dropdown nav-dropdown"><a
+									class="nav-item nav-link dropdown-toggle text-secondary py-0"
+									href="#" id="navbarDropdownMenuLink1" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false"><i
+										class="data-feather theme-item" data-feather="user"></i> <span
+										class="theme-item">Settings</span><i
+										class="data-feather theme-item" data-feather="chevron-down"></i></a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink1">
+										<li><a class="dropdown-item" href="{{route('settings.category.add_category')}}">Category</a></li>
+										<li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Locations</a></li>
 									</ul>
 								</li>
 

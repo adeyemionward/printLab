@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('job_order.location.all_locations')}}"><li class="active btn btn-primary" style="">Category List</li></a>
+                        {{-- <a href="{{route('job_order.location.all_locations')}}"><li class="active btn btn-primary" style="">Category List</li></a> --}}
                     </ol>
                 </div>
             </div>
