@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobPaymentHistory;
 use Illuminate\Http\Request;
-
-class TransactionController extends Controller
+use Illuminate\Support\Facades\Auth;
+use App\Models\ExpenseCategory;
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __construct()
     {
-        $job_order_pay  = JobPaymentHistory::all();
-        return view('finance.transactions.all_transactions', compact('job_order_pay'));
+        $this->middleware('auth');
+    }
+    public function all_category()
+    {
+        return view('settings.category.all_category');
+    }
+
+    public function create_category()
+    {
+        return view('settings.category.add_category');
     }
 
     /**
@@ -23,9 +31,20 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function post_category()
     {
-        //
+        $user = Auth::user();
+        //save into locations
+
+        $name                 =  request('name');
+        for ($count=0; $count < count($name); $count++) {
+            $order_location =  ExpenseCategory::updateOrCreate(
+                [
+                    'category_name'          => $name[$count],
+                    'created_by'    => $user->id,
+                ],
+            );
+        }
     }
 
     /**
@@ -42,10 +61,10 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TransactionController  $transactionController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TransactionController $transactionController)
+    public function show($id)
     {
         //
     }
@@ -53,10 +72,10 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TransactionController  $transactionController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransactionController $transactionController)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +84,10 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TransactionController  $transactionController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransactionController $transactionController)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +95,10 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TransactionController  $transactionController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransactionController $transactionController)
+    public function destroy($id)
     {
         //
     }

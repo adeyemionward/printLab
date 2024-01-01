@@ -162,25 +162,61 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 
         Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
         Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
+    });
+});
 
 
+Route::group(['namespace' => 'App\Http\Controllers'],  function () {
+    Route::group(['prefix' => '/finance', 'as' => 'finance.'], function () {
+
+        Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
+            Route::get('/add_requisition', 'RequisitionController@create')->name('add_requisition');
+            Route::post('/add_requisition', 'RequisitionController@store')->name('add_requisition');
+            Route::get('/all_requisition', 'RequisitionController@index')->name('all_requisitions');
+            Route::get('/edit_requisition/{id}', 'RequisitionController@edit')->name('edit_requisition');
+            Route::post('/edit_requisition/{id}', 'RequisitionController@update')->name('edit_requisition');
+        });
+
+        Route::group(['prefix' => '/expenses', 'as' => 'expenses.'], function () {
+            Route::get('/all_expenses', 'FinanceController@all_expenses')->name('all_expenses');
+            Route::get('/add_expense', 'FinanceController@create_expense')->name('add_expense');
+            Route::post('/add_expense', 'FinanceController@store_expense')->name('add_expense');
+            Route::get('/view_expense/{id}', 'FinanceController@view_expense')->name('view_expense');
+            Route::get('/edit_expense/{id}', 'FinanceController@edit_expense')->name('edit_expense');
+            Route::post('/edit_expense/{id}', 'FinanceController@update_expense')->name('edit_expense');
+            Route::get('/delete_expense/{id}', 'FinanceController@delete_expense')->name('delete_expense');
+            Route::post('/update_expense_payment/{id}', 'FinanceController@update_expense_payment')->name('update_expense_payment');
+            Route::get('/payment_history/{id}', 'FinanceController@payment_history')->name('payment_history');
+
+        });
+
+        Route::group(['prefix' => '/transactions', 'as' => 'transactions.'], function () {
+            Route::get('/all_transactions', 'TransactionController@index')->name('all_transactions');
+        });
+
+
+        Route::group(['prefix' => '/debtors', 'as' => 'debtors.'], function () {
+            Route::get('/all_debtors', 'FinanceController@all_debtors')->name('all_debtors');
+        });
+        Route::group(['prefix' => '/creditors', 'as' => 'creditors.'], function () {
+            Route::get('/all_creditors', 'FinanceController@all_creditors')->name('all_creditors');
+        });
 
     });
 });
 
-Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-    Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
-        Route::get('/add_requisition', 'RequisitionController@create')->name('add_requisition');
-        Route::post('/add_requisition', 'RequisitionController@store')->name('add_requisition');
-        Route::get('/all_requisition', 'RequisitionController@index')->name('all_requisitions');
-        Route::get('/edit_requisition/{id}', 'RequisitionController@edit')->name('edit_requisition');
-        Route::post('/edit_requisition/{id}', 'RequisitionController@update')->name('edit_requisition');
-    });
-});
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-    Route::group(['prefix' => '/transactions', 'as' => 'transactions.'], function () {
-        Route::get('/all_transactions', 'RequisitionController@index')->name('all_transactions');
+    Route::group(['prefix' => '/settings', 'as' => 'settings.'], function () {
+
+        Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
+            Route::get('/add_category', 'SettingController@create_category')->name('add_category');
+            Route::post('/add_category', 'SettingController@post_category')->name('add_category');
+            Route::get('/all_category', 'SettingController@index')->name('all__category');
+            Route::get('/edit_category/{id}', 'RequisitionController@edit')->name('edit_category');
+            Route::post('/edit_category/{id}', 'RequisitionController@update')->name('edit_category');
+        });
+
     });
 });
 

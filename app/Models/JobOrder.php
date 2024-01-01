@@ -28,4 +28,8 @@ class JobOrder extends Model
     public function updatedBy(){
         return $this->belongsTo(User::class,'updated_by','id');
     }
+
+    public function jobPaymentHistories(){
+        return $this->hasMany(JobPaymentHistory::class);
+    }
 }

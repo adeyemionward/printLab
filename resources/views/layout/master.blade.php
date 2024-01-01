@@ -17,7 +17,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 <style>
-    .text-secondary{
+    .nav-item.nav-link.dropdown-toggle.text-secondary{
         color: #fff !important;
     }
 </style>
@@ -33,7 +33,7 @@
 					<h4 class="sidebar-title theme-item"><img src="{{asset('img/printlab.PNG')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
 				</div>
 
-				<ul class="list-unstyled components text-secondary" style="background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);">
+				<ul class="list-unstyled components text-secondary" >
 					<li><a href="{{route('dashboard')}}"><i
 							class="data-feather theme-item" data-feather="home"></i> <span
 							class="theme-item"> Dashboard</span></a></li>
@@ -91,33 +91,43 @@
 						</div>
 					</li>
 
-
-
                     <li>
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
 								class="data-feather theme-item" data-feather="grid"></i> <span
-								class="theme-item"> Requisitions</span><i
+								class="theme-item"> Finance</span><i
 								class="sidenaviconopen float-end" id="sidenavicon"
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
-								<a href="{{route('requisitions.add_requisition')}}" class="text-center">
+								<a href="{{route('finance.requisitions.all_requisitions')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Add New</span>
+                                    <span class="data-feather theme-item">Requisitions</span>
                                 </a>
 
-                                <a href="{{route('requisitions.all_requisitions')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">View All</span>
+                                <a href="{{route('finance.expenses.all_expenses')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Expenses</span>
                                 </a>
 
+                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Customer Payments</span>
+                                </a>
+                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Debtors Report</span>
+                                </a>
+                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Creditors Report</span>
+                                </a>
 							</div>
 						</div>
 					</li>
 
-                    <li>
+                    {{-- <li>
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
@@ -127,13 +137,13 @@
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
-								<a href="{{route('transactions.all_transactions')}}" class="text-center">
+								<a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">View All</span>
                                 </a>
 							</div>
 						</div>
-					</li>
+					</li> --}}
 
                     <li>
 						<div class="sidebardropdown">
@@ -228,6 +238,25 @@
 							</div>
 						</div>
 					</li>
+
+                    <li>
+						<div class="sidebardropdown">
+							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
+								id="dropdown-btn" onclick="myFunction()"><i
+								class="data-feather theme-item" data-feather="user"></i> <span
+								class="theme-item"> Settings</span><i
+								class="sidenaviconopen float-end" id="sidenavicon"
+								data-feather="chevron-up"></i></a>
+
+							<div class="dropdown-container">
+								<a href="{{route('settings.category.add_category')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Category</span>
+                                </a>
+
+							</div>
+						</div>
+					</li>
 				</ul>
 
 			</nav>
@@ -298,29 +327,19 @@
 									href="#" id="navbarDropdownMenuLink1" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false"><i
 										class="data-feather theme-item" data-feather="grid"></i> <span
-										class="theme-item">Requisition</span><i
+										class="theme-item">Finance</span><i
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('requisitions.add_requisition')}}">Add New</a></li>
-										<li><a class="dropdown-item" href="{{route('requisitions.all_requisitions')}}">View All</a></li>
+                                        {{-- <li><a class="dropdown-item" href="{{route('finance.requisitions.all_requisitions')}}">Requsitions</a></li> --}}
+                                        <li><a class="dropdown-item" href="{{route('finance.expenses.all_expenses')}}">Expenses</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.transactions.all_transactions')}}">Customer Payments</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.debtors.all_debtors')}}">Debtors Report</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.creditors.all_creditors')}}">Creditors Report</a></li>
 
 									</ul>
 								</li>
 
-                                {{-- <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="user"></i> <span
-										class="theme-item">Transactions</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('transactions.all_transactions')}}">View All</a></li>
-
-									</ul>
-								</li> --}}
 
                                 <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"

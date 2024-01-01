@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">All Orders</h4>
+                    <h4 class="m-0 text-dark text-muted">Customer Payments</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Job Order</a></li>
-                        <li class="breadcrumb-item active">All Orders</li>
+                        <li class="breadcrumb-item"><a href="#"> Customer Payments</a></li>
+                        <li class="breadcrumb-item active">Customer Payments</li>
                     </ol>
                 </div>
             </div>

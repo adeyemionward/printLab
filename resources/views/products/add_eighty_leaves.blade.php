@@ -30,7 +30,7 @@
                                         <div class="card-header bg-white">
                                             <h5 class="card-title mb-0 text-muted">Create Eighty Leaves Product</h5>
                                         </div>
-                                        <div class="card-body h-100">
+                                        <div class="card-body h-100"> 
                                             <div class="align-items-start">
                                                 <div class="tab-content" id="nav-tabContent">
                                                     <div class="tab-pane fade show active" id="nav-server"

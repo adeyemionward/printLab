@@ -21,7 +21,7 @@ class RequisitionController extends Controller
     public function index()
     {
         $requisitions = Requisition::all();
-        return view('requisitions.all_requisitions', compact('requisitions'));
+        return view('finance.requisitions.all_requisitions', compact('requisitions'));
     }
 
     /**
@@ -31,7 +31,7 @@ class RequisitionController extends Controller
      */
     public function create()
     {
-        return view('requisitions.add_requisition');
+        return view('finance.requisitions.add_requisition');
     }
 
     /**
@@ -64,7 +64,7 @@ class RequisitionController extends Controller
             $requisition->created_by    = $user->id;
 
             $requisition->save();
-            return redirect(route('requisitions.all_requisitions'))->with('flash_success','Requisition saved successfully');
+            return redirect(route('finance.requisitions.all_requisitions'))->with('flash_success','Requisition saved successfully');
         }catch (\Throwable $th){
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");
@@ -125,7 +125,7 @@ class RequisitionController extends Controller
             $requisition->created_by    = $user->id;
 
             $requisition->save();
-            return redirect(route('requisitions.all_requisitions'))->with('flash_success','Requisition updated successfully');
+            return redirect(route('finance.requisitions.all_requisitions'))->with('flash_success','Requisition updated successfully');
         }catch (\Throwable $th){
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");
