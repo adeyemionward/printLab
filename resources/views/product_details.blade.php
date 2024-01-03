@@ -34,7 +34,16 @@
         @csrf
         <div class="single-services d-flex align-items-center mb-0">
             <div class="features-img">
-                <img src="{{asset('product_images/'.$product->image)}}" alt>
+
+
+
+
+                @if ( env('APP_ENV') == 'local')
+                    <img src="{{asset('storage/images/'.$product->image)}}" alt>
+                @else
+                    <img src="{{asset('public/storage/images/'.$product->image)}}" alt>
+                @endif
+
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
                 <div class="row">
                     <div class="form-group mt-3 mb-3 col-md-4">
