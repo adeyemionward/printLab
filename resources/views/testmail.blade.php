@@ -169,17 +169,17 @@
 							</td>
                             <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
                                 <span style="color: #ff7518;">Total Cost</span>
-                               - {{$orderDetails->total_cost}}
+                               - &#8358;{{$orderDetails->total_cost}}
                            </td>
 						</tr>
                         <tr>
 							<td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
 								 <span style="color: #ff7518;">Amount Paid</span>
-								- {{$amount_paid}}
+								- &#8358;{{$amount_paid}}
 							</td>
                             <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
                                 <span style="color: #ff7518;">Remaining Balance</span>
-                               - {{$orderDetails->total_cost - $amount_paid}}
+                               - &#8358;{{$orderDetails->total_cost - $amount_paid}}
                            </td>
 						</tr>
 
@@ -234,13 +234,8 @@
 			<tr>
 				<td class="center">
 					<table width="100%">
-						<h6>
-							Ticket is powered by
-							<a href="https://printlabs.com.ng/" target="_blank" style="color: #2a2a72;">
-								PrintLabs.
-							</a>
-						</h6>
-						<img style="margin-bottom: 40px;" width="56" src="{{asset('img/printlab.PNG')}}" alt="printlabs logo" />
+
+						<img style="margin-bottom: 40px;" width="65" src="{{asset('img/printlab.PNG')}}" alt="printlabs logo" />
 					</table>
 				</td>
 			</tr>
