@@ -124,7 +124,7 @@
 				<td>
 					<table width="100%">
 						<h2 style=" font-weight: 400; padding: 0 20px; text-align:left">
-              				Hello, {Name}
+              				Hello, {{$userName}}
 
 
 
@@ -175,11 +175,11 @@
                         <tr>
 							<td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
 								 <span style="color: #ff7518;">Amount Paid</span>
-								- 23,09,303030
+								- {{$amount_paid}}
 							</td>
                             <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
                                 <span style="color: #ff7518;">Remaining Balance</span>
-                               - 23,09,303030
+                               - {{$orderDetails->total_cost - $amount_paid}}
                            </td>
 						</tr>
 

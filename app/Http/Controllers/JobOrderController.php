@@ -186,7 +186,6 @@ class JobOrderController extends Controller
         $location                   =  request('location');
 
 
-
         //save to job
         $job_order = new JobOrder();
         $job_order->user_id     = $customer_id;
@@ -226,10 +225,14 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
-        $orderDetails = JobOrder::find($job_order->id);
+        $userDetails    = User::find($customer_id);
+        $userEmail  =  $userDetails->email;
+        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+
+        $orderDetails   = JobOrder::find($job_order->id);
        // dd($orderDetails);
 
-        $sendOrderEmail =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ($orderDetails,$amount_paid));
+        $sendOrderEmail =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
 
         return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
     }

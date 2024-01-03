@@ -20,10 +20,12 @@ class CustomerOrderReceipt extends Mailable
      */
     public $orderDetails;
     public $amount_paid;
-    public function __construct($orderDetails, $amount_paid)
+    public $userName;
+    public function __construct($orderDetails, $amount_paid, $userName)
     {
-        $this->orderDetails = $orderDetails;
+        $this->orderDetails  = $orderDetails;
         $this->amount_paid   = $amount_paid;
+        $this->userName      = $userName;
     }
 
     /**
@@ -54,7 +56,11 @@ class CustomerOrderReceipt extends Mailable
     public function build()
     {
         return $this->view('testmail')
-                    ->with(['orderDetails' => $this->orderDetails]);
+                    ->with([
+                        'orderDetails' => $this->orderDetails,
+                        'amount_paid' => $this->amount_paid,
+                        'userName' => $this->userName,
+                    ]);
     }
 
     /**
