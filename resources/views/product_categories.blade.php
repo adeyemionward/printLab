@@ -58,7 +58,13 @@
                                         @php $product_name = str_replace('_',' ', $val->name)   @endphp
                                         <div class="properties-card">
                                             <div class="properties-img">
-                                                <a href="{{route('product_details',['Higher_Education',$val->id])}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @if ( env('APP_ENV') == 'local')
+                                                    <a href="{{route('product_details',['Higher_Education',$val->id])}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @else
+                                                    <a href="{{route('product_details',['Higher_Education',$val->id])}}"><img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @endif
+
+
                                             </div>
                                             <div class="properties-caption properties-caption2">
                                                 <h3><a href="{{route('product_details',['Higher_Education',$val->id])}}">{{ucwords($product_name)}}</a></h3>
@@ -84,7 +90,12 @@
                                         @php $product_name = str_replace('_',' ', $val->name)   @endphp
                                         <div class="properties-card">
                                             <div class="properties-img">
-                                                <a href="{{route('product_details',['Twenty_Leaves',$val->id])}}"><img src="{{asset('product_images/'.$val->image)}}" style="height: 320px;" alt></a>
+
+                                                @if ( env('APP_ENV') == 'local')
+                                                    <a href="{{route('product_details',['Twenty_Leaves',$val->id])}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @else
+                                                    <a href="{{route('product_details',['Twenty_Leaves',$val->id])}}"><img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @endif
                                             </div>
                                             <div class="properties-caption properties-caption2">
                                                 <h3><a href="{{route('product_details',['Twenty_Leaves',$val->id])}}">{{ucwords($product_name)}}</a></h3>
@@ -110,7 +121,12 @@
                                         @php $product_name = str_replace('_',' ', $val->name)   @endphp
                                         <div class="properties-card">
                                             <div class="properties-img">
-                                                <a href="{{route('product_details',['Forty_Leaves',$val->id])}}"><img src="{{asset('product_images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @if ( env('APP_ENV') == 'local')
+                                                    <a href="{{route('product_details',['Forty_Leaves',$val->id])}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @else
+                                                    <a href="{{route('product_details',['Forty_Leaves',$val->id])}}"><img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @endif
+
                                             </div>
                                             <div class="properties-caption properties-caption2">
                                                 <h3><a href="{{route('product_details',['Forty_Leaves',$val->id])}}">{{ucwords($product_name)}}</a></h3>
@@ -136,7 +152,12 @@
                                         @php $product_name = str_replace('_',' ', $val->name)   @endphp
                                         <div class="properties-card">
                                             <div class="properties-img">
-                                                <a href="{{route('product_details',['Eighty_Leaves',$val->id])}}"><img src="{{asset('product_images/'.$val->image)}}" style="height: 320px;" alt></a>
+
+                                                @if ( env('APP_ENV') == 'local')
+                                                    <a href="{{route('product_details',['Eighty_Leaves',$val->id])}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @else
+                                                    <a href="{{route('product_details',['Eighty_Leaves',$val->id])}}"><img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                @endif
                                             </div>
                                             <div class="properties-caption properties-caption2">
                                                 <h3><a href="{{route('product_details',['Eighty_Leaves',$val->id])}}">{{ucwords($product_name)}}</a></h3>
