@@ -39,7 +39,7 @@
 
 
                 @if ( env('APP_ENV') == 'local')
-                    <img src="{{asset('storage/images/'.$product->image)}}" alt>
+                    <img src="{{asset('storage/images/'.$product->image)}}" alt style="width: 100%">
                 @else
                     <img src="{{asset('public/storage/images/'.$product->image)}}" alt>
                 @endif
