@@ -28,7 +28,7 @@
 
 
                 <a class="nav-link <?php if($page == 'forty_leaves') echo 'active active_red'  ?>"
-                href="{{route('products.add_forty_leaves')}}"
+                href="{{route('products.delete_product', [request()->id])}}"
                 aria-selected="false">Delete Product</a>
                <div class="dropdown-divider"></div>
 

@@ -150,6 +150,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::post('/edit/{job_title}/{id}', 'ProductController@update')->name('update');
         Route::get('/edit_pricing/{job_title}/{id}', 'ProductController@edit_pricing')->name('edit_pricing');
         Route::post('/edit_pricing/{job_title}/{id}', 'ProductController@update_pricing')->name('edit_pricing');
+        Route::get('/delete_product/{id}', 'ProductController@delete_product')->name('delete_product');
 
         Route::get('/add_higher_education', 'ProductController@create_higher_education')->name('add_higher_education');
         Route::post('/add_higher_education', 'ProductController@store_higher_education')->name('add_higher_education');
