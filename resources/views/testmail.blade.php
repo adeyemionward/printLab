@@ -145,31 +145,31 @@
 						<tr >
 							<td style="font-size: large; font-weight: 400; color: #4a4a4a;">
 								 <span style="color: #ff7518;">Product Name</span>
-								- 23,09,303030
+								-{{$orderDetails->job_order_name}}
 							</td>
                             <td style="font-size: large; font-weight: 400; color: #4a4a4a;">
                                 <span style="color: #ff7518;">Color</span>
-                               - 23,09,303030
+                               - {{$orderDetails->ink}} Color
                            </td>
 						</tr>
                         <tr >
 							<td style="font-size: large; font-weight: 400; color: #4a4a4a; padding-top:20px">
 								 <span style="color: #ff7518;">Paper Type</span>
-								- 23,09,303030
+								- {{$orderDetails->paper_type}}
 							</td>
                             <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
                                 <span style="color: #ff7518;">Thickness</span>
-                               - 23,09,303030
+                               - {{$orderDetails->thickness}}
                            </td>
 						</tr>
                         <tr>
 							<td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
 								 <span style="color: #ff7518;">Quantity</span>
-								- 23,09,303030
+								- {{$orderDetails->quantity}}
 							</td>
                             <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
                                 <span style="color: #ff7518;">Total Cost</span>
-                               - 23,09,303030
+                               - {{$orderDetails->total_cost}}
                            </td>
 						</tr>
                         <tr>
