@@ -65,21 +65,14 @@ class ProductController extends Controller
         $product->description     = $description;
         $product->created_by      = $user->id;
 
-
-
         if($eticket_img = $request->file('image')){
-            // foreach ($eticket_imgs as $eticket_img) {
-            $filename = substr (md5($eticket_img),0,8);
-            $extension = $eticket_img->extension();
-            $getFileExt = $filename.'.'.$extension;
-            $eticket_img->move(public_path('product_images/'), $getFileExt);
-            $product->image = $getFileExt;
-            // }
+            $name = $eticket_img->hashName(); // Generate a unique, random name...
+            $path = $eticket_img->store('public/images');
+            $product->image = $name;
         }
 
-
-       $product->save();
-       //save into product costs
+        $product->save();
+        //save into product costs
         for ($count=0; $count < count($quantity); $count++) {
             $pro_cost =  ProductCost::updateOrCreate(
                 [
@@ -131,13 +124,9 @@ class ProductController extends Controller
 
 
         if($eticket_img = $request->file('image')){
-            // foreach ($eticket_imgs as $eticket_img) {
-            $filename = substr (md5($eticket_img),0,8);
-            $extension = $eticket_img->extension();
-            $getFileExt = $filename.'.'.$extension;
-            $eticket_img->move(public_path('product_images/'), $getFileExt);
-            $product->image = $getFileExt;
-            // }
+            $name = $eticket_img->hashName(); // Generate a unique, random name...
+            $path = $eticket_img->store('public/images');
+            $product->image = $name;
         }
 
 
@@ -196,13 +185,9 @@ class ProductController extends Controller
 
 
         if($eticket_img = $request->file('image')){
-            // foreach ($eticket_imgs as $eticket_img) {
-            $filename = substr (md5($eticket_img),0,8);
-            $extension = $eticket_img->extension();
-            $getFileExt = $filename.'.'.$extension;
-            $eticket_img->move(public_path('product_images/'), $getFileExt);
-            $product->image = $getFileExt;
-            // }
+            $name = $eticket_img->hashName(); // Generate a unique, random name...
+            $path = $eticket_img->store('public/images');
+            $product->image = $name;
         }
 
 
@@ -260,13 +245,9 @@ class ProductController extends Controller
 
 
         if($eticket_img = $request->file('image')){
-            // foreach ($eticket_imgs as $eticket_img) {
-            $filename = substr (md5($eticket_img),0,8);
-            $extension = $eticket_img->extension();
-            $getFileExt = $filename.'.'.$extension;
-            $eticket_img->move(public_path('product_images/'), $getFileExt);
-            $product->image = $getFileExt;
-            // }
+            $name = $eticket_img->hashName(); // Generate a unique, random name...
+            $path = $eticket_img->store('public/images');
+            $product->image = $name;
         }
 
 
@@ -348,13 +329,9 @@ class ProductController extends Controller
 
         if(!empty($request->file('image'))){
             if($eticket_img = $request->file('image')){
-                // foreach ($eticket_imgs as $eticket_img) {
-                $filename = substr (md5($eticket_img),0,8);
-                $extension = $eticket_img->extension();
-                $getFileExt = $filename.'.'.$extension;
-                $eticket_img->move(public_path('product_images/'), $getFileExt);
-                $product->image = $getFileExt;
-                // }
+                $name = $eticket_img->hashName(); // Generate a unique, random name...
+                $path = $eticket_img->store('public/images');
+                $product->image = $name;
             }
         }
 
@@ -388,13 +365,9 @@ class ProductController extends Controller
 
             if(!empty($request->file('image'))){
                 if($eticket_img = $request->file('image')){
-                    // foreach ($eticket_imgs as $eticket_img) {
-                    $filename = substr (md5($eticket_img),0,8);
-                    $extension = $eticket_img->extension();
-                    $getFileExt = $filename.'.'.$extension;
-                    $eticket_img->move(public_path('product_images/'), $getFileExt);
-                    $product->image = $getFileExt;
-                    // }
+                    $name = $eticket_img->hashName(); // Generate a unique, random name...
+                    $path = $eticket_img->store('public/images');
+                    $product->image = $name;
                 }
             }
             $product->save();
@@ -424,13 +397,9 @@ class ProductController extends Controller
 
             if(!empty($request->file('image'))){
                 if($eticket_img = $request->file('image')){
-                    // foreach ($eticket_imgs as $eticket_img) {
-                    $filename = substr (md5($eticket_img),0,8);
-                    $extension = $eticket_img->extension();
-                    $getFileExt = $filename.'.'.$extension;
-                    $eticket_img->move(public_path('product_images/'), $getFileExt);
-                    $product->image = $getFileExt;
-                    // }
+                    $name = $eticket_img->hashName(); // Generate a unique, random name...
+                    $path = $eticket_img->store('public/images');
+                    $product->image = $name;
                 }
             }
             $product->save();
@@ -459,13 +428,9 @@ class ProductController extends Controller
 
             if(!empty($request->file('image'))){
                 if($eticket_img = $request->file('image')){
-                    // foreach ($eticket_imgs as $eticket_img) {
-                    $filename = substr (md5($eticket_img),0,8);
-                    $extension = $eticket_img->extension();
-                    $getFileExt = $filename.'.'.$extension;
-                    $eticket_img->move(public_path('product_images/'), $getFileExt);
-                    $product->image = $getFileExt;
-                    // }
+                    $name = $eticket_img->hashName(); // Generate a unique, random name...
+                    $path = $eticket_img->store('public/images');
+                    $product->image = $name;
                 }
             }
             $product->save();

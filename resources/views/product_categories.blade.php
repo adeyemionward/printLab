@@ -58,7 +58,7 @@
                                         @php $product_name = str_replace('_',' ', $val->name)   @endphp
                                         <div class="properties-card">
                                             <div class="properties-img">
-                                                <a href="{{route('product_details',['Higher_Education',$val->id])}}"><img src="{{asset('product_images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                                <a href="{{route('product_details',['Higher_Education',$val->id])}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
                                             </div>
                                             <div class="properties-caption properties-caption2">
                                                 <h3><a href="{{route('product_details',['Higher_Education',$val->id])}}">{{ucwords($product_name)}}</a></h3>

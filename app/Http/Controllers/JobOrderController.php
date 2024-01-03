@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Mail\CustomerOrderReceipt;
+use Mail;
 
 class JobOrderController extends Controller
 {
@@ -223,6 +225,8 @@ class JobOrderController extends Controller
         $job_pay->payment_date    = $order_date;
         $job_pay->created_by      = $user->id;
         $job_pay->save();
+
+        $rr =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ());
 
         return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
     }
