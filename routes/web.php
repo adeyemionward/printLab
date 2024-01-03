@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('dashboard')->name('dashboard');
+Route::get('/testmail', function () {
+    return view('testmail');
 
-// });
+});
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@index')->name('index');

@@ -226,7 +226,10 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
-        $rr =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ());
+        $orderDetails = JobOrder::find($job_order->id);
+       // dd($orderDetails);
+
+        $sendOrderEmail =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ($orderDetails,$amount_paid));
 
         return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
     }

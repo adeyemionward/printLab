@@ -92,8 +92,8 @@
 					<table width="100%">
 						<tr>
 							<td align="center">
-								<a href="www.printlabs.com.ng">
-									<img src="{{asset('img/printlab.PNG')}}" alt="printlabs logo" width="180" title="printlabs logo" />
+								<a href="www.guestsnhost.com">
+									<img src="{{asset("images/logo.png")}}" width="180" alt="logo" title="guestsnhost logo" />
 								</a>
 							</td>
 						</tr>
@@ -116,7 +116,14 @@
 					</table>
 				</td>
 			</tr>
-
+            <!-- BANNER IMAGE -->
+            <tr>
+				<td class="center">
+					<table style="" width="100%">
+            			<img  style="width:90%;height:200px " class="w-16" src="{{asset("Assets/guestimg.png")}}" alt="logo" />
+					</table>
+				</td>
+			</tr>
 
 
 
@@ -224,7 +231,7 @@
 						<h6>
 							© Copyright @php echo date('Y') @endphp by
 							<a href="https://printlabs.com.ng/" target="_blank" style="color: #2a2a72;">
-								PrintLabs.
+								GuestnHosts.
 							</a>
 							All Rights Reserved.
 						</h6>
@@ -237,10 +244,10 @@
 						<h6>
 							Ticket is powered by
 							<a href="https://printlabs.com.ng/" target="_blank" style="color: #2a2a72;">
-								PrintLabs.
+								GuestnHosts.
 							</a>
 						</h6>
-						<img style="margin-bottom: 40px;" width="56" src="{{asset('img/printlab.PNG')}}" alt="printlabs logo" />
+						<img style="margin-bottom: 40px;" width="56" src="{{asset('Assets/logo2.png')}}" alt="printlabs logo" />
 					</table>
 				</td>
 			</tr>

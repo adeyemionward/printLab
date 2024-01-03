@@ -18,9 +18,12 @@ class CustomerOrderReceipt extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $orderDetails;
+    public $amount_paid;
+    public function __construct($orderDetails, $amount_paid)
     {
-        //
+        $this->orderDetails = $orderDetails;
+        $this->amount_paid   = $amount_paid;
     }
 
     /**
@@ -40,13 +43,19 @@ class CustomerOrderReceipt extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Content
      */
-    public function content()
-    {
-        return new Content(
-            view: 'testmail',
-        );
-    }
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'testmail',
+    //         orderDetails: $this->orderDetails,
+    //     );
+    // }
 
+    public function build()
+    {
+        return $this->view('testmail')
+                    ->with(['orderDetails' => $this->orderDetails]);
+    }
 
     /**
      * Get the attachments for the message.
