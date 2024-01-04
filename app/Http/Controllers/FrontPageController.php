@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\JobOrderTracking;
 use App\Models\ProductCost;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\CustomerOrderReceipt;
+use Mail;
 class FrontPageController extends Controller
 {
     /**
@@ -81,7 +83,7 @@ class FrontPageController extends Controller
      */
     public function addCart(Request $request, $title =  null, $id =  null)
     {
-        try{
+      //  try{
         $user = Auth::user();
 
 
@@ -92,6 +94,7 @@ class FrontPageController extends Controller
         $quantity                   =  request('quantity');
         $total_cost                 =  request('total_cost');
         $product_name                 =  request('product_name');
+        $amount_paid = 0;
 
         $order_date = date('Y-m-d');
 
@@ -119,7 +122,7 @@ class FrontPageController extends Controller
             $job_tracking->pending_date     = $order_date;
             $job_tracking->save();
 
-            $userDetails    = User::find($customer_id);
+            $userDetails    = User::find($user->id);
             $userEmail      =  $user->email;
             $userName       =  $user->firstname.' '.$user->lastname;
 
@@ -131,9 +134,9 @@ class FrontPageController extends Controller
         }
 
 
-    }catch(\Exception){
-        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-    }
+    // }catch(\Exception){
+    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    // }
 
         return redirect(route('track_orders.index'))->with('flash_success','Product added to cart');
     }
