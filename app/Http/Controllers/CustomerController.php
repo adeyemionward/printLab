@@ -65,16 +65,16 @@ class CustomerController extends Controller
     {
         $validatedData = $request->validate([
             'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'email' => 'email|string|unique:users,email',
-            'phone' => 'required|string',
-            'address' => 'required|string',
-            // 'password' => 'required|string',
+            'lastname'  => 'required|string',
+            'phone'     => 'required|string',
+            'address'   => 'required|string',
+            'company_school_name'   => 'required|string',
         ], [
             'firstname.required' => 'Please enter customer firstname.',
             'lastname.required' => 'Please enter customer lastname.',
             'email.required' => 'Please enter customer email address.',
-            // 'email.email' => 'Please enter a valid email address.',
+            'email.email' => 'Please enter a valid email address.',
+            'company_school_name.required' => 'Please enter company name/school name.',
             'phone.required' => 'Please enter customer phone number.',
             'address.required' => 'Please enter customer address.',
         ]);
@@ -90,6 +90,7 @@ class CustomerController extends Controller
             $user->status       = 'active';
             $user->user_type    = '2';
             $user->password     = bcrypt(request('firstname'));
+            $user->company_name      = request('company_school_name');
             $user->save();
 
 
@@ -140,11 +141,13 @@ class CustomerController extends Controller
             'lastname'  => 'required|string',
             'phone'     => 'required|string',
             'address'   => 'required|string',
+            'company_school_name'   => 'required|string',
         ], [
             'firstname.required' => 'Please enter customer firstname.',
             'lastname.required' => 'Please enter customer lastname.',
-            // 'email.required' => 'Please enter customer email address.',
-            // 'email.email' => 'Please enter a valid email address.',
+            'email.required' => 'Please enter customer email address.',
+            'email.email' => 'Please enter a valid email address.',
+            'company_school_name.required' => 'Please enter company name/school name.',
             'phone.required' => 'Please enter customer phone number.',
             'address.required' => 'Please enter customer address.',
         ]);
@@ -155,6 +158,7 @@ class CustomerController extends Controller
             $customer->email        = request('email');
             $customer->phone        = request('phone');
             $customer->address      = request('address');
+            $customer->company_name      = request('company_school_name');
 
             $customer->update();
             return back()->with("flash_success","Customer saved successfully");

@@ -74,7 +74,17 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-12">
+                                                                        <div class="form-group mt-3 mb-3 col-md-6">
+                                                                            <label for="company_school_name">Company/School Name
+                                                                                </label>
+                                                                                <textarea name="company_school_name"  class="form-control{{ $errors->has('company_school_name') ? ' is-invalid' : '' }}" value="{{ old('company_school_name') }}"
+                                                                                id="company_school_name"></textarea>
+                                                                                @error('company_school_name')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-6">
                                                                             <label for="address">Address
                                                                                 </label>
                                                                                 <textarea name="address"  class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" value="{{ old('address') }}"
@@ -84,6 +94,8 @@
                                                                                 @enderror
                                                                         </div>
                                                                     </div>
+
+
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">
                                                                         <i class="text-white me-2" data-feather="check-circle"></i>Save
