@@ -81,6 +81,7 @@ class FrontPageController extends Controller
      */
     public function addCart(Request $request, $title =  null, $id =  null)
     {
+        try{
         $user = Auth::user();
 
 
@@ -117,12 +118,22 @@ class FrontPageController extends Controller
             $job_tracking->pending_status   = 1;
             $job_tracking->pending_date     = $order_date;
             $job_tracking->save();
+
+            $userDetails    = User::find($customer_id);
+            $userEmail      =  $user->email;
+            $userName       =  $user->firstname.' '.$user->lastname;
+
+            $orderDetails   = JobOrder::find($cart->id);
+            $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+
         } else {
             return redirect(route('login', ['status' => 'order']))->with('flash_success','Product Order Successful');
         }
 
 
-
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
 
         return redirect(route('track_orders.index'))->with('flash_success','Product added to cart');
     }

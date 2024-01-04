@@ -170,6 +170,9 @@ class JobOrderController extends Controller
 
     public function post_higher_education(Request $request)
     {
+        try{
+
+
         $user = Auth::user();
         $order_date = date('Y-m-d');
         $customer_id                =  request('customer_id');
@@ -230,10 +233,10 @@ class JobOrderController extends Controller
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
         $orderDetails   = JobOrder::find($job_order->id);
-       // dd($orderDetails);
-
-        $sendOrderEmail =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
-
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
         return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
     }
 
@@ -248,6 +251,8 @@ class JobOrderController extends Controller
 
     public function post_twenty_leaves(Request $request)
     {
+        try{
+
         $user = Auth::user();
         $order_date = date('Y-m-d');
         $customer_id                =  request('customer_id');
@@ -302,8 +307,17 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
-        return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
+        $userDetails    = User::find($customer_id);
+        $userEmail  =  $userDetails->email;
+        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
+        $orderDetails   = JobOrder::find($job_order->id);
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+
+        return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
     }
 
     public function edit_twenty_leaves($job_title, $id){
@@ -321,6 +335,7 @@ class JobOrderController extends Controller
 
     public function post_forty_leaves(Request $request)
     {
+        try{
         $user = Auth::user();
         $order_date = date('Y-m-d');
         $customer_id                =  request('customer_id');
@@ -378,6 +393,15 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
+        $userDetails    = User::find($customer_id);
+        $userEmail  =  $userDetails->email;
+        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+
+        $orderDetails   = JobOrder::find($job_order->id);
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
         return redirect(route('job_order.view_order',['Forty_Leaves',$job_order->id]))->with('flash_success','Forty Leaves Book order saved successfully');
     }
 
@@ -390,6 +414,7 @@ class JobOrderController extends Controller
 
     public function post_eighty_leaves(Request $request)
     {
+        try{
         $user = Auth::user();
         $order_date = date('Y-m-d');
 
@@ -446,7 +471,16 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
+        $userDetails    = User::find($customer_id);
+        $userEmail  =  $userDetails->email;
+        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
+        $orderDetails   = JobOrder::find($job_order->id);
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
         return redirect(route('job_order.view_order',['Eighty_Leaves',$job_order->id]))->with('flash_success','Eighty Leaves Book order saved successfully');
 
     }
