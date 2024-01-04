@@ -303,7 +303,7 @@
                 },
                 success: function(response) {
 
-                    $('#price-container').html(response.price);
+                    $('#price-container').html('₦'+response.price);
                     $('#total_cost').val(response.price);
                     //alert(response.price);
                 },
