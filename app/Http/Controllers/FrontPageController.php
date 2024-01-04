@@ -50,10 +50,10 @@ class FrontPageController extends Controller
 
     public function product_categories()
     {
-        $product_higher_education = Product::where('name','higher_notebook')->get();
-        $forty_leaves = Product::where('name','forty_leaves')->get();
-        $twenty_leaves = Product::where('name','twenty_leaves')->get();
-        $eighty_leaves = Product::where('name','eighty_leaves')->get();
+        $product_higher_education = Product::where('name','higher_notebook')->first();
+        $forty_leaves = Product::where('name','forty_leaves')->first();
+        $twenty_leaves = Product::where('name','twenty_leaves')->first();
+        $eighty_leaves = Product::where('name','eighty_leaves')->first();
         return view('product_categories', compact('product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
     }
 
