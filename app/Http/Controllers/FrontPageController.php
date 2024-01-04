@@ -143,7 +143,7 @@ class FrontPageController extends Controller
 
     public function track_orders(){
         $user = Auth::user();
-        $carts = JobOrder::where('user_id', $user->id)->where('order_type','internal')->get();
+        $carts = JobOrder::where('user_id', $user->id)->where('order_type','external')->get();
         return view('track_orders.index', compact('carts'));
     }
 
