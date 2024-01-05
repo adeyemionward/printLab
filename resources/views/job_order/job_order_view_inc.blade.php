@@ -60,7 +60,7 @@
                     @if (is_null($approved_design))
                         <div class="modal-body">
                             <div class="form-group col-md-12">
-                                <label for="backsided">Upload Approved Design</label>
+                                <label for="backsided">Upload Approved Design <span style="color: rgb(27, 27, 153)">(* PDF Only)</span></label>
                                 <input required type="file" name="design_file" class="form-control"
                                 id="design_file" accept="application/pdf">
                             </div>
@@ -74,9 +74,9 @@
                                 <input required type="file" name="design_file" class="form-control"
                                 id="design_file" accept="application/pdf"> <br>
                                 @if ( env('APP_ENV') == 'local')
-                                   <i   class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i> <a  href="{{asset('storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline"> Download an Existing PDF Design </a>
+                                   <i   class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i> <a  href="{{asset('storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download an Existing PDF Design </a>
                                 @else
-                                    <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="{{asset('public/storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline"> Download an Existing PDF Design</a>
+                                    <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="{{asset('public/storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download an Existing PDF Design</a>
                                 @endif
                             </div>
                         </div>

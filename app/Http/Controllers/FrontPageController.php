@@ -8,6 +8,7 @@ use App\Models\JobOrder;
 use App\Models\User;
 use App\Models\JobOrderTracking;
 use App\Models\ProductCost;
+use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
@@ -142,6 +143,7 @@ class FrontPageController extends Controller
     }
 
     public function track_orders(){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $user = Auth::user();
         $carts = JobOrder::where('user_id', $user->id)->get();
         return view('track_orders.index', compact('carts'));
@@ -156,9 +158,10 @@ class FrontPageController extends Controller
     public function vieworder($id)
     {
         $user = Auth::user();
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order_track =  JobOrderTracking::where('job_order_id', $id)->first();
         $order =  JobOrder::where('user_id',$user->id)->where('id', $id)->first();
-        return view('track_orders.view', compact('job_order_track','order'));
+        return view('track_orders.view', compact('job_order_track','order','approved_design'));
     }
 
     /**

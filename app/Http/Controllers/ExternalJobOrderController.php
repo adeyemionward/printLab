@@ -14,6 +14,7 @@ use App\Models\BusinessCard;
 use App\Models\Notepad;
 use App\Models\Booklet;
 use App\Models\Sticker;
+use App\Models\OrderApprovedDesign;
 use App\Models\JobOrderTracking;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
@@ -41,10 +42,32 @@ class ExternalJobOrderController extends Controller
     }
 
     public function view_order($id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)->first();
-        return view('external_job_order.view_order', compact('job_order','job_order_pay'));
+        return view('external_job_order.view_order', compact('job_order','job_order_pay','approved_design'));
+    }
+
+    public function uploadApprovedDesign(Request $request, $id){
+        $user = Auth::user();
+        if($approved_design_pdf = $request->file('design_file')){
+            $name = $approved_design_pdf->hashName(); // Generate a unique, random name...
+            $path = $approved_design_pdf->store('public/pdf');
+            $approved_design =  OrderApprovedDesign::updateOrCreate(
+                [
+                    'job_order_id'  => $id,
+                ],
+                [
+                    'job_order_id'  => $id,
+                    'design_name'   => $name,
+                    'created_by'    => $user->id
+                ],
+            );
+        }
+
+
+        return back()->with("flash_success","Design Uploaded successfully");
     }
 
     public function changeJobStatus(Request $request,  $id){
@@ -143,18 +166,20 @@ class ExternalJobOrderController extends Controller
 
 
     public function track_job_order($id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)
             ->first();
         $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
-        return view('external_job_order.track_order', compact('job_order','job_order_track','job_order_pay'));
+        return view('external_job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
     }
 
     public function transaction_history($id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
-        return view('external_job_order.transaction_history', compact('job_order','job_pay_history'));
+        return view('external_job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
     }
 
 

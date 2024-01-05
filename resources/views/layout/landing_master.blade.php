@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="{{asset('assets/css/animate.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/price_rangs.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/magnific-popup.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/fontawesome-all.min.css')}}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('assets/css/themify-icons.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/slick.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/nice-select.css')}}">

@@ -59,38 +59,55 @@
             <div class="order_box">
             <h2>Your Product Order</h2>
             <ul class="list">
-            <li>
-            @php $product_name = str_replace('_',' ', $order->productName->name)   @endphp
-            <a href="#">Product<span>{{ucwords($product_name)}}</span>
-            </a>
-            </li>
-            <li>
-            <a href="#">Color
-            <span class="last">{{$order->ink}} Color</span>
-            </a>
-            </li>
-            <li>
-            <a href="#">Paper Type
-            <span class="last">{{$order->paper_type}}</span>
-            </a>
-            </li>
-            <li>
-            <a href="#">Thickness
-            <span class="last">{{$order->thickness}}</span>
-            </a>
-            </li>
+                <li>
+                    @php $product_name = str_replace('_',' ', $order->productName->name)   @endphp
+                    <a href="#">Product<span>{{ucwords($product_name)}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Color
+                        <span class="last">{{$order->ink}} Color</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Paper Type
+                        <span class="last">{{$order->paper_type}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Thickness
+                        <span class="last">{{$order->thickness}}</span>
+                    </a>
+                </li>
             </ul>
-            <ul class="list list_2">
-            <li>
-            <a href="#">Quantity <span>{{$order->quantity}}</span></a>
-            </li>
-            <li>
-            <a href="#">Total Cost
-            <span>&#8358;{{$order->total_cost}}</span>
-            </a>
-            </li>
 
+            <ul class="list list_2">
+                <li>
+                    <a href="#">Quantity <span>{{$order->quantity}}</span></a>
+                </li>
+                <li>
+                    <a href="#">Total Cost
+                        <span>&#8358;{{$order->total_cost}}</span>
+                    </a>
+                </li>
             </ul>
+
+            @if (!is_null($approved_design))
+                <ul class="list list_2">
+                    <li>
+                        <a href="#">Quantity <span>{{$order->quantity}}</span></a>
+                        <div class="form-group col-md-12">
+
+                            @if ( env('APP_ENV') == 'local')
+                            <a  href="{{asset('storage/pdf/'.@$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i   class="fas fa-file-pdf"   style="color: red; font-size:30px"> </i> Download an Approved PDF Design </a>
+                            @else
+                                <a href="{{asset('public/storage/pdf/'.@$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i  class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i>   Download an Approved PDF Design</a>
+                            @endif
+                        </div>
+                    </li>
+                </ul>
+            @endif
+
 
             </div>
             </div>

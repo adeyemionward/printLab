@@ -133,6 +133,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/all_orders', 'ExternalJobOrderController@index')->name('all_orders');
         Route::get('/view_order/{id}', 'ExternalJobOrderController@view_order')->name('view_order');
         Route::post('/view_order/{id}', 'ExternalJobOrderController@changeJobStatus')->name('view_order');
+        Route::post('/approved_design/{id}', 'ExternalJobOrderController@uploadApprovedDesign')->name('approved_design');
         Route::get('/edit_order/{id}', 'ExternalJobOrderController@edit_order')->name('edit_order');
         Route::post('/edit_order/{id}', 'ExternalJobOrderController@update_order')->name('edit_order');
         Route::get('/delete_order/{id}', 'ExternalJobOrderController@delete_job_order')->name('delete_order');

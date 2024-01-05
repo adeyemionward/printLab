@@ -43,6 +43,58 @@
     </div>
 </form>
 
+{{-- upload aproved design --}}
+<form method="POST"  action="{{route('external_job_order.approved_design',[request()->id])}}" class="approved_design" enctype="multipart/form-data">
+    @csrf
+    @method('POST')
+    <div class="modal fade" id="exampleModal_design" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Approved Design</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                @if (is_null($approved_design))
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="backsided">Upload Approved Design <span style="color: rgb(27, 27, 153)">(* PDF Only)</span></label>
+                            <input required type="file" name="design_file" class="form-control"
+                            id="design_file" accept="application/pdf">
+                        </div>
+                    </div>
+                @else
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <label for="backsided" style="font-weight: 500">Upload New or Download an Existing Approved Design</label> <br><br>
+
+                            <label for="">Upload New Design <span style="color: rgb(27, 27, 153)">(* PDF Only)</span></label>
+                            <input required type="file" name="design_file" class="form-control"
+                            id="design_file" accept="application/pdf"> <br>
+                            @if ( env('APP_ENV') == 'local')
+                               <i   class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i> <a  href="{{asset('storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline"> Download an Existing PDF Design </a>
+                            @else
+                                <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="{{asset('public/storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline"> Download an Existing PDF Design</a>
+                            @endif
+                        </div>
+                    </div>
+                @endif
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-danger" type="submit">
+                        <i class="text-white me-2" data-feather="check-circle"></i>Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{{-- end approved design --}}
+
 {{-- add pay --}}
 <form method="POST"  action="{{route('external_job_order.transaction_history',request()->id)}}" class="order_status">
     @csrf
@@ -105,6 +157,13 @@
                 aria-selected="false">Change Order Status</a>
 
                <div class="dropdown-divider"></div>
+
+
+               <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal_design" class="nav-link <?php if($page == 'status_order') echo 'active active_red'  ?>"
+
+                aria-selected="false">Approved Design</a>
+
+                <div class="dropdown-divider"></div>
 
                <a style="cursor: pointer" id="myBtn2" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="nav-link <?php if($page == 'add_pay') echo 'active active_red'  ?>"
 
