@@ -21,11 +21,13 @@ class CustomerOrderReceipt extends Mailable
     public $orderDetails;
     public $amount_paid;
     public $userName;
-    public function __construct($orderDetails, $amount_paid, $userName)
+    public $pdf_attachment;
+    public function __construct($orderDetails, $amount_paid, $userName, $pdf_attachment)
     {
         $this->orderDetails  = $orderDetails;
         $this->amount_paid   = $amount_paid;
         $this->userName      = $userName;
+        $this->pdf_attachment      = $pdf_attachment;
     }
 
     /**
@@ -60,7 +62,7 @@ class CustomerOrderReceipt extends Mailable
                         'orderDetails' => $this->orderDetails,
                         'amount_paid' => $this->amount_paid,
                         'userName' => $this->userName,
-                    ]);
+                    ])->attachData($this->pdf_attachment->output(), 'invoice.pdf');
     }
 
     /**

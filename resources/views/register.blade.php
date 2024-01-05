@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-<title>Avni - Bootstrap 5 Admin Template</title>
+<title>Register | PrintLabs</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" type="image/x-icon" href="assets/img/leaf.svg">

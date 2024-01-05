@@ -24,7 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class JobOrderController extends Controller
 {
     /**
@@ -259,11 +259,19 @@ class JobOrderController extends Controller
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
         $orderDetails   = JobOrder::find($job_order->id);
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+
+        $pdf_attachment = Pdf::loadView('invoice_attachment');
+
+
+
+        // $pdf = Pdf::loadView('invoice_attachment');
+        // return $pdf->download('invoice.pdf');
+
+        $sendOrderEmail =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
     }catch(\Exception){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
-        return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
+       return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
     }
 
 
