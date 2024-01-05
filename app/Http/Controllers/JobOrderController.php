@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
+use App\Models\ErrorLog;
 use Barryvdh\DomPDF\Facade\Pdf;
 class JobOrderController extends Controller
 {
@@ -196,7 +197,7 @@ class JobOrderController extends Controller
 
     public function post_higher_education(Request $request)
     {
-        try{
+       try{
 
 
         $user = Auth::user();
@@ -260,15 +261,20 @@ class JobOrderController extends Controller
 
         $orderDetails   = JobOrder::find($job_order->id);
 
-        $pdf_attachment = Pdf::loadView('invoice_attachment');
+        $data = [
+            'payment_type' =>$payment_type,
+            'amount_paid' => $amount_paid,
+            'userDetails' =>$userDetails,
+            'orderDetails' => $orderDetails, // Collection of orders, for example
+        ];
+        $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
 
-
-
-        // $pdf = Pdf::loadView('invoice_attachment');
+        // $pdf = Pdf::loadView('invoice_attachment',$data);
         // return $pdf->download('invoice.pdf');
 
-        $sendOrderEmail =   Mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
     }catch(\Exception){
+        ErrorLog::log('job_order', '_METHOD_', $th->getMessage()); //log error
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
        return redirect(route('job_order.view_order',['Higher_NoteBook',$job_order->id]))->with('flash_success','Higher Note Book order saved successfully');
@@ -287,71 +293,81 @@ class JobOrderController extends Controller
     {
         try{
 
-        $user = Auth::user();
-        $order_date = date('Y-m-d');
-        $customer_id                =  request('customer_id');
-        $quantity                   =  request('quantity');
-        $ink                        =  request('ink');
-        $paper_type                 =  request('paper_type');
-        $production_time            =  request('production_time');
-        $thickness                  =  request('thickness');
-        $proof_needed               =  request('proof_needed');
-        $total_cost                 =  request('total_cost');
-        $amount_paid                =  request('amount_paid');
-        $payment_type               =  request('payment_type');
-        $location                   =  request('location');
+            $user = Auth::user();
+            $order_date = date('Y-m-d');
+            $customer_id                =  request('customer_id');
+            $quantity                   =  request('quantity');
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $proof_needed               =  request('proof_needed');
+            $total_cost                 =  request('total_cost');
+            $amount_paid                =  request('amount_paid');
+            $payment_type               =  request('payment_type');
+            $location                   =  request('location');
 
 
-        //save to job
-        $job_order = new JobOrder();
-        $job_order->user_id         = $customer_id;
-        $job_order->job_order_name  = 'Twenty Leaves';
-        $job_order->quantity        = $quantity;
-        $job_order->ink             = $ink;
-        $job_order->paper_type      = $paper_type;
-        $job_order->production_days = $production_time;
-        $job_order->thickness      = $thickness;
-        $job_order->proof_needed    = $proof_needed;
-        $job_order->order_date     = $order_date;
-        $job_order->total_cost      = $total_cost;
-        $job_order->order_type      = 'internal';
-        $job_order->job_location_id        = $location;
-        $job_order->created_by      = $user->id;
-        $job_order->save();
+            //save to job
+            $job_order = new JobOrder();
+            $job_order->user_id         = $customer_id;
+            $job_order->job_order_name  = 'Twenty Leaves';
+            $job_order->quantity        = $quantity;
+            $job_order->ink             = $ink;
+            $job_order->paper_type      = $paper_type;
+            $job_order->production_days = $production_time;
+            $job_order->thickness      = $thickness;
+            $job_order->proof_needed    = $proof_needed;
+            $job_order->order_date     = $order_date;
+            $job_order->total_cost      = $total_cost;
+            $job_order->order_type      = 'internal';
+            $job_order->job_location_id        = $location;
+            $job_order->created_by      = $user->id;
+            $job_order->save();
 
-        //save to twenty leaves
-        $twenty_leaves = new TwentyLeavesBook();
-        $twenty_leaves->job_order     = $job_order->id;
-        $twenty_leaves->save();
+            //save to twenty leaves
+            $twenty_leaves = new TwentyLeavesBook();
+            $twenty_leaves->job_order     = $job_order->id;
+            $twenty_leaves->save();
 
-        //save to job tracking
-        $job_tracking = new JobOrderTracking();
-        $job_tracking->job_order_id     = $job_order->id;
-        $job_tracking->pending_status   = 1;
-        $job_tracking->pending_date     = $order_date;
-        $job_tracking->save();
+            //save to job tracking
+            $job_tracking = new JobOrderTracking();
+            $job_tracking->job_order_id     = $job_order->id;
+            $job_tracking->pending_status   = 1;
+            $job_tracking->pending_date     = $order_date;
+            $job_tracking->save();
 
-        //save to payment history
-        $job_pay = new JobPaymentHistory();
-        $job_pay->job_order_id    = $job_order->id;
-        $job_pay->user_id         = $customer_id;
-        $job_pay->amount          = $amount_paid;
-        $job_pay->payment_type    = $payment_type;
-        $job_pay->payment_date    = $order_date;
-        $job_pay->created_by      = $user->id;
-        $job_pay->save();
+            //save to payment history
+            $job_pay = new JobPaymentHistory();
+            $job_pay->job_order_id    = $job_order->id;
+            $job_pay->user_id         = $customer_id;
+            $job_pay->amount          = $amount_paid;
+            $job_pay->payment_type    = $payment_type;
+            $job_pay->payment_date    = $order_date;
+            $job_pay->created_by      = $user->id;
+            $job_pay->save();
 
-        $userDetails    = User::find($customer_id);
-        $userEmail  =  $userDetails->email;
-        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+            $userDetails    = User::find($customer_id);
+            $userEmail  =  $userDetails->email;
+            $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
-        $orderDetails   = JobOrder::find($job_order->id);
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+            $orderDetails   = JobOrder::find($job_order->id);
 
-        return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
-    }catch(\Exception){
-        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-    }
+            $data = [
+                'payment_type' =>$payment_type,
+                'amount_paid' => $amount_paid,
+                'userDetails' =>$userDetails,
+                'orderDetails' => $orderDetails, // Collection of orders, for example
+            ];
+            $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
+            $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+
+
+            return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
+        }catch(\Exception){
+            ErrorLog::log('job_order', '_METHOD_', $th->getMessage()); //log error
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
     }
 
     public function edit_twenty_leaves($job_title, $id){
@@ -432,7 +448,16 @@ class JobOrderController extends Controller
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
         $orderDetails   = JobOrder::find($job_order->id);
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+
+        $data = [
+            'payment_type' =>$payment_type,
+            'amount_paid' => $amount_paid,
+            'userDetails' =>$userDetails,
+            'orderDetails' => $orderDetails, // Collection of orders, for example
+        ];
+        $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+
     }catch(\Exception){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
@@ -510,7 +535,16 @@ class JobOrderController extends Controller
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
         $orderDetails   = JobOrder::find($job_order->id);
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
+
+        $data = [
+            'payment_type' =>$payment_type,
+            'amount_paid' => $amount_paid,
+            'userDetails' =>$userDetails,
+            'orderDetails' => $orderDetails, // Collection of orders, for example
+        ];
+        $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+
 
     }catch(\Exception){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');

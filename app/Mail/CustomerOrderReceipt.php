@@ -62,7 +62,7 @@ class CustomerOrderReceipt extends Mailable
                         'orderDetails' => $this->orderDetails,
                         'amount_paid' => $this->amount_paid,
                         'userName' => $this->userName,
-                    ])->attachData($this->pdf_attachment->output(), 'invoice.pdf');
+                    ])->attachData($this->pdf_attachment->output(), 'printLabs-invoice.pdf');
     }
 
     /**
