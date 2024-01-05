@@ -36,7 +36,7 @@
                                 <td height="69">
                                     <table width="500"  cellpadding="0" cellspacing="0">
                                     <tr>
-                                        <td width="50" height="29"  style="font-weight:bolder; font-size:25px">INVOICE</td>
+                                        <td width="50" height="29"  style="font-weight:bolder; font-size:25px"><img src="https://printlabs.com.ng/img/printlab.PNG" alt="printlabs logo" width="180" title="printlabs logo" /> <br><br>INVOICE</td>
                                         {{-- <td width="50" height="29"  style="font-weight:bolder; font-size:25px">INVOICE</td> --}}
                                         <td width="50" align="right" height="29" style="font-size:25px; padding-right:50px"> <span style="font-weight:bolder; ">PrintLabs Services </span></span><br> <span style="font-size: 16px">2, Anifowoshe Avenue <br> Ikeja, Lagos</span></span></td>
                                     </tr>

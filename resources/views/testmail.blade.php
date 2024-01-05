@@ -93,7 +93,7 @@
 						<tr>
 							<td align="center">
 								<a href="www.printlabs.com.ng">
-									<img src="{{asset('img/printlab.PNG')}}" alt="printlabs logo" width="180" title="printlabs logo" />
+									<img src="https://printlabs.com.ng/img/printlab.PNG" alt="printlabs logo" width="180" title="printlabs logo" />
 								</a>
 							</td>
 						</tr>
@@ -235,7 +235,7 @@
 				<td class="center">
 					<table width="100%">
 
-						<img style="margin-bottom: 40px;" width="65" src="{{asset('img/printlab.PNG')}}" alt="printlabs logo" />
+						<img style="margin-bottom: 40px;" width="65" src="https://printlabs.com.ng/img/printlab.PNG" alt="printlabs logo" />
 					</table>
 				</td>
 			</tr>
