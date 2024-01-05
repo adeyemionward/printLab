@@ -65,6 +65,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/all_orders', 'JobOrderController@index')->name('all_orders');
         Route::get('/view_order/{job_title}/{id}', 'JobOrderController@view_order')->name('view_order');
         Route::post('/view_order/{job_title}/{id}', 'JobOrderController@changeJobStatus')->name('view_order');
+        Route::post('/approved_design/{job_title}/{id}', 'JobOrderController@uploadApprovedDesign')->name('approved_design');
         Route::get('/delete_order/{id}', 'JobOrderController@delete_job_order')->name('delete_order');
         Route::get('/track_order/{job_title}/{id}', 'JobOrderController@track_job_order')->name('track_order');
         Route::get('/transaction_history/{job_title}/{id}', 'JobOrderController@transaction_history')->name('transaction_history');

@@ -16,6 +16,7 @@ use App\Models\Booklet;
 use App\Models\Sticker;
 use App\Models\JobOrderTracking;
 use App\Models\JobLocation;
+use App\Models\OrderApprovedDesign;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -109,6 +110,28 @@ class JobOrderController extends Controller
         return back()->with("flash_success","Order status changed successfully");
     }
 
+
+    public function uploadApprovedDesign(Request $request, $job_title, $id){
+        $user = Auth::user();
+        if($approved_design_pdf = $request->file('design_file')){
+            $name = $approved_design_pdf->hashName(); // Generate a unique, random name...
+            $path = $approved_design_pdf->store('public/pdf');
+            $approved_design =  OrderApprovedDesign::updateOrCreate(
+                [
+                    'job_order_id'  => $id,
+                ],
+                [
+                    'job_order_id'  => $id,
+                    'design_name'   => $name,
+                    'created_by'    => $user->id
+                ],
+            );
+        }
+
+
+        return back()->with("flash_success","Design Uploaded successfully");
+    }
+
     public function updateJobPayment(Request $request, $job_title, $id){
         $user = Auth::user();
         $order_date = date('Y-m-d');
@@ -137,26 +160,29 @@ class JobOrderController extends Controller
     }
 
     public function view_order($job_title, $id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)
             ->first();
-        return view('job_order/view_order', compact('job_order','job_order_pay'));
+        return view('job_order/view_order', compact('job_order','job_order_pay','approved_design'));
     }
 
     public function track_job_order($job_title,$id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)
             ->first();
         $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
-        return view('job_order.track_order', compact('job_order','job_order_track','job_order_pay'));
+        return view('job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
     }
 
     public function transaction_history($job_title,$id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
-        return view('job_order.transaction_history', compact('job_order','job_pay_history'));
+        return view('job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
     }
 
 
@@ -1072,10 +1098,11 @@ class JobOrderController extends Controller
 
 
     public function edit_order($job_title, $id){
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $customers =  User::where('user_type',2)->get();
         $locations =  JobLocation::select('id','city')->get();
-        return view('job_order/edit_order', compact('job_order','customers','locations'));
+        return view('job_order/edit_order', compact('job_order','customers','locations','approved_design'));
     }
 
     public function update_order(Request $request, $job_title, $id){
