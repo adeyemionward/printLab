@@ -80,8 +80,8 @@
                 <td align="left" width="20" style="padding-left: 20px">{{$orderDetails->job_order_name}}</td>
                 <td align="right" width="25">{{$orderDetails->quantity}}</td>
                 <td align="right" width="25"> {{$payment_type}}</td>
-                <td align="right" width="15"> ₦{{$amount_paid}}</td>
-                <td align="right" width="15" style="padding-right: 20px">₦{{$orderDetails->total_cost}}</td>
+                <td align="right" width="15"> #{{$amount_paid}}</td>
+                <td align="right" width="15" style="padding-right: 20px">#{{$orderDetails->total_cost}}</td>
             </tr>
         </table>
     </td>
@@ -94,7 +94,7 @@
 
           <tr>
             <td width="70" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : First Bank <br> Acc/No: 01111111111 <br>Account Name: PRINTLABS</td>
-            <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> ₦{{$orderDetails->total_cost}} <br> <span style="font-weight:bold; ">Total Balance:</span> ₦{{$orderDetails->total_cost - $amount_paid}}</span></td>
+            <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> #{{$orderDetails->total_cost}} <br> <span style="font-weight:bold; ">Total Balance:</span> #{{$orderDetails->total_cost - $amount_paid}}</span></td>
           </tr>
         </table></td>
       </tr>
