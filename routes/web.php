@@ -18,6 +18,11 @@ Route::get('/testmail', function () {
 
 });
 
+Route::get('/invoice', function () {
+    return view('invoice_attachment');
+
+});
+
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@index')->name('index');
         Route::get('product_details/{title?}/{id?}', 'FrontPageController@product_details')->name('product_details');
