@@ -23,6 +23,7 @@ Route::get('/invoice', function () {
 
 });
 
+
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@index')->name('index');
         Route::get('product_details/{title?}/{id?}', 'FrontPageController@product_details')->name('product_details');
@@ -75,6 +76,9 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/track_order/{job_title}/{id}', 'JobOrderController@track_job_order')->name('track_order');
         Route::get('/transaction_history/{job_title}/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
         Route::post('/transaction_history/{job_title}/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
+
+        Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
+        Route::get('/order_invoice_pdf/{id}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
 
 
         Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');

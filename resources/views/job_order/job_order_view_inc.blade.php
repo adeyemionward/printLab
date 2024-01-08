@@ -164,6 +164,12 @@
 
                <div class="dropdown-divider"></div>
 
+
+               <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
+                href="{{route('job_order.order_invoice',[request()->job_title,request()->id])}}"
+                aria-selected="false">Order Invoice</a>
+               <div class="dropdown-divider"></div>
+
                <a style="cursor: pointer" id="myBtn2" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="nav-link <?php if($page == 'add_pay') echo 'active active_red'  ?>"
 
                 aria-selected="false">Update Order Payment</a>

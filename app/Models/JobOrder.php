@@ -32,4 +32,8 @@ class JobOrder extends Model
     public function jobPaymentHistories(){
         return $this->hasMany(JobPaymentHistory::class);
     }
+
+    public function jobPaymentHistory(){
+        return $this->belongsTo(JobPaymentHistory::class,'id','job_order_id');
+    }
 }

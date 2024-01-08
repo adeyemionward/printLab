@@ -128,9 +128,30 @@ class JobOrderController extends Controller
                 ],
             );
         }
-
-
         return back()->with("flash_success","Design Uploaded successfully");
+    }
+
+    public function orderInvoice($id){
+        $orderDetails   = JobOrder::find(request()->id);
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        $job_order =  JobOrder::find($id);
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+            ->where('job_order_id',$id)
+            ->first();
+        return view('job_order.order_invoice',compact('orderDetails','approved_design','job_order_pay','job_order'));
+    }
+
+    public function orderInvoicePdf($id){
+
+        $orderDetails   = JobOrder::find(request()->id);
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        $job_order =  JobOrder::find($id);
+        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+            ->where('job_order_id',$id)
+            ->first();
+
+        $pdf = PDF::loadView('job_order.order_invoice_pdf',compact('orderDetails','approved_design','job_order_pay','job_order'));
+            return $pdf->stream('hdh.pdf');
     }
 
     public function updateJobPayment(Request $request, $job_title, $id){

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class JobPaymentHistory extends Model
 {
     use HasFactory;
+
+    
 }
