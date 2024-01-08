@@ -124,7 +124,7 @@
                                                                     @if ( env('APP_ENV') == 'local')
                                                                         <i   class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i> <a  href="{{route('job_order.order_invoice_pdf',request()->id)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download Order Invoice </a>
                                                                     @else
-                                                                        <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download Order Invoice</a>
+                                                                        <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="{{route('job_order.order_invoice_pdf',request()->id)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download Order Invoice</a>
                                                                     @endif
                                                                 </td>
                                                               </tr>
