@@ -38,7 +38,13 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 });
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-    Route::get('cart', 'CartController@index')->name('cart');
+    Route::group(['prefix' => '/cart', 'as' => 'cart.'], function () {
+        Route::get('/', 'FrontPageController@cart')->name('index');
+        Route::get('edit/{title?}/{id}/{job_id}', 'FrontPageController@edit_cart')->name('edit');
+        Route::post('edit/{title}/{id}/{job_id}', 'FrontPageController@update_cart')->name('edit');
+        Route::post('/', 'FrontPageController@checkout')->name('checkout');
+    });
+
 });
 
 Route::group(['namespace' => 'App\Http\Controllers'],  function () {

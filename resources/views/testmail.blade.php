@@ -138,50 +138,15 @@
 				<td>
 					<table style="padding-left: 30px;" width="100%">
 						<tr>
-							<td style="font-size: x-large; font-weight: 600; padding-top: 20px;">Summary of Your Order Details</td>
+							<td style="font-size: x-large; font-weight: 600; padding-top: 20px;">Your Invoice is Ready</td>
+						</tr>
+                        <tr>
+
+                            <td style="; font-weight: 600; padding-top: 20px;">The summary of your order is in the attached Pdf</td>
 						</tr>
 					</table> <br> <br>
 					<table style="padding-left: 30px; padding-bottom: 20px;" width="100%">
-						<tr >
-							<td style="font-size: large; font-weight: 400; color: #4a4a4a;">
-								 <span style="color: #ff7518;">Product Name</span>
-								-{{$orderDetails->job_order_name}}
-							</td>
-                            <td style="font-size: large; font-weight: 400; color: #4a4a4a;">
-                                <span style="color: #ff7518;">Color</span>
-                               - {{$orderDetails->ink}} Color
-                           </td>
-						</tr>
-                        <tr >
-							<td style="font-size: large; font-weight: 400; color: #4a4a4a; padding-top:20px">
-								 <span style="color: #ff7518;">Paper Type</span>
-								- {{$orderDetails->paper_type}}
-							</td>
-                            <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
-                                <span style="color: #ff7518;">Thickness</span>
-                               - {{$orderDetails->thickness}}
-                           </td>
-						</tr>
-                        <tr>
-							<td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
-								 <span style="color: #ff7518;">Quantity</span>
-								- {{$orderDetails->quantity}}
-							</td>
-                            <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
-                                <span style="color: #ff7518;">Total Cost</span>
-                               - &#8358;{{$orderDetails->total_cost}}
-                           </td>
-						</tr>
-                        <tr>
-							<td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
-								 <span style="color: #ff7518;">Amount Paid</span>
-								- &#8358;{{$amount_paid}}
-							</td>
-                            <td style="font-size: large; font-weight: 400; color: #4a4a4a;  padding-top:20px">
-                                <span style="color: #ff7518;">Remaining Balance</span>
-                               - &#8358;{{$orderDetails->total_cost - $amount_paid}}
-                           </td>
-						</tr>
+
 
 					</table>
 

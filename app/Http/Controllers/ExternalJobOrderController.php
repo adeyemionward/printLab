@@ -37,7 +37,7 @@ class ExternalJobOrderController extends Controller
 
     public function index()
     {
-        $job_orders =  JobOrder::where('order_type','external')->get();
+        $job_orders =  JobOrder::where('order_type','external')->where('cart_order_status',2)->get();
         return view('external_job_order.all_orders', compact('job_orders'));
     }
 

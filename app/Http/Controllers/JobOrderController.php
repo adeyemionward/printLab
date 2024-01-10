@@ -294,7 +294,7 @@ class JobOrderController extends Controller
         // $pdf = Pdf::loadView('invoice_attachment',$data);
         // return $pdf->download('invoice.pdf');
 
-    }catch(\Exception){
+    }catch(\Exception $th){
         ErrorLog::log('job_order', '_METHOD_', $th->getMessage()); //log error
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
@@ -385,7 +385,7 @@ class JobOrderController extends Controller
 
 
             return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
-        }catch(\Exception){
+        }catch(\Exception $th){
             ErrorLog::log('job_order', '_METHOD_', $th->getMessage()); //log error
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
@@ -479,7 +479,7 @@ class JobOrderController extends Controller
         $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
         $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
 
-    }catch(\Exception){
+    }catch(\Exception $th){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
         return redirect(route('job_order.view_order',['Forty_Leaves',$job_order->id]))->with('flash_success','Forty Leaves Book order saved successfully');
@@ -567,7 +567,7 @@ class JobOrderController extends Controller
         $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
 
 
-    }catch(\Exception){
+    }catch(\Exception $th){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
         return redirect(route('job_order.view_order',['Eighty_Leaves',$job_order->id]))->with('flash_success','Eighty Leaves Book order saved successfully');

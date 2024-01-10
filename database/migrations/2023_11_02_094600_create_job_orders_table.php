@@ -43,7 +43,7 @@ return new class extends Migration
             $table->enum('status', ['Pending', 'Designed','Proof Read','Customer Approved','Prepressed','Printed','Binded','Completed','Delivered'])->default('pending');
             $table->string('order_date')->nullable();
             $table->string('order_type')->nullable();
-            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('created_by')->constrained('users')->nullable();
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
         });

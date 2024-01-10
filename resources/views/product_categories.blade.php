@@ -72,7 +72,7 @@
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$product_higher_education->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Higher_Education',$product_higher_education->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                                            <a href="{{route('product_details',['Higher_Education',$product_higher_education->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -105,7 +105,7 @@
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$twenty_leaves->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Twenty_Leaves',$twenty_leaves->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                                            <a href="{{route('product_details',['Twenty_Leaves',$twenty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,7 +138,7 @@
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$forty_leaves->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Forty_Leaves',$forty_leaves->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                                            <a href="{{route('product_details',['Forty_Leaves',$forty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,7 +172,7 @@
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$eighty_leaves->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Eighty_Leaves',$eighty_leaves->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                                            <a href="{{route('product_details',['Eighty_Leaves',$eighty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>

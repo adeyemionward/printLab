@@ -22,8 +22,6 @@
   </style>
 </head>
 
-
-
 <body >
 <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr  bgcolor="#E3E3E3" >
@@ -43,13 +41,12 @@
                                     </table>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td height="69">
                                     <table width="500"  align="right" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td width="50" ><span style="font-size:15px; "> <span style="font-weight: bold; font-size:15px">BILL TO: </span><br> <span style="font-size: 16px">{{$userDetails->company_name}} <br> {{$userDetails->address}} <br> </span></span></td>
-                                        <td width="50" align="right" style="padding-right: 50px">&nbsp;<span style="font-size:15px;  padding-right:0px"> <span style="font-weight: bold; font-size:15px">INVOICE </span><br> <span style="font-size: 14px">000{{$orderDetails->id}} </span><br> <span style="font-weight: bold; font-size:15px">DATE <br> </span> <span style="font-size: 14px"><?php echo date('Y-m-d') ?> </span> </span></span></td>
+                                        <td width="50" align="right" style="padding-right: 50px">&nbsp;<span style="font-size:15px;  padding-right:0px"> <span style="font-weight: bold; font-size:15px">INVOICE </span><br> <span style="font-size: 14px">000<?php echo rand(1000, 9999); ?> </span><br> <span style="font-weight: bold; font-size:15px">DATE <br> </span> <span style="font-size: 14px"><?php echo date('Y-m-d') ?> </span> </span></span></td>
                                     </tr>
                                     </table>
                                 </td>
@@ -76,13 +73,16 @@
                 <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
             </tr>
 
-            <tr>
-                <td align="left" width="20" style="padding-left: 20px">{{$orderDetails->job_order_name}}</td>
-                <td align="right" width="25">{{$orderDetails->quantity}}</td>
-                <td align="right" width="25"> {{$payment_type}}</td>
+            @foreach ($orderDetails as $val)
+            <tr style="border-bottom: 1px solid #ccc;">
+                <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
+                <td align="right" width="25">{{$val->quantity}}</td>
+                <td align="right" width="25"> TRANSFER</td>
                 <td align="right" width="15"> #{{$amount_paid}}</td>
-                <td align="right" width="15" style="padding-right: 20px">#{{$orderDetails->total_cost}}</td>
+                <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
             </tr>
+            @endforeach
+
         </table>
     </td>
       </tr>
@@ -94,7 +94,7 @@
 
           <tr>
             <td width="70" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : First Bank <br> Acc/No: 01111111111 <br>Account Name: PRINTLABS</td>
-            <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> #{{$orderDetails->total_cost}} <br> <span style="font-weight:bold; ">Total Balance:</span> #{{$orderDetails->total_cost - $amount_paid}}</span></td>
+            {{-- <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> #{{$orderDetails->total_cost}} <br> <span style="font-weight:bold; ">Total Balance:</span> #{{$orderDetails->total_cost - $amount_paid}}</span></td> --}}
           </tr>
         </table></td>
       </tr>

@@ -64,7 +64,7 @@
                                     <h5>{{$val->ink}} Color</h5>
                                 </td>
                                 <td>
-                                    <h5>{{$val->paper_type}} Color</h5>
+                                    <h5>{{$val->paper_type}}</h5>
                                 </td>
                                 <td>
                                     <h5>{{$val->thickness}}</h5>

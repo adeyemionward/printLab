@@ -35,7 +35,9 @@
 </div>
 </div>
 </div>
-
+<style>
+    .cart2{position:relative}.header-area .header-mid .menu-wrapper .header-right .cart2::after{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;position:absolute;content:"{{$cartCount}}";background:#FF2020;color:#fff;text-align:center;border-radius:50%;font-size:12px;top:-7px;right:0px;padding:1px 7px}
+</style>
 <header>
 <div class="header-area">
 <div class="header-top d-none d-sm-block">
@@ -103,6 +105,7 @@
 </div>
 </li>
 <li class="cartn"><a href="{{route('logout')}}"><span class="flaticon-user"></span></a> </li>
+<li class="cart2" > <a href="{{route('cart.index')}}"><span class="flaticon-shopping-cart"></span></a> </li>
 </ul>
 </div>
 </div>
