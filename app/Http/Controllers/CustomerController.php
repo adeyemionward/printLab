@@ -9,6 +9,9 @@ use App\Models\ErrorLog;
 use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\CustomerOrderReceipt;
+use Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 class CustomerController extends Controller
 {
     /**
@@ -21,6 +24,17 @@ class CustomerController extends Controller
         $this->middleware('auth');
     }
 
+    private function countCart($user_id){
+
+        $cart_count = JobOrder::where('cart_order_status', 1)->where('user_id',$user_id)->get();
+        $countCart  = count($cart_count);
+        return $countCart;
+    }
+
+    private function find_customer ($user_id){
+       return $customer = User::find($user_id);
+    }
+
     public function index()
     {
         $customers = User::all();
@@ -28,20 +42,64 @@ class CustomerController extends Controller
         return view('customers.all_customers', compact('customers'));
     }
 
+    public function customer_cart($id)
+    {
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+        $job_orders =  JobOrder::where('user_id', $id)->where('cart_order_status',1)->get();
 
+        return view('customers.customer_cart', compact('customer','job_orders','cartCount'));
+    }
+
+    public function checkout($id)
+    {
+        $customer = $this->find_customer($id);
+        $job_id  = request('job_id');
+
+        $checkout =  JobOrder::whereIn('id', $job_id)->update(
+            [
+                'cart_order_status' =>  2,
+            ]
+        );
+
+        $userDetails    = User::find($id);
+        $userEmail  =  $userDetails->email;
+        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+
+        $orderDetails   = JobOrder::whereIn('id',$job_id)->get();
+        $payment_type =  0;
+        $amount_paid = 0;
+        $data = [
+            'payment_type' =>'',
+            'amount_paid' => '',
+            'userDetails' =>$userDetails,
+            'orderDetails' => $orderDetails, // Collection of orders, for example
+        ];
+        $pdf_attachment =   Pdf::loadView('invoice_attachment', $data );
+        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+
+        //$pdf = Pdf::loadView('invoice_attachment',$data);
+      //  return $pdf->download('invoice.pdf');
+        // return route('customers.customer_job_orders', 16)->with('flash_success','Product Order Successful');
+        return redirect(route('customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
+    }
 
     public function customer_job_orders($id)
     {
-        $customer = User::find($id);
-        $job_orders =  JobOrder::where('user_id', $id)->get();
 
-        return view('customers.customer_job_orders', compact('customer','job_orders'));
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+        $job_orders =  JobOrder::where('user_id', $id)->where('cart_order_status',2)->get();
+
+        return view('customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }
 
     public function transaction_history($id){
-        $customer = User::find($id);
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+
         $job_pay_history =  JobPaymentHistory::where('user_id',$id)->get();
-        return view('customers.transaction_history', compact('customer','job_pay_history'));
+        return view('customers.transaction_history', compact('customer','job_pay_history','cartCount'));
     }
 
 
@@ -111,8 +169,10 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = User::find($id);
-        return view('customers.view_customer', compact('customer'));
+
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+        return view('customers.view_customer', compact('customer','cartCount'));
     }
 
     /**
@@ -123,8 +183,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = User::find($id);
-        return view('customers.edit_customer', compact('customer'));
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+        return view('customers.edit_customer', compact('customer','cartCount'));
     }
 
     /**
@@ -177,7 +238,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = User::find($id)->delete();
-        return redirect(route('customers.all_customers'))->with('flash_success','Customer has been deleted');
+        $customer = User::find($id);
+        $customer->status = 'deactivated';
+        $customer->save();
+        return redirect(route('customers.all_customers'))->with('flash_success','Customer has been deactivated');
     }
 }

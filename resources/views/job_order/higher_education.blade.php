@@ -142,7 +142,7 @@
                                                                     </div>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">
-                                                                        <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                        <i class="text-white me-2" data-feather="check-circle"></i>Add to Cart
                                                                     </button>
                                                                 </form>
                                                             </div>

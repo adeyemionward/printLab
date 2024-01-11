@@ -20,6 +20,11 @@
                 aria-selected="false">Edit Customer </a>
                <div class="dropdown-divider"></div>
 
+               <a class="nav-link <?php if($page == 'cart') echo 'active active_red'  ?>" id="nav-database-tab"
+                href="{{route('customers.customer_cart', request()->id)}}"
+                aria-selected="false"> Customer Cart ({{$cartCount}}) </a>
+               <div class="dropdown-divider"></div>
+
                <a class="nav-link <?php if($page == 'orders') echo 'active active_red'  ?>" id="nav-database-tab"
                 href="{{route('customers.customer_job_orders', request()->id)}}"
                 aria-selected="false"> Customer Job Orders </a>
@@ -33,7 +38,7 @@
 
                 <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to delete this customer?');"
                  href="{{route('customers.delete_customer', request()->id)}}"
-                 aria-selected="false">Delete Customer </a>
+                 aria-selected="false">Deactivate Customer </a>
                 <div class="dropdown-divider"></div>
 
             </div>

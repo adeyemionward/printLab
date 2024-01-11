@@ -249,6 +249,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer');
         Route::get('/view_customer/{id}', 'CustomerController@show')->name('view_customer');
         Route::get('/customer_job_orders/{id}', 'CustomerController@customer_job_orders')->name('customer_job_orders');
+        Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
+        Route::post('/customer_cart/{id}', 'CustomerController@checkout')->name('customer_cart');
         Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
         Route::get('/delete_customer/{id}', 'CustomerController@destroy')->name('delete_customer');
     });
