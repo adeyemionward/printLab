@@ -277,7 +277,7 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
-        
+
 
     }catch(\Exception $th){
         ErrorLog::log('job_order', '_METHOD_', $th->getMessage()); //log error
@@ -328,6 +328,7 @@ class JobOrderController extends Controller
             $job_order->order_date     = $order_date;
             $job_order->total_cost      = $total_cost;
             $job_order->order_type      = 'internal';
+            $job_order->cart_order_status      = 1;
             $job_order->job_location_id        = $location;
             $job_order->created_by      = $user->id;
             $job_order->save();
@@ -354,20 +355,6 @@ class JobOrderController extends Controller
             $job_pay->created_by      = $user->id;
             $job_pay->save();
 
-            $userDetails    = User::find($customer_id);
-            $userEmail  =  $userDetails->email;
-            $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
-
-            $orderDetails   = JobOrder::find($job_order->id);
-
-            $data = [
-                'payment_type' =>$payment_type,
-                'amount_paid' => $amount_paid,
-                'userDetails' =>$userDetails,
-                'orderDetails' => $orderDetails, // Collection of orders, for example
-            ];
-            $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
-            $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
 
             return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
             // return redirect(route('job_order.view_order',['Twenty_Leaves',$job_order->id]))->with('flash_success','Twenty Leaves Book order saved successfully');
@@ -424,6 +411,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date      = $order_date;
         $job_order->order_type      = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->job_location_id        = $location;
         $job_order->created_by      = $user->id;
         $job_order->save();
@@ -450,20 +438,6 @@ class JobOrderController extends Controller
         $job_pay->created_by      = $user->id;
         $job_pay->save();
 
-        $userDetails    = User::find($customer_id);
-        $userEmail  =  $userDetails->email;
-        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
-
-        $orderDetails   = JobOrder::find($job_order->id);
-
-        $data = [
-            'payment_type' =>$payment_type,
-            'amount_paid' => $amount_paid,
-            'userDetails' =>$userDetails,
-            'orderDetails' => $orderDetails, // Collection of orders, for example
-        ];
-        $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
 
     }catch(\Exception $th){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
@@ -511,7 +485,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type      = 'internal';
-
+        $job_order->cart_order_status      = 1;
         $job_order->job_location_id        = $location;
         $job_order->created_by      = $user->id;
         $job_order->save();
@@ -537,21 +511,6 @@ class JobOrderController extends Controller
         $job_pay->payment_date    = $order_date;
         $job_pay->created_by      = $user->id;
         $job_pay->save();
-
-        $userDetails    = User::find($customer_id);
-        $userEmail  =  $userDetails->email;
-        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
-
-        $orderDetails   = JobOrder::find($job_order->id);
-
-        $data = [
-            'payment_type' =>$payment_type,
-            'amount_paid' => $amount_paid,
-            'userDetails' =>$userDetails,
-            'orderDetails' => $orderDetails, // Collection of orders, for example
-        ];
-        $pdf_attachment = Pdf::loadView('invoice_attachment', $data );
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
 
 
     }catch(\Exception $th){
@@ -614,6 +573,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -681,6 +641,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -749,6 +710,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -814,6 +776,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -883,6 +846,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -966,6 +930,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -1047,6 +1012,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date     = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 
@@ -1113,6 +1079,7 @@ class JobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->order_date      = $order_date;
         $job_order->order_type     = 'internal';
+        $job_order->cart_order_status      = 1;
         $job_order->created_by      = $user->id;
         $job_order->save();
 

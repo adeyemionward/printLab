@@ -66,18 +66,18 @@
 
 
                                                 </table>
-                                                {{-- @if ($cartCount >= 1) --}}
+                                                @if ($cartCount >= 1)
                                                     <div class="checkout_btn_inner float-right">
                                                         <p >NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
 
-                                                        <button class="btn btn-sm btn-danger" type="submit">
+                                                        <a href="{{route('job_order.higher_education')}}" class="btn btn-sm btn-danger">
                                                             <i class="text-white me-2" data-feather="check-circle"></i>Continue Shopping
-                                                        </button>
+                                                        </a>
                                                         <button class="btn btn-sm btn-danger" type="submit" style="background: black">
                                                             <i class="text-white me-2" data-feather="check-circle"></i>Process&nbsp;Orders
                                                         </button>
                                                     </div>
-                                                {{-- @endif --}}
+                                                @endif
                                                 </form>
                                             </div>
                                         </div>
