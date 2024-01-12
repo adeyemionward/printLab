@@ -46,8 +46,8 @@
                         <tbody>
                             @foreach ($carts as $index => $val)
                             @php
-                                $product_name1 = str_replace(' ','_', $val->job_order_name);
-                                if($product_name1 == 'Higher_NoteBook') $product_name = 'Higher_Education';
+                                $product_name = str_replace(' ','_', $val->job_order_name);
+                                if($product_name == 'Higher_NoteBook') $product_name = 'Higher_Education';
 
 
                             @endphp
