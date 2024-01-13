@@ -34,6 +34,9 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::group(['prefix' => '/track_orders', 'as' => 'track_orders.'], function () {
             Route::get('/', 'FrontPageController@track_orders')->name('index');
             Route::get('/view/{id}', 'FrontPageController@vieworder')->name('view');
+            Route::get('/', 'FrontPageController@track_orders')->name('index');
+            Route::get('/order_invoice_pdf/{order_no?}', 'FrontPageController@orderInvoicePdf')->name('order_invoice_pdf');
+
         });
 });
 
@@ -83,8 +86,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/transaction_history/{job_title}/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
         Route::post('/transaction_history/{job_title}/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
 
-        Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
-        Route::get('/order_invoice_pdf/{id}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
+        // Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
+        Route::get('/order_invoice_pdf/{order_no?}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
 
 
         Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
@@ -155,6 +158,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/track_order/{id}', 'ExternalJobOrderController@track_job_order')->name('track_order');
         Route::get('/transaction_history/{id}', 'ExternalJobOrderController@transaction_history')->name('transaction_history');
         Route::post('/transaction_history/{id}', 'ExternalJobOrderController@updateJobPayment')->name('transaction_history');
+        Route::get('/order_invoice_pdf/{order_no?}', 'ExternalJobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
     });
 });
 

@@ -20,6 +20,7 @@ use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class ExternalJobOrderController extends Controller
@@ -69,6 +70,7 @@ class ExternalJobOrderController extends Controller
 
         return back()->with("flash_success","Design Uploaded successfully");
     }
+
 
     public function changeJobStatus(Request $request,  $id){
         $job_order =  JobOrder::find($id);
@@ -155,6 +157,28 @@ class ExternalJobOrderController extends Controller
 
         return back()->with("flash_success","Order Payment updated successfully");
     }
+
+    public function orderInvoicePdf($order_no){
+
+        $orderDetails =  JobOrder::where('order_no', $order_no)->get();
+        $order1 =  JobOrder::where('order_no', $order_no)->first();
+
+        $pdf = PDF::loadView('track_orders.order_invoice_pdf',compact('orderDetails','order1'));
+        return $pdf->stream('order_invoice.pdf');
+    }
+
+    // public function orderInvoicePdf($id){
+
+    //     $orderDetails   = JobOrder::find(request()->id);
+    //     $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+    //     $job_order =  JobOrder::find($id);
+    //     $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+    //         ->where('job_order_id',$id)
+    //         ->first();
+
+    //     $pdf = PDF::loadView('job_order.order_invoice_pdf',compact('orderDetails','approved_design','job_order_pay','job_order'));
+    //     return $pdf->stream('order_invoice.pdf');
+    // }
 
     public function delete_job_order(Request $request, $id){
         $job_orders =  JobOrder::all();

@@ -57,7 +57,9 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="order_box">
-            <h2>Your Product Order</h2>
+            <h2>Your Product Order
+
+                       </h2>
             <ul class="list">
                 <li>
                     @php $product_name = str_replace('_',' ', $order->productName->name)   @endphp
@@ -95,7 +97,7 @@
             @if (!is_null($approved_design))
                 <ul class="list list_2">
                     <li>
-                        <a href="#">Quantity <span>{{$order->quantity}}</span></a>
+                        {{-- <a href="#">Quantity <span>{{$order->quantity}}</span></a> --}}
                         <div class="form-group col-md-12">
 
                             @if ( env('APP_ENV') == 'local')
@@ -107,6 +109,19 @@
                     </li>
                 </ul>
             @endif
+            <br><br>
+            <ul class="list list_2">
+                <li>
+                    {{-- <a href="#">Quantity <span>{{$order->quantity}}</span></a> --}}
+                    <div class="form-group col-md-12">
+
+                        <a  href="{{route('track_orders.order_invoice_pdf',$order->order_no)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i   class="fas fa-file-pdf"   style="color: red; font-size:30px"> </i> Download Invoice </a>
+
+                    </div>
+                </li>
+            </ul>
+            {{-- <i   class="fas fa-file-pdf"  style="color: red; font-size:30px;"> </i> <a href="{{route('job_order.order_invoice_pdf',request()->id)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download Order Invoice </a> --}}
+
 
 
             </div>

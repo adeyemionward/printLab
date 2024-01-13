@@ -27,7 +27,7 @@
                 </div>
             </div>
            @php
-          echo Storage::exists('storage/pdf/5X8zhWvQgGSr1bpCpbP1ctXEUxRRmTPpjM89CWvE.pdf');
+          //echo Storage::exists('storage/pdf/5X8zhWvQgGSr1bpCpbP1ctXEUxRRmTPpjM89CWvE.pdf');
            //if($rr) echo 'yes';
            @endphp
             <div class="content">

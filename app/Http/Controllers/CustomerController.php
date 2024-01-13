@@ -55,12 +55,16 @@ class CustomerController extends Controller
     {
         $customer = $this->find_customer($id);
         $job_id  = request('job_id');
+        $randomInteger = random_int(100000, 999999);
 
         $checkout =  JobOrder::whereIn('id', $job_id)->update(
             [
                 'cart_order_status' =>  2,
+                'order_no' =>  $randomInteger,
             ]
         );
+
+
 
         $userDetails    = User::find($id);
         $userEmail  =  $userDetails->email;

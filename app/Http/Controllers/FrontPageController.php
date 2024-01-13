@@ -255,11 +255,13 @@ class FrontPageController extends Controller
         if (Auth::check()) {
             $user       =   Auth::user();
             $job_id  = request('job_id');
+            $randomInteger = random_int(100000, 999999);
 
             $checkout =  JobOrder::whereIn('id', $job_id)->update(
                 [
                     'user_id'           => $user->id,
                     'cart_order_status' =>  2,
+                    'order_no' =>  $randomInteger,
                 ]
             );
 
@@ -352,6 +354,7 @@ class FrontPageController extends Controller
         return view('track_orders.index', compact('carts','cartCount'));
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -366,6 +369,19 @@ class FrontPageController extends Controller
         $job_order_track =  JobOrderTracking::where('job_order_id', $id)->first();
         $order =  JobOrder::where('user_id',$user->id)->where('id', $id)->first();
         return view('track_orders.view', compact('job_order_track','order','approved_design','cartCount'));
+    }
+
+    public function orderInvoicePdf($order_no){
+        $cartCount = $this->countCart();
+        $user = Auth::user();
+
+        // $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        // $job_order_track =  JobOrderTracking::where('job_order_id', $id)->first();
+        $orderDetails =  JobOrder::where('user_id',$user->id)->where('order_no', $order_no)->get();
+        $order1 =  JobOrder::where('user_id',$user->id)->where('order_no', $order_no)->first();
+
+        $pdf = PDF::loadView('track_orders.order_invoice_pdf',compact('orderDetails','order1'));
+        return $pdf->stream('order_invoice.pdf');
     }
 
     /**
