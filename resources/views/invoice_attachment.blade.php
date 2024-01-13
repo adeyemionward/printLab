@@ -101,7 +101,7 @@
       </tr>
       <br> <br>
       <tr align="center">
-        <td align="center"> Powered By: PrintLabs <br> Thank you for your patronage </td>
+        <td align="center"> Powered By: Hypercom Ltd <br> Thank you for your patronage </td>
       </tr>
 
     </table>
