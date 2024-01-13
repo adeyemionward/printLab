@@ -165,10 +165,21 @@
 
                 <div class="dropdown-divider"></div>
 
-                <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
+                {{-- <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
                     href="{{route('external_job_order.order_invoice_pdf',[$job_order->order_no])}}"
                     aria-selected="false">Download Invoice</a>
-                   <div class="dropdown-divider"></div>
+                   <div class="dropdown-divider"></div> --}}
+
+                @if ($job_order->order_no != '')
+                    <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
+                        href="{{route('job_order.order_invoice_pdf',[$job_order->order_no])}}"
+                        aria-selected="false"  target="_blank">Download Invoice</a>
+                @else
+                    <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
+                        href="#"
+                        aria-selected="false"  target="_blank">Download Invoice</a>
+                @endif
+                <div class="dropdown-divider"></div>
 
                <a style="cursor: pointer" id="myBtn2" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="nav-link <?php if($page == 'add_pay') echo 'active active_red'  ?>"
 

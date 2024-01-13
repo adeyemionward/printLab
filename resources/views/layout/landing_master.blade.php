@@ -87,8 +87,24 @@
 
 
 <li><a href="#">Contact</a></li>
-<li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
-<li><a href="{{route('register')}}">Create Account</a></li>
+
+@if (Auth::check())
+    <li>
+        <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
+        <ul class="submenu">
+            <li><a href="{{route('logout')}}">Logout</a></li>
+            {{-- <li><a href="cart.html">Cart</a></li>
+            <li><a href="pro-details.html">Product Details</a></li>
+            <li><a href="checkout.html">Product Checkout</a></li> --}}
+        </ul>
+    </li>
+@else
+    <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
+    <li><a href="{{route('register')}}">Create Account</a></li>
+@endif
+
+
+
 
 
 </ul>
@@ -104,7 +120,11 @@
 </a>
 </div>
 </li>
-<li class="cartn"><a href="{{route('logout')}}"><span class="flaticon-user"></span></a> </li>
+<li class="cartn">
+    <a href="{{route('logout')}}"><span class="flaticon-user"></span></a>
+</li>
+
+
 <li class="cart2" > <a href="{{route('cart.index')}}"><span class="flaticon-shopping-cart"></span></a> </li>
 </ul>
 </div>

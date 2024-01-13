@@ -115,7 +115,13 @@
                     {{-- <a href="#">Quantity <span>{{$order->quantity}}</span></a> --}}
                     <div class="form-group col-md-12">
 
+                        @if ($order->order_no != '')
                         <a  href="{{route('track_orders.order_invoice_pdf',$order->order_no)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i   class="fas fa-file-pdf"   style="color: red; font-size:30px"> </i> Download Invoice </a>
+
+                        @else
+                        <a  href="#" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i   class="fas fa-file-pdf"   style="color: red; font-size:30px"> </i> Download Invoice </a>
+
+                        @endif
 
                     </div>
                 </li>

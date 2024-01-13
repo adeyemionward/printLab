@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">All Orders</h4>
+                    <h4 class="m-0 text-dark text-muted">All Internal Orders</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
