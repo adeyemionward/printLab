@@ -1,6 +1,24 @@
 @extends('layout.landing_master')
 @section('content')
 @section('title', 'Add Supplier')
+<style>
+
+@media screen and (max-width: 768px) {
+  .hero-caption{
+    margin-top: 170px;
+  }
+
+  .latest-items{
+    position: relative;
+    top: 80px;
+  }
+  #popular_product_text{
+    padding-left:30px;
+    margin-top: 150px;
+    font-weight: bolder;
+  }
+}
+</style>
 <section class="slider-area ">
 <div class="slider-active">
 
@@ -11,7 +29,7 @@
 <div class="hero-caption text-center">
 <h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000">Order Your Notebooks & Other Printing Services</h1>
 <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
-<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Now</a>
+<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px">Shop Now</a>
 </div>
 </div>
 </div>
@@ -31,7 +49,7 @@
 
 <nav>
 <div class="nav-tittle" id="buy_products">
-<h2>Popular Products</h2>
+<h2 id="popular_product_text">Popular Products</h2>
 </div>
 <!-- <div class="nav nav-tabs" id="nav-tab" role="tablist">
 <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">Men</a>
