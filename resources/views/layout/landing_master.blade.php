@@ -99,7 +99,7 @@
         </ul>
     </li>
 @else
-    {{-- <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li> --}}
+    <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
     <li><a href="{{route('register')}}">Create Account</a></li>
 @endif
 
