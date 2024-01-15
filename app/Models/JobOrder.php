@@ -9,6 +9,9 @@ class JobOrder extends Model
 {
     use HasFactory;
 
+    const job_cart_status = 1;
+    const job_ordered_status = 2;
+
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
@@ -36,4 +39,6 @@ class JobOrder extends Model
     public function jobPaymentHistory(){
         return $this->belongsTo(JobPaymentHistory::class,'id','job_order_id');
     }
+
+
 }

@@ -10,7 +10,8 @@ trait FilterOrdersByDateTrait
         $startDate  = request('date_from');
         $endDate    = request('date_to');
 
-        $data = JobOrder::whereBetween('order_date', [$startDate, $endDate])->get();
+        $data = JobOrder::whereBetween('order_date', [$startDate, $endDate])->where('cart_order_status',JobOrder::job_ordered_status);
+
         return $data;
     }
 }

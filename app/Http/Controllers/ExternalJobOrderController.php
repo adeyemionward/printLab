@@ -38,14 +38,21 @@ class ExternalJobOrderController extends Controller
         $this->middleware('auth');
     }
 
+    private function JobOrderQuery (){
+      return $jobQuery =  JobOrder::where('order_type','external')->where('cart_order_status',JobOrder::job_ordered_status);
+    }
+
+    private function filterOrdersByDateExternal(){
+        return $this->filterOrdersByDate()->where('order_type','external')->get();
+    }
+
     public function index()
     {
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders = $this->filterOrdersByDateExternal();
         }else{
-            $job_orders =  JobOrder::where('order_type','external')->where('cart_order_status',2)->get();
+            $job_orders =   $this->JobOrderQuery()->get();
         }
-
         return view('external_job_order.all_orders', compact('job_orders'));
     }
 
@@ -174,27 +181,12 @@ class ExternalJobOrderController extends Controller
         return $pdf->stream('order_invoice.pdf');
     }
 
-    // public function orderInvoicePdf($id){
-
-    //     $orderDetails   = JobOrder::find(request()->id);
-    //     $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
-    //     $job_order =  JobOrder::find($id);
-    //     $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-    //         ->where('job_order_id',$id)
-    //         ->first();
-
-    //     $pdf = PDF::loadView('job_order.order_invoice_pdf',compact('orderDetails','approved_design','job_order_pay','job_order'));
-    //     return $pdf->stream('order_invoice.pdf');
-    // }
-
     public function delete_job_order(Request $request, $id){
         $job_orders =  JobOrder::all();
         $job_order =  JobOrder::find($id);
         $job_order->delete();
         return redirect(route('job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
     }
-
-
 
     public function track_job_order($id){
         $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
@@ -570,49 +562,98 @@ class ExternalJobOrderController extends Controller
     }
 
     public function pending (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Pending')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Pending')->get();
+        }
+
         return view('external_job_order.status.pending', compact('job_orders'));
     }
 
-
-
     public function designed (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Designed')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Designed')->get();
+        }
         return view('external_job_order.status.designed', compact('job_orders'));
     }
 
     public function prepressed (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Prepressed')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Prepressed')->get();
+        }
         return view('external_job_order.status.prepressed', compact('job_orders'));
     }
 
     public function proof_read (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Proof Read')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Proof Read')->get();
+        }
+
         return view('external_job_order.status.proof_read', compact('job_orders'));
     }
 
     public function approved (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Customer Approved')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Customer Approved')->get();
+        }
+
         return view('external_job_order.status.customer_approved', compact('job_orders'));
     }
 
     public function printed (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Printed')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Printed')->get();
+        }
+
         return view('external_job_order.status.printed', compact('job_orders'));
     }
 
     public function binded (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Binded')->get();
+
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Binded')->get();
+        }
         return view('external_job_order.status.binded', compact('job_orders'));
     }
 
     public function completed (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Completed')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Completed')->get();
+        }
+
         return view('external_job_order.status.completed', compact('job_orders'));
     }
 
     public function delivered (){
-        $job_orders =  JobOrder::where('order_type','external')->where('status','Delivered')->get();
+        
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Delivered')->get();
+        }
         return view('external_job_order.status.delivered', compact('job_orders'));
     }
 

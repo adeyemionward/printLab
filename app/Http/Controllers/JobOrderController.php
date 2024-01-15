@@ -41,14 +41,21 @@ class JobOrderController extends Controller
         $this->middleware('auth');
     }
 
+    private function JobOrderQuery (){
+        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::job_ordered_status);
+    }
+
+    private function filterOrdersByDateExternal(){
+        return $this->filterOrdersByDate()->where('order_type','internal')->get();
+    }
 
 
     public function index()
     {
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders = $this->filterOrdersByDateExternal();
         }else{
-            $job_orders = JobOrder::where('order_type','internal')->where('cart_order_status',2)->get();
+            $job_orders =   $this->JobOrderQuery()->get();
         }
 
         return view('job_order/all_orders', compact('job_orders'));
@@ -139,16 +146,6 @@ class JobOrderController extends Controller
         }
         return back()->with("flash_success","Design Uploaded successfully");
     }
-
-    // public function orderInvoice($id){
-    //     $orderDetails   = JobOrder::find(request()->id);
-    //     $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
-    //     $job_order =  JobOrder::find($id);
-    //     $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-    //         ->where('job_order_id',$id)
-    //         ->first();
-    //     return view('job_order.order_invoice',compact('orderDetails','approved_design','job_order_pay','job_order'));
-    // }
 
     public function orderInvoicePdf($order_no){
 
@@ -1488,49 +1485,89 @@ class JobOrderController extends Controller
     }
 
     public function pending (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Pending')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Pending')->get();
+        }
         return view('job_order.status.pending', compact('job_orders'));
     }
 
 
 
     public function designed (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Designed')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Designed')->get();
+        }
         return view('job_order.status.designed', compact('job_orders'));
     }
 
     public function prepressed (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Prepressed')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Prepressed')->get();
+        }
         return view('job_order.status.prepressed', compact('job_orders'));
     }
 
     public function proof_read (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Proof Read')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Proof Read')->get();
+        }
         return view('job_order.status.proof_read', compact('job_orders'));
     }
 
     public function approved (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Customer Approved')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Customer Approved')->get();
+        }
         return view('job_order.status.customer_approved', compact('job_orders'));
     }
 
     public function printed (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Printed')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Printed')->get();
+        }
+
         return view('job_order.status.printed', compact('job_orders'));
     }
 
     public function binded (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Binded')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Binded')->get();
+        }
+
         return view('job_order.status.binded', compact('job_orders'));
     }
 
     public function completed (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Completed')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Completed')->get();
+        }
         return view('job_order.status.completed', compact('job_orders'));
     }
 
     public function delivered (){
-        $job_orders =  JobOrder::where('order_type','internal')->where('status','Delivered')->get();
+
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =   $this->JobOrderQuery()->where('status','Delivered')->get();
+        }
         return view('job_order.status.delivered', compact('job_orders'));
     }
 
