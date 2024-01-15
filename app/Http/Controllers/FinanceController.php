@@ -244,9 +244,9 @@ class FinanceController extends Controller
         $endDate    = request('date_to');
 
         if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->where('cart_order_status',JobOrder::job_ordered_status)->whereBetween('expense_date', [$startDate, $endDate])->get();
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$startDate, $endDate])->get();
         }else{
-            $expenses = Expense::with('expenseHistories')->where('cart_order_status',JobOrder::job_ordered_status)->get();
+            $expenses = Expense::with('expenseHistories')->get();
 
         }
 
