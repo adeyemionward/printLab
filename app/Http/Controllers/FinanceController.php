@@ -229,9 +229,9 @@ class FinanceController extends Controller
         $endDate    = request('date_to');
 
         if(request()->date_to && request()->date_from){
-            $job_pay = JobOrder::with('jobPaymentHistories')->whereBetween('order_date', [$startDate, $endDate])->get();
+            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::job_ordered_status)->whereBetween('order_date', [$startDate, $endDate])->get();
         }else{
-            $job_pay = JobOrder::with('jobPaymentHistories')->get();
+            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::job_ordered_status)->get();
 
         }
 
@@ -244,9 +244,9 @@ class FinanceController extends Controller
         $endDate    = request('date_to');
 
         if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$startDate, $endDate])->get();
+            $expenses = Expense::with('expenseHistories')->where('cart_order_status',JobOrder::job_ordered_status)->whereBetween('expense_date', [$startDate, $endDate])->get();
         }else{
-            $expenses = Expense::with('expenseHistories')->get();
+            $expenses = Expense::with('expenseHistories')->where('cart_order_status',JobOrder::job_ordered_status)->get();
 
         }
 
