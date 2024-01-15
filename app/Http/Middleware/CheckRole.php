@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -22,7 +23,7 @@ class AdminMiddleware
                 return $next($request);
             }
         }
-        // If the user is not logged in or doesn't have the correct role, redirect them
+        // If the user is not logged in or doesn't have the correct role, redirect them to homepage
         return redirect('/');
     }
 }

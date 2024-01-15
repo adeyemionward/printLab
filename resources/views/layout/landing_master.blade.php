@@ -59,7 +59,7 @@
 <li><a href="{{route('track_orders.index')}}">Track Your Order</a></li>
 </ul>
 <ul class="header-social">
-<li><i class="fa fa-phone">Call: 0900000000000</i></li>
+<li><i class="fa fa-phone"> <a href="tel:08035777226">Call: 08035777226</a></i></li>
 <!-- <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
 <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
@@ -99,7 +99,7 @@
         </ul>
     </li>
 @else
-    <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
+    {{-- <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li> --}}
     <li><a href="{{route('register')}}">Create Account</a></li>
 @endif
 
@@ -120,9 +120,9 @@
 </a>
 </div>
 </li>
-<li class="cartn">
+{{-- <li class="cartn">
     <a href="{{route('logout')}}"><span class="flaticon-user"></span></a>
-</li>
+</li> --}}
 
 
 <li class="cart2" > <a href="{{route('cart.index')}}"><span class="flaticon-shopping-cart"></span></a> </li>
@@ -198,8 +198,8 @@
         <div class="footer-tittle">
             <h4>Contact</h4>
             <ul style="color: #BBB9B5">
-                <li>Address: Akiremi Street, Ikeja</li>
-                <li>Phone: 0900000000000</li>
+                <li>Address: No 14 Akinremi street, Anifowoshe, Ikeja</li>
+                <li>Phone: 08035777226</li>
                 <li>Email: support@printlabs.com.ng</li>
             </ul>
         </div>

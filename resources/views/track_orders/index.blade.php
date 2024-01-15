@@ -44,16 +44,16 @@
                     </thead>
                     <tbody>
                         @foreach ($carts as $index => $val)
-                        @php $product_name = str_replace('_',' ', $val->productName->name)   @endphp
+                        @php $product_name = str_replace('_',' ', @$val->productName->name)   @endphp
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="{{asset('product_images/'.$val->productName->image)}}" alt />
+                                            <img src="{{asset('product_images/'.@$val->productName->image)}}" alt />
                                         </div>
                                         <div class="media-body">
-                                            <p>{{ucwords($product_name)}}</p>
+                                            <p>{{ucwords($val->job_order_name)}}</p>
                                         </div>
                                     </div>
                                 </td>
