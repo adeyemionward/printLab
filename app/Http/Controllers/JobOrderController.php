@@ -26,8 +26,10 @@ use App\Mail\CustomerOrderReceipt;
 use Mail;
 use App\Models\ErrorLog;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Traits\FilterOrdersByDateTrait;
 class JobOrderController extends Controller
 {
+    use FilterOrdersByDateTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,9 +41,16 @@ class JobOrderController extends Controller
         $this->middleware('auth');
     }
 
+
+
     public function index()
     {
-        $job_orders = JobOrder::where('order_type','internal')->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders = JobOrder::where('order_type','internal')->where('cart_order_status',2)->get();
+        }
+
         return view('job_order/all_orders', compact('job_orders'));
     }
 

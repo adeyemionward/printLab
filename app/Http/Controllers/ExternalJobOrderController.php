@@ -21,10 +21,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Traits\FilterOrdersByDateTrait;
 use Illuminate\Support\Facades\DB;
 
 class ExternalJobOrderController extends Controller
 {
+    use FilterOrdersByDateTrait;
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +40,12 @@ class ExternalJobOrderController extends Controller
 
     public function index()
     {
-        $job_orders =  JobOrder::where('order_type','external')->where('cart_order_status',2)->get();
+        if(request()->date_to && request()->date_from){
+            $job_orders = $this->filterOrdersByDate();
+        }else{
+            $job_orders =  JobOrder::where('order_type','external')->where('cart_order_status',2)->get();
+        }
+
         return view('external_job_order.all_orders', compact('job_orders'));
     }
 
