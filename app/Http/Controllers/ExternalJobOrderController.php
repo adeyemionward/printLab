@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Traits\FilterOrdersByDateTrait;
+use App\Traits\filterOrdersByDateTrait;
 use Illuminate\Support\Facades\DB;
 
 class ExternalJobOrderController extends Controller
 {
-    use FilterOrdersByDateTrait;
+    use filterOrdersByDateTrait;
     /**
      * Display a listing of the resource.
      *
@@ -43,13 +43,13 @@ class ExternalJobOrderController extends Controller
     }
 
     private function filterOrdersByDateExternal(){
-        return $this->filterOrdersByDate()->where('order_type','external')->get();
+        return $this->filterOrdersByDate()->where('order_type','external');
     }
 
     public function index()
     {
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDateExternal();
+            $job_orders = $this->filterOrdersByDateExternal()->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->get();
         }
@@ -564,7 +564,7 @@ class ExternalJobOrderController extends Controller
     public function pending (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Pending')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Pending')->get();
         }
@@ -575,7 +575,7 @@ class ExternalJobOrderController extends Controller
     public function designed (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Designed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Designed')->get();
         }
@@ -585,7 +585,7 @@ class ExternalJobOrderController extends Controller
     public function prepressed (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Prepressed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Prepressed')->get();
         }
@@ -595,7 +595,7 @@ class ExternalJobOrderController extends Controller
     public function proof_read (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Proof Read')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Proof Read')->get();
         }
@@ -606,7 +606,7 @@ class ExternalJobOrderController extends Controller
     public function approved (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Customer Approved')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Customer Approved')->get();
         }
@@ -617,7 +617,7 @@ class ExternalJobOrderController extends Controller
     public function printed (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Printed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Printed')->get();
         }
@@ -629,7 +629,7 @@ class ExternalJobOrderController extends Controller
 
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Binded')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Binded')->get();
         }
@@ -639,7 +639,7 @@ class ExternalJobOrderController extends Controller
     public function completed (){
 
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Completed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Completed')->get();
         }
@@ -648,9 +648,9 @@ class ExternalJobOrderController extends Controller
     }
 
     public function delivered (){
-        
+
         if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate();
+            $job_orders =   $this->filterOrdersByDateExternal()->where('status','Delivered')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Delivered')->get();
         }
