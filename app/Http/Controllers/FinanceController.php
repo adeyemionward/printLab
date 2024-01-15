@@ -23,9 +23,17 @@ class FinanceController extends Controller
     {
         $this->middleware('auth');
     }
-    public function all_expenses()
+    public function all_expenses(Request $request =  null)
     {
-        $expenses = Expense::with('expenseHistories')->get();
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+
+        if(request()->date_to && request()->date_from){
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$startDate, $endDate])->get();
+        }else{
+            $expenses = Expense::with('expenseHistories')->get();
+        }
+
         return view('finance.expenses.all_expenses', compact('expenses'));
     }
 
@@ -36,8 +44,6 @@ class FinanceController extends Controller
 
         return view('finance.expenses.add_expense', compact('categories','suppliers'));
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -219,14 +225,31 @@ class FinanceController extends Controller
 
      public function all_debtors(Request $request)
     {
-        $job_pay = JobOrder::with('jobPaymentHistories')->get();
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+
+        if(request()->date_to && request()->date_from){
+            $job_pay = JobOrder::with('jobPaymentHistories')->whereBetween('order_date', [$startDate, $endDate])->get();
+        }else{
+            $job_pay = JobOrder::with('jobPaymentHistories')->get();
+
+        }
 
         return view('finance.debtors.all_debtors', compact('job_pay'));
     }
 
     public function all_creditors(Request $request)
     {
-        $expenses = Expense::with('expenseHistories')->get();
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+
+        if(request()->date_to && request()->date_from){
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$startDate, $endDate])->get();
+        }else{
+            $expenses = Expense::with('expenseHistories')->get();
+
+        }
+
         return view('finance.creditors.all_creditors',compact('expenses'));
     }
 

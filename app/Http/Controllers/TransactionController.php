@@ -12,9 +12,19 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $job_order_pay  = JobPaymentHistory::all();
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+
+        if(request()->date_to && request()->date_from){
+            $job_order_pay  = JobPaymentHistory::whereBetween('payment_date', [$startDate, $endDate])->get();
+        }else{
+            $job_order_pay  = JobPaymentHistory::all();
+
+        }
+
+
         return view('finance.transactions.all_transactions', compact('job_order_pay'));
     }
 
