@@ -85,7 +85,7 @@ $(document).ready(function(){
                                 window.location.href = '';
                             }else{
                                 toastr.error("An error occured, please try later");
-                                window.location.href = '';
+                                // window.location.href = '';
                             }
                         })
 

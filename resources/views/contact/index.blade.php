@@ -91,7 +91,7 @@
 <div class="media contact-info">
 <span class="contact-info__icon"><i class="ti-email"></i></span>
 <div class="media-body">
-<h3><a href="mail:support@printlabs.com.ng" class="__cf_email__" data-cfemail="a4d7d1d4d4cbd6d0e4c7cbc8cbd6c8cdc68ac7cbc9">support@printlabs.com.ng</a></h3>
+<h3><a href="mail:info@printlabs.com.ng" class="__cf_email__" data-cfemail="a4d7d1d4d4cbd6d0e4c7cbc8cbd6c8cdc68ac7cbc9">info@printlabs.com.ng</a></h3>
 <p>Send us your query anytime!</p>
 </div>
 </div>

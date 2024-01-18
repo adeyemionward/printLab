@@ -201,7 +201,7 @@
             <ul style="color: #BBB9B5">
                 <li>Address: No 14 Akinremi street, Anifowoshe, Ikeja</li>
                 <li>Phone: 08035777226</li>
-                <li>Email: support@printlabs.com.ng</li>
+                <li>Email: info@printlabs.com.ng</li>
             </ul>
         </div>
     </div>

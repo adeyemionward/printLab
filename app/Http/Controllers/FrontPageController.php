@@ -396,7 +396,7 @@ class FrontPageController extends Controller
             $title    = request('subject');
             $messagetext    = request('message');
 
-            $send_mail = Mail::to('adeyemiadeshina6@gmail.com')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
+            $send_mail = Mail::to('info@printlabs.com.ng')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
             return response()->json([ [1] ]);
         }catch(\Exception){
             return response()->json([ [5] ]);
