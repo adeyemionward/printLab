@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Google\Recaptcha\Recaptcha;
 class FrontPageController extends Controller
 {
     /**
