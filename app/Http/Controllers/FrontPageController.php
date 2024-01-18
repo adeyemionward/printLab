@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Google\Recaptcha\Recaptcha;
+// use Google\Recaptcha\Recaptcha;
 class FrontPageController extends Controller
 {
     /**
@@ -396,7 +396,7 @@ class FrontPageController extends Controller
             $title    = request('subject');
             $messagetext    = request('message');
 
-            $send_mail = Mail::to('support@printlabs.com.ng')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
+            $send_mail = Mail::to('adeyemiadeshina6@gmai.com')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
             return response()->json([ [1] ]);
         // }catch(\Exception){
         //     return response()->json([ [5] ]);
