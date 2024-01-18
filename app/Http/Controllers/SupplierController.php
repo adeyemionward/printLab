@@ -13,13 +13,26 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public  $startDate;
+    public $endDate;
+
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->startDate  = request('date_from').' 23:59:59';
+        $this->endDate    = request('date_to').' 23:59:59';
     }
-    public function index()
+    public function index(Request $request = null)
     {
-        $suppliers = Supplier::all();
+
+        if(request()->date_to && request()->date_from){
+            $suppliers = Supplier::whereBetween('created_at', [$this->startDate, $this->endDate])->get();
+        }else{
+            $suppliers = Supplier::all();
+        }
+
+
         return view('suppliers/all_suppliers', compact('suppliers'));
     }
 

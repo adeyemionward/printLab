@@ -17,10 +17,19 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->startDate  = request('date_from').' 23:59:59';
+        $this->endDate    = request('date_to').' 23:59:59';
     }
     public function index()
     {
-        $products =  Product::all();
+        if(request()->date_to && request()->date_from){
+            $products = Product::whereBetween('created_at', [$this->startDate, $this->endDate])->get();
+        }else{
+            $products =  Product::all();
+        }
+
+
         return view('products.all_products',compact('products'));
     }
 

@@ -20,7 +20,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-
+                        @include('includes.date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
