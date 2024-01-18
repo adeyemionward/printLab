@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="{{asset('assets/css/nice-select.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script nonce="3266048e-d3c3-4011-98d7-9dde4087e878">(function(w,d){!function(L,M,N,O){L[N]=L[N]||{};L[N].executed=[];L.zaraz={deferred:[],listeners:[]};L.zaraz.q=[];L.zaraz._f=function(P){return async function(){var Q=Array.prototype.slice.call(arguments);L.zaraz.q.push({m:P,a:Q})}};for(const R of["track","set","debug"])L.zaraz[R]=L.zaraz._f(R);L.zaraz.init=()=>{var S=M.getElementsByTagName(O)[0],T=M.createElement(O),U=M.getElementsByTagName("title")[0];U&&(L[N].t=M.getElementsByTagName("title")[0].text);L[N].x=Math.random();L[N].w=L.screen.width;L[N].h=L.screen.height;L[N].j=L.innerHeight;L[N].e=L.innerWidth;L[N].l=L.location.href;L[N].r=M.referrer;L[N].k=L.screen.colorDepth;L[N].n=M.characterSet;L[N].o=(new Date).getTimezoneOffset();if(L.dataLayer)for(const Y of Object.entries(Object.entries(dataLayer).reduce(((Z,$)=>({...Z[1],...$[1]})),{})))zaraz.set(Y[0],Y[1],{scope:"page"});L[N].q=[];for(;L.zaraz.q.length;){const ba=L.zaraz.q.shift();L[N].q.push(ba)}T.defer=!0;for(const bb of[localStorage,sessionStorage])Object.keys(bb||{}).filter((bd=>bd.startsWith("_zaraz_"))).forEach((bc=>{try{L[N]["z_"+bc.slice(7)]=JSON.parse(bb.getItem(bc))}catch{L[N]["z_"+bc.slice(7)]=bb.getItem(bc)}}));T.referrerPolicy="origin";T.src="../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(L[N])));S.parentNode.insertBefore(T,S)};["complete","interactive"].includes(M.readyState)?zaraz.init():L.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head>
 <body>
 
@@ -86,7 +87,7 @@
 <li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
 
 
-<li><a href="#">Contact</a></li>
+<li><a href="{{route('contact.index')}}">Contact</a></li>
 
 @if (Auth::check())
     <li>
@@ -186,7 +187,7 @@
 <h4>Quick Links</h4>
 <ul>
 <li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
-<li><a href="#">Contact</a></li>
+<li><a href="{{route('contact.index')}}">Contact</a></li>
 <li><a href="{{route('login')}}">Login</a></li>
 <li><a href="{{route('register')}}">Create Customer Account</a></li>
 </ul>
@@ -248,7 +249,8 @@
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.slicknav.min.js')}}"></script>
 
-
+{{-- <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
 
 <script src="{{asset('assets/js/contact.js')}}"></script>
 <script src="{{asset('assets/js/jquery.form.js')}}"></script>

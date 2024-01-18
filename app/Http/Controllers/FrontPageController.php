@@ -12,8 +12,10 @@ use App\Models\Cart;
 use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
+use App\Mail\SendContactFormEmail;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 class FrontPageController extends Controller
 {
@@ -22,10 +24,39 @@ class FrontPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $user;
+    public $localIp;
+    public $order_date;
+
     public function __construct()
     {
         $this->middleware('auth')->only('track_orders');
+        $this->user = Auth::user();
+        $this->localIp = $_SERVER['REMOTE_ADDR'];
+        $this->order_date = date('Y-m-d');
     }
+
+    private function cartFunc(){
+        if (auth()->check()) {
+            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)
+                ->where(function ($query) {
+                    $query->where('user_id', $this->user->id)
+                        ->orWhere('local_id', $this->localIp);
+                })->get();
+        } else {
+            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)->where('local_id', $this->localIp)->get();
+        }
+
+        return $cart_func;
+    }
+
+    private function countCart(){
+
+        $cart_func = $this->cartFunc();
+        $countCart  = count($cart_func);
+        return $countCart;
+    }
+
 
     public function index()
     {
@@ -35,20 +66,8 @@ class FrontPageController extends Controller
 
     public function cart()
     {
-        $user = Auth::user();
-        $localIp = $_SERVER['REMOTE_ADDR'];
         $cartCount = $this->countCart();
-
-        if (auth()->check()) {
-            $carts = JobOrder::where('cart_order_status', 1)
-                ->where(function ($query) {
-                    $query->where('user_id',Auth::user()->id)
-                        ->orWhere('local_id', $_SERVER['REMOTE_ADDR']);
-                })->get();
-        } else {
-            $carts = JobOrder::where('cart_order_status', 1)->where('local_id', $localIp)->get();
-
-        }
+        $carts = $this->cartFunc();
 
         return view('cart.index', compact('cartCount','carts'));
     }
@@ -61,9 +80,7 @@ class FrontPageController extends Controller
      */
     public function addCart(Request $request, $title =  null, $id =  null)
     {
-      //  try{
-        $user       =   Auth::user();
-        $localIp    =   $_SERVER['REMOTE_ADDR'];
+        try{
 
         $product_id                 =  request()->id;
         $ink                        =  request('ink');
@@ -73,8 +90,6 @@ class FrontPageController extends Controller
         $total_cost                 =  request('total_cost');
         $product_name               =  request('product_name');
         $amount_paid = 0;
-
-        $order_date = date('Y-m-d');
 
         if (Auth::check()) {
 
@@ -89,7 +104,7 @@ class FrontPageController extends Controller
             $cart->local_id        = '';
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
-            $cart->order_date      = $order_date;
+            $cart->order_date      = $this->order_date;
             $cart->order_type      = 'external';
             $cart->user_id         = $user->id;
             $cart->created_by      = $user->id;
@@ -105,10 +120,10 @@ class FrontPageController extends Controller
              $cart->paper_type      = $paper_type;
              $cart->quantity        = $quantity;
              $cart->thickness       = $thickness;
-             $cart->local_id        = $localIp;
+             $cart->local_id        = $this->localIp;
              $cart->cart_order_status = 1;
              $cart->total_cost      = $total_cost;
-             $cart->order_date      = $order_date;
+             $cart->order_date      = $this->order_date;
              $cart->order_type      = 'external';
             //  $cart->user_id         = '';
             //  $cart->created_by      = '';
@@ -116,9 +131,9 @@ class FrontPageController extends Controller
         }
 
 
-    // }catch(\Exception){
-    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-    // }
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
 
         return redirect(route('cart.index'))->with('flash_success','Product added to cart');
     }
@@ -141,9 +156,7 @@ class FrontPageController extends Controller
 
     public function update_cart(Request $request, $title =  null, $id =  null, $job_id =  null)
     {
-      //  try{
-        $user       =   Auth::user();
-        $localIp    =   $_SERVER['REMOTE_ADDR'];
+        try{
 
         $product_id                 =  request()->id;
         $ink                        =  request('ink');
@@ -153,8 +166,6 @@ class FrontPageController extends Controller
         $total_cost                 =  request('total_cost');
         $product_name               =  request('product_name');
         $amount_paid = 0;
-
-        $order_date = date('Y-m-d');
 
         if (Auth::check()) {
 
@@ -169,36 +180,16 @@ class FrontPageController extends Controller
             $cart->local_id        = '';
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
-            $cart->order_date      = $order_date;
+            $cart->order_date      = $this->order_date;
             $cart->order_type      = 'external';
-            $cart->user_id         = $user->id;
-            $cart->created_by      = $user->id;
+            $cart->user_id         = $this->user->id;
+            $cart->created_by      = $this->user->id;
             $cart->save();
 
-            //save to cart
-            // $job_tracking = new JobOrderTracking();
-            // $job_tracking->job_order_id     = $cart->id;
-            // $job_tracking->pending_status   = 1;
-            // $job_tracking->pending_date     = $order_date;
-            // $job_tracking->save();
-
-            // $userDetails    = User::find($user->id);
-            // $userEmail      =  $user->email;
-            // $userName       =  $user->firstname.' '.$user->lastname;
-
-            // $cart2 = new Cart();
-            // $cart2->product_id      = $product_id;
-            // $cart2->job_order_id    = $cart->id;
-            // $cart2->local_id        = $localIp;
-            // $cart2->user_id         = $user->id;
-
-            // $cart2->save();
 
             $orderDetails   = JobOrder::find($cart->id);
-            //$sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName));
 
         } else {
-            // return redirect(route('login', ['status' => 'order']))->with('flash_success','Product Order Successful');
 
              //save to job
              $cart =  JobOrder::where('id', $job_id)->first();
@@ -208,10 +199,10 @@ class FrontPageController extends Controller
              $cart->paper_type      = $paper_type;
              $cart->quantity        = $quantity;
              $cart->thickness       = $thickness;
-             $cart->local_id        = $localIp;
+             $cart->local_id        = $this->localIp;
              $cart->cart_order_status = 1;
              $cart->total_cost      = $total_cost;
-             $cart->order_date      = $order_date;
+             $cart->order_date      = $this->order_date;
              $cart->order_type      = 'external';
 
              $cart->save();
@@ -220,11 +211,11 @@ class FrontPageController extends Controller
         }
 
 
-    // }catch(\Exception){
-    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-    // }
+    }catch(\Exception){
+        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    }
 
-        return redirect(route('cart.index'))->with('flash_success','Product added to cart');
+        return redirect(route('cart.index'))->with('flash_success','Product cart edited');
     }
 
 
@@ -233,25 +224,9 @@ class FrontPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private function countCart(){
-        $user = Auth::user();
-        $localIp = $_SERVER['REMOTE_ADDR'];
-        if (auth()->check()) {
-            $cart_count = JobOrder::where('cart_order_status', 1)
-                ->where(function ($query) {
-                    $query->where('user_id',Auth::user()->id)
-                        ->orWhere('local_id', $_SERVER['REMOTE_ADDR']);
-                })->get();
-        } else {
-            $cart_count = JobOrder::where('cart_order_status', 1)->where('local_id', $localIp)->get();
 
-        }
-        $countCart  = count($cart_count);
-        return $countCart;
-    }
 
     public function checkout(){
-        $order_date = date('Y-m-d');
         if (Auth::check()) {
             $user       =   Auth::user();
             $job_id  = request('job_id');
@@ -271,7 +246,7 @@ class FrontPageController extends Controller
                     [
                         'job_order_id' => $ids,
                         'pending_status' => 1,
-                        'pending_date' => $order_date
+                        'pending_date' => $this->order_date
                     ]
                 );
             }
@@ -390,10 +365,45 @@ class FrontPageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function contact()
     {
-        //
+        $cartCount = $this->countCart();
+        return view('contact.index',compact('cartCount'));
     }
+
+    public function postContact(Request $request)
+    {
+        //try{
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'email' => 'required|email',
+                'phone' => 'required',
+                'message' => 'required|string',
+                'g-recaptcha-response' => 'required|captcha',
+            ]);
+
+            if(!$validator->passes()){
+                return response()->json([
+                    'status'=>0,
+                    'error'=>$validate->errors()->toArray()
+                ]);
+            }
+
+            $name       = request('name');
+            $email      = request('email');
+            $phone      = request('phone');
+            $title    = request('subject');
+            $messagetext    = request('message');
+
+            $send_mail = Mail::to('support@printlabs.com.ng')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
+            return response()->json([ [1] ]);
+        // }catch(\Exception){
+        //     return response()->json([ [5] ]);
+        // }
+
+    }
+
+
 
     /**
      * Update the specified resource in storage.

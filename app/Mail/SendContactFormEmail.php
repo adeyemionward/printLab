@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CustomerOrderReceipt extends Mailable
+class SendContactFormEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,16 +18,19 @@ class CustomerOrderReceipt extends Mailable
      *
      * @return void
      */
-    public $orderDetails;
-    public $amount_paid;
-    public $userName;
-    public $pdf_attachment;
-    public function __construct($orderDetails, $amount_paid, $userName, $pdf_attachment)
+
+    public $name;
+    public $email;
+    public $phone;
+    public $title;
+    public $messagetext;
+    public function __construct($name, $email, $phone, $title, $messagetext)
     {
-        $this->orderDetails  = $orderDetails;
-        $this->amount_paid   = $amount_paid;
-        $this->userName      = $userName;
-        $this->pdf_attachment      = $pdf_attachment;
+        $this->name         = $name;
+        $this->email        = $email;
+        $this->phone        = $phone;
+        $this->title      = $title;
+        $this->messagetext      = $messagetext;
     }
 
     /**
@@ -38,7 +41,7 @@ class CustomerOrderReceipt extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Customer Order Receipt',
+            subject: 'A New Message From a Customer',
         );
     }
 
@@ -50,19 +53,20 @@ class CustomerOrderReceipt extends Mailable
     // public function content()
     // {
     //     return new Content(
-    //         view: 'testmail',
-    //         orderDetails: $this->orderDetails,
+    //         view: 'view.name',
     //     );
     // }
 
     public function build()
     {
-        return $this->view('mail.ordermail')
+        return $this->view('mail.contactmail')
                     ->with([
-                        'orderDetails' => $this->orderDetails,
-                        'amount_paid' => $this->amount_paid,
-                        'userName' => $this->userName,
-                    ])->attachData($this->pdf_attachment->output(), 'printLabs-invoice.pdf');
+                        'name'      => $this->name,
+                        'phone'     => $this->phone,
+                        'email'     => $this->email,
+                        'title'     => $this->title,
+                        'messagetext'   => $this->messagetext,
+                    ]);
     }
 
     /**

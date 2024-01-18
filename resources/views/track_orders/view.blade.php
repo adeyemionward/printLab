@@ -36,7 +36,7 @@
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb justify-content-center">
 <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
-<li class="breadcrumb-item"><a href="#">Track Orders</a></li>
+<li class="breadcrumb-item"><a href="{{route('track_orders.view')}}">Track Orders</a></li>
 </ol>
 </nav>
 </div>

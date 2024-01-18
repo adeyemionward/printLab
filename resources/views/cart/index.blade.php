@@ -12,8 +12,8 @@
 <h2>Cart</h2>
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb justify-content-center">
-<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-<li class="breadcrumb-item"><a href="#">Cart</a></li>
+<li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
+<li class="breadcrumb-item"><a href="{{route('cart.index')}}">Cart</a></li>
 </ol>
 </nav>
 </div>

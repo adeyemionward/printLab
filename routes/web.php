@@ -297,31 +297,17 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::post('edit/{title}/{id}/{job_id}', 'FrontPageController@update_cart')->name('edit');
         Route::post('/', 'FrontPageController@checkout')->name('checkout');
     });
+
+    Route::group(['prefix' => '/contact', 'as' => 'contact.'], function () {
+        Route::get('/', 'FrontPageController@contact')->name('index');
+        Route::post('/', 'FrontPageController@postContact')->name('post');
+    });
 });
 
 Route::group(['middleware'=>['auth']],function(){
     Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 });
 
-
-
-
-// Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-
-// });
-
-// Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-
-// });
-
-
-// Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-
-// });
-
-// Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-
-// });
 
 
 
