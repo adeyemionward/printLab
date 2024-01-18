@@ -385,7 +385,7 @@ class FrontPageController extends Controller
             if(!$validator->passes()){
                 return response()->json([
                     'status'=>0,
-                    'error'=>$validate->errors()->toArray()
+                    'error'=>$validator->errors()->toArray()
                 ]);
             }
 
