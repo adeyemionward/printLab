@@ -374,7 +374,7 @@ class FrontPageController extends Controller
 
     public function postContact(Request $request)
     {
-        //try{
+        try{
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
                 'email' => 'required|email',
@@ -396,11 +396,11 @@ class FrontPageController extends Controller
             $title    = request('subject');
             $messagetext    = request('message');
 
-            $send_mail = Mail::to('adeyemiadeshina6@gmai.com')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
+            $send_mail = Mail::to('adeyemiadeshina6@gmail.com')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
             return response()->json([ [1] ]);
-        // }catch(\Exception){
-        //     return response()->json([ [5] ]);
-        // }
+        }catch(\Exception){
+            return response()->json([ [5] ]);
+        }
 
     }
 
