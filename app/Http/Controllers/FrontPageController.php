@@ -25,19 +25,26 @@ class FrontPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $user;
+    private $user;
     public $localIp;
     public $order_date;
 
     public function __construct()
     {
         $this->middleware('auth')->only('track_orders');
-        $this->user = Auth::user();
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+
+            return $next($request);
+        });
+
         $this->localIp = $_SERVER['REMOTE_ADDR'];
         $this->order_date = date('Y-m-d');
+
+
     }
 
-    private function cartFunc(){
+    public function cartFunc(){
         if (auth()->check()) {
             $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)
                 ->where(function ($query) {
@@ -107,8 +114,8 @@ class FrontPageController extends Controller
             $cart->total_cost      = $total_cost;
             $cart->order_date      = $this->order_date;
             $cart->order_type      = 'external';
-            $cart->user_id         = $user->id;
-            $cart->created_by      = $user->id;
+            $cart->user_id         = $this->user->id;
+            $cart->created_by      = $this->user->id;
             $cart->save();
 
         } else {

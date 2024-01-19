@@ -199,7 +199,8 @@
         <div class="footer-tittle">
             <h4>Contact</h4>
             <ul style="color: #BBB9B5">
-                <li>Address: No 14 Akinremi street, Anifowoshe, Ikeja</li>
+                <li>Address: No 14 Akinremi street, Anifowoshe, Ikeja</li>
+                <li>No 1 Melcurt Road, off Opeta/Okpaka Road, by Ferobas Company, Udu, Warri,</li>
                 <li>Phone: 08035777226</li>
                 <li>Email: info@printlabs.com.ng</li>
             </ul>
