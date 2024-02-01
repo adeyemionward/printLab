@@ -66,6 +66,9 @@
         <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
         <ul class="submenu">
             <li><a href="{{route('logout')}}">Logout</a></li>
+            {{-- <li><a href="cart.html">Cart</a></li>
+            <li><a href="pro-details.html">Product Details</a></li>
+            <li><a href="checkout.html">Product Checkout</a></li> --}}
         </ul>
     </li>
 @else
