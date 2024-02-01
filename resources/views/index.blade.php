@@ -200,7 +200,7 @@ a span:hover{
 
                 <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8  col-sm-10">
 
-                    <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-weight:300">Contact us for other printing service & video profiles</h2>
+                    <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-weight:300">Contact us for other printing service & corporate video profile</h2>
 
                 </div>
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4  col-sm-10">
