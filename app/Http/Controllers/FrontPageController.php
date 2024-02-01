@@ -101,7 +101,7 @@ class FrontPageController extends Controller
 
         if (Auth::check()) {
 
-             //save to job
+            //save to job
             $cart = new JobOrder();
             $cart->product_id      = $product_id;
             $cart->job_order_name  = $product_name;
@@ -109,7 +109,7 @@ class FrontPageController extends Controller
             $cart->paper_type      = $paper_type;
             $cart->quantity        = $quantity;
             $cart->thickness       = $thickness;
-            $cart->local_id        = '';
+            $cart->local_id        = $this->localIp;
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
             $cart->order_date      = $this->order_date;
@@ -120,22 +120,22 @@ class FrontPageController extends Controller
 
         } else {
 
-             //save to job
-             $cart = new JobOrder();
-             $cart->product_id      = $product_id;
-             $cart->job_order_name  = $product_name;
-             $cart->ink             = $ink;
-             $cart->paper_type      = $paper_type;
-             $cart->quantity        = $quantity;
-             $cart->thickness       = $thickness;
-             $cart->local_id        = $this->localIp;
-             $cart->cart_order_status = 1;
-             $cart->total_cost      = $total_cost;
-             $cart->order_date      = $this->order_date;
-             $cart->order_type      = 'external';
+            //save to job
+            $cart = new JobOrder();
+            $cart->product_id      = $product_id;
+            $cart->job_order_name  = $product_name;
+            $cart->ink             = $ink;
+            $cart->paper_type      = $paper_type;
+            $cart->quantity        = $quantity;
+            $cart->thickness       = $thickness;
+            $cart->local_id        = $this->localIp;
+            $cart->cart_order_status = 1;
+            $cart->total_cost      = $total_cost;
+            $cart->order_date      = $this->order_date;
+            $cart->order_type      = 'external';
             //  $cart->user_id         = '';
             //  $cart->created_by      = '';
-             $cart->save();
+            $cart->save();
         }
 
 
@@ -185,7 +185,7 @@ class FrontPageController extends Controller
             $cart->paper_type      = $paper_type;
             $cart->quantity        = $quantity;
             $cart->thickness       = $thickness;
-            $cart->local_id        = '';
+            $cart->local_id        = $this->localIp;
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
             $cart->order_date      = $this->order_date;
