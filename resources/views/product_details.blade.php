@@ -280,6 +280,7 @@
 <script>
     $(document).ready(function() {
         $('select').change(function() {
+
             var ink = $('#ink').val();
             var paper_type = $('#paper_type').val();
             var thickness = $('#thickness').val();
@@ -302,6 +303,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    alert(response.price);
 
                     $('#price-container').html('₦'+response.price);
                     $('#total_cost').val(response.price);

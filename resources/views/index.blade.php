@@ -167,6 +167,34 @@
 </div>
 </div>
 
+<section class="" style="margin-top:-80px">
+
+    <div class="container">
+
+        <div class="col-xl-12" style="display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20vh;
+        ">
+            <div class="row">
+
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8  col-sm-10">
+
+                    <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-weight:300">Contact us for other printing service & video profiles</h2>
+
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4  col-sm-10">
+
+                    {{-- <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000;">Contact us for other printing service</h2> --}}
+                    <a href="{{route('contact.index')}}" style="background:transparent; padding:20px 40px 20px 40px; font-size:25px; margin-bottom:30px; border:2px solid #FF2020;" class="btn_1 hero-btn shop_now" > <span style="  color:red;">Contact now</span></a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </section>
 
 <div class="testimonial-area testimonial-padding">
 <div class="container">

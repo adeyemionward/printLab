@@ -319,7 +319,7 @@ class FrontPageController extends Controller
 
         $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
         ->where('products.ink',$ink)->where('products.paper_type',$paper_type)->where('products.thickness',$thickness)
-        ->where('products.name',$product_name)->where('product_costs.quantity',$quantity)
+        ->where('product_costs.quantity',$quantity)
         ->first();
 
         $price =  $pro->total_cost;
