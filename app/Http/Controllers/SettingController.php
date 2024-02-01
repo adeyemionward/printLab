@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
+use App\Models\User;
+use App\Models\Testimonial;
 class SettingController extends Controller
 {
     /**
@@ -53,21 +55,46 @@ class SettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create_testimonial()
     {
-        //
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        return view('settings.testimonial.add_testimonial', compact('customers'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function post_testimonial(Request $request)
     {
-        //
+
+        $user = Auth::user();
+
+        $customer_id   =  request('customer_id');
+        $description    =  request('description');
+
+
+        //save to testimonial
+        $testimonial = new Testimonial();
+        $testimonial->customer_id     =  $customer_id;
+        $testimonial->description     = $description;
+        $testimonial->created_by          = $user->id;
+
+
+        if($testimonial_img = $request->file('image')){
+            $name = $testimonial_img->hashName(); // Generate a unique, random name...
+            $path = $testimonial_img->store('public/images');
+            $testimonial->image = $name;
+
+        }
+
+        $testimonial->save();
+
+        return redirect(route('settings.testimonial.add_testimonial'))->with('flash_success','Customer Testimonial saved successfully');
     }
+
+    public function all_testimonial()
+    {
+        $all_testimonial = Testimonial::all();
+        return view('settings.category.all_testimonial', compact('all_testimonial'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.

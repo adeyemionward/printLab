@@ -13,6 +13,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    CONST ADMIN = 1;
+    CONST CUSTOMER = 2;
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**

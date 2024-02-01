@@ -210,6 +210,12 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                     Route::post('/edit_category/{id}', 'RequisitionController@update')->name('edit_category');
                 });
 
+                Route::group(['prefix' => '/testimonial', 'as' => 'testimonial.'], function () {
+                    Route::get('/add_testimonial', 'SettingController@create_testimonial')->name('add_testimonial');
+                    Route::post('/add_testimonial', 'SettingController@post_testimonial')->name('add_testimonial');
+                    Route::get('/all_testimonial', 'SettingController@all_testimonial')->name('all_testimonial');
+                });
+
             });
 
 

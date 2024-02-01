@@ -213,7 +213,7 @@ class JobOrderController extends Controller
 
     public function higher_education()
     {
-        $customers =  User::where('user_type',2)->get();
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
         $locations =  JobLocation::select('id','city')->get();
         return view('job_order.higher_education', compact('customers','locations'));
     }

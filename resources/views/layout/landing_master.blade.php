@@ -61,25 +61,25 @@
 </ul>
 <ul class="header-social">
 <li><i class="fa fa-phone"> <a href="tel:08035777226">Call: 08035777226</a></i></li>
-@if (Auth::check())
-    <li>
-        <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
-        <ul class="submenu">
-            <li><a href="{{route('logout')}}">Logout</a></li>
-            {{-- <li><a href="cart.html">Cart</a></li>
-            <li><a href="pro-details.html">Product Details</a></li>
-            <li><a href="checkout.html">Product Checkout</a></li> --}}
-        </ul>
-    </li>
-@else
-    <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
-    <li><a href="{{route('register')}}">Create Account</a></li>
-@endif
+
 <!-- <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
 <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
 <li> <a href="#"><i class="fab fa-youtube"></i></a></li> -->
+
+@if (Auth::check())
+<li>
+    <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
+    <ul class="submenu">
+        <li class="logout"><a href="{{route('logout')}}" style="color: red; ">Logout</a></li>
+    </ul>
+</li>
+@else
+<li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
+<li><a href="{{route('register')}}" style="color: #FF2020;">Create Account</a></li>
+@endif
 </ul>
+
 </div>
 </div>
 </div>
@@ -271,6 +271,11 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-23581568-13');
+
+    $(".logout").hide();
+    $(".fa-angle-down").click(function(){
+        $(".submenu").toggle();
+    })
 </script>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8375b993ec2324d2","b":1,"version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>

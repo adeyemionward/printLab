@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\JobOrderTracking;
 use App\Models\ProductCost;
 use App\Models\Cart;
+use App\Models\Testimonial;
 use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
@@ -68,8 +69,9 @@ class FrontPageController extends Controller
 
     public function index()
     {
+        $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        return view('index', compact('cartCount'));
+        return view('index', compact('cartCount','all_testimonial'));
     }
 
     public function cart()
