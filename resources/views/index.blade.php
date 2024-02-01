@@ -32,6 +32,7 @@ a span{
 
 a.contact_now:hover {
     background-color: #e74c3c;
+    color:#fff;
 
 }
 a span:hover{
