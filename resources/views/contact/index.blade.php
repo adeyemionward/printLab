@@ -77,10 +77,10 @@
 <div class="media contact-info">
 <span class="contact-info__icon"><i class="ti-home"></i></span>
 <div class="media-body">
-<h3>No 14 Akinremi street,</h3>
+<h3>Lagos: 14 Akinremi street,</h3>
 <p> Anifowoshe, Ikeja</p> <br>
 
-<h3>No 1 Melcurt Road, off Opeta/Okpaka Road,</h3>
+<h3>Warri: 1 Melcurt Road, off Opeta/Okpaka Road,</h3>
 <p>by Ferobas Company, Udu, Warri,</p>
 </div>
 </div>
