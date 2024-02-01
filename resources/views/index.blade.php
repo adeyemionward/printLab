@@ -18,6 +18,25 @@
     font-weight: bolder;
   }
 }
+a.contact_now {
+    background:transparent;
+    padding:20px 40px 20px 40px;
+    font-size:25px;
+    margin-bottom:30px;
+    border:2px solid #FF2020;
+}
+
+a span{
+    color:red;
+}
+
+a.contact_now:hover {
+    background-color: #e74c3c;
+
+}
+a span:hover{
+    color:#fff;
+}
 </style>
 <section class="" style="margin-top:-150px">
 <div class="">
@@ -186,7 +205,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4  col-sm-10">
 
                     {{-- <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000;">Contact us for other printing service</h2> --}}
-                    <a href="{{route('contact.index')}}" style="background:transparent; padding:20px 40px 20px 40px; font-size:25px; margin-bottom:30px; border:2px solid #FF2020;" class="btn_1 hero-btn shop_now" > <span style="  color:red;">Contact now</span></a>
+                    <a class="btn_1 hero-btn contact_now"  href="{{route('contact.index')}}" > <span>Contact now</span></a>
 
                 </div>
             </div>
