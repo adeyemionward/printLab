@@ -61,6 +61,17 @@
 </ul>
 <ul class="header-social">
 <li><i class="fa fa-phone"> <a href="tel:08035777226">Call: 08035777226</a></i></li>
+@if (Auth::check())
+    <li>
+        <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
+        <ul class="submenu">
+            <li><a href="{{route('logout')}}">Logout</a></li>
+        </ul>
+    </li>
+@else
+    <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
+    <li><a href="{{route('register')}}">Create Account</a></li>
+@endif
 <!-- <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
 <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
@@ -89,20 +100,7 @@
 
 <li><a href="{{route('contact.index')}}">Contact</a></li>
 
-@if (Auth::check())
-    <li>
-        <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
-        <ul class="submenu">
-            <li><a href="{{route('logout')}}">Logout</a></li>
-            {{-- <li><a href="cart.html">Cart</a></li>
-            <li><a href="pro-details.html">Product Details</a></li>
-            <li><a href="checkout.html">Product Checkout</a></li> --}}
-        </ul>
-    </li>
-@else
-    <li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
-    <li><a href="{{route('register')}}">Create Account</a></li>
-@endif
+
 
 
 
