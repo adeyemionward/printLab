@@ -5,7 +5,7 @@
 
 @media screen and (max-width: 768px) {
   .hero-caption{
-    margin-top: 170px;
+    margin-top: 50px;
   }
 
   .latest-items{
@@ -19,7 +19,7 @@
   }
 }
 </style>
-<section class="slider-area ">
+<section class="slider-area " style="margin-top:-150px">
 <div class="slider-active">
 
 <div class=" slider-height d-flex align-items-center">
@@ -27,9 +27,9 @@
 <div class="row">
 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
 <div class="hero-caption text-center">
-<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000">Order Your Notebooks & Other Printing Services</h1>
+<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000">Order Your Customized School Notebooks & Corporate Video Profile/Brochures</h1>
 <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
-<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px">Shop Now</a>
+<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px; margin-top:-80px" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
 </div>
 </div>
 </div>
@@ -48,7 +48,7 @@
 <div class="nav-button">
 
 <nav>
-<div class="nav-tittle" id="buy_products">
+<div class="nav-tittle" id="buy_products" style="margin-top:-80px">
 <h2 id="popular_product_text">Popular Products</h2>
 </div>
 <!-- <div class="nav nav-tabs" id="nav-tab" role="tablist">
