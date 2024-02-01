@@ -27,7 +27,7 @@
 <div class="row">
 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
 <div class="hero-caption text-center">
-<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000">Order Your Customized School Notebooks, Corporate Video Profile & Brochures</h1>
+<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000">Order Your Customized School Notebooks, Corporate Video Profile & Brochures Here</h1>
 <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
 <a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px; margin-top:-80px" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
 </div>
