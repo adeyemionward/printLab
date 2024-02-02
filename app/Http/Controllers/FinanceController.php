@@ -239,7 +239,7 @@ class FinanceController extends Controller
 
         }
 
-        return view('finance.debtors.all_debtors', compact('job_pay'));
+        return view('finance.report.debtors.index', compact('job_pay'));
     }
 
     public function all_creditors(Request $request)
@@ -253,7 +253,21 @@ class FinanceController extends Controller
 
         }
 
-        return view('finance.creditors.all_creditors',compact('expenses'));
+        return view('finance.report.creditors.index',compact('expenses'));
+    }
+
+    public function all_profit_loss(Request $request)
+    {
+
+
+        if(request()->date_to && request()->date_from){
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->get();
+        }else{
+            $expenses = Expense::with('expenseHistories')->get();
+
+        }
+
+        return view('finance.report.profit_loss.index',compact('expenses'));
     }
 
     /**

@@ -190,13 +190,24 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                     Route::get('/all_transactions', 'TransactionController@index')->name('all_transactions');
                 });
 
+                Route::group(['prefix' => '/report', 'as' => 'report.'], function () {
 
-                Route::group(['prefix' => '/debtors', 'as' => 'debtors.'], function () {
-                    Route::get('/all_debtors', 'FinanceController@all_debtors')->name('all_debtors');
+                    Route::group(['prefix' => '/debtors', 'as' => 'debtors.'], function () {
+                        Route::get('/', 'FinanceController@all_debtors')->name('all_debtors');
+                    });
+
+                    Route::group(['prefix' => '/creditors', 'as' => 'creditors.'], function () {
+                        Route::get('/', 'FinanceController@all_creditors')->name('all_creditors');
+                    });
+
+                    Route::group(['prefix' => '/profit_loss', 'as' => 'profit_loss.'], function () {
+                        Route::get('/', 'FinanceController@all_profit_loss')->name('all_profit_loss');
+                    });
+
                 });
-                Route::group(['prefix' => '/creditors', 'as' => 'creditors.'], function () {
-                    Route::get('/all_creditors', 'FinanceController@all_creditors')->name('all_creditors');
-                });
+
+
+
 
             });
 

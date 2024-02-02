@@ -112,40 +112,22 @@
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Customer Payments</span>
                                 </a>
-                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                <a href="{{route('finance.report.debtors.all_debtors')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Debtors Report</span>
                                 </a>
-                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                <a href="{{route('finance.report.creditors.all_creditors')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Creditors Report</span>
                                 </a>
 
-                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                <a href="{{route('finance.report.profit_loss.all_profit_loss')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Profit/Loss</span>
+                                    <span class="data-feather theme-item">Profit/Loss Report</span>
                                 </a>
 							</div>
 						</div>
 					</li>
-
-                    {{-- <li>
-						<div class="sidebardropdown">
-							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
-								id="dropdown-btn" onclick="myFunction()"><i
-								class="data-feather theme-item" data-feather="grid"></i> <span
-								class="theme-item"> Transactions</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
-
-							<div class="dropdown-container">
-								<a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">View All</span>
-                                </a>
-							</div>
-						</div>
-					</li> --}}
 
                     <li>
 						<div class="sidebardropdown">
@@ -338,9 +320,9 @@
                                         {{-- <li><a class="dropdown-item" href="{{route('finance.requisitions.all_requisitions')}}">Requsitions</a></li> --}}
                                         <li><a class="dropdown-item" href="{{route('finance.expenses.all_expenses')}}">Expenses</a></li>
                                         <li><a class="dropdown-item" href="{{route('finance.transactions.all_transactions')}}">Customer Payments</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.debtors.all_debtors')}}">Debtors Report</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.creditors.all_creditors')}}">Creditors Report</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.creditors.all_creditors')}}">Profit/Loss</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.report.debtors.all_debtors')}}">Debtors Report</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.report.creditors.all_creditors')}}">Creditors Report</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.report.profit_loss.all_profit_loss')}}">Profit/Loss Report</a></li>
 
 									</ul>
 								</li>
@@ -391,20 +373,9 @@
                                             </ul>
                                         </li>
 
-                                        {{-- <li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Create Job Locations</a></li> --}}
+
 									</ul>
 								</li>
-
-
-								{{-- <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="shopping-cart"></i> <span
-										class="theme-item">Orders</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-
-								</li> --}}
 
                                 <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"

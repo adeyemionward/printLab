@@ -1,7 +1,7 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'All Customer')
+@section('title', 'Creditors Report')
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
