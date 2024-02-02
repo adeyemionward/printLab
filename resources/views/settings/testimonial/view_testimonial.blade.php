@@ -60,7 +60,7 @@
 
                                                                     <tr>
                                                                         <td width="10%" class="question">Updated By :</td>
-                                                                        <td>{{@$testimonial->createdBy->firstname.' '.@$testimonial->createdBy->lastname ?? 'N/A'}}</td>
+                                                                        <td>{{@$testimonial->updatedBy->firstname.' '.@$testimonial->updatedBy->lastname ?? 'N/A'}}</td>
 
                                                                     </tr>
 
