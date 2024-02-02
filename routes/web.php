@@ -97,7 +97,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 Route::post('/small_invoice', 'JobOrderController@post_small_invoice')->name('small_invoice');
                 Route::get('/stickers', 'JobOrderController@stickers')->name('stickers');
                 Route::post('/stickers', 'JobOrderController@post_stickers')->name('stickers');
-                Route::get('/work_order_templates', 'JobOrderController@work_order_templates')->name('work_order_templates');
+                Route::get('/service_order', 'JobOrderController@service_order')->name('service_order');
+                Route::post('/service_order', 'JobOrderController@post_service_order')->name('service_order');
 
                 Route::group(['prefix' => '/location', 'as' => 'location.'], function () {
                     Route::get('/add_location', 'JobOrderController@add_location')->name('add_location');

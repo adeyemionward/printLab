@@ -18,6 +18,7 @@ use App\Models\JobOrderTracking;
 use App\Models\JobLocation;
 use App\Models\OrderApprovedDesign;
 use App\Models\JobPaymentHistory;
+use App\Repository\ServiceOrderRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -39,6 +40,14 @@ class JobOrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    private function getLocations (){
+        return $locations =  JobLocation::select('id','city')->get();
+    }
+
+    private function getCustomers (){
+        return $customers =  User::where('user_type',User::CUSTOMER)->get();
     }
 
     private function JobOrderQuery (){
@@ -450,7 +459,7 @@ class JobOrderController extends Controller
 
     public function eighty_leaves()
     {
-        $customers =  User::where('user_type',2)->get();
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
         $locations =  JobLocation::select('id','city')->get();
         return view('job_order.80_leaves_book', compact('customers','locationd'));
     }
@@ -519,13 +528,33 @@ class JobOrderController extends Controller
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
         return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
-        // return redirect(route('job_order.view_order',['Eighty_Leaves',$job_order->id]))->with('flash_success','Eighty Leaves Book order saved successfully');
+    }
 
+    public function service_order()
+    {
+        $customers =  $this->getCustomers();
+        $locations =  $this->getLocations();
+
+        return view('job_order.service_order', compact('customers','locations'));
+    }
+
+
+    public function post_service_order(Request $request, ServiceOrderRepository $serviceOrderRepository)
+    {
+        $result = $serviceOrderRepository->serviceOrder($request->all());
+
+        if ($result['success']) {
+            // creation was successful
+            return redirect(route('customers.customer_cart', $request->customer_id))->with('flash_success','Product added to Cart');
+        } else {
+            // creation failed
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
     }
 
     public function booklets()
     {
-        $customers =  User::where('user_type',2)->get();
+        $customers =  $this->getCustomers();
         return view('job_order.booklets', compact('customers'));
     }
 

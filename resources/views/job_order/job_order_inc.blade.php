@@ -51,10 +51,7 @@
                 aria-selected="false">Small Invoice Templates</a>
                <div class="dropdown-divider"></div>
 
-                {{-- <a class="nav-link" id="nav-database-tab"
-                 href="{{route('job_order.work_order_templates')}}"
-                 aria-selected="false">Work and Service Order Templates </a>
-                <div class="dropdown-divider"></div> --}}
+
 
 
                <a class="nav-link <?php if($page == 'bronchures') echo 'active active_red'  ?>"
@@ -106,9 +103,12 @@
                 aria-selected="false">Stickers</a>
                <div class="dropdown-divider"></div>
 
+               <a class="nav-link <?php if($page == 'service_order') echo 'active active_red'  ?>"
+                 href="{{route('job_order.service_order')}}"
+                 aria-selected="false">Service Order </a>
+                <div class="dropdown-divider"></div>
 
             </div>
-
         </div>
     </div>
 </div>

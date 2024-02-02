@@ -55,7 +55,7 @@
                                                                             <label for="production_time">Upload Image
                                                                                 </label>
                                                                                 <input required type="file" name="image" class="form-control"
-                                                                                id="image">
+                                                                                id="image" accept=".jpg, .jpeg, .png, .webp">
                                                                         </div>
                                                                     </div>
 
