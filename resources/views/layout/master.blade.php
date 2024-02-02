@@ -322,21 +322,24 @@
 									href="#" id="navbarDropdownMenuLink1" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false"><i
 										class="data-feather theme-item" data-feather="user"></i> <span
-										class="theme-item">Customers & Users</span><i
+										class="theme-item">Parties</span><i
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
 										<li><a class="dropdown-item" href="{{route('customers.add_customer')}}">Add Customer</a></li>
-										<li><a class="dropdown-item" href="{{route('customers.all_customers')}}"> All Customers</a></li>
+										<li><a class="dropdown-item" href="{{route('customers.all_customers')}}"> View Customers</a></li>
 
                                         <li><a class="dropdown-item" href="{{route('users.add_user')}}">Add User</a></li>
-										<li><a class="dropdown-item" href="{{route('users.all_users')}}"> All Usesr</a></li>
+										<li><a class="dropdown-item" href="{{route('users.all_users')}}"> View Usesr</a></li>
+
+                                        <li><a class="dropdown-item" href="{{route('suppliers.add_supplier')}}">Add Suppliers</a></li>
+										<li><a class="dropdown-item" href="{{route('suppliers.all_suppliers')}}">View Suppliers</a></li>
                                         <li><a class="dropdown-item" href="{{route('roles.add_role')}}">Users Roles & Permission</a></li>
 
 									</ul>
 								</li>
 
-								<li class="nav-item dropdown nav-dropdown"><a
+								{{-- <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
 									href="#" id="navbarDropdownMenuLink1" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false"><i
@@ -345,11 +348,10 @@
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('suppliers.add_supplier')}}">Add New</a></li>
-										<li><a class="dropdown-item" href="{{route('suppliers.all_suppliers')}}">View All</a></li>
+
 
 									</ul>
-								</li>
+								</li> --}}
 
 								<li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
@@ -365,6 +367,7 @@
                                         <li><a class="dropdown-item" href="{{route('finance.transactions.all_transactions')}}">Customer Payments</a></li>
                                         <li><a class="dropdown-item" href="{{route('finance.debtors.all_debtors')}}">Debtors Report</a></li>
                                         <li><a class="dropdown-item" href="{{route('finance.creditors.all_creditors')}}">Creditors Report</a></li>
+                                        <li><a class="dropdown-item" href="{{route('finance.creditors.all_creditors')}}">Profit/Loss</a></li>
 
 									</ul>
 								</li>

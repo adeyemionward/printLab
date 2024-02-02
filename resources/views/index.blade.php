@@ -230,7 +230,6 @@ a span:hover{
                                 </div>
 
                                 <div class="testimonial-founder d-flex align-items-center justify-content-center">
-
                                     <div class="founder-text">
                                         <span>{{$val->customer->firstname.' '.$val->customer->lastname}}</span>
                                     </div>
