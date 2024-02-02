@@ -61,12 +61,14 @@ class ServiceOrderRepository
             $job_pay->payment_type    = $payment_type;
             $job_pay->payment_date    = $order_date;
             $job_pay->created_by      = $user->id;
-            $job_pay->saven();
+            $job_pay->save();
         }catch(\Exception $th){
 
+            // return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             return ['success' => false, 'error' => $th->getMessage()];
         }
-        
+        // return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
+
         return ['success' => true, 'job_order' => $job_order];
 
     }
