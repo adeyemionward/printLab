@@ -88,26 +88,6 @@
 						</div>
 					</li>
 
-
-
-
-{{-- 
-                    <li>
-						<div class="sidebardropdown">
-							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
-								id="dropdown-btn" onclick="myFunction()"><i
-								class="data-feather theme-item" data-feather="user-plus"></i> <span
-								class="theme-item"> Suppliers</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
-
-							<div class="dropdown-container">
-
-
-							</div>
-						</div>
-					</li> --}}
-
                     <li>
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
@@ -139,6 +119,11 @@
                                 <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Creditors Report</span>
+                                </a>
+
+                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Profit/Loss</span>
                                 </a>
 							</div>
 						</div>
