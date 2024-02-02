@@ -229,11 +229,26 @@ a span:hover{
                                     <p>{{$val->description}}</p>
                                 </div>
 
-                                <div class="testimonial-founder d-flex align-items-center justify-content-center">
+
+
+                                    <div class="testimonial-founder d-flex align-items-center justify-content-center">
+                                    <div class="founder-img">
+
+                                        {{-- <div class="founder-img"> --}}
+
+                                            {{-- </div> --}}
+
+                                        @if ( env('APP_ENV') == 'local')
+                                            <img src="{{asset('storage/images/'.$val->image)}}" alt style="height: 100px; width:100px; border-radius:50%">
+                                        @else
+                                            <img src="{{asset('storage/images/'.$val->image)}}" alt style="height: 100px; width:100px; border-radius:50%">
+                                        @endif
+                                    </div>
                                     <div class="founder-text">
                                         <span>{{$val->customer->firstname.' '.$val->customer->lastname}}</span>
+                                    {{-- <p>Designer at Colorlib</p> --}}
                                     </div>
-                                </div>
+                                    </div>
                             </div>
                         </div>
                     @empty
