@@ -44,7 +44,7 @@
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
 								class="data-feather theme-item" data-feather="user"></i> <span
-								class="theme-item"> Customers & Users</span><i
+								class="theme-item"> Parties</span><i
 								class="sidenaviconopen float-end" id="sidenavicon"
 								data-feather="chevron-up"></i></a>
 
@@ -56,7 +56,7 @@
 
                                 <a href="{{route('customers.all_customers')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> All Customers</span>
+                                    <span class="data-feather theme-item"> View Customers</span>
                                 </a>
 
                                 <a href="{{route('users.add_user')}}" class="text-center">
@@ -66,7 +66,17 @@
 
                                 <a href="{{route('users.all_users')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> All Users</span>
+                                    <span class="data-feather theme-item"> View Users</span>
+                                </a>
+
+                                <a href="{{route('suppliers.add_supplier')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item">Add Suppliers</span>
+                                </a>
+
+                                <a href="{{route('suppliers.all_suppliers')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">View Suppliers</span>
                                 </a>
 
                                 <a href="{{route('roles.add_role')}}" class="text-center">
@@ -81,7 +91,7 @@
 
 
 
-
+{{-- 
                     <li>
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
@@ -92,19 +102,11 @@
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
-								<a href="{{route('suppliers.add_supplier')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Add New</span>
-                                </a>
 
-                                <a href="{{route('suppliers.all_suppliers')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">View All</span>
-                                </a>
 
 							</div>
 						</div>
-					</li>
+					</li> --}}
 
                     <li>
 						<div class="sidebardropdown">
@@ -338,20 +340,6 @@
 
 									</ul>
 								</li>
-
-								{{-- <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="user-plus"></i> <span
-										class="theme-item">Suppliers</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-
-
-									</ul>
-								</li> --}}
 
 								<li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
