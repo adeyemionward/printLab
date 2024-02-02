@@ -238,11 +238,11 @@ a span:hover{
 
                                             {{-- </div> --}}
 
-                                        @if ( env('APP_ENV') == 'local')
-                                            <img src="{{asset('storage/images/'.$val->image)}}" alt style="height: 100px; width:100px; border-radius:50%">
-                                        @else
-                                            <img src="{{asset('storage/images/'.$val->image)}}" alt style="height: 100px; width:100px; border-radius:50%">
-                                        @endif
+                                    @if ( env('APP_ENV') == 'local')
+                                        <img src="{{asset('storage/images/'.$val->image)}}" alt style="height: 100px; width:100px; border-radius:50%">
+                                    @else
+                                        <img src="{{asset('public/storage/images/'.$val->image)}}"  alt="customer_image" style="height: 100px; width:100px; border-radius:50%">
+                                    @endif
                                     </div>
                                     <div class="founder-text">
                                         <span>{{$val->customer->firstname.' '.$val->customer->lastname}}</span>
