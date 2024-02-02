@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            //
+            $table->integer('updated_by');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            //
+            Schema::dropIfExists('updated_by');
         });
     }
 };
