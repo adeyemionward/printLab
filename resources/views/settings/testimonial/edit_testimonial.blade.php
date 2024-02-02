@@ -1,8 +1,8 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'Add Testimonial')
-@php $page = 'add_testimonial' @endphp
+@section('title', 'Edit Tesimonial')
+@php $page = 'edit_testimonial' @endphp
 
     <div class="content">
         <div class="container-fluid">
@@ -22,12 +22,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                {{-- @include('job_order.job_order_inc') --}}
+                                @include('settings.testimonial.testimonial_inc')
 
-                                <div class="col-md-12 col-xl-12">
+                                <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Add Customer Testimonial</h5>
+                                            <h5 class="card-title mb-0 text-muted">Edit Customer Testimonial</h5>
                                         </div>
                                         <div class="card-body h-100">
                                             <div class="align-items-start">
@@ -46,15 +46,16 @@
                                                                             <select name="customer_id" required class="form-control form-select" id="customer_name">
                                                                                 <option >--Select Customer Name--</option>
                                                                                 @foreach ($customers as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname }}</option>
+                                                                                    <option value="{{$val->id}}" <?php if ($testimonial->customer_id == $val->id) echo 'selected' ?> >{{$val->firstname.' '.$val->lastname}}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-6">
-                                                                            <label for="production_time">Upload Image
+                                                                            <label for="production_time">Upload Image <span class="text-warning">(Don't upload if you are not uploading a new image) </span>
+                                                                            </label>
                                                                                 </label>
-                                                                                <input required type="file" name="image" class="form-control"
+                                                                                <input  type="file" name="image" class="form-control"
                                                                                 id="image">
                                                                         </div>
                                                                     </div>
@@ -64,7 +65,7 @@
                                                                             <label for="address">Add Review Content
                                                                                 </label>
                                                                                 <textarea name="description" required  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" value="{{ old('description') }}"
-                                                                                id="description"></textarea>
+                                                                                id="description">{{$testimonial->description}}</textarea>
                                                                                 @error('description')
                                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                                 @enderror

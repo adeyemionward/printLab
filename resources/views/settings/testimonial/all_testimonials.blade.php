@@ -1,18 +1,18 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'Add Product')
-@php $page = 'all_location' @endphp
+@section('title', 'All Testimonial')
+@php $page = 'all_testimonial' @endphp
 
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">All Locations</h4>
+                    <h4 class="m-0 text-dark text-muted">Testimonial</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('job_order.location.add_location')}}"><li class="active btn btn-primary" style="">Add Location</li></a>
+                        <a href="{{route('settings.testimonial.add_testimonial')}}"><li class="active btn btn-primary" style="">Add Testimonial</li></a>
                     </ol>
                 </div>
             </div>
@@ -23,11 +23,10 @@
                         <div class="col-md-12">
                             <div class="row">
                                 {{-- @include('job_order.location.location_inc') --}}
-
                                 <div class="col-md-12 col-xl-12">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Create Job Locations</h5>
+                                            <h5 class="card-title mb-0 text-muted">View Testominials</h5>
                                         </div>
                                         <div class="card-body h-100">
                                             <div class="align-items-start">
@@ -48,18 +47,14 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        @foreach ($location as $val)
+                                                                        @foreach ($all_testimonial as $val)
                                                                             <tr>
                                                                                 <td>{{$loop->iteration}}</td>
-                                                                                <td>{{$val->city}}</td>
-
-                                                                                <td>{{$val->state}}</td>
-
-                                                                                <td><a href="{{route('job_order.location.view_location',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                                <td>{{$val->customer->firstname.' '.$val->customer->lastname}}</td>
+                                                                                <td>{{$val->description}}</td>
+                                                                                <td><a href="{{route('settings.testimonial.view_testimonial',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                                                             </tr>
                                                                         @endforeach
-
-
                                                                 </table>
                                                             </div>
                                                         </div>
@@ -78,18 +73,4 @@
         </div>
     </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script>
-$(document).ready(function() {
 
-    $('#add-product').on('click', function() {
-            var newRow = $('.product-row:first').clone();
-            $('#products tbody').append(newRow);
-        });
-
-        $('#products').on('click', '.remove-product', function() {
-            $(this).closest('tr').remove();
-            calculateTotal();
-        });
-    });
-</script>

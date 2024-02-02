@@ -201,7 +201,6 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 
 
             Route::group(['prefix' => '/settings', 'as' => 'settings.'], function () {
-
                 Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
                     Route::get('/add_category', 'SettingController@create_category')->name('add_category');
                     Route::post('/add_category', 'SettingController@post_category')->name('add_category');
@@ -213,9 +212,12 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 Route::group(['prefix' => '/testimonial', 'as' => 'testimonial.'], function () {
                     Route::get('/add_testimonial', 'SettingController@create_testimonial')->name('add_testimonial');
                     Route::post('/add_testimonial', 'SettingController@post_testimonial')->name('add_testimonial');
-                    Route::get('/all_testimonial', 'SettingController@all_testimonial')->name('all_testimonial');
+                    Route::get('/all_testimonials', 'SettingController@all_testimonial')->name('all_testimonials');
+                    Route::get('/view_testimonial/{id}', 'SettingController@view_testimonial')->name('view_testimonial');
+                    Route::get('/edit_testimonial/{id}', 'SettingController@edit_testimonial')->name('edit_testimonial');
+                    Route::post('/edit_testimonial/{id}', 'SettingController@update_testimonial')->name('update_testimonial');
+                    Route::get('/delete_testimonial/{id}', 'SettingController@delete_testimonial')->name('delete_testimonial');
                 });
-
             });
 
 
@@ -232,8 +234,6 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
                 Route::get('/delete_customer/{id}', 'CustomerController@destroy')->name('delete_customer');
             });
-
-
 
 
             Route::group(['prefix' => '/users', 'as' => 'users.'], function () {

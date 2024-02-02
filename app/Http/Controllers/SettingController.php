@@ -18,6 +18,12 @@ class SettingController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function find_testimonial($id)
+    {
+        return Testimonial::find($id);
+    }
+
     public function all_category()
     {
         return view('settings.category.all_category');
@@ -61,6 +67,7 @@ class SettingController extends Controller
         return view('settings.testimonial.add_testimonial', compact('customers'));
     }
 
+
     public function post_testimonial(Request $request)
     {
 
@@ -86,13 +93,13 @@ class SettingController extends Controller
 
         $testimonial->save();
 
-        return redirect(route('settings.testimonial.add_testimonial'))->with('flash_success','Customer Testimonial saved successfully');
+        return redirect(route('settings.testimonial.view_testimonial',$testimonial->id))->with('flash_success','Customer Testimonial saved successfully');
     }
 
     public function all_testimonial()
     {
         $all_testimonial = Testimonial::all();
-        return view('settings.category.all_testimonial', compact('all_testimonial'));
+        return view('settings.testimonial.all_testimonials', compact('all_testimonial'));
     }
 
 
@@ -102,31 +109,62 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function view_testimonial($id)
     {
-        //
+        $testimonial =  $this->find_testimonial($id);
+        return view('settings.testimonial.view_testimonial', compact('testimonial'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function edit_testimonial($id)
     {
-        //
+        $testimonial =  $this->find_testimonial($id);
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        return view('settings.testimonial.edit_testimonial', compact('testimonial','customers'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function update_testimonial(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+
+        $customer_id   =  request('customer_id');
+        $description    =  request('description');
+
+        try{
+            $testimonial =  $this->find_testimonial($id);
+
+            //update to testimonial
+            $testimonial->customer_id     = $customer_id;
+            $testimonial->description     = $description;
+            $testimonial->updated_by      = $user->id;
+
+
+            if($testimonial_img = $request->file('image')){
+                $name = $testimonial_img->hashName(); // Generate a unique, random name...
+                $path = $testimonial_img->store('public/images');
+                $testimonial->image = $name;
+
+            }
+
+            $testimonial->save();
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
+
+        return redirect(route('settings.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial updated successfully');
+    }
+
+    public function delete_testimonial($id)
+    {
+        try{
+            $testimonial =  $this->find_testimonial($id);
+            if(is_null($testimonial)){
+                return redirect(route('settings.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial not available');
+            }
+            $testimonial->delete();
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+        return redirect(route('settings.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial deleted');
     }
 }
