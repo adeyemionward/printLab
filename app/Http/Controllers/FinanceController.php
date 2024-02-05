@@ -242,18 +242,27 @@ class FinanceController extends Controller
 
     public function all_profit_loss(Request $request)
     {
-        $ordersPayHistory = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
+        $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
             ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
-            ->groupBy('job_orders.job_order_name')
-            ->get();
+            ->groupBy('job_orders.job_order_name');
 
-            $expensesPayHistory = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
+        $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
             ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
             ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
-            ->groupBy('expense_categories.id', 'expense_categories.category_name')
-            ->get();
+            ->groupBy('expense_categories.id', 'expense_categories.category_name');
 
-            // dd($expensesPayHistory);
+
+        if(request()->date_to && request()->date_from){
+            $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_histories.payment_date', [$this->startDate, $this->endDate])->get();
+            $expensesPayHistory     = $expensesPayHistory1->whereBetween('expense_payment_histories.expense_date', [$this->startDate, $this->endDate])->get();
+
+        }else{
+            $ordersPayHistory       = $ordersPayHistory1->get();
+            $expensesPayHistory     = $expensesPayHistory1->get();
+
+        }
+
+
 
         return view('finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
     }
