@@ -43,13 +43,7 @@ class JobOrderController extends Controller
         $this->middleware('auth');
         $this->noteBookRepository = $noteBookRepository;
     }
-
-
-
-    private function getCustomers (){
-        return $customers =  User::where('user_type',User::CUSTOMER)->get();
-    }
-
+    
     private function JobOrderQuery (){
         return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::job_ordered_status);
     }
@@ -298,8 +292,8 @@ class JobOrderController extends Controller
 
     public function service_order()
     {
-        $customers =  $this->getCustomers();
-        $locations =  JobLocation::getLocations();
+        $customers  =  User::getCustomers();
+        $locations  =  JobLocation::getLocations();
 
         return view('job_order.service_order', compact('customers','locations'));
     }
@@ -320,7 +314,7 @@ class JobOrderController extends Controller
 
     public function booklets()
     {
-        $customers =  $this->getCustomers();
+        $customers =  User::getCustomers();
         return view('job_order.booklets', compact('customers'));
     }
 

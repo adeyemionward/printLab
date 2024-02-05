@@ -320,6 +320,11 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@contact')->name('index');
         Route::post('/', 'FrontPageController@postContact')->name('post');
     });
+
+    Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {
+        Route::get('/', 'FrontPageController@profile')->name('index');
+        Route::post('/', 'FrontPageController@postProfile')->name('post');
+    });
 });
 
 Route::group(['middleware'=>['auth']],function(){

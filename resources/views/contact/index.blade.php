@@ -1,6 +1,6 @@
 @extends('layout.landing_master')
 @section('content')
-@section('title', 'Add Supplier')
+@section('title', 'Contact')
 
 <div class="hero-area section-bg2">
 <div class="container">

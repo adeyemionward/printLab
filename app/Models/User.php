@@ -52,4 +52,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getCustomers (){
+        return $customers =  User::where('user_type',User::CUSTOMER)->get();
+    }
 }

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\ProfileRequest;
+use App\Repository\ProfileRepository;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\JobOrder;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
 use App\Mail\SendContactFormEmail;
 use Illuminate\Support\Facades\DB;
+
+
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -32,7 +35,7 @@ class FrontPageController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only('track_orders');
+        $this->middleware('auth')->only('track_orders','profile');
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 
@@ -369,12 +372,7 @@ class FrontPageController extends Controller
         return $pdf->stream('order_invoice.pdf');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function contact()
     {
         $cartCount = $this->countCart();
@@ -410,6 +408,29 @@ class FrontPageController extends Controller
         }catch(\Exception){
             return response()->json([ [5] ]);
         }
+
+    }
+
+
+    public function profile()
+    {
+        $cartCount = $this->countCart();
+        return view('profile.index',compact('cartCount'));
+    }
+
+    public function postProfile(ProfileRequest $request, ProfileRepository $profileRepository)
+    {
+
+        $result = $profileRepository->storeProfile($request->all());
+
+        if ($result['success']) {
+            // creation was successful
+            $redirectResponse = redirect(route('profile.index'))->with('flash_success','Profile updated successfully');
+        } else {
+            // creation failed
+            $redirectResponse = redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+        return $redirectResponse;
 
     }
 
