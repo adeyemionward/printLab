@@ -10,6 +10,7 @@ class ServiceOrderRepository
 {
     public function serviceOrder($data)
     {
+        DB::beginTransaction();
         try{
             $user = Auth::user();
             $order_date = date('Y-m-d');
@@ -62,13 +63,12 @@ class ServiceOrderRepository
             $job_pay->payment_date    = $order_date;
             $job_pay->created_by      = $user->id;
             $job_pay->save();
-        }catch(\Exception $th){
 
-            // return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            DB::commit();
+        }catch(\Exception $th){
+            DB::rollBack();
             return ['success' => false, 'error' => $th->getMessage()];
         }
-        // return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
-
         return ['success' => true, 'job_order' => $job_order];
 
     }

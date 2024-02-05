@@ -28,15 +28,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Category</td>
-                                    <td>3000</td>
-                                </tr>
+                                @php $total_income = 0; @endphp
+
+                                @foreach ($ordersPayHistory as $order_val)
+
+                                    @php $total_income += $order_val->total_pay @endphp
+                                    <tr>
+                                        <td>{{$order_val->job_order_name}}</td>
+                                        <td>&#8358;{{number_format($order_val->total_pay,2)}}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Total Income</th>
-                                    <th>2000</th>
+                                    <th>&#8358;{{number_format($total_income, 2)}}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -49,15 +55,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Category</td>
-                                    <td>3000</td>
-                                </tr>
+                                @php $total_expenses = 0; @endphp
+
+                                @foreach ($expensesPayHistory as $expense_val)
+
+                                    @php $total_expenses += $expense_val->total_pay @endphp
+                                    <tr>
+                                        <td>{{$expense_val->category_name}}</td>
+                                        <td>&#8358;{{number_format($expense_val->total_pay,2)}}</td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Total Expenses</th>
-                                    <th>2000</th>
+                                    <th>&#8358;{{number_format($total_expenses, 2)}}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -67,7 +80,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Profit/Loss</th>
-                                    <th>2000</th>
+                                    <th>&#8358;{{number_format($total_income - $total_expenses, 2)}}</th>
                                 </tr>
                             </tfoot>
                         </table>

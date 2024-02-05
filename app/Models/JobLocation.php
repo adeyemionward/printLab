@@ -23,4 +23,8 @@ class JobLocation extends Model
         return $this->belongsTo(JobLocation::class,'job_location_id','id');
     }
 
+    public static function getLocations (){
+        return  JobLocation::select('id','city')->get();
+    }
+
 }

@@ -72,7 +72,7 @@
 <li id="submenu1">
     <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
     <ul class="submenu">
-        <li class="logout"><a href="{{route('logout')}}" style="color: black; ">Logout</a></li> <br>
+        <li class="logout"><a href="{{route('logout')}}" style="color: black;">Logout</a></li> <br>
         <li class="logout1"><a href="#" style="color: black;">Profile</a></li>
     </ul>
 </li>

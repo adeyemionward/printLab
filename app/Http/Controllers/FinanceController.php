@@ -197,13 +197,6 @@ class FinanceController extends Controller
         return back()->with("flash_success","Expense Payment updated successfully");
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function payment_history($id)
     {
         $expense_pay_history = ExpensePaymentHistory::where('expense_id',$id)->get();
@@ -217,16 +210,6 @@ class FinanceController extends Controller
         return redirect(route('finance.expenses.all_expenses'))->with('flash_success','Expense deleted successfully');
     }
 
-
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
      public function all_debtors(Request $request)
     {
@@ -259,38 +242,20 @@ class FinanceController extends Controller
 
     public function all_profit_loss(Request $request)
     {
+        $ordersPayHistory = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
+            ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+            ->groupBy('job_orders.job_order_name')
+            ->get();
 
+            $expensesPayHistory = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
+            ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
+            ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
+            ->groupBy('expense_categories.id', 'expense_categories.category_name')
+            ->get();
 
-        // if(request()->date_to && request()->date_from){
-        //     $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->get();
-        // }else{
-        //     $expenses = Expense::with('expenseHistories')->get();
+            // dd($expensesPayHistory);
 
-        // }
-
-// $jobOrders = JobOrder::with(['jobPaymentHistory' => function ($query) {
-//         $query->selectRaw('job_order_id, SUM(amount) as total_pay')
-//             ->groupBy('job_order_id');
-//     }])
-//     ->where('job_order_name', 'Service')
-//     ->get();
-
-
-$payHistory = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
-    ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
-    ->where('job_orders.job_order_name', 'Service')
-    ->groupBy('job_orders.job_order_name')
-    ->get();
-
-// $payHistory will contain the total pay grouped by job_name
-
-
-    dd($payHistory);
-//
-// $jobOrders will contain the JobOrder instances with the related payHistory
-
-
-        return view('finance.report.profit_loss.index',compact('expenses'));
+        return view('finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
     }
 
     /**
