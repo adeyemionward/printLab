@@ -23,8 +23,8 @@
                         <table id="example1" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Income</th>
-                                    <th>Amount</th>
+                                    <th style="width: 70%;">Income</th>
+                                    <th style="width: 30%;">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,15 +34,15 @@
 
                                     @php $total_income += $order_val->total_pay @endphp
                                     <tr>
-                                        <td>{{$order_val->job_order_name}}</td>
-                                        <td>&#8358;{{number_format($order_val->total_pay,2)}}</td>
+                                        <td style="width: 70%;">{{$order_val->job_order_name}}</td>
+                                        <td style="width: 30%;">&#8358;{{number_format($order_val->total_pay,2)}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Total Income</th>
-                                    <th>&#8358;{{number_format($total_income, 2)}}</th>
+                                    <th style="width: 70%;">Total Income</th>
+                                    <th style="width: 30%;">&#8358;{{number_format($total_income, 2)}}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -50,8 +50,8 @@
                         <table id="example1" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Expenses</th>
-                                    <th>Amount</th>
+                                    <th style="width: 70%;">Expenses</th>
+                                    <th style="width: 30%;">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,16 +61,16 @@
 
                                     @php $total_expenses += $expense_val->total_pay @endphp
                                     <tr>
-                                        <td>{{$expense_val->category_name}}</td>
-                                        <td>&#8358;{{number_format($expense_val->total_pay,2)}}</td>
+                                        <td style="width: 70%;">{{$expense_val->category_name}}</td>
+                                        <td style="width: 30%;">&#8358;{{number_format($expense_val->total_pay,2)}}</td>
                                     </tr>
                                 @endforeach
 
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Total Expenses</th>
-                                    <th>&#8358;{{number_format($total_expenses, 2)}}</th>
+                                    <th style="width: 70%;">Total Expenses</th>
+                                    <th style="width: 30%;">&#8358;{{number_format($total_expenses, 2)}}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -79,8 +79,8 @@
                         <table id="example1" class="table no-margin" style="width:100%">
                             <tfoot>
                                 <tr>
-                                    <th>Profit/Loss</th>
-                                    <th>&#8358;{{number_format($total_income - $total_expenses, 2)}}</th>
+                                    <th style="width: 70%;">Profit/Loss</th>
+                                    <th style="width: 30%;">&#8358;{{number_format($total_income - $total_expenses, 2)}}</th>
                                 </tr>
                             </tfoot>
                         </table>
