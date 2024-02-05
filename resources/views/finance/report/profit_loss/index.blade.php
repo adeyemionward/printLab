@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">All Debtors</h4>
+                    <h4 class="m-0 text-dark text-muted">Profit/Loss Report</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Debtors</a></li>
-                        <li class="breadcrumb-item active">All Debtors</li>
+                        <li class="breadcrumb-item"><a href="#"> Profit/Loss</a></li>
+                        <li class="breadcrumb-item active">All Profit/Loss</li>
                     </ol>
                 </div>
             </div>
