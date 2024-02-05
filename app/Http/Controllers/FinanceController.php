@@ -8,6 +8,7 @@ use App\Models\ExpenseCategory;
 use App\Models\ExpensePaymentHistory;
 use App\Models\Supplier;
 use App\Models\JobOrder;
+use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ErrorLog;
 use Illuminate\Support\Facades\DB;
@@ -260,12 +261,34 @@ class FinanceController extends Controller
     {
 
 
-        if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->get();
-        }else{
-            $expenses = Expense::with('expenseHistories')->get();
+        // if(request()->date_to && request()->date_from){
+        //     $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->get();
+        // }else{
+        //     $expenses = Expense::with('expenseHistories')->get();
 
-        }
+        // }
+
+// $jobOrders = JobOrder::with(['jobPaymentHistory' => function ($query) {
+//         $query->selectRaw('job_order_id, SUM(amount) as total_pay')
+//             ->groupBy('job_order_id');
+//     }])
+//     ->where('job_order_name', 'Service')
+//     ->get();
+
+
+$payHistory = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
+    ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+    ->where('job_orders.job_order_name', 'Service')
+    ->groupBy('job_orders.job_order_name')
+    ->get();
+
+// $payHistory will contain the total pay grouped by job_name
+
+
+    dd($payHistory);
+//
+// $jobOrders will contain the JobOrder instances with the related payHistory
+
 
         return view('finance.report.profit_loss.index',compact('expenses'));
     }

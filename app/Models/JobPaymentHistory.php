@@ -9,5 +9,8 @@ class JobPaymentHistory extends Model
 {
     use HasFactory;
 
-    
+    public function jobOrder()
+    {
+        return $this->belongsTo(JobOrder::class, 'job_order_id');
+    }
 }

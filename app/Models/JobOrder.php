@@ -40,5 +40,4 @@ class JobOrder extends Model
         return $this->belongsTo(JobPaymentHistory::class,'id','job_order_id');
     }
 
-
 }

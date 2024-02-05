@@ -2,11 +2,26 @@
 @section('content')
 @section('title', 'Add Supplier')
 <style>
+@media screen and (min-width: 768px) {
+    .hero1{
+        margin-top: -150px;
+    }
 
+    .more_service{
+        margin-top:-80px;
+    }
+}
 @media screen and (max-width: 768px) {
+
   .hero-caption{
     margin-top: 50px;
   }
+
+  
+  .hero1{
+    margin-top: 60px;
+  }
+
 
   .latest-items{
     position: relative;
@@ -39,7 +54,7 @@ a span:hover{
     color:#fff;
 }
 </style>
-<section class="" style="margin-top:-150px">
+<section class="hero1" >
 <div class="">
 
 <div class=" slider-height d-flex align-items-center">
@@ -187,7 +202,7 @@ a span:hover{
 </div>
 </div>
 
-<section class="" style="margin-top:-80px">
+<section class="more_service"  >
 
     <div class="container">
 

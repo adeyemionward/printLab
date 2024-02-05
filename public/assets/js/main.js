@@ -1,6 +1,6 @@
 (function ($)
     { "use strict"
-    
+
 /* 0. Proloder */
   $(window).on('load', function () {
     $('#preloader-active').delay(450).fadeOut('slow');
@@ -29,7 +29,7 @@
       }, 800);
       return false;
     });
-  
+
 /* 2. slick Nav */
 // mobile_menu
     var menu = $('ul#navigation');
@@ -40,7 +40,7 @@
         openedSymbol:'-'
       });
     };
-    
+
 
 //3. Search Toggle
     $("#search_input_box").hide();
@@ -73,7 +73,7 @@
       autoplaySpeed: 4000,
       dots: false,
       fade: true,
-      arrows: true, 
+      arrows: true,
       prevArrow: '<button type="button" class="slick-prev"><i class="ti-angle-left"></i></button>',
       nextArrow: '<button type="button" class="slick-next"><i class="ti-angle-right"></i></button>',
       responsive: [{
@@ -295,9 +295,9 @@
       });
 
 /* 10. WOW active */
-    new WOW().init();
+    // new WOW().init();
 
-// 11. ---- Mailchimp js --------//  
+// 11. ---- Mailchimp js --------//
     function mailChimp() {
       $('#mc_embed_signup').find('form').ajaxChimp();
     }
@@ -324,10 +324,10 @@
     }
 
 /* 14. counterUp*/
-    $('.counter').counterUp({
-      delay: 10,
-      time: 3000
-    });
+    // $('.counter').counterUp({
+    //   delay: 10,
+    //   time: 3000
+    // });
 
 
 //15. click counter Number js
