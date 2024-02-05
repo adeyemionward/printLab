@@ -32,37 +32,37 @@
 <h2 class="contact-title">Profile Details</h2>
 </div>
 <div class="col-lg-8">
-    <form class="form-contact contact_form" id="profile_update" novalidate="novalidate" method="POST">
+    <form class="form-contact contact_form" id="profile_update"  method="POST">
         @csrf
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input class="form-control valid" name="firstname" id="firstname" required type="text" value="{{Auth::user()->firstname}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your firstname'" placeholder="Enter your firstname">
+                    <input class="form-control valid" name="firstname" id="firstname" required type="text" value="{{Auth::user()->firstname}}" placeholder="Enter your firstname">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input class="form-control valid" name="lastname" id="lastname" required type="text" value="{{Auth::user()->lastname}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your lastname'" placeholder="Enter your lastname">
+                    <input class="form-control valid" name="lastname" id="lastname" required type="text" value="{{Auth::user()->lastname}}"  placeholder="Enter your lastname">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input class="form-control valid" name="phone" id="phone" required type="text" value="{{Auth::user()->phone}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your phone number'" placeholder="Enter your phone number">
+                    <input class="form-control valid" name="phone" id="phone" required type="text" value="{{Auth::user()->phone}}"  placeholder="Enter your phone number">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input class="form-control valid" name="email" id="email" required type="email" value="{{Auth::user()->email}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                    <input class="form-control valid" name="email" id="email" required type="email" value="{{Auth::user()->email}}" placeholder="Email">
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <input class="form-control" name="company_name" required id="company_name" type="text" value="{{Auth::user()->company_name}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Schoolname'" placeholder="Enter Schoolname">
+                    <input class="form-control" name="company_name" required id="company_name" type="text" value="{{Auth::user()->company_name}}"  placeholder="Enter Schoolname">
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <textarea class="form-control w-100" name="address" required id="address" cols="6" rows="3"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Address'" placeholder=" Enter Address">{{Auth::user()->address}}</textarea>
+                    <textarea class="form-control w-100" name="address" required id="address" cols="6" rows="3"  placeholder=" Enter Address">{{Auth::user()->address}}</textarea>
                 </div>
             </div>
         </div>
