@@ -1,10 +1,7 @@
 <div class="row g-3 mb-3 mt-3">
     <div class="col-md-12">
         <form method="GET"  id="" class="">
-            @csrf
-            @method('GET')
             <div class="row">
-
                 <div class="form-group mt-3 mb-3 col-md-4">
                     <label for="exampleFormControlInput1"> Date From: </label>
                     <input type="date" required name="date_from" class="form-control {{ $errors->has('date_from') ? ' is-invalid' : '' }} " value="{{request()->date_from}}"  id="date_from">
@@ -23,7 +20,6 @@
 
                 <div class="form-group mt-3 mb-3 col-md-4">
                     <label for=""> Filter </label> <br>
-                    {{-- <input type="submit"  name="expense_date" class="form-control tn btn-sm btn-danger"  id="search"> --}}
                     <button class="btn btn-sm btn-danger" type="submit" style="width: 200px">
                         <i class="text-white me-2" data-feather="check-circle"></i>Search
                     </button>
