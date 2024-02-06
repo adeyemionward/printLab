@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Traits\filterOrdersByDateTrait;
+use App\Traits\FilterOrdersByDateTrait;
 use Illuminate\Support\Facades\DB;
 
 class ExternalJobOrderController extends Controller
