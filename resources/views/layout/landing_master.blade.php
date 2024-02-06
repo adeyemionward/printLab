@@ -73,7 +73,7 @@
     <ul class="submenu">
         <li class="logout"><a href="{{route('logout')}}" style="color: black;">Logout</a></li> <br>
         <li class="logout1"><a href="{{route('profile.index')}}" style="color: black;">Profile</a></li> <br>
-        <li class="logout1"><a href="#" style="color: black;">Change Password</a></li>
+        <li class="logout1"><a href="{{route('profile.change_password')}}" style="color: black;">Change Password</a></li>
     </ul>
 </li>
 @else

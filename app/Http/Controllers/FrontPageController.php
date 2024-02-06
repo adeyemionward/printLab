@@ -15,6 +15,7 @@ use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
 use App\Mail\SendContactFormEmail;
+use Hash;
 use Illuminate\Support\Facades\DB;
 
 
@@ -144,7 +145,7 @@ class FrontPageController extends Controller
         }
 
 
-    }catch(\Exception){
+    }catch(\Exception $th){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
 
@@ -224,7 +225,7 @@ class FrontPageController extends Controller
         }
 
 
-    }catch(\Exception){
+    }catch(\Exception $th){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
 
@@ -405,7 +406,7 @@ class FrontPageController extends Controller
 
             $send_mail = Mail::to('info@printlabs.com.ng')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
             return response()->json([ [1] ]);
-        }catch(\Exception){
+        }catch(\Throwable $th){
             return response()->json([ [5] ]);
         }
 
@@ -418,20 +419,59 @@ class FrontPageController extends Controller
         return view('profile.index',compact('cartCount'));
     }
 
-    public function postProfile(ProfileRequest $request, ProfileRepository $profileRepository)
+    public function updateProfile(ProfileRequest $request, ProfileRepository $profileRepository)
     {
 
         $result = $profileRepository->storeProfile($request->all());
 
         if ($result['success']) {
             // creation was successful
-            $redirectResponse = redirect(route('profile.index'))->with('flash_success','Profile updated successfully');
+            $redirectResponse =  response()->json([ [1] ]);
+            //redirect(route('profile.index'))->with('flash_success','Profile updated successfully');
         } else {
             // creation failed
-            $redirectResponse = redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            $redirectResponse =  response()->json([ [2] ]);
+            //redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
         return $redirectResponse;
 
+    }
+
+    public function changePassword()
+    {
+        $cartCount = $this->countCart();
+        return view('profile.change_password',compact('cartCount'));
+    }
+
+    public function updateChangePassword(Request $request)
+    {
+
+        $validate = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:8', // Password confirmation and minimum length
+        ]);
+
+        if(!$validate->passes()){
+            return response()->json([
+                'status'=>0,
+                'error'=>$validate->errors()->toArray()
+            ]);
+        }
+
+        $user = Auth::user();
+        try{
+            if (Hash::check(request('old_password'), $user->password)) {
+                $user->password = bcrypt(request('password'));
+                $user->save();
+                return response()->json([ [1] ]);
+            }else{
+                return response()->json([ [2] ]);
+            }
+        }catch (\Throwable $th){
+            // ErrorLog::log('user_password', 'null', $th->getMessage()); //log error
+            // return $th->getMessage();
+            return response()->json([ [5] ]);
+        }
     }
 
 

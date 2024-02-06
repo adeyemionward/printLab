@@ -77,15 +77,15 @@
 </section>
 
 </main>
-@endsection
+
+
 
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
 
-      $("#profile_update1").submit(function(e){
+      $("#profile_update").submit(function(e){
         e.preventDefault();
-        //alert();
 
         var all = $(this).serialize();
         //console.log(all);
@@ -97,48 +97,44 @@
 
             beforeSend:function(){
                // $(document).find('span.error-text').text('');
-                $('#loginBtn').prop('disabled',true);
-                $('#loginBtn').css('cursor', 'not-allowed');
-                $('#loginBtn').html('<span class="flex justify-center items-center">Authenticating... </span>');
+                $('#subBtn1').prop('disabled',true);
+                $('#subBtn1').css('cursor', 'not-allowed');
+                $('#subBtn1').html('<span class="flex justify-center items-center">Processing... </span>');
             },
 
             success: function(data){
 
                 if (data.status==0) {
                     $.each(data.error, function(prefix, val){
-                        $('span.'+prefix+'_error').text(val[0]);
+                        toastr.error("Error occured: Please try later").text(val[0]);
                     });
                    // $('#save').prop('disabled', false);
-                    $("#loginBtn").attr('disabled',false);
-                    $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $("#subBtn1").attr('disabled',false);
+                    $('#subBtn1').css('cursor', 'pointer');
+                    $('#subBtn1').html('<span class="flex justify-center items-center">Send </span>');
                 }
                 if(data == 1){
-                    toastr.success("Registration Successful");
+                    toastr.success("Profile updated successfully");
                     setInterval(function(){
-                        window.location.replace('{{route("track_orders.index")}}');
-                    },2000)
-
-                }else if (data == 12){
-                    toastr.success("Registration Successful");
-                    setInterval(function(){ //customer dashboard login
-                        window.location.href = document.referrer;
+                        window.location.replace('{{route("contact.index")}}');
                     },2000)
 
                 }else if(data == 5){
                     toastr.error("Error occured: Please try later");
-                    $("#loginBtn").attr('disabled',false);
-                    $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $("#subBtn1").attr('disabled',false);
+                    $('#subBtn1').css('cursor', 'pointer');
+                    $('#subBtn1').html('<span class="flex justify-center items-center">Send </span>');
 
-                }else if(data == 7){
-                    toastr.error("Error occured: Incorrect Email/Password");
-                    $("#loginBtn").attr('disabled',false);
-                    $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                }else if(data == 2){
+                    toastr.error("Error occured: Please try later");
+                    $("#subBtn1").attr('disabled',false);
+                    $('#subBtn1').css('cursor', 'pointer');
+                    $('#subBtn1').html('<span class="flex justify-center items-center">Send </span>');
 
                 }
             }
         })
     });
 </script>
+@endsection
+

@@ -323,7 +323,9 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 
     Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {
         Route::get('/', 'FrontPageController@profile')->name('index');
-        Route::post('/', 'FrontPageController@postProfile')->name('post');
+        Route::post('/', 'FrontPageController@updateProfile')->name('post');
+        Route::get('change_password', 'FrontPageController@changePassword')->name('change_password');
+        Route::post('change_password', 'FrontPageController@updateChangePassword')->name('change_password');
     });
 });
 
