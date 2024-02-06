@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\DB;
 
 class ExternalJobOrderController extends Controller
 {
-    use filterOrdersByDateTrait;
+    use FilterOrdersByDateTrait;
     /**
      * Display a listing of the resource.
      *
