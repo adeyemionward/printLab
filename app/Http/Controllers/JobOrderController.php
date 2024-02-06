@@ -43,7 +43,7 @@ class JobOrderController extends Controller
         $this->middleware('auth');
         $this->noteBookRepository = $noteBookRepository;
     }
-    
+
     private function JobOrderQuery (){
         return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::job_ordered_status);
     }
@@ -206,7 +206,7 @@ class JobOrderController extends Controller
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)
             ->first();
-        return view('job_order/view_order', compact('job_order','job_order_pay','approved_design'));
+        return view('job_order.view_order', compact('job_order','job_order_pay','approved_design'));
     }
 
     public function track_job_order($job_title,$id){

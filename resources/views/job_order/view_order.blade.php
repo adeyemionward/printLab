@@ -62,7 +62,6 @@
                                                                         <td>{{$job_order->created_at ?? 'N/A'}}</td>
                                                                     </tr>
 
-
                                                                     <tr>
                                                                         <td width="10%" class="question">Updated By :</td>
                                                                         <td>{{@$job_order->updatedBy->firstname.' '.@$job_order->updatedBy->lastname ?? 'N/A'}}</td>

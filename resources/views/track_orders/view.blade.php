@@ -62,8 +62,8 @@
                        </h2>
             <ul class="list">
                 <li>
-                    @php $product_name = str_replace('_',' ', $order->productName->name)   @endphp
-                    <a href="#">Product<span>{{ucwords($product_name)}}</span>
+                    {{-- @php $product_name = str_replace('_',' ', $order->productName->name)   @endphp --}}
+                    <a href="#">Product<span>{{ucwords($order->job_order_name)}}</span>
                     </a>
                 </li>
                 <li>
