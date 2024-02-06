@@ -337,7 +337,10 @@ class FrontPageController extends Controller
     public function track_orders(){
 
         $user = Auth::user();
-        $carts = JobOrder::where('user_id', $user->id)->where('cart_order_status',2)->get();
+        $carts = JobOrder::where('user_id', $user->id)
+        ->where('cart_order_status',JobOrder::ORDER_COMPLETED)
+        ->where('order_no','!=', NULL)->orderBy('id','DESC')
+        ->get();
         $cartCount = $this->countCart();
 
         return view('track_orders.index', compact('carts','cartCount'));

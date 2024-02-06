@@ -45,7 +45,7 @@ class JobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::job_ordered_status);
+        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED);
     }
 
     private function filterOrdersByDateInternal(){

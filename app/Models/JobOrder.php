@@ -10,7 +10,7 @@ class JobOrder extends Model
     use HasFactory;
 
     const job_cart_status = 1;
-    const job_ordered_status = 2;
+    const ORDER_COMPLETED = 2;
 
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
