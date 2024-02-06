@@ -57,7 +57,7 @@
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <input class="form-control" name="company_name" required id="company_name" type="text" value="{{Auth::user()->company_name}}"  placeholder="Enter Schoolname">
+                    <input class="form-control" name="company_name" required id="company_name" type="text" value="{{Auth::user()->company_name}}"  placeholder="Enter school/company name">
                 </div>
             </div>
             <div class="col-12">
