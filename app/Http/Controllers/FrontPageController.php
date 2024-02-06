@@ -365,12 +365,10 @@ class FrontPageController extends Controller
 
     public function orderInvoicePdf($order_no){
         $cartCount = $this->countCart();
-        $user = Auth::user();
-
-        // $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
-        // $job_order_track =  JobOrderTracking::where('job_order_id', $id)->first();
-        $orderDetails =  JobOrder::where('user_id',$user->id)->where('order_no', $order_no)->get();
-        $order1 =  JobOrder::where('user_id',$user->id)->where('order_no', $order_no)->first();
+        $user   = Auth::user();
+        $job    =  JobOrder::where('user_id',$user->id)->where('order_no', $order_no);
+        $orderDetails   =  $job->get();
+        $order1         =  $job->first();
 
         $pdf = PDF::loadView('track_orders.order_invoice_pdf',compact('orderDetails','order1'));
         return $pdf->stream('order_invoice.pdf');
