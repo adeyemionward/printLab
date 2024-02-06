@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Hash;
 
 use Spatie\Permission\Models\Role;
@@ -26,6 +27,11 @@ class UserController extends Controller
         $this->middleware('permission:user-create', ['only' => ['create','store']]);
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
+    public function find_testimonial($id)
+    {
+        return Testimonial::find($id);
     }
     public function index()
     {
@@ -215,6 +221,108 @@ class UserController extends Controller
         $user->update();
         return back()->with("flash_success","Profile updated successfully");
         //return view('users.edit_profile', compact('user'));
+    }
+
+
+
+    public function create_testimonial()
+    {
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        return view('users.testimonial.add_testimonial', compact('customers'));
+    }
+
+
+    public function post_testimonial(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $customer_id   =  request('customer_id');
+        $description    =  request('description');
+
+
+        //save to testimonial
+        $testimonial = new Testimonial();
+        $testimonial->customer_id     =  $customer_id;
+        $testimonial->description     = $description;
+        $testimonial->created_by          = $user->id;
+
+
+        if($testimonial_img = $request->file('image')){
+            $name = $testimonial_img->hashName(); // Generate a unique, random name...
+            $path = $testimonial_img->store('public/images');
+            $testimonial->image = $name;
+
+        }
+
+        $testimonial->save();
+
+        return redirect(route('users.testimonial.view_testimonial',$testimonial->id))->with('flash_success','Customer Testimonial saved successfully');
+    }
+
+    public function all_testimonial()
+    {
+        $all_testimonial = Testimonial::all();
+        return view('users.testimonial.all_testimonials', compact('all_testimonial'));
+    }
+
+    public function view_testimonial($id)
+    {
+        $testimonial =  $this->find_testimonial($id);
+        return view('users.testimonial.view_testimonial', compact('testimonial'));
+    }
+
+    public function edit_testimonial($id)
+    {
+        $testimonial =  $this->find_testimonial($id);
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        return view('users.testimonial.edit_testimonial', compact('testimonial','customers'));
+    }
+
+    public function update_testimonial(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $customer_id   =  request('customer_id');
+        $description    =  request('description');
+
+        try{
+            $testimonial =  $this->find_testimonial($id);
+
+            //update to testimonial
+            $testimonial->customer_id     = $customer_id;
+            $testimonial->description     = $description;
+            $testimonial->updated_by      = $user->id;
+
+
+            if($testimonial_img = $request->file('image')){
+                $name = $testimonial_img->hashName(); // Generate a unique, random name...
+                $path = $testimonial_img->store('public/images');
+                $testimonial->image = $name;
+
+            }
+
+            $testimonial->save();
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
+
+        return redirect(route('users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial updated successfully');
+    }
+
+    public function delete_testimonial($id)
+    {
+        try{
+            $testimonial =  $this->find_testimonial($id);
+            if(is_null($testimonial)){
+                return redirect(route('users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial not available');
+            }
+            $testimonial->delete();
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+        return redirect(route('users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial deleted');
     }
 
     public function change_password()

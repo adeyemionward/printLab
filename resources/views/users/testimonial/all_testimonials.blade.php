@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('settings.testimonial.add_testimonial')}}"><li class="active btn btn-primary" style="">Add Testimonial</li></a>
+                        <a href="{{route('users.testimonial.add_testimonial')}}"><li class="active btn btn-primary" style="">Add Testimonial</li></a>
                     </ol>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                                                                                 <td>{{$loop->iteration}}</td>
                                                                                 <td>{{$val->customer->firstname.' '.$val->customer->lastname}}</td>
                                                                                 <td>{{$val->description}}</td>
-                                                                                <td><a href="{{route('settings.testimonial.view_testimonial',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                                <td><a href="{{route('users.testimonial.view_testimonial',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                                                             </tr>
                                                                         @endforeach
                                                                 </table>

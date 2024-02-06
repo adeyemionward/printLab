@@ -1,7 +1,7 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'View  Testimonial')
+@section('title', 'View Testimonial')
 @php $page = 'view_testimonial' @endphp
 
     <div class="content">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('settings.testimonial.all_testimonials')}}"><li class="active btn btn-primary" style="">All Testimonials</li></a>
+                        <a href="{{route('users.testimonial.all_testimonials')}}"><li class="active btn btn-primary" style="">All Testimonials</li></a>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('settings.testimonial.testimonial_inc')
+                                @include('users.testimonial.testimonial_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">

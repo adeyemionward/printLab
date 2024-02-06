@@ -220,16 +220,6 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                     Route::get('/edit_category/{id}', 'RequisitionController@edit')->name('edit_category');
                     Route::post('/edit_category/{id}', 'RequisitionController@update')->name('edit_category');
                 });
-
-                Route::group(['prefix' => '/testimonial', 'as' => 'testimonial.'], function () {
-                    Route::get('/add_testimonial', 'SettingController@create_testimonial')->name('add_testimonial');
-                    Route::post('/add_testimonial', 'SettingController@post_testimonial')->name('add_testimonial');
-                    Route::get('/all_testimonials', 'SettingController@all_testimonial')->name('all_testimonials');
-                    Route::get('/view_testimonial/{id}', 'SettingController@view_testimonial')->name('view_testimonial');
-                    Route::get('/edit_testimonial/{id}', 'SettingController@edit_testimonial')->name('edit_testimonial');
-                    Route::post('/edit_testimonial/{id}', 'SettingController@update_testimonial')->name('update_testimonial');
-                    Route::get('/delete_testimonial/{id}', 'SettingController@delete_testimonial')->name('delete_testimonial');
-                });
             });
 
 
@@ -256,6 +246,16 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 Route::post('/edit_user/{id}', 'UserController@update')->name('edit_user');
                 Route::get('/view_user/{id}', 'UserController@show')->name('view_user');
                 Route::get('/delete_user/{id}', 'UserController@destroy')->name('delete_user');
+
+                Route::group(['prefix' => '/testimonial', 'as' => 'testimonial.'], function () {
+                    Route::get('/add_testimonial', 'UserController@create_testimonial')->name('add_testimonial');
+                    Route::post('/add_testimonial', 'UserController@post_testimonial')->name('add_testimonial');
+                    Route::get('/all_testimonials', 'UserController@all_testimonial')->name('all_testimonials');
+                    Route::get('/view_testimonial/{id}', 'UserController@view_testimonial')->name('view_testimonial');
+                    Route::get('/edit_testimonial/{id}', 'UserController@edit_testimonial')->name('edit_testimonial');
+                    Route::post('/edit_testimonial/{id}', 'UserController@update_testimonial')->name('update_testimonial');
+                    Route::get('/delete_testimonial/{id}', 'UserController@delete_testimonial')->name('delete_testimonial');
+                });
 
                 Route::get('/view_profile', 'UserController@view_profile')->name('view_profile');
                 Route::get('/edit_profile', 'UserController@edit_profile')->name('edit_profile');

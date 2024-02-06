@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('settings.testimonial.all_testimonials')}}"><li class="active btn btn-primary" style="">View Testimonials</li></a>
+                        <a href="{{route('users.testimonial.all_testimonials')}}"><li class="active btn btn-primary" style="">View Testimonials</li></a>
                     </ol>
                 </div>
             </div>

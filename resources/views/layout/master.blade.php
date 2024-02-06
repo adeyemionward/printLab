@@ -79,10 +79,11 @@
                                     <span class="data-feather theme-item">View Suppliers</span>
                                 </a>
 
-                                <a href="{{route('roles.add_role')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> Users Roles & Permission</span>
+                                <a href="{{route('users.testimonial.add_testimonial')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Customer Testimonials</span>
                                 </a>
+
 
 							</div>
 						</div>
@@ -243,9 +244,10 @@
                                     <span class="data-feather theme-item">Locations</span>
                                 </a>
 
-                                <a href="{{route('settings.testimonial.add_testimonial')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Customer Testimonials</span>
+
+                                <a href="{{route('roles.add_role')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item"> Users Roles & Permission</span>
                                 </a>
 
 							</div>
@@ -303,7 +305,8 @@
 
                                         <li><a class="dropdown-item" href="{{route('suppliers.add_supplier')}}">Add Suppliers</a></li>
 										<li><a class="dropdown-item" href="{{route('suppliers.all_suppliers')}}">View Suppliers</a></li>
-                                        <li><a class="dropdown-item" href="{{route('roles.add_role')}}">Users Roles & Permission</a></li>
+                                        <li><a class="dropdown-item" href="{{route('users.testimonial.add_testimonial')}}">Customer Testimonials</a></li>
+
 
 									</ul>
 								</li>
@@ -404,7 +407,7 @@
 										aria-labelledby="navbarDropdownMenuLink1">
 										<li><a class="dropdown-item" href="{{route('settings.category.add_category')}}">Category</a></li>
 										<li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Locations</a></li>
-                                        <li><a class="dropdown-item" href="{{route('settings.testimonial.add_testimonial')}}">Customer Testimonials</a></li>
+                                        <li><a class="dropdown-item" href="{{route('roles.add_role')}}">Users Roles & Permission</a></li>
 
 									</ul>
 								</li>
