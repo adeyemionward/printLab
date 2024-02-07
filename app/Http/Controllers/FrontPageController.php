@@ -17,6 +17,7 @@ use App\Mail\CustomerOrderReceipt;
 use App\Mail\SendContactFormEmail;
 use Hash;
 use Illuminate\Support\Facades\DB;
+use App\Services\CheckoutService;
 
 
 use Mail;
@@ -33,8 +34,8 @@ class FrontPageController extends Controller
     private $user;
     public $localIp;
     public $order_date;
-
-    public function __construct()
+    protected $checkoutService;
+    public function __construct(CheckoutService $checkoutService)
     {
         $this->middleware('auth')->only('track_orders','profile');
         $this->middleware(function ($request, $next) {
@@ -42,11 +43,10 @@ class FrontPageController extends Controller
 
             return $next($request);
         });
+        $this->checkoutService = $checkoutService;
 
         $this->localIp = $_SERVER['REMOTE_ADDR'];
         $this->order_date = date('Y-m-d');
-
-
     }
 
     public function cartFunc(){
@@ -233,60 +233,8 @@ class FrontPageController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
     public function checkout(){
-        if (Auth::check()) {
-            $user       =   Auth::user();
-            $job_id  = request('job_id');
-            $randomInteger = random_int(100000, 999999);
-
-            $checkout =  JobOrder::whereIn('id', $job_id)->update(
-                [
-                    'user_id'           => $user->id,
-                    'cart_order_status' =>  2,
-                    'order_no' =>  $randomInteger,
-                ]
-            );
-
-            //save to tracker
-            foreach ($job_id as $ids) {
-                DB::table('job_order_trackings')->insert(
-                    [
-                        'job_order_id' => $ids,
-                        'pending_status' => 1,
-                        'pending_date' => $this->order_date
-                    ]
-                );
-            }
-
-            $userDetails    = User::find($user->id);
-            $userEmail  =  $userDetails->email;
-            $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
-
-            $orderDetails   = JobOrder::whereIn('id',$job_id)->get();
-            $amount_paid =   0;
-            $data = [
-                'amount_paid' => 0,
-                'userDetails' =>$userDetails,
-                'orderDetails' => $orderDetails, // Collection of orders, for example
-            ];
-
-            $pdf_attachment = Pdf::loadView('invoice_attachment', $data);
-            $sendOrderEmail = Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
-            return redirect(route('track_orders.index'))->with('flash_success','Product Order Successful');
-
-        }else{
-            return redirect(route('login', ['status' => 'order']));
-
-        }
-
-
+        return $this->checkoutService->processCheckout();
     }
 
     public function product_details($title =  null, $id = null)
