@@ -7,7 +7,10 @@
     use App\Models\JobOrderTracking;
     use Illuminate\Support\Facades\Auth;
     use App\Mail\CustomerOrderReceipt;
+    use App\Mail\CustomerOrderToAdmin;
     use Illuminate\Support\Facades\DB;
+
+
     use Mail;
     use Illuminate\Support\Facades\Validator;
     use Barryvdh\DomPDF\Facade\Pdf;
