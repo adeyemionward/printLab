@@ -58,7 +58,7 @@
             ]);
 
             $this->mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, 0, $userName, $pdfAttachment));
-            $this->mail->to(env('MAIL_USERNAME'))->send(new CustomerOrderToAdmin($orderDetails, 0, $userName, $pdfAttachment));
+            $this->mail::to(env('MAIL_USERNAME'))->send(new CustomerOrderToAdmin($orderDetails, 0, $userName, $pdfAttachment));
         }
 
 
