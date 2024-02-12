@@ -53,7 +53,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getCustomers (){
+    public static function getCustomers (){
         return $customers =  User::where('user_type',User::CUSTOMER)->get();
     }
+
 }
