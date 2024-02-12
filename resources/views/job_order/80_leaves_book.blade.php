@@ -1,7 +1,7 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'Dashboard')
+@section('title', 'Eighy Leaves')
 @php $page = 'eighty_leaves' @endphp
 
     <div class="content">
@@ -60,7 +60,7 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="exampleFormControlSelect1">Ink
+                                                                            <label for="exampleFormControlSelect1">Color Type
                                                                                 </label>
                                                                             <select name="ink" required class="form-control form-select"
                                                                                 id="exampleFormControlSelect1">
@@ -119,7 +119,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
-                                                                            <select class="form-control" name="payment_type" required>
+                                                                            <select class="form-control form-select" name="payment_type" required>
                                                                                 <option value="">--Select Payment Type--</option>
                                                                                 <option value="Full Payment">Full Payment</option>
                                                                                 <option value="Part Payment">Part Payment</option>
@@ -134,7 +134,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="location">Job Location</label>
-                                                                            <select class="form-control" name="location" required>
+                                                                            <select class="form-control form-select" name="location" required>
                                                                                 <option value="">--Select Job Location--</option>
                                                                                 @foreach ($locations as $val)
                                                                                     <option value="{{$val->id}}">{{$val->city}}</option>

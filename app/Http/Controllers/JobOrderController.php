@@ -46,10 +46,12 @@ class JobOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+     private $noteBookRepository;
+     public function __construct(NoteBookRepository $noteBookRepository)
+     {
+         $this->middleware('auth');
+         $this->noteBookRepository = $noteBookRepository;
+     }
 
     private function JobOrderQuery (){
         return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED);
@@ -59,9 +61,9 @@ class JobOrderController extends Controller
         return $this->filterOrdersByDate()->where('order_type','internal');
     }
 
-    private function postNoteBook(Request $request, NoteBookRepository $noteBookRepository){
+    private function postNoteBook(Request $request){
 
-        $result = $noteBookRepository->noteBookOrder($request->all());
+        $result = $this->noteBookRepository->noteBookOrder($request->all());
 
         if ($result['success']) {
             // creation was successful
@@ -82,7 +84,7 @@ class JobOrderController extends Controller
             $job_orders = $this->JobOrderQuery()->get();
         }
 
-        return view('job_order/all_orders', compact('job_orders'));
+        return view('job_order.all_orders', compact('job_orders'));
     }
 
     public function changeJobStatus(Request $request, $job_title, $id){

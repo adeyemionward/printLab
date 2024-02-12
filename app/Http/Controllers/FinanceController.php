@@ -244,6 +244,7 @@ class FinanceController extends Controller
     {
         $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
             ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+            ->where('cart_order_status',JobOrder::ORDER_COMPLETED)
             ->groupBy('job_orders.job_order_name');
 
         $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
