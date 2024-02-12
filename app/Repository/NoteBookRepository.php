@@ -50,34 +50,14 @@
                 $job_order->created_by      = $user->id;
                 $job_order->save();
 
-                // //save to higher education
-                // $eighty_leaves = new EightyLeavesBook();
-                // $eighty_leaves->job_order     = $job_order->id;
-                // $eighty_leaves->save();
-
-                //save to job tracking
-                $job_tracking = new JobOrderTracking();
-                $job_tracking->job_order_id     = $job_order->id;
-                $job_tracking->pending_status   = 1;
-                $job_tracking->pending_date     = $order_date;
-                $job_tracking->save();
-
-                //save to payment history
-                $job_pay = new JobPaymentHistory();
-                $job_pay->job_order_id    = $job_order->id;
-                $job_pay->user_id         = $customer_id;
-                $job_pay->amount          = $amount_paid;
-                $job_pay->payment_type    = $payment_type;
-                $job_pay->payment_date    = $order_date;
-                $job_pay->created_by      = $user->id;
-                $job_pay->save();
-
+                JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
+                JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $amount_paid, $payment_type, $order_date, $user->id);
                 DB::commit();
             }catch(\Exception $th){
                 DB::rollBack();
-                return ['success' => false, 'error' => $th->getMessage()];
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return ['success' => true, 'job_order' => $job_order];
+            return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 
     }
