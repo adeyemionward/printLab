@@ -78,10 +78,11 @@
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="ink">Ink</label>
-                                                                            <select name="ink" class="form-control form-select" id="ink">
-                                                                                <option value="">--Select Ink--</option>
-                                                                                <option value="Black">Black</option>
-                                                                                <option value="Full Ink">Full Ink</option>
+                                                                            <select name="ink" required class="form-control form-select"
+                                                                                id="exampleFormControlSelect1">
+                                                                                <option value="">--Select Color Type--</option>
+                                                                                <option value="single">Single Color</option>
+                                                                                <option value="full">Full Color</option>
                                                                             </select>
                                                                         </div>
 
@@ -131,6 +132,16 @@
                                                                             <label for="amount_paid">Amount Paid</label>
                                                                             <input type="number" required name="amount_paid" class="form-control"
                                                                                 id="amount_paid" placeholder="eg: 10000">
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
                                                                         </div>
                                                                     </div>
 
