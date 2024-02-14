@@ -46,15 +46,43 @@ class JobOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     private $noteBookRepository;
-     public function __construct(NoteBookRepository $noteBookRepository)
-     {
-         $this->middleware('auth');
-         $this->noteBookRepository = $noteBookRepository;
-     }
+    private $noteBookRepository;
+    private $smallInvoiceRepository;
+    private $stickersRepository;
+    private $notePadRepository;
+    private $bookletRepository;
+    private $flyerRepository;
+    private $brochureRepository;
+    private $businessCardRepository;
+    private $envelopeRepository;
+
+    public function __construct(
+        NoteBookRepository $noteBookRepository,
+        SmallInvoiceRepository $smallInvoiceRepository,
+        StickersRepository $stickersRepository,
+        NotePadRepository $notePadRepository,
+        BookletRepository $bookletRepository,
+        FlyerRepository $flyerRepository,
+        BrochureRepository $brochureRepository,
+        BusinessCardRepository $businessCardRepository,
+        EnvelopeRepository $envelopeRepository
+    )
+
+    {
+        $this->middleware('auth');
+        $this->noteBookRepository = $noteBookRepository;
+        $this->smallInvoiceRepository = $smallInvoiceRepository;
+        $this->stickersRepository = $stickersRepository;
+        $this->notePadRepository = $notePadRepository;
+        $this->bookletRepository = $bookletRepository;
+        $this->flyerRepository = $flyerRepository;
+        $this->brochureRepository = $brochureRepository;
+        $this->businessCardRepository = $businessCardRepository;
+        $this->envelopeRepository = $envelopeRepository;
+    }
 
     private function JobOrderQuery (){
-        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED);
+        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->orderBy('id','DESC');
     }
 
     private function filterOrdersByDateInternal(){
@@ -308,9 +336,9 @@ class JobOrderController extends Controller
     }
 
 
-    public function post_service_order(Request $request, ServiceOrderRepository $serviceOrderRepository)
+    public function post_service_order(Request $request)
     {
-        $result = $serviceOrderRepository->serviceOrder($request->all());
+        $result = $this->serviceOrderRepository->serviceOrder($request->all());
 
         if ($result['success']) {
             // creation was successful
@@ -329,9 +357,9 @@ class JobOrderController extends Controller
     }
 
 
-    public function post_booklets(Request $request, BookletRepository $bookletRepository)
+    public function post_booklets(Request $request)
     {
-        $response = $bookletRepository->postBooklet($request);
+        $response = $this->bookletRepository->postBooklet($request);
         return $response;
     }
 
@@ -342,9 +370,9 @@ class JobOrderController extends Controller
         return view('job_order.bronchures', compact('customers','locations'));
     }
 
-    public function post_bronchures(Request $request, BrochureRepository $brochureRepository)
+    public function post_bronchures(Request $request)
     {
-        $response = $brochureRepository->postBrochure($request);
+        $response = $this->brochureRepository->postBrochure($request);
         return $response;
     }
 
@@ -355,9 +383,9 @@ class JobOrderController extends Controller
         return view('job_order.business_cards', compact('customers','locations'));
     }
 
-    public function post_business_cards(Request $request, BusinessCardRepository $businessCardRepository)
+    public function post_business_cards(Request $request)
     {
-        $response = $businessCardRepository->postBusinessCard($request);
+        $response = $this->businessCardRepository->postBusinessCard($request);
         return $response;
     }
 
@@ -368,9 +396,9 @@ class JobOrderController extends Controller
         return view('job_order.envelopes', compact('customers','locations'));
     }
 
-    public function post_envelopes(Request $request, EnvelopeRepository $envelopeRepository)
+    public function post_envelopes(Request $request)
     {
-        $response = $envelopeRepository->postenvelope($request);
+        $response = $this->envelopeRepository->postenvelope($request);
         return $response;
     }
 
@@ -381,9 +409,9 @@ class JobOrderController extends Controller
         return view('job_order.flyers', compact('customers', 'locations'));
     }
 
-    public function post_flyers(Request $request, FlyerRepository $flyerRepository)
+    public function post_flyers(Request $request)
     {
-        $response = $flyerRepository->postFlyer($request);
+        $response = $this->flyerRepository->postFlyer($request);
         return $response;
     }
 
@@ -394,9 +422,9 @@ class JobOrderController extends Controller
         return view('job_order.notepads', compact('customers','locations'));
     }
 
-    public function post_notepads(Request $request, NotePadRepository $notePadRepository)
+    public function post_notepads(Request $request)
     {
-        $response = $notePadRepository->postNotePadOrder($request);
+        $response = $this->notePadRepository->postNotePadOrder($request);
         return $response;
     }
 
@@ -407,9 +435,9 @@ class JobOrderController extends Controller
         return view('job_order.small_invoice', compact('customers','locations'));
     }
 
-    public function post_small_invoice(Request $request, SmallInvoiceRepository $smallInvoiceRepository)
+    public function post_small_invoice(Request $request)
     {
-        $response = $smallInvoiceRepository->postSmallInvoiceOrder($request);
+        $response = $this->smallInvoiceRepository->postSmallInvoiceOrder($request);
         return $response;
     }
 
@@ -420,9 +448,9 @@ class JobOrderController extends Controller
         return view('job_order.stickers', compact('customers','locations'));
     }
 
-    public function post_stickers(Request $request, StickersRepository $stickersRepository)
+    public function post_stickers(Request $request)
     {
-        $response = $stickersRepository->postStickersOrder($request);
+        $response = $this->stickersRepository->postStickersOrder($request);
         return $response;
     }
 
@@ -437,366 +465,41 @@ class JobOrderController extends Controller
         $job_order =  JobOrder::find($id);
         $customers =  User::where('user_type',2)->get();
         $locations =  JobLocation::select('id','city')->get();
-        return view('job_order/edit_order', compact('job_order','customers','locations','approved_design'));
+        return view('job_order.edit_order', compact('job_order','customers','locations','approved_design'));
     }
 
     public function update_order(Request $request, $job_title, $id){
         $user = Auth::user();
-        $job_order =  JobOrder::find($id);
-        $customers =  User::where('user_type',2)->get();
-        //dd(request()->job_title);
-        if(request()->job_title == 'Eighty_Leaves'){
-            $user = Auth::user();
 
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $thickness                  =  request('thickness');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-            $location                   =  request('location');
-
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Eighty Leaves';
-            $job_order->quantity        = $quantity;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->thickness       = $thickness;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->total_cost      = $total_cost;
-            $job_order->job_location_id        = $location;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-
-            return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
-
-
-        }elseif(request()->job_title == 'Higher_NoteBook'){
-
-            $order_date = date('Y-m-d');
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $thickness                  =  request('thickness');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-            $location                   =  request('location');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Higher NoteBook';
-            $job_order->quantity        = $quantity;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->thickness = $thickness;
-            $job_order->proof_needed    = $proof_needed;
-            //$job_order->order_date     = $order_date;
-            $job_order->total_cost      = $total_cost;
-
-            $job_order->job_location_id        = $location;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-            return redirect(route('job_order.view_order',['Higher_NoteBook',$id]))->with('flash_success','Higher Note Book order updated successfully');
-
-        }elseif(request()->job_title == 'Twenty_Leaves'){
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $thickness           =  request('thickness');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-            $location                   =  request('location');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Twenty Leaves';
-            $job_order->quantity        = $quantity;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->thickness      = $thickness;
-            $job_order->proof_needed    = $proof_needed;
-            //$job_order->order_date     = $order_date;
-            $job_order->total_cost      = $total_cost;
-            $job_order->job_location_id        = $location;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-            return redirect(route('job_order.view_order',['Twenty_Leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
-        }elseif(request()->job_title == 'Forty_Leaves'){
-
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $thickness                  =  request('thickness');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-            $location                   =  request('location');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Forty Leaves';
-            $job_order->quantity        = $quantity;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->thickness      = $thickness;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->total_cost      = $total_cost;
-            $job_order->job_location_id        = $location;
-            //$job_order->order_date     = $order_date;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-
-            return redirect(route('job_order.view_order',['Forty_Leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
+        if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves'){
+            $response = $this->noteBookRepository->updateNoteBookOrder($request);
 
         }elseif(request()->job_title == 'Small_Invoice'){
 
-
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $size                       =  request('size');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
-            $proof_needed               =  request('proof_needed');
-            $hole_drilling              =  request('hole_drilling');
-            $perforating                =  request('perforating');
-            $edge_to_glue               =  request('edge_to_glue');
-            $books_with_covers          =  request('books_with_covers');
-            $numbering_needed           =  request('numbering_needed');
-            $start_number               =  request('start_number');
-            $shrink_wrap                =  request('shrink_wrap');
-            $total_cost                 =  request('total_cost');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Small Invoice';
-            $job_order->quantity        = $quantity;
-            $job_order->size            = $size;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->back_sided_print      = $back_sided_print;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->hole_drilling    = $hole_drilling;
-            $job_order->perforating    = $perforating;
-            $job_order->edge_to_glue    = $edge_to_glue;
-            $job_order->books_with_covers    = $books_with_covers;
-            $job_order->numbering_needed    = $numbering_needed;
-            $job_order->start_number    = $start_number;
-            $job_order->shrink_wrap    = $shrink_wrap;
-            $job_order->total_cost      = $total_cost;
-           // $job_order->order_date     = $order_date;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-            return redirect(route('job_order.view_order',['Small_Invoice',$id]))->with('flash_success','Small Invoice order updated successfully');
-        }elseif(request()->job_title == 'Bronchures'){
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $size                       =  request('size');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $folding                    =  request('folding');
-            $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Bronchures';
-            $job_order->quantity        = $quantity;
-            $job_order->size            = $size;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->folding         = $folding;
-            $job_order->production_days = $production_time;
-            $job_order->back_sided_print    = $back_sided_print;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->total_cost      = $total_cost;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-            return redirect(route('job_order.view_order',['Bronchures',$id]))->with('flash_success','Bronchures order updated successfully');
-
+            $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
+           
+        }elseif(request()->job_title == 'Brochures'){
+            $response = $this->brochureRepository->updateBrochure($request);
+            
         }elseif(request()->job_title == 'Flyer'){
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $size                       =  request('size');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $cut_to_size                =  request('cut_to_size');
-            $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Flyer';
-            $job_order->quantity        = $quantity;
-            $job_order->size            = $size;
-            $job_order->ink             = $ink;
-            $job_order->cut_to_size     = $cut_to_size;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->back_sided_print    = $back_sided_print;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->total_cost      = $total_cost;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-            return redirect(route('job_order.view_order',['Flyer',$id]))->with('flash_success','Flyer order updated successfully');
+            $response = $this->flyerRepository->updateFlyer($request);
 
         }elseif(request()->job_title == 'Business_Cards'){
 
-
-        $customer_id                =  request('customer_id');
-        $quantity                   =  request('quantity');
-        $size                       =  request('size');
-        $ink                        =  request('ink');
-        $paper_type                 =  request('paper_type');
-        $production_time            =  request('production_time');
-        $back_sided_print           =  request('back_sided_print');
-        $proof_needed               =  request('proof_needed');
-        $total_cost                 =  request('total_cost');
-
-        //save to job
-        $job_order =  JobOrder::find($id);
-        $job_order->user_id     = $customer_id;
-        $job_order->job_order_name  = 'Business Cards';
-        $job_order->quantity        = $quantity;
-        $job_order->size            = $size;
-        $job_order->ink             = $ink;
-        $job_order->paper_type      = $paper_type;
-        $job_order->production_days = $production_time;
-        $job_order->back_sided_print    = $back_sided_print;
-        $job_order->proof_needed    = $proof_needed;
-        $job_order->total_cost      = $total_cost;
-        $job_order->updated_by      = $user->id;
-        $job_order->save();
-        return redirect(route('job_order.view_order',['Business_Cards',$id]))->with('flash_success','Business_Cards order updated successfully');
-
+            $response = $this->businessCardRepository->updateBusinessCard($request);
+       
         }elseif(request()->job_title == 'Envelopes'){
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $size                       =  request('size');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Envelopes';
-            $job_order->quantity        = $quantity;
-            $job_order->size            = $size;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->back_sided_print    = $back_sided_print;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->total_cost      = $total_cost;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-
-            return redirect(route('job_order.view_order',['Envelopes',$id]))->with('flash_success','Envelopes order updated successfully');
+            $response = $this->envelopeRepository->updateEnvelope($request);
 
         }elseif(request()->job_title == 'Notepads'){
 
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $size                       =  request('size');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $page_count                 =  request('page_count');
-            $production_time            =  request('production_time');
-            $back_sided_print           =  request('back_sided_print');
-            $perforating                =  request('perforating');
-            $proof_needed               =  request('proof_needed');
-            $hole_drilling              =  request('hole_drilling');
-            $cut_to_size                =  request('cut_to_size');
-            $books_with_cover           =  request('books_with_cover');
-            $shrink_wrap                =  request('shrink_wrap');
-            $numbering_needed           =  request('numbering_needed');
-            $start_number               =  request('start_number');
-            $total_cost                 =  request('total_cost');
-
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Notepads';
-            $job_order->quantity        = $quantity;
-            $job_order->size            = $size;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->page_count      = $page_count;
-            $job_order->production_days = $production_time;
-            $job_order->perforating = $perforating;
-            $job_order->back_sided_print    = $back_sided_print;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->hole_drilling   = $hole_drilling;
-            $job_order->cut_to_size     = $cut_to_size;
-            $job_order->books_with_covers     = $books_with_cover;
-            $job_order->shrink_wrap     = $shrink_wrap;
-            $job_order->numbering_needed     = $numbering_needed;
-            $job_order->start_number     = $start_number;
-            $job_order->total_cost      = $total_cost;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-
-            return redirect(route('job_order.view_order',['Notepads',$id]))->with('flash_success','Notepads order updated successfully');
+            $response = $this->notePadRepository->updateNotePadOrder($request); 
 
         }elseif(request()->job_title == 'Stickers'){
-            $customer_id                =  request('customer_id');
-            $quantity                   =  request('quantity');
-            $size                       =  request('size');
-            $ink                        =  request('ink');
-            $paper_type                 =  request('paper_type');
-            $production_time            =  request('production_time');
-            $proof_needed               =  request('proof_needed');
-            $total_cost                 =  request('total_cost');
 
-            //save to job
-            $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
-            $job_order->job_order_name  = 'Stickers';
-            $job_order->quantity        = $quantity;
-            $job_order->size            = $size;
-            $job_order->ink             = $ink;
-            $job_order->paper_type      = $paper_type;
-            $job_order->production_days = $production_time;
-            $job_order->proof_needed    = $proof_needed;
-            $job_order->total_cost      = $total_cost;
-            $job_order->updated_by      = $user->id;
-            $job_order->save();
-            return redirect(route('job_order.view_order',['Stickers',$id]))->with('flash_success','Stickers order updated successfully');
-
+            $response = $this->stickersRepository->updateStickersOrder($request);  
         }
-
-        //return back()->with("flash_success","Order updated successfully");
-
+        return $response;
     }
 
     public function pending (){

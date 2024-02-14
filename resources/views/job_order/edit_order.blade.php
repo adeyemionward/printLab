@@ -606,6 +606,7 @@
                                                                     <form method="POST"  id="add_eighty_leaves" class="add_eighty_leaves">
                                                                         @csrf
                                                                         @method('POST')
+                                                                        <input type="hidden" name="note_type" value="Eighty Leaves">
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
@@ -911,10 +912,10 @@
                                         </div>
                                     @endif
 
-                                    @if(request()->job_title == 'Bronchures')
+                                    @if(request()->job_title == 'Brochures')
                                         <div class="card">
                                             <div class="card-header bg-white">
-                                                <h5 class="card-title mb-0 text-muted">Edit Bronchures Job Order</h5>
+                                                <h5 class="card-title mb-0 text-muted">Edit Brochures Job Order</h5>
                                             </div>
                                             <div class="card-body h-100">
                                                 <div class="align-items-start">
@@ -1512,6 +1513,10 @@
 
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="total_cost">Total Cost</label>
+                                                                                <input type="number" required name="total_cost" class="form-control" id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
+                                                                            </div>
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -1896,20 +1901,13 @@
                                             </div>
                                         </div>
                                     @endif
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 							Canvas Wrapper End -->
-
             </div>
-
         </div>
-
     </div>
-
 @endsection
 

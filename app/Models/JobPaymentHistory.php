@@ -25,4 +25,15 @@ class JobPaymentHistory extends Model
         $job_pay->created_by      = $user_id;
         return $job_pay->save();
     }
+
+    public static function updateJobPaymentHistory($job_order_id, $customer_id, $amount_paid, $payment_type, $order_date, $user_id){
+        //save to payment history
+        $job_pay =  JobPaymentHistory::where('job_order_id',$job_order_id)->first();
+        $job_pay->user_id         = $customer_id;
+        $job_pay->amount          = $amount_paid;
+        $job_pay->payment_type    = $payment_type;
+        $job_pay->payment_date    = $order_date;
+        $job_pay->updated_by      = $user_id;
+        return $job_pay->save();
+    }
 }
