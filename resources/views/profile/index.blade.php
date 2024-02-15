@@ -116,7 +116,7 @@
                 if(data == 1){
                     toastr.success("Profile updated successfully");
                     setInterval(function(){
-                        window.location.replace('{{route("contact.index")}}');
+                        window.location.replace('{{route("profile.index")}}');
                     },2000)
 
                 }else if(data == 5){

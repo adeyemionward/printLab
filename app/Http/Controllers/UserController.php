@@ -219,7 +219,7 @@ class UserController extends Controller
         $user->address          =  request('address');
 
         $user->update();
-        return back()->with("flash_success","Profile updated successfully");
+        return back()->with("flash_success","Profile updated successfully1111");
         //return view('users.edit_profile', compact('user'));
     }
 
