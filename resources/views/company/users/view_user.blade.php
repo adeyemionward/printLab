@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'View User')
 @php $page = 'view'; @endphp
@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('users.side_inc')
+                                @include('company.users.side_inc')
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="card-header bg-white">

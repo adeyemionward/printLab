@@ -10,22 +10,22 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'higher_education') echo 'active active_red'  ?>"
-                 href="{{route('products.add_higher_education')}}"
+                 href="{{route('company.products.add_higher_education')}}"
                  aria-selected="false">Higher Note Book</a>
                 <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'twenty_leaves') echo 'active active_red'  ?>"
-                 href="{{route('products.add_twenty_leaves')}}"
+                 href="{{route('company.products.add_twenty_leaves')}}"
                  aria-selected="false">20 Leaves Note Book </a>
                 <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'forty_leaves') echo 'active active_red'  ?>"
-                href="{{route('products.add_forty_leaves')}}"
+                href="{{route('company.products.add_forty_leaves')}}"
                 aria-selected="false">40 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'eighty_leaves') echo 'active active_red'  ?>"
-                href="{{route('products.add_eighty_leaves')}}"
+                href="{{route('company.products.add_eighty_leaves')}}"
                 aria-selected="false">80 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 

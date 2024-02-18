@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Requisition;
 use App\Models\ErrorLog;
@@ -21,7 +21,7 @@ class RequisitionController extends Controller
     public function index()
     {
         $requisitions = Requisition::all();
-        return view('finance.requisitions.all_requisitions', compact('requisitions'));
+        return view('company.finance.requisitions.all_requisitions', compact('requisitions'));
     }
 
     /**
@@ -31,7 +31,7 @@ class RequisitionController extends Controller
      */
     public function create()
     {
-        return view('finance.requisitions.add_requisition');
+        return view('company.finance.requisitions.add_requisition');
     }
 
     /**
@@ -64,7 +64,7 @@ class RequisitionController extends Controller
             $requisition->created_by    = $user->id;
 
             $requisition->save();
-            return redirect(route('finance.requisitions.all_requisitions'))->with('flash_success','Requisition saved successfully');
+            return redirect(route('company.finance.requisitions.all_requisitions'))->with('flash_success','Requisition saved successfully');
         }catch (\Throwable $th){
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");
@@ -91,7 +91,7 @@ class RequisitionController extends Controller
     public function edit($id)
     {
         $req = Requisition::find($id);
-        return view('requisitions.edit_requisition', compact('req'));
+        return view('company.requisitions.edit_requisition', compact('req'));
     }
 
     /**
@@ -125,7 +125,7 @@ class RequisitionController extends Controller
             $requisition->created_by    = $user->id;
 
             $requisition->save();
-            return redirect(route('finance.requisitions.all_requisitions'))->with('flash_success','Requisition updated successfully');
+            return redirect(route('company.finance.requisitions.all_requisitions'))->with('flash_success','Requisition updated successfully');
         }catch (\Throwable $th){
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");

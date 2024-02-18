@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function login()
     {
-        return view('login');
+        return view('front.login');
     }
 
     public function postLogin(Request $request){
@@ -50,8 +50,10 @@ class AuthController extends Controller
                     }else{
                         return response()->json([ [13] ]); //go to user page dashboard
                     }
-                }else{
+                }elseif($user_type == 1){
                     return response()->json([ [1] ]); //go to admin page dashboard
+                }elseif($user_type == 3){
+                    return response()->json([ [3] ]); //go to company page dashboard
                 }
 
 
@@ -69,7 +71,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        return view('register');
+        return view('front.register');
     }
 
     /**

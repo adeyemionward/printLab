@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Customer Job Orders')
 @php $page = 'cart'; @endphp
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('customers.side_inc')
+                                @include('company.customers.side_inc')
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="content" id="tableContent">
@@ -60,7 +60,7 @@
                                                                 <td>{{$val->production_days}}</td>
                                                                 <td>{{'₦'.$val->total_cost}} </td>
                                                                 <td>{{$val->status}}</td>
-                                                                <td><a href="{{route('job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                                             </tr>
                                                         @endforeach
 
@@ -70,7 +70,7 @@
                                                     <div class="checkout_btn_inner float-right">
                                                         <p >NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
 
-                                                        <a href="{{route('job_order.higher_education')}}" class="btn btn-sm btn-danger">
+                                                        <a href="{{route('company.job_order.higher_education')}}" class="btn btn-sm btn-danger">
                                                             <i class="text-white me-2" data-feather="check-circle"></i>Continue Shopping
                                                         </a>
                                                         <button class="btn btn-sm btn-danger" type="submit" style="background: black">

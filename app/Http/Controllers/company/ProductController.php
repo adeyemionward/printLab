@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
@@ -30,7 +30,7 @@ class ProductController extends Controller
         }
 
 
-        return view('products.all_products',compact('products'));
+        return view('company.products.all_products',compact('products'));
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function create_higher_education()
     {
-        return view('products.add_higher_education');
+        return view('company.products.add_higher_education');
     }
 
     /**
@@ -92,12 +92,12 @@ class ProductController extends Controller
                 ],
             );
         }
-        return redirect(route('products.all_products'))->with('flash_success','Higher Note Book product saved successfully');
+        return redirect(route('company.products.all_products'))->with('flash_success','Higher Note Book product saved successfully');
     }
 
     public function create_eighty_leaves()
     {
-        return view('products.add_eighty_leaves');
+        return view('company.products.add_eighty_leaves');
     }
 
     /**
@@ -152,13 +152,13 @@ class ProductController extends Controller
             );
         }
 
-        return redirect(route('products.all_products'))->with('flash_success','Eighty Leaves Book product saved successfully');
+        return redirect(route('company.products.all_products'))->with('flash_success','Eighty Leaves Book product saved successfully');
     }
 
 
     public function create_forty_leaves()
     {
-        return view('products.add_forty_leaves');
+        return view('company.products.add_forty_leaves');
     }
 
     /**
@@ -213,12 +213,12 @@ class ProductController extends Controller
             );
         }
 
-        return redirect(route('products.all_products'))->with('flash_success','Forty Leaves Book product saved successfully');
+        return redirect(route('company.products.all_products'))->with('flash_success','Forty Leaves Book product saved successfully');
     }
 
     public function create_twenty_leaves()
     {
-        return view('products.add_twenty_leaves');
+        return view('company.products.add_twenty_leaves');
     }
 
     /**
@@ -273,7 +273,7 @@ class ProductController extends Controller
             );
         }
 
-        return redirect(route('products.all_products'))->with('flash_success','Twenty Leaves Book product saved successfully');
+        return redirect(route('company.products.all_products'))->with('flash_success','Twenty Leaves Book product saved successfully');
     }
 
 
@@ -286,7 +286,7 @@ class ProductController extends Controller
     public function show($job_title, $id)
     {
         $product =  Product::find($id);
-        return view('products.view', compact('product'));
+        return view('company.products.view', compact('product'));
     }
 
     /**
@@ -298,7 +298,7 @@ class ProductController extends Controller
     public function edit($job_title, $id)
     {
         $product =  Product::find($id);
-        return view('products.edit', compact('product'));
+        return view('company.products.edit', compact('product'));
     }
 
     /**
@@ -347,7 +347,7 @@ class ProductController extends Controller
 
         $product->save();
 
-         return redirect(route('products.view',['eighty_leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
+         return redirect(route('company.products.view',['eighty_leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
 
 
         }elseif(request()->job_title == 'higher_notebook'){
@@ -412,7 +412,7 @@ class ProductController extends Controller
                 }
             }
             $product->save();
-            return redirect(route('products.view',['twenty_leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
+            return redirect(route('company.products.view',['twenty_leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
         }elseif(request()->job_title == 'forty_leaves'){
 
             $ink                        =  request('ink');
@@ -444,14 +444,14 @@ class ProductController extends Controller
             }
             $product->save();
 
-            return redirect(route('products.view',['forty_leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
+            return redirect(route('company.products.view',['forty_leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
         }
     }
 
 
     public function edit_pricing ($job_title, $id){
         $costs =  ProductCost::where('product_id', $id)->get();
-        return view('products.edit_pricing', compact('costs'));
+        return view('company.products.edit_pricing', compact('costs'));
     }
 
     public function update_pricing ($job_title, $id){
@@ -481,7 +481,7 @@ class ProductController extends Controller
         }
 
 
-        return redirect(route('products.edit_pricing',[$job_title, $id]))->with('flash_success','Product Pricing updated successfully');
+        return redirect(route('company.products.edit_pricing',[$job_title, $id]))->with('flash_success','Product Pricing updated successfully');
     }
 
     /**
@@ -493,6 +493,6 @@ class ProductController extends Controller
     public function delete_product($id)
     {
         $delete_product  = Product::where('id',$id)->delete();
-        return redirect(route('products.all_products'))->with('flash_success','Product deleted successfully');
+        return redirect(route('company.products.all_products'))->with('flash_success','Product deleted successfully');
     }
 }

@@ -3,7 +3,7 @@
         background-color: #df4226 !important;
     }
 </style>
-<form method="POST"  action="{{route('job_order.view_order',[request()->job_title, request()->id])}}" class="order_status">
+<form method="POST"  action="{{route('company.company.job_order.view_order',[request()->job_title, request()->id])}}" class="order_status">
     @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -45,7 +45,7 @@
 
 
 {{-- upload aproved design --}}
-    <form method="POST"  action="{{route('job_order.approved_design',[request()->job_title, request()->id])}}" class="approved_design" enctype="multipart/form-data">
+    <form method="POST"  action="{{route('company.job_order.approved_design',[request()->job_title, request()->id])}}" class="approved_design" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="modal fade" id="exampleModal_design" tabindex="-1"
@@ -97,7 +97,7 @@
 {{-- end approved design --}}
 
 {{-- add pay --}}
-<form method="POST"  action="{{route('job_order.transaction_history',[request()->job_title, request()->id])}}" class="order_status">
+<form method="POST"  action="{{route('company.job_order.transaction_history',[request()->job_title, request()->id])}}" class="order_status">
     @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal2" tabindex="-1"
@@ -142,12 +142,12 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view_order') echo 'active active_red'  ?>"
-                 href="{{route('job_order.view_order',[request()->job_title,request()->id])}}"
+                 href="{{route('company.job_order.view_order',[request()->job_title,request()->id])}}"
                  aria-selected="false">View Details</a>
                 <div class="dropdown-divider"></div>
 
                 <a  class="nav-link  <?php if($page == 'edit_order') echo 'active active_red'  ?>"
-                 href="{{route('job_order.edit_order',[request()->job_title,request()->id])}}"
+                 href="{{route('company.job_order.edit_order',[request()->job_title,request()->id])}}"
                  aria-selected="false">Edit Order</a>
                 <div class="dropdown-divider"></div>
 
@@ -166,7 +166,7 @@
 
                 @if ($job_order->order_no != '')
                     <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
-                        href="{{route('job_order.order_invoice_pdf',[$job_order->order_no])}}"
+                        href="{{route('company.job_order.order_invoice_pdf',[$job_order->order_no])}}"
                         aria-selected="false"  target="_blank">Download Invoice</a>
                 @else
                     <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
@@ -184,17 +184,17 @@
 
 
                <a  class="nav-link  <?php if($page == 'track_order') echo 'active active_red'  ?>"
-                href="{{route('job_order.track_order',[request()->job_title,request()->id])}}"
+                href="{{route('company.job_order.track_order',[request()->job_title,request()->id])}}"
                 aria-selected="false">Track Order</a>
                <div class="dropdown-divider"></div>
 
                <a  class="nav-link  <?php if($page == 'transaction') echo 'active active_red'  ?>"
-                href="{{route('job_order.transaction_history',[request()->job_title,request()->id])}}"
+                href="{{route('company.job_order.transaction_history',[request()->job_title,request()->id])}}"
                 aria-selected="false">Order Transaction History</a>
                <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'delete_order') echo 'active active_red'  ?>"
-                    onclick="return confirm('Are you sure you want to delete this job order?');"  href="{{route('job_order.delete_order',[ request()->id])}}"
+                    onclick="return confirm('Are you sure you want to delete this job order?');"  href="{{route('company.job_order.delete_order',[ request()->id])}}"
                 aria-selected="false">Delete Order</a>
                <div class="dropdown-divider"></div>
 

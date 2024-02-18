@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use App\Models\JobPaymentHistory;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class TransactionController extends Controller
         }
 
 
-        return view('finance.transactions.all_transactions', compact('job_order_pay'));
+        return view('company.finance.transactions.all_transactions', compact('job_order_pay'));
     }
 
     /**

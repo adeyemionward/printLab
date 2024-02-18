@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'All Expense')
     <div class="content">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('finance.expenses.add_expense')}}"><li class="active btn btn-primary" style="">Add Expense </li></a>
+                        <a href="{{route('company.finance.expenses.add_expense')}}"><li class="active btn btn-primary" style="">Add Expense </li></a>
                     </ol>
                 </div>
             </div>

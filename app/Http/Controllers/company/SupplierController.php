@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
 use App\Models\ErrorLog;
@@ -33,7 +33,7 @@ class SupplierController extends Controller
         }
 
 
-        return view('suppliers/all_suppliers', compact('suppliers'));
+        return view('company.suppliers.all_suppliers', compact('suppliers'));
     }
 
 
@@ -44,7 +44,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('suppliers/add_supplier');
+        return view('company.suppliers.add_supplier');
     }
 
     /**
@@ -101,7 +101,7 @@ class SupplierController extends Controller
     public function show($id)
     {
         $supplier = Supplier::find($id);
-        return view('suppliers.view_supplier', compact('supplier'));
+        return view('company.suppliers.view_supplier', compact('supplier'));
     }
 
     /**
@@ -113,7 +113,7 @@ class SupplierController extends Controller
     public function edit($id)
     {
         $supplier = Supplier::find($id);
-        return view('suppliers.edit_supplier', compact('supplier'));
+        return view('company.suppliers.edit_supplier', compact('supplier'));
     }
 
     /**
@@ -172,6 +172,6 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $supplier = Supplier::find($id)->delete();
-        return redirect(route('suppliers.all_suppliers'))->with('flash_success','User has been deleted');
+        return redirect(route('company.suppliers.all_suppliers'))->with('flash_success','User has been deleted');
     }
 }

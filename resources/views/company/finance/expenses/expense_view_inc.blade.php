@@ -4,7 +4,7 @@
     }
 </style>
 {{-- add pay --}}
-<form method="POST"  action="{{route('finance.expenses.update_expense_payment',[request()->id])}}" class="order_status">
+<form method="POST"  action="{{route('company.finance.expenses.update_expense_payment',[request()->id])}}" class="order_status">
     @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal2" tabindex="-1"
@@ -48,18 +48,18 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view_expense') echo 'active active_red'  ?>"
-                 href="{{route('finance.expenses.view_expense',[request()->id])}}"
+                 href="{{route('company.finance.expenses.view_expense',[request()->id])}}"
                  aria-selected="false">View Expense</a>
                 <div class="dropdown-divider"></div>
 
 
                 <a class="nav-link <?php if($page == 'edit_expense') echo 'active active_red'  ?>"
-                 href="{{route('finance.expenses.edit_expense',[request()->id])}}"
+                 href="{{route('company.finance.expenses.edit_expense',[request()->id])}}"
                  aria-selected="false">Edit Expense </a>
                 <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'payment_history') echo 'active active_red'  ?>"
-                    href="{{route('finance.expenses.payment_history', request()->id)}}"
+                    href="{{route('company.finance.expenses.payment_history', request()->id)}}"
                     aria-selected="false"> Expense Payment History</a>
                    <div class="dropdown-divider"></div>
 
@@ -69,7 +69,7 @@
 
 
                 <a class="nav-link"
-                href="{{route('finance.expenses.delete_expense', [request()->id])}}" onclick="return confirm('Are you sure you want to delete this expense?');"
+                href="{{route('company.finance.expenses.delete_expense', [request()->id])}}" onclick="return confirm('Are you sure you want to delete this expense?');"
                 aria-selected="false">Delete Expense</a>
                <div class="dropdown-divider"></div>
 

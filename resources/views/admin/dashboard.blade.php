@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('admin.layout.master')
 @section('content')
 @section('title', 'Dashboard')
     {{-- MAIN BODY CONTENT --}}
@@ -43,7 +43,7 @@
                                         <i data-feather="calendar"></i>
                                     </div>
                                     <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('job_order.all_orders')}}"><i
+                                        <a class="text-primary float-end" href="{{route('admin.job_order.all_orders')}}"><i
                                             class="blue" data-feather="chevrons-right"></i>See Details</a>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                         <i data-feather="calendar"></i>
                                     </div>
                                     <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('job_order.status.pending')}}"><i
+                                        <a class="text-primary float-end" href="{{route('admin.job_order.status.pending')}}"><i
                                             class="blue" data-feather="chevrons-right"></i>See Details</a>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                         <i data-feather="mail"></i>
                                     </div>
                                     <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('job_order.status.delivered')}}"><i
+                                        <a class="text-primary float-end" href="{{route('admin.job_order.status.delivered')}}"><i
                                             class="blue" data-feather="chevrons-right"></i>See Details</a>
                                     </div>
                                 </div>
@@ -192,7 +192,7 @@
                                     <div class="head">
                                         <h5 class="mb-0">Top Orders By Date</h5>
                                         <p class="text-muted">Today's job order</p>
-                                        <form  action="{{ route('dashboard') }}" method="get">
+                                        <form  action="{{ route('admin.dashboard') }}" method="get">
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -211,7 +211,7 @@
 
                                                     <div class="col-md-2">
                                                         {{-- <button type="submit" class="btn " style=" text-decoration: underline; color:green; padding:3px 20px 3px 20px">Search Sales</button> --}}
-                                                        <button class="btn"><a href="{{route('dashboard')}}" style=" text-decoration: underline; color:rgb(5, 15, 64); padding:3px 20px 3px 20px">Clear</a>
+                                                        <button class="btn"><a href="{{route('admin.dashboard')}}" style=" text-decoration: underline; color:rgb(5, 15, 64); padding:3px 20px 3px 20px">Clear</a>
                                                     </div>
 
                                                 </div>

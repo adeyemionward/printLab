@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +36,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('user_type',1)->get();
-        return view('users.all_users', compact('users'));
+        return view('admin.users.all_users', compact('users'));
     }
 
     /**
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function create()
     {
         $roles =  Role::all();
-        return view('users.add_user', compact('roles'));
+        return view('admin.users.add_user', compact('roles'));
     }
 
     /**
@@ -88,15 +88,15 @@ class UserController extends Controller
 
         $input = $request->all();
 
-        $input['password'] = Hash::make($input['password']);
-        $input['user_type'] = 1;
+        $input['password']  = Hash::make($input['password']);
+        $input['user_type'] =   3;
         $user = User::create($input);
 
         //$user->assignRole('admin');
          $user->assignRole($request->input('roles'));
 
         if($user){
-            return redirect(route('users.all_users'))->with('flash_success','User has been created Successful');
+            return redirect(route('admin.users.all_users'))->with('flash_success','User has been created Successful');
         }
 
     }
@@ -110,7 +110,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.view_user', compact('user'));
+        return view('admin.users.view_user', compact('user'));
     }
 
     /**
@@ -122,7 +122,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('users.edit_user', compact('user'));
+        return view('admin.users.edit_user', compact('user'));
     }
 
     /**
@@ -178,13 +178,13 @@ class UserController extends Controller
     public function view_profile()
     {
         $user = Auth::user();
-        return view('users.view_profile', compact('user'));
+        return view('admin.users.view_profile', compact('user'));
     }
 
     public function edit_profile()
     {
         $user = Auth::user();
-        return view('users.edit_profile', compact('user'));
+        return view('admin.users.edit_profile', compact('user'));
     }
 
     public function update_profile(Request $request)
@@ -220,7 +220,7 @@ class UserController extends Controller
 
         $user->update();
         return back()->with("flash_success","Profile updated successfully1111");
-        //return view('users.edit_profile', compact('user'));
+        //return view('admin.users.edit_profile', compact('user'));
     }
 
 
@@ -228,7 +228,7 @@ class UserController extends Controller
     public function create_testimonial()
     {
         $customers =  User::where('user_type',User::CUSTOMER)->get();
-        return view('users.testimonial.add_testimonial', compact('customers'));
+        return view('admin.users.testimonial.add_testimonial', compact('customers'));
     }
 
 
@@ -257,26 +257,26 @@ class UserController extends Controller
 
         $testimonial->save();
 
-        return redirect(route('users.testimonial.view_testimonial',$testimonial->id))->with('flash_success','Customer Testimonial saved successfully');
+        return redirect(route('admin.users.testimonial.view_testimonial',$testimonial->id))->with('flash_success','Customer Testimonial saved successfully');
     }
 
     public function all_testimonial()
     {
         $all_testimonial = Testimonial::all();
-        return view('users.testimonial.all_testimonials', compact('all_testimonial'));
+        return view('admin.users.testimonial.all_testimonials', compact('all_testimonial'));
     }
 
     public function view_testimonial($id)
     {
         $testimonial =  $this->find_testimonial($id);
-        return view('users.testimonial.view_testimonial', compact('testimonial'));
+        return view('admin.users.testimonial.view_testimonial', compact('testimonial'));
     }
 
     public function edit_testimonial($id)
     {
         $testimonial =  $this->find_testimonial($id);
         $customers =  User::where('user_type',User::CUSTOMER)->get();
-        return view('users.testimonial.edit_testimonial', compact('testimonial','customers'));
+        return view('admin.users.testimonial.edit_testimonial', compact('testimonial','customers'));
     }
 
     public function update_testimonial(Request $request, $id)
@@ -308,7 +308,7 @@ class UserController extends Controller
         }
 
 
-        return redirect(route('users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial updated successfully');
+        return redirect(route('admin.users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial updated successfully');
     }
 
     public function delete_testimonial($id)
@@ -316,19 +316,19 @@ class UserController extends Controller
         try{
             $testimonial =  $this->find_testimonial($id);
             if(is_null($testimonial)){
-                return redirect(route('users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial not available');
+                return redirect(route('admin.users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial not available');
             }
             $testimonial->delete();
         }catch(\Exception $th){
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
-        return redirect(route('users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial deleted');
+        return redirect(route('admin.users.testimonial.all_testimonials'))->with('flash_success','Customer Testimonial deleted');
     }
 
     public function change_password()
     {
         $user = Auth::user();
-        return view('users.change_password', compact('user'));
+        return view('admin.users.change_password', compact('user'));
     }
 
     public function update_change_password(Request $request)
@@ -371,6 +371,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id)->delete();
-        return redirect(route('users.all_users'))->with('flash_success','User has been deleted');
+        return redirect(route('admin.users.all_users'))->with('flash_success','User has been deleted');
     }
 }

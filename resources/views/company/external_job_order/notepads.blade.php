@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Dashboard')
 @php $page =  'notepads' @endphp
@@ -27,7 +27,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="row">
-											@include('job_order.job_order_inc')
+											@include('company.job_order.job_order_inc')
 
 
 											<div class="col-md-9 col-xl-9">

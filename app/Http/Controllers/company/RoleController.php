@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -41,7 +41,7 @@ class RoleController extends Controller
         });
 
 
-        return view('roles.all_roles', compact('rolesWithPermissions', 'userRoles'));
+        return view('company.roles.all_roles', compact('rolesWithPermissions', 'userRoles'));
 
     }
 
@@ -53,7 +53,7 @@ class RoleController extends Controller
     public function create()
     {
          $permissions = Permission::get();
-        return view('roles.add_role', compact('permissions'));
+        return view('company.roles.add_role', compact('permissions'));
     }
 
     /**
@@ -80,7 +80,7 @@ class RoleController extends Controller
 
         $find_role = Role::where('name', $request->input('name'))->first();
         if($find_role)
-        return redirect()->route('roles.add_role')->with('flash_error','Role alreadt exists');
+        return redirect()->route('company.roles.add_role')->with('flash_error','Role alreadt exists');
         $role = Role::create(
             [
                 'name' => $request->input('name')
@@ -88,7 +88,7 @@ class RoleController extends Controller
         );
 
         $role->syncPermissions($request->input('permission'));
-        return redirect()->route('roles.all_roles')->with('flash_success','Role & Permissions created successfully');
+        return redirect()->route('company.roles.all_roles')->with('flash_success','Role & Permissions created successfully');
     }
 
     /**
@@ -119,7 +119,7 @@ class RoleController extends Controller
         $existingPermissions = $role->permissions;
         $permissions = Permission::all();
 
-        return view('roles.edit_role', compact('role', 'permissions','existingPermissions'));
+        return view('company.roles.edit_role', compact('role', 'permissions','existingPermissions'));
     }
 
     /**
@@ -151,7 +151,7 @@ class RoleController extends Controller
         $newPermissions = $request->input('permission', []);
         $role->syncPermissions($newPermissions);
 
-        return redirect()->route('roles.edit_role', $id)->with('flash_success','Role & Permissions updated successfully');
+        return redirect()->route('company.roles.edit_role', $id)->with('flash_success','Role & Permissions updated successfully');
     }
 
     /**
@@ -163,6 +163,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.all_roles')->with('flash_success','Role deleted successfully');
+        return redirect()->route('company.roles.all_roles')->with('flash_success','Role deleted successfully');
     }
 }

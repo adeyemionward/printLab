@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'All Users')
     <div class="content">
@@ -42,7 +42,7 @@
                                         <td>{{$val->email}}</td>
                                         <td>{{$val->phone}}</td>
                                         <td>{{$val->address}}</td>
-                                        <td><a href="{{route('users.edit_user',$val->id)}}"><span><i class="fa fa-edit"></i></span></a></td>
+                                        <td><a href="{{route('company.users.edit_user',$val->id)}}"><span><i class="fa fa-edit"></i></span></a></td>
                                     </tr>
                                 @endforeach
 

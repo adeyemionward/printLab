@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'All Suppliers')
     <div class="content">
@@ -20,7 +20,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('includes.date_range')
+                        @include('company.includes.date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
@@ -44,7 +44,7 @@
                                         <td>{{$val->email}}</td>
                                         <td>{{$val->phone}}</td>
                                         <td>{{$val->address}}</td>
-                                        <td><a href="{{route('suppliers.edit_supplier',$val->id)}}"><span><i class="fa fa-edit"></i></span></a></td>
+                                        <td><a href="{{route('company.suppliers.edit_supplier',$val->id)}}"><span><i class="fa fa-edit"></i></span></a></td>
                                     </tr>
                                 @endforeach
 

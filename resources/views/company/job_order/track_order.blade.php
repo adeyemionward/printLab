@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Track Order')
 @php $page = 'track_order' @endphp
@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('job_order.job_order_view_inc')
+                                @include('company.job_order.job_order_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
@@ -181,7 +181,7 @@
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Customer Name :</td>
-                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
+                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('company.customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Job Order Type :</td>
@@ -212,7 +212,7 @@
                                                                             @elseif($job_order_pay->amount == $job_order->total_cost)
                                                                                 Fully Paid
                                                                             @endif
-                                                                                <small style="text-decoration: underline; color:blue"><a href="{{route('job_order.transaction_history',[request()->job_title,request()->id])}}">See History</a></small>
+                                                                                <small style="text-decoration: underline; color:blue"><a href="{{route('company.job_order.transaction_history',[request()->job_title,request()->id])}}">See History</a></small>
                                                                         </td>
                                                                     </tr>
 

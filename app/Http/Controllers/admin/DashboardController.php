@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobOrder;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +46,6 @@ class DashboardController extends Controller
         ->orderByDesc('total_orders')
         ->whereBetween('order_date', [$from, $to])
         ->get();
-        return view('dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
+        return view('admin.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
     }
 }

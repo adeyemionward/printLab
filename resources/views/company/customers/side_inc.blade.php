@@ -11,33 +11,33 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view') echo 'active active_red'  ?>"
-                    href="{{route('customers.view_customer',request()->id)}}"
+                    href="{{route('company.customers.view_customer',request()->id)}}"
                     aria-selected="false">View Customer</a>
                    <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'edit') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('customers.edit_customer', request()->id)}}"
+                href="{{route('company.customers.edit_customer', request()->id)}}"
                 aria-selected="false">Edit Customer </a>
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'cart') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('customers.customer_cart', request()->id)}}"
+                href="{{route('company.customers.customer_cart', request()->id)}}"
                 aria-selected="false"> Customer Cart ({{$cartCount}}) </a>
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'orders') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('customers.customer_job_orders', request()->id)}}"
+                href="{{route('company.customers.customer_job_orders', request()->id)}}"
                 aria-selected="false"> Customer Job Orders </a>
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'transaction') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('customers.transaction_history', request()->id)}}"
+                href="{{route('company.customers.transaction_history', request()->id)}}"
                 aria-selected="false"> Customer Transaction History </a>
                <div class="dropdown-divider"></div>
 
 
                 <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to delete this customer?');"
-                 href="{{route('customers.delete_customer', request()->id)}}"
+                 href="{{route('company.customers.delete_customer', request()->id)}}"
                  aria-selected="false">Deactivate Customer </a>
                 <div class="dropdown-divider"></div>
 

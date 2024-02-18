@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Customer Transaction History')
 @php $page = 'transaction'; @endphp
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('customers.side_inc')
+                                @include('company.customers.side_inc')
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="content" id="tableContent">

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
@@ -23,12 +23,12 @@ class SettingController extends Controller
 
     public function all_category()
     {
-        return view('settings.category.all_category');
+        return view('company.settings.category.all_category');
     }
 
     public function create_category()
     {
-        return view('settings.category.add_category');
+        return view('company.settings.category.add_category');
     }
 
     /**

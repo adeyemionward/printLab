@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Edit Requisition')
 @php $page = 'twenty_leaves' @endphp

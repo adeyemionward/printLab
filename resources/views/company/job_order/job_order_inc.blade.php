@@ -11,24 +11,24 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'higher_education') echo 'active active_red'  ?>"
-                 href="{{route('job_order.higher_education')}}"
+                 href="{{route('company.job_order.higher_education')}}"
                  aria-selected="false">Higher Note Book</a>
                 <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'twenty_leaves') echo 'active active_red'  ?>"
-                 href="{{route('job_order.20_leaves_book')}}"
+                 href="{{route('company.job_order.20_leaves_book')}}"
                  aria-selected="false">20 Leaves Note Book </a>
                 <div class="dropdown-divider"></div>
 
 
 
                 <a class="nav-link <?php if($page == 'forty_leaves') echo 'active active_red'  ?>"
-                href="{{route('job_order.40_leaves_book')}}"
+                href="{{route('company.job_order.40_leaves_book')}}"
                 aria-selected="false">40 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'eighty_leaves') echo 'active active_red'  ?>"
-                href="{{route('job_order.80_leaves_book')}}"
+                href="{{route('company.job_order.80_leaves_book')}}"
                 aria-selected="false">80 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 
@@ -47,7 +47,7 @@
 
 
                 <a class="nav-link <?php if($page == 'small_invoice') echo 'active active_red'  ?>"
-                href="{{route('job_order.small_invoice')}}"
+                href="{{route('company.job_order.small_invoice')}}"
                 aria-selected="false">Small Invoice Templates</a>
                <div class="dropdown-divider"></div>
 
@@ -55,12 +55,12 @@
 
 
                <a class="nav-link <?php if($page == 'bronchures') echo 'active active_red'  ?>"
-                href="{{route('job_order.bronchures')}}"
+                href="{{route('company.job_order.bronchures')}}"
                 aria-selected="false">Brochures</a>
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'flyers') echo 'active active_red'  ?>"
-                href="{{route('job_order.flyers')}}"
+                href="{{route('company.job_order.flyers')}}"
                 aria-selected="false">Flyers</a>
                <div class="dropdown-divider"></div>
 
@@ -77,34 +77,34 @@
 
 
                <a class="nav-link <?php if($page == 'business_cards') echo 'active active_red'  ?>"
-                href="{{route('job_order.business_cards')}}"
+                href="{{route('company.job_order.business_cards')}}"
                 aria-selected="false">Business Cards</a>
                <div class="dropdown-divider"></div>
 
 
 
               <a class="nav-link <?php if($page == 'envelopes') echo 'active active_red'  ?>"
-                href="{{route('job_order.envelopes')}}"
+                href="{{route('company.job_order.envelopes')}}"
                 aria-selected="false">Envelopes</a>
                <div class="dropdown-divider"></div>
 
               <a class="nav-link <?php if($page == 'notepads') echo 'active active_red'  ?>"
-                href="{{route('job_order.notepads')}}"
+                href="{{route('company.job_order.notepads')}}"
                 aria-selected="false">Notepads</a>
                <div class="dropdown-divider"></div>
 
              <a class="nav-link <?php if($page == 'booklets') echo 'active active_red'  ?>"
-                href="{{route('job_order.booklets')}}"
+                href="{{route('company.job_order.booklets')}}"
                 aria-selected="false">Booklets</a>
                <div class="dropdown-divider"></div>
 
              <a class="nav-link <?php if($page == 'stickers') echo 'active active_red'  ?>"
-                href="{{route('job_order.stickers')}}"
+                href="{{route('company.job_order.stickers')}}"
                 aria-selected="false">Stickers</a>
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'service_order') echo 'active active_red'  ?>"
-                 href="{{route('job_order.service_order')}}"
+                 href="{{route('company.job_order.service_order')}}"
                  aria-selected="false">Service Order </a>
                 <div class="dropdown-divider"></div>
 

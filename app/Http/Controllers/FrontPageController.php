@@ -75,7 +75,7 @@ class FrontPageController extends Controller
     {
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        return view('index', compact('cartCount','all_testimonial'));
+        return view('front.index', compact('cartCount','all_testimonial'));
     }
 
     public function cart()
@@ -83,7 +83,7 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         $carts = $this->cartFunc();
 
-        return view('cart.index', compact('cartCount','carts'));
+        return view('front.cart.index', compact('cartCount','carts'));
     }
 
     /**
@@ -165,7 +165,7 @@ class FrontPageController extends Controller
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
     }
 
     public function update_cart(Request $request, $title =  null, $id =  null, $job_id =  null)
@@ -250,7 +250,7 @@ class FrontPageController extends Controller
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('product_details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('front.product_details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
     }
 
     public function product_categories()
@@ -260,7 +260,7 @@ class FrontPageController extends Controller
         $forty_leaves = Product::where('name','forty_leaves')->first();
         $twenty_leaves = Product::where('name','twenty_leaves')->first();
         $eighty_leaves = Product::where('name','eighty_leaves')->first();
-        return view('product_categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
+        return view('front.product_categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
     }
 
     public function getPrice(Request $request){
@@ -291,7 +291,7 @@ class FrontPageController extends Controller
         ->get();
         $cartCount = $this->countCart();
 
-        return view('track_orders.index', compact('carts','cartCount'));
+        return view('front.track_orders.index', compact('carts','cartCount'));
     }
 
 
@@ -308,7 +308,7 @@ class FrontPageController extends Controller
         $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order_track =  JobOrderTracking::where('job_order_id', $id)->first();
         $order =  JobOrder::where('user_id',$user->id)->where('id', $id)->first();
-        return view('track_orders.view', compact('job_order_track','order','approved_design','cartCount'));
+        return view('front.track_orders.view', compact('job_order_track','order','approved_design','cartCount'));
     }
 
     public function orderInvoicePdf($order_no){
@@ -318,7 +318,7 @@ class FrontPageController extends Controller
         $orderDetails   =  $job->get();
         $order1         =  $job->first();
 
-        $pdf = PDF::loadView('track_orders.order_invoice_pdf',compact('orderDetails','order1'));
+        $pdf = PDF::loadview('front.track_orders.order_invoice_pdf',compact('orderDetails','order1'));
         return $pdf->stream('order_invoice.pdf');
     }
 
@@ -326,7 +326,7 @@ class FrontPageController extends Controller
     public function contact()
     {
         $cartCount = $this->countCart();
-        return view('contact.index',compact('cartCount'));
+        return view('front.contact.index',compact('cartCount'));
     }
 
     public function postContact(Request $request)
@@ -365,7 +365,7 @@ class FrontPageController extends Controller
     public function profile()
     {
         $cartCount = $this->countCart();
-        return view('profile.index',compact('cartCount'));
+        return view('front.profile.index',compact('cartCount'));
     }
 
     public function updateProfile(ProfileRequest $request, ProfileRepository $profileRepository)
@@ -389,7 +389,7 @@ class FrontPageController extends Controller
     public function changePassword()
     {
         $cartCount = $this->countCart();
-        return view('profile.change_password',compact('cartCount'));
+        return view('front.profile.change_password',compact('cartCount'));
     }
 
     public function updateChangePassword(Request $request)

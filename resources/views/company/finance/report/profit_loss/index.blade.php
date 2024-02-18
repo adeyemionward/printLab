@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Profit/Loss Report')
     <div class="content">
@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="content" id="tableContent">
                     <div class="canvas-wrapper">
-                        @include('includes.date_range')
+                        @include('company.includes.date_range')
                         <table id="example1" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>

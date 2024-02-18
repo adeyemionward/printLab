@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
@@ -39,7 +39,7 @@ class FinanceController extends Controller
             $expenses = Expense::with('expenseHistories')->get();
         }
 
-        return view('finance.expenses.all_expenses', compact('expenses'));
+        return view('company.finance.expenses.all_expenses', compact('expenses'));
     }
 
     public function create_expense()
@@ -47,7 +47,7 @@ class FinanceController extends Controller
         $categories =  ExpenseCategory::all();
         $suppliers =  Supplier::all();
 
-        return view('finance.expenses.add_expense', compact('categories','suppliers'));
+        return view('company.finance.expenses.add_expense', compact('categories','suppliers'));
     }
 
     /**
@@ -104,7 +104,7 @@ class FinanceController extends Controller
             $expense_history->save();
 
             DB::commit();
-            return redirect(route('finance.expenses.all_expenses'))->with('flash_success','Expense saved successfully');
+            return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense saved successfully');
 
         }catch (\Throwable $th){
             DB::rollBack();
@@ -127,7 +127,7 @@ class FinanceController extends Controller
         $expense_history  = ExpensePaymentHistory::select(DB::raw('SUM(amount_paid) as amount_paid'))
             ->where('expense_id',$id)
             ->first();
-        return view('finance.expenses.view_expense', compact('expense','expense_history'));
+        return view('company.finance.expenses.view_expense', compact('expense','expense_history'));
     }
 
     public function edit_expense($id)
@@ -135,7 +135,7 @@ class FinanceController extends Controller
         $expense =  Expense::find($id);
         $categories =  ExpenseCategory::all();
         $suppliers =  Supplier::all();
-        return view('finance.expenses.edit_expense', compact('expense','categories','suppliers'));
+        return view('company.finance.expenses.edit_expense', compact('expense','categories','suppliers'));
     }
     public function update_expense($id)
     {
@@ -163,7 +163,7 @@ class FinanceController extends Controller
             $expense_history->save();
 
             DB::commit();
-            return redirect(route('finance.expenses.all_expenses'))->with('flash_success','Expense updated successfully');
+            return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense updated successfully');
 
 
         }catch (\Throwable $th){
@@ -176,7 +176,7 @@ class FinanceController extends Controller
             ->where('expense_id',$id)
             ->first();
 
-        return view('finance.expenses.view_expense', compact('expense','expense_history'));
+        return view('company.finance.expenses.view_expense', compact('expense','expense_history'));
     }
 
     public function update_expense_payment(Request $request, $id){
@@ -200,14 +200,14 @@ class FinanceController extends Controller
     public function payment_history($id)
     {
         $expense_pay_history = ExpensePaymentHistory::where('expense_id',$id)->get();
-        return view('finance.expenses.payment_history',compact('expense_pay_history'));
+        return view('company.finance.expenses.payment_history',compact('expense_pay_history'));
     }
 
     public function delete_expense($id)
     {
         $expense =  Expense::find($id)->delete();
 
-        return redirect(route('finance.expenses.all_expenses'))->with('flash_success','Expense deleted successfully');
+        return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense deleted successfully');
     }
 
 
@@ -223,7 +223,7 @@ class FinanceController extends Controller
 
         }
 
-        return view('finance.report.debtors.index', compact('job_pay'));
+        return view('company.finance.report.debtors.index', compact('job_pay'));
     }
 
     public function all_creditors(Request $request)
@@ -237,7 +237,7 @@ class FinanceController extends Controller
 
         }
 
-        return view('finance.report.creditors.index',compact('expenses'));
+        return view('company.finance.report.creditors.index',compact('expenses'));
     }
 
     public function all_profit_loss(Request $request)
@@ -265,7 +265,7 @@ class FinanceController extends Controller
 
 
 
-        return view('finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
+        return view('company.finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
     }
 
     /**

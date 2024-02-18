@@ -308,7 +308,13 @@ form .btn input[type="submit"] {
                 if(data == 1){
                     toastr.success("Login Successful");
                     setInterval(function(){
-                        window.location.replace('{{route("dashboard")}}');
+                        window.location.replace('{{route("admin.dashboard")}}');
+                    },2000)
+
+                }else if(data == 3){
+                    toastr.success("Login Successful");
+                    setInterval(function(){
+                        window.location.replace('{{route("company.dashboard")}}');
                     },2000)
 
                 }else if (data == 12){

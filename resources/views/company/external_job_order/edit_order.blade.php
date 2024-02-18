@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Dashboard')
 @php $page = 'edit_order' @endphp
@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('job_order.job_order_view_inc')
+                                @include('company.job_order.job_order_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     @if(request()->job_title == 'Higher_NoteBook')

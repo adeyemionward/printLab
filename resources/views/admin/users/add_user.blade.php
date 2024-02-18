@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('admin.layout.master')
 @section('content')
 @section('title', 'Add User')
 
@@ -75,7 +75,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="gender">Gender:</label>
-                                                                            <select name="gender" id="" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" value="{{ old('gender') }}">
+                                                                            <select name="gender" id="" class="form-select form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" value="{{ old('gender') }}">
                                                                                 <option value="">--Select Gender--</option>
                                                                                 <option value="male">Male</option>
                                                                                 <option value="female">Female</option>
@@ -87,7 +87,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="status">Status:</label>
-                                                                            <select name="status" id="" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" value="{{ old('status') }}">
+                                                                            <select name="status" id="" class="form-select form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" value="{{ old('status') }}">
                                                                                 <option value="">--Select Status--</option>
                                                                                 <option value="active">Active</option>
                                                                                 <option value="inactive">Inactive</option>
@@ -105,11 +105,11 @@
                                                                             @enderror
                                                                         </div>
 
-                                                                        <input type="text" name="user_type" value="1">
+                                                                        {{-- <input type="text" name="user_type" value="3"> --}}
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="phone">Role:</label>
-                                                                            <select name="roles" class="form-control" id="">
+                                                                            <select name="roles" class="form-control form-select" id="">
                                                                                 <option value="">--Select User Role--</option>
                                                                                 @foreach ($roles as $val)
                                                                                     <option value="{{$val->name}}">{{ucfirst($val->name)}}</option>

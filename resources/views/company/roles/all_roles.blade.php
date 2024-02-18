@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'All Roles')
     <div class="content">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('roles.add_role')}}"><li class="active btn btn-primary" style="">Add Role</li></a>
+                        <a href="{{route('company.roles.add_role')}}"><li class="active btn btn-primary" style="">Add Role</li></a>
                     </ol>
                 </div>
             </div>
@@ -37,8 +37,8 @@
                                         <td><strong>{{ ucfirst($roleWithPermissions['role']) }}</strong></td>
                                         <td>{{ $roleWithPermissions['permissions'] }}</td>
                                         <td>
-                                            <a href="{{route('roles.edit_role',$roleWithPermissions['role_id'])}}"><span><i class="fa fa-edit"></i></span></a>
-                                            <a href="{{route('roles.delete_role',$roleWithPermissions['role_id'])}} " onclick="return confirm('Are you sure you want to delete this role?');"><span><i class="fa fa-trash"></i></span></a>
+                                            <a href="{{route('company.roles.edit_role',$roleWithPermissions['role_id'])}}"><span><i class="fa fa-edit"></i></span></a>
+                                            <a href="{{route('company.roles.delete_role',$roleWithPermissions['role_id'])}} " onclick="return confirm('Are you sure you want to delete this role?');"><span><i class="fa fa-trash"></i></span></a>
                                         </td>
                                     </tr>
                                 @endforeach

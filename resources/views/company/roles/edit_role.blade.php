@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Edit Role')
     @can('role-edit')
@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-md-6">
                         <ol class="breadcrumb float-end">
-                            <a href="{{route('roles.all_roles')}}"><li class="active btn btn-primary" style="">Role List</li></a>
+                            <a href="{{route('company.roles.all_roles')}}"><li class="active btn btn-primary" style="">Role List</li></a>
                         </ol>
                     </div>
                 </div>

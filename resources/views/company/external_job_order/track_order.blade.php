@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Track Order')
 @php $page = 'track_order' @endphp
@@ -162,7 +162,7 @@
 
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Customer Name :</td>
-                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
+                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('company.customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td width="10%" class="question">Created At :</td>
@@ -208,7 +208,7 @@
                                                                             @elseif($job_order_pay->amount == $job_order->total_cost)
                                                                                 Fully Paid
                                                                             @endif
-                                                                                <small style="text-decoration: underline; color:blue"><a href="{{route('external_job_order.transaction_history',request()->id)}}">See History</a></small>
+                                                                                <small style="text-decoration: underline; color:blue"><a href="{{route('company.external_job_order.transaction_history',request()->id)}}">See History</a></small>
                                                                         </td>
                                                                     </tr>
 

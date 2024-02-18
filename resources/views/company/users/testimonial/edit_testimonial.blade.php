@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Edit Tesimonial')
 @php $page = 'edit_testimonial' @endphp
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('users.testimonial.all_testimonials')}}"><li class="active btn btn-primary" style="">View Testimonials</li></a>
+                        <a href="{{route('company.users.testimonial.all_testimonials')}}"><li class="active btn btn-primary" style="">View Testimonials</li></a>
                     </ol>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Company;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
@@ -48,7 +48,7 @@ class CustomerController extends Controller
         $cartCount = $this->countCart($id);
         $job_orders =  JobOrder::where('user_id', $id)->where('cart_order_status',1)->get();
 
-        return view('customers.customer_cart', compact('customer','job_orders','cartCount'));
+        return view('company.customers.customer_cart', compact('customer','job_orders','cartCount'));
     }
 
     public function checkout($id)
@@ -85,7 +85,7 @@ class CustomerController extends Controller
         //$pdf = Pdf::loadView('invoice_attachment',$data);
       //  return $pdf->download('invoice.pdf');
         // return route('customers.customer_job_orders', 16)->with('flash_success','Product Order Successful');
-        return redirect(route('customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
+        return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
     }
 
     public function customer_job_orders($id)
@@ -103,7 +103,7 @@ class CustomerController extends Controller
         $cartCount = $this->countCart($id);
 
         $job_pay_history =  JobPaymentHistory::where('user_id',$id)->get();
-        return view('customers.transaction_history', compact('customer','job_pay_history','cartCount'));
+        return view('company.customers.transaction_history', compact('customer','job_pay_history','cartCount'));
     }
 
 
@@ -114,7 +114,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customers.add_customer');
+        return view('company.customers.add_customer');
     }
 
     /**
@@ -176,7 +176,7 @@ class CustomerController extends Controller
 
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
-        return view('customers.view_customer', compact('customer','cartCount'));
+        return view('company.customers.view_customer', compact('customer','cartCount'));
     }
 
     /**
@@ -189,7 +189,7 @@ class CustomerController extends Controller
     {
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
-        return view('customers.edit_customer', compact('customer','cartCount'));
+        return view('company.customers.edit_customer', compact('customer','cartCount'));
     }
 
     /**
@@ -245,6 +245,6 @@ class CustomerController extends Controller
         $customer = User::find($id);
         $customer->status = 'deactivated';
         $customer->save();
-        return redirect(route('customers.all_customers'))->with('flash_success','Customer has been deactivated');
+        return redirect(route('company.customers.all_customers'))->with('flash_success','Customer has been deactivated');
     }
 }

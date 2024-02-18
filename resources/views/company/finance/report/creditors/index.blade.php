@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Creditors Report')
     <div class="content">
@@ -20,7 +20,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('includes.date_range')
+                        @include('company.includes.date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
@@ -50,7 +50,7 @@
                                         <td>{{'₦'.$val->expenseHistories->sum('amount_paid')}}</td>
                                         <td>{{'₦'.$val->total_cost - $val->expenseHistories->sum('amount_paid')}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->expense_date))}}</td>
-                                        <td><a href="{{route('finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('company.finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
