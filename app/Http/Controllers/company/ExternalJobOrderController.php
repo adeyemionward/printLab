@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 use App\Models\Customer;
 use App\Models\JobOrder;
 use App\Models\HigherNoteBook;
