@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('job_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->nullable();
+            $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('job_order_name')->nullable();
             $table->integer('quantity')->nullable();
@@ -43,6 +43,7 @@ return new class extends Migration
             $table->enum('status', ['Pending', 'Designed','Proof Read','Customer Approved','Prepressed','Printed','Binded','Completed','Delivered'])->default('pending');
             $table->string('order_date')->nullable();
             $table->string('order_type')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreignId('created_by')->constrained('users')->nullable();
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();

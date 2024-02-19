@@ -43,6 +43,7 @@ return new class extends Migration
 
             $table->string('delivered_status')->nullable();
             $table->string('delivered_date')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->nullable();
 
             $table->timestamps();
 

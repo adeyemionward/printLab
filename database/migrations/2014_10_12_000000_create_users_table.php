@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('status')->nullable();
             $table->string('address')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->rememberToken();
             $table->timestamps();
         });

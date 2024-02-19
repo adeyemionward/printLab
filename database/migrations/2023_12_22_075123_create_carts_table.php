@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->nullable();
             $table->foreignId('job_order_id')->constrained('job_orders')->onDelete('cascade')->nullable();
             $table->string('local_id')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

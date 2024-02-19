@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('category_id')->nullable();
             $table->text('description')->nullable();
             $table->string('expense_date');
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();

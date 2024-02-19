@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('job_order_id')->constrained('job_orders')->onDelete('cascade')->nullable();
             $table->string('design_name')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();

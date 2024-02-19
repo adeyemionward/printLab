@@ -30,8 +30,9 @@ class UsersTableSeeder extends Seeder
                 'email' => 'joshua@example.com',
                 'gender' => 'male',
                 'status' => 'active',
-                'user_type' => '1', //internal staff
+                'user_type' => '1', //admin staff
                 'password' => bcrypt('12345678'),
+                'company_id' => NULL,
             ]);
 
             // Assign a role to the user

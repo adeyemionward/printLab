@@ -45,7 +45,7 @@ return new class extends Migration
             $table->string('delivered_date')->nullable();
 
             $table->timestamps();
-
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreign('job_order_id')->references('id')->on('job_orders')->onDelete('cascade');
 
         });

@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('numbering_needed')->nullable();
             $table->string('start_number')->nullable();
             $table->string('total_cost')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();

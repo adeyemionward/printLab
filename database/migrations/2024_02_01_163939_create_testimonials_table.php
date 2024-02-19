@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->string('image')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->nullable();
             $table->integer('created_by');
             $table->text('description');
             $table->timestamps();

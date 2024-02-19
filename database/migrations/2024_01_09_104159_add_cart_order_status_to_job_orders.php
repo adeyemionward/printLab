@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('job_orders', function (Blueprint $table) {
-            $table->integer('cart_order_status')->after('status')->comment('1=still in cart, 2= compleete corder')->nullable();
+            $table->integer('cart_order_status')->after('status')->comment('1=still in cart, 2= completed corder')->nullable();
         });
     }
 
