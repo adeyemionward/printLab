@@ -51,13 +51,13 @@ class ProfileRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            response()->json([
-                'status'=>0,
-                'error'=>$validator->errors()->toArray()
-            ])
-        );
-    }
+    // protected function failedValidation(Validator $validator)
+    // {
+    //     throw new HttpResponseException(
+    //         response()->json([
+    //             'status'=>0,
+    //             'error'=>$validator->errors()->toArray()
+    //         ])
+    //     );
+    // }
 }

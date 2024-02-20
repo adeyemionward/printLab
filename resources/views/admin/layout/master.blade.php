@@ -49,14 +49,14 @@
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
-								<a href="{{route('admin.customers.add_customer')}}" class="text-center">
+								<a href="{{route('admin.company.add')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Add Customer</span>
+                                    <span class="data-feather theme-item">Add Company</span>
                                 </a>
 
-                                <a href="{{route('admin.customers.all_customers')}}" class="text-center">
+                                <a href="{{route('admin.company.list')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> View Customers</span>
+                                    <span class="data-feather theme-item"> View Companies</span>
                                 </a>
 
                                 <a href="{{route('admin.users.add_user')}}" class="text-center">
@@ -69,7 +69,7 @@
                                     <span class="data-feather theme-item"> View Users</span>
                                 </a>
 
-                                <a href="{{route('admin.suppliers.add_supplier')}}" class="text-center">
+                                {{-- <a href="{{route('admin.suppliers.add_supplier')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
                                     <span class="data-feather theme-item">Add Suppliers</span>
                                 </a>
@@ -82,7 +82,7 @@
                                 <a href="{{route('admin.users.testimonial.add_testimonial')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Customer Testimonials</span>
-                                </a>
+                                </a> --}}
 
 
 							</div>
@@ -297,17 +297,15 @@
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('admin.customers.add_customer')}}">Add Customer</a></li>
-										<li><a class="dropdown-item" href="{{route('admin.customers.all_customers')}}"> View Customers</a></li>
+										<li><a class="dropdown-item" href="{{route('admin.company.add')}}">Add Company</a></li>
+										<li><a class="dropdown-item" href="{{route('admin.company.list')}}"> View Companies</a></li>
 
                                         <li><a class="dropdown-item" href="{{route('admin.users.add_user')}}">Add User</a></li>
-										<li><a class="dropdown-item" href="{{route('admin.users.all_users')}}"> View Usesr</a></li>
+										<li><a class="dropdown-item" href="{{route('admin.users.all_users')}}"> View Users</a></li>
 
-                                        <li><a class="dropdown-item" href="{{route('admin.suppliers.add_supplier')}}">Add Suppliers</a></li>
+                                        {{-- <li><a class="dropdown-item" href="{{route('admin.suppliers.add_supplier')}}">Add Suppliers</a></li>
 										<li><a class="dropdown-item" href="{{route('admin.suppliers.all_suppliers')}}">View Suppliers</a></li>
-                                        <li><a class="dropdown-item" href="{{route('admin.users.testimonial.add_testimonial')}}">Customer Testimonials</a></li>
-
-
+                                        <li><a class="dropdown-item" href="{{route('admin.users.testimonial.add_testimonial')}}">Customer Testimonials</a></li> --}}
 									</ul>
 								</li>
 

@@ -477,18 +477,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
             });
     
     
-            Route::group(['prefix' => '/customers', 'as' => 'customers.'], function () {
-                Route::get('/add_customer', 'CustomerController@create')->name('add_customer');
-                Route::post('/add_customer', 'CustomerController@store')->name('add_customer');
-                Route::get('/all_customers', 'CustomerController@index')->name('all_customers');
-                Route::get('/edit_customer/{id}', 'CustomerController@edit')->name('edit_customer');
-                Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer');
-                Route::get('/view_customer/{id}', 'CustomerController@show')->name('view_customer');
-                Route::get('/customer_job_orders/{id}', 'CustomerController@customer_job_orders')->name('customer_job_orders');
-                Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
-                Route::post('/customer_cart/{id}', 'CustomerController@checkout')->name('customer_cart');
-                Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
-                Route::get('/delete_customer/{id}', 'CustomerController@destroy')->name('delete_customer');
+            Route::group(['prefix' => '/company', 'as' => 'company.'], function () {
+                Route::get('/add', 'CompanyController@create')->name('add');
+                Route::post('/add', 'CompanyController@store')->name('add');
+                Route::get('/list', 'CompanyController@index')->name('list');
+                Route::get('/edit/{id}', 'CompanyController@edit')->name('edit');
+                Route::post('/edit/{id}', 'CompanyController@update')->name('edit');
+                Route::get('/view/{id}', 'CompanyController@show')->name('view');
+                Route::get('/delete/{id}', 'CompanyController@destroy')->name('delete');
             });
     
             Route::group(['prefix' => '/users', 'as' => 'users.'], function () {
