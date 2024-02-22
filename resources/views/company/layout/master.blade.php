@@ -424,7 +424,7 @@
 										id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
 										aria-expanded="false"> <img class="theme-item user-avatar"
 										src="{{asset('img/earth.svg')}}" alt="User image"> <!--<i class="theme-item" -->
-										<!--data-feather="user"></i> --> <span class="theme-item">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</span><i class="theme-item" data-feather="chevron-down"></i></a>
+										<!--data-feather="user"></i> --> <span class="theme-item">{{Auth::user()->company->name}}</span><i class="theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu dropdown-menu-end"
 										aria-labelledby="navbarDropdown3">
 										<li><a href="{{route('company.users.view_profile')}}" class="dropdown-item mt-2"><i

@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
         //  $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+        //$this->middleware('permission:user-create', ['only' => ['create','store']]);
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
@@ -35,7 +35,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::where('user_type',1)->get();
+        $users = User::where('user_type',User::COMPANY)->where('company_id',17)->get();
         return view('company.users.all_users', compact('users'));
     }
 
@@ -58,9 +58,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         $validatedData = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
@@ -89,10 +86,10 @@ class UserController extends Controller
         $input = $request->all();
 
         $input['password'] = Hash::make($input['password']);
-        $input['user_type'] = 1;
+        $input['user_type'] = User::COMPANY;
+        $input['company_id'] = Auth::user()->company_id;
         $user = User::create($input);
 
-        //$user->assignRole('admin');
          $user->assignRole($request->input('roles'));
 
         if($user){

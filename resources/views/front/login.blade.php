@@ -329,14 +329,14 @@ form .btn input[type="submit"] {
                         window.location.replace('{{route("track_orders.index")}}');
                     },2000)
 
-                } else if(data == 5){
-                    toastr.error("Error occured: Please try later");
+                }else if(data == 7){
+                    toastr.error("Error occured: Incorrect Email/Password");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
                     $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
 
-                }else if(data == 7){
-                    toastr.error("Error occured: Incorrect Email/Password");
+                }else if(data == 5){
+                    toastr.error("Error occured: Please try later");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
                     $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');

@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
             'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
             'checkRole' => \App\Http\Middleware\CheckRole::class,
+            'checkSubdomain' => \App\Http\Middleware\CheckSubdomain::class,
 
 
     ];

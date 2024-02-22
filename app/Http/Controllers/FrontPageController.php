@@ -19,7 +19,6 @@ use Hash;
 use Illuminate\Support\Facades\DB;
 use App\Services\CheckoutService;
 
-
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;

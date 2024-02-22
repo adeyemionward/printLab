@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'address',
         'status',
+        'company_id',
         'gender'
     ];
 
@@ -56,6 +57,11 @@ class User extends Authenticatable
 
     public static function getCustomers (){
         return $customers =  User::where('user_type',User::CUSTOMER)->get();
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
 }

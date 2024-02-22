@@ -36,6 +36,7 @@ class CompanyRequest extends FormRequest
             'city'          => 'string',
             'state'         => 'string',
             'country'       => 'string',
+            'status'       => 'required|string',
             'address'       => 'required|string',
         ];
     }
@@ -51,6 +52,7 @@ class CompanyRequest extends FormRequest
             'city.string' => 'Please enter city.',
             'state.string' => 'Please enter state.',
             'country.string' => 'Please enter country.',
+            'status.required' => 'Please select status.',
             'address.required' => 'Please enter customer address.',
         ];
     }

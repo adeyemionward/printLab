@@ -105,7 +105,7 @@
                                                                             @enderror
                                                                         </div>
 
-                                                                        <input type="text" name="user_type" value="1">
+                                                                        {{-- <input type="text" name="user_type" value="1"> --}}
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="phone">Role:</label>

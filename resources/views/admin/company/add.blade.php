@@ -104,7 +104,7 @@
                                                                             @error('gender')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
-                                                                        </div> 
+                                                                        </div>
 
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
@@ -113,7 +113,28 @@
                                                                             @error('name')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
-                                                                        </div>                                                              
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="subdomain">Company Subdomain:</label>
+                                                                            <input type="text" name="subdomain" id="subdomain" class="form-control{{ $errors->has('subdomain') ? ' is-invalid' : '' }}" value="{{ old('subdomain') }}">
+                                                                            @error('subdomain')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="phone">Role:</label>
+                                                                            <select name="roles" class="form-control" id="">
+                                                                                <option value="">--Select User Role--</option>
+                                                                                @foreach ($roles as $val)
+                                                                                    <option value="{{$val->name}}">{{ucfirst($val->name)}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                            @error('phone')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
                                                                     </div>
 
                                                                     <div class="row">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
 use App\Repository\CompanyRepository;
 use App\Models\Company;
+use Spatie\Permission\Models\Role;
 
 class CompanyController extends Controller
 {
@@ -40,7 +41,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('admin.company.add');
+        $roles =  Role::all();
+        return view('admin.company.add', compact('roles'));
     }
 
     /**
