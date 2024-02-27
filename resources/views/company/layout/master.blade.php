@@ -419,7 +419,14 @@
 
 							<div class="usermenu">
 								<div class="nav-dropdown py-0">
-                                        <span class="theme-item" style="padding-left:20px">Account Expired in: {{$remaining_days}} Days</span>
+                                        <span class="theme-item" style="padding-left:20px">Account Expired in:
+                                            @if ($remaining_days > 10)
+                                                <span style="font-weight:bolder">{{$remaining_days}}</span>
+                                            @else
+                                                <span style="color: red">{{$remaining_days}}</span>
+                                            @endif
+
+                                        </span> Days</span>
 									<a href="#"
 										class="nav-item nav-link dropdown-toggle text-secondary py-0"
 										id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
