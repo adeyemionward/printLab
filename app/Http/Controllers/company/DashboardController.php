@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobOrder;
+use App\Models\Company;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function __construct()
@@ -46,6 +48,8 @@ class DashboardController extends Controller
         ->orderByDesc('total_orders')
         ->whereBetween('order_date', [$from, $to])
         ->get();
+
+       
         return view('company.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
     }
 }

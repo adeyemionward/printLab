@@ -26,13 +26,14 @@ class CompanyRequest extends FormRequest
      */
     public function rules()
     {
+        $id = request()->id;
         $user = Auth::user();
         return [
             'name'          => 'required|string',
             'contactperson' => 'required|string',
             'phone'         => 'required|string',
-            'email'         => 'email|string|unique:users,email',
-            'password'      => 'required|string',
+            'email'         => 'required|string|email|max:255|unique:companies,email,'.$id,
+            // 'password'      => 'required|string',
             'city'          => 'string',
             'state'         => 'string',
             'country'       => 'string',
@@ -48,7 +49,7 @@ class CompanyRequest extends FormRequest
             'contactperson.required' => 'Please enter company contactperson.',
             'email.required' => 'Please enter company email address.',
             'email.email' => 'Please enter a valid email address.',
-            'password.required' => 'Please enter a password.',
+            // 'password.required' => 'Please enter a password.',
             'city.string' => 'Please enter city.',
             'state.string' => 'Please enter state.',
             'country.string' => 'Please enter country.',

@@ -23,23 +23,13 @@
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
                 $company->status           = request('status');
-           
+
+                $company->sub_amount       = request('sub_amount');
+                $company->sub_start_date   = request('sub_start_date');
+                $company->sub_end_date     = request('sub_end_date');
+
                 $company->save();
 
-                //$companyUser = new User();
-                // $companyUser->lastname      = request('name');
-                // $companyUser->firstname     = request('name');
-                // $companyUser->email         = request('email');
-                // $companyUser->phone         = request('phone');
-                //$companyUser->password      = Hash::make(request('password'));
-               // $companyUser->remember_token   = urlencode(Hash::make(time() . request('email')));
-                //$companyUser->user_type  = User::COMPANY;
-               // $companyUser->status           = request('status');
-                //$companyUser->company_id    = $company->id;
-                //$companyUser->save();
-                
-                //$companyUser->assignRole($data->input('roles'));
-                 
                 $input = $data->all();
 
                 $input['password']      = Hash::make($input['password']);
@@ -62,9 +52,9 @@
 
         public function updateCompany($data){
             DB::beginTransaction();
-            try{
+           // try{
                 $id = request()->id;
-                $company = Company::find($id);
+                 $company = Company::find($id);
                 $company->name             = request('name');
                 $company->contactperson    = request('contactperson');
                 $company->email            = request('email');
@@ -75,15 +65,57 @@
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
                 $company->status           = request('status');
+
+                $company->sub_amount       = request('sub_amount');
+                $company->sub_start_date   = request('sub_start_date');
+                $company->sub_end_date     = request('sub_end_date');
                 $company->save();
 
                 DB::commit();
 
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            // }
+            return redirect(route('admin.company.list'))->with('flash_success','Company details updated successfully');
+        }
+
+        public function companyStatus($status){
+
+            try{
+                $id = request()->id;
+                $company = Company::find($id);
+                $company->status  = $status;
+
+                 $company->save();
+
             }catch(\Exception $th){
-                DB::rollBack();
+                //return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
+
+        }
+
+
+
+        public function deactivateCompany(){
+
+            try{
+                $this->companyStatus('inactive');
+
+            }catch(\Exception $th){
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return redirect(route('admin.company.list'))->with('flash_success','Company details updated successfully');
+            return redirect(route('admin.company.view', request()->id))->with('flash_success','Company deactivated');
+        }
+
+        public function activateCompany(){
+            try{
+                $this->companyStatus('active');
+
+            }catch(\Exception $th){
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
+            return redirect(route('admin.company.view', request()->id))->with('flash_success','Company activated');
         }
 
     }

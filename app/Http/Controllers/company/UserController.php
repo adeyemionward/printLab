@@ -20,11 +20,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $user;
     function __construct()
     {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user(); return $next($request);
+        });
+
         $this->middleware('auth');
         //  $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-        //$this->middleware('permission:user-create', ['only' => ['create','store']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
@@ -35,7 +40,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::where('user_type',User::COMPANY)->where('company_id',17)->get();
+        $users = User::where('user_type',User::COMPANY)->where('company_id',$this->user->company_id)->get();
         return view('company.users.all_users', compact('users'));
     }
 

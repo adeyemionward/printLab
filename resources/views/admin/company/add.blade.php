@@ -131,11 +131,35 @@
                                                                                     <option value="{{$val->name}}">{{ucfirst($val->name)}}</option>
                                                                                 @endforeach
                                                                             </select>
-                                                                            @error('phone')
+                                                                            @error('roles')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="sub_amount">Subscription Amount:</label>
+                                                                            <input type="text" name="sub_amount" id="sub_amount" class="form-control{{ $errors->has('sub_amount') ? ' is-invalid' : '' }}" value="{{ old('sub_amount') }}">
+                                                                            @error('sub_amount')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                        
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="sub_start_date">Start Date:</label>
+                                                                            <input type="date" name="sub_start_date" id="sub_start_date" class="form-control{{ $errors->has('sub_start_date') ? ' is-invalid' : '' }}" value="{{ old('sub_start_date') }}">
+                                                                            @error('sub_start_date')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                        
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="sub_end_date">End Date:</label>
+                                                                            <input type="date" name="sub_end_date" id="sub_end_date" class="form-control{{ $errors->has('sub_end_date') ? ' is-invalid' : '' }}" value="{{ old('sub_end_date') }}">
+                                                                            @error('sub_end_date')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
                                                                     </div>
+
 
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-12">

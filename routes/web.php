@@ -477,7 +477,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
                 Route::get('/edit/{id}', 'CompanyController@edit')->name('edit');
                 Route::post('/edit/{id}', 'CompanyController@update')->name('edit');
                 Route::get('/view/{id}', 'CompanyController@show')->name('view');
-                Route::get('/delete/{id}', 'CompanyController@destroy')->name('delete');
+                Route::get('/deactivate/{id}', 'CompanyController@deactivate')->name('deactivate');
+                Route::get('/activate/{id}', 'CompanyController@activate')->name('activate');
+
+                Route::get('/users/list/{id}', 'CompanyController@users_company')->name('users.list');
+                Route::get('/users/customers/{id}', 'CompanyController@customers_company')->name('users.customers');
             });
 
             Route::group(['prefix' => '/users', 'as' => 'users.'], function () {
@@ -534,9 +538,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
 
 //FRONT CONTROLLERS
 Route::group(['middleware' => 'checkSubdomain'], function () {
-       
+
     Route::group(['namespace' => 'App\Http\Controllers'],  function () {
-        
+
         Route::get('login/', 'AuthController@login')->name('login');
         Route::post('login/', 'AuthController@postLogin')->name('login');
 

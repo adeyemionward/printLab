@@ -1,5 +1,5 @@
 
-@extends('company.layout.master')
+@extends('admin.layout.master')
 @section('content')
 @section('title', 'View Customer')
 @php $page = 'view'; @endphp

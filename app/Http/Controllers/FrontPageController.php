@@ -37,6 +37,7 @@ class FrontPageController extends Controller
     public function __construct(CheckoutService $checkoutService)
     {
         $this->middleware('auth')->only('track_orders','profile');
+        
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 

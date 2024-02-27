@@ -11,6 +11,7 @@ use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
+use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 class CustomerController extends Controller
 {
@@ -20,13 +21,17 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-    {
+    {   
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user(); return $next($request);
+        });
+
         $this->middleware('auth');
     }
 
     private function countCart($user_id){
 
-        $cart_count = JobOrder::where('cart_order_status', 1)->where('user_id',$user_id)->get();
+        $cart_count = JobOrder::where('cart_order_status', 1)->where('user_id',$user_id)->where('company_id',$this->user->company_id)->get();
         $countCart  = count($cart_count);
         return $countCart;
     }
@@ -37,9 +42,9 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = User::all();
+        $customers = User::where('user_type', User::CUSTOMER)->where('company_id',$this->user->company_id)->get();
 
-        return view('customers.all_customers', compact('customers'));
+        return view('company.customers.all_customers', compact('customers'));
     }
 
     public function customer_cart($id)
@@ -64,8 +69,6 @@ class CustomerController extends Controller
             ]
         );
 
-
-
         $userDetails    = User::find($id);
         $userEmail  =  $userDetails->email;
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
@@ -81,10 +84,6 @@ class CustomerController extends Controller
         ];
         $pdf_attachment =   Pdf::loadView('invoice_attachment', $data );
         $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
-
-        //$pdf = Pdf::loadView('invoice_attachment',$data);
-      //  return $pdf->download('invoice.pdf');
-        // return route('customers.customer_job_orders', 16)->with('flash_success','Product Order Successful');
         return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
     }
 
@@ -147,10 +146,10 @@ class CustomerController extends Controller
             $user->lastname     = request('lastname');
             $user->email        = request('email');
             $user->phone        = request('phone');
-            $user->gender       = 'm';
+            $user->gender       = request('gender');;
             $user->address      = request('address');
             $user->status       = 'active';
-            $user->user_type    = '2';
+            $user->user_type    = User::CUSTOMER;
             $user->password     = bcrypt(request('firstname'));
             $user->company_name      = request('company_school_name');
             $user->save();

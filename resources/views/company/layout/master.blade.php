@@ -419,12 +419,15 @@
 
 							<div class="usermenu">
 								<div class="nav-dropdown py-0">
+                                        <span class="theme-item" style="padding-left:20px">Account Expired in: {{$remaining_days}} Days</span>
 									<a href="#"
 										class="nav-item nav-link dropdown-toggle text-secondary py-0"
 										id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
 										aria-expanded="false"> <img class="theme-item user-avatar"
-										src="{{asset('img/earth.svg')}}" alt="User image"> <!--<i class="theme-item" -->
-										<!--data-feather="user"></i> --> <span class="theme-item">{{Auth::user()->company->name}}</span><i class="theme-item" data-feather="chevron-down"></i></a>
+										src="{{asset('img/earth.svg')}}" alt="User image">
+                                        <span class="theme-item">{{Auth::user()->company->name}}</span><i class="theme-item" data-feather="chevron-down"></i>
+                                    </a>
+
 									<ul class="dropdown-menu dropdown-menu-end"
 										aria-labelledby="navbarDropdown3">
 										<li><a href="{{route('company.users.view_profile')}}" class="dropdown-item mt-2"><i

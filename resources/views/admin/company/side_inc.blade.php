@@ -23,11 +23,26 @@
                 href="{{route('admin.company.edit', request()->id)}}"
                 aria-selected="false">Edit Company </a>
                <div class="dropdown-divider"></div>
+                @if($company->status == 'active')
+                    <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to deactivate this company?');"
+                    href="{{route('admin.company.deactivate', request()->id)}}"
+                    aria-selected="false">Deactivate Company </a>
+                @else
+                    <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to activate this company?');"
+                    href="{{route('admin.company.activate', request()->id)}}"
+                    aria-selected="false">Activate Company </a>
+                @endif
+                   <div class="dropdown-divider"></div>
+               
+                <a class="nav-link <?php if($page == 'users') echo 'active active_red'  ?>"
+                    href="{{route('admin.company.users.list',request()->id)}}"
+                    aria-selected="false">Company Users</a>
+                   <div class="dropdown-divider"></div>
 
-                <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to deactivate this company?');"
-                 href="{{route('admin.company.delete', request()->id)}}"
-                 aria-selected="false">Deactivate Company </a>
-                <div class="dropdown-divider"></div>
+                   <a class="nav-link <?php if($page == 'customers') echo 'active active_red'  ?>"
+                    href="{{route('admin.company.users.customers',request()->id)}}"
+                    aria-selected="false"> Company Customers</a>
+                   <div class="dropdown-divider"></div>
 
             </div>
 

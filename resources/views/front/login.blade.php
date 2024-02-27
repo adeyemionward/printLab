@@ -317,6 +317,18 @@ form .btn input[type="submit"] {
                         window.location.replace('{{route("company.dashboard")}}');
                     },2000)
 
+                }else if(data == 9){
+                    toastr.error("Error occured: Account Inactive");
+                    $("#loginBtn").attr('disabled',false);
+                    $('#loginBtn').css('cursor', 'pointer');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+
+                }else if(data == 10){
+                    toastr.error("Error occured: Subscription Expired");
+                    $("#loginBtn").attr('disabled',false);
+                    $('#loginBtn').css('cursor', 'pointer');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+
                 }else if (data == 12){
                     toastr.success("Login Successful");
                     setInterval(function(){ //customer dashboard login
