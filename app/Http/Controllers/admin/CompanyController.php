@@ -57,7 +57,7 @@ class CompanyController extends Controller
     }
 
     
-    public function update(CompanyRequest $request, $id)
+    public function update(CompanyUpdateRequest $request, $id)
     {
         return $response = $this->companyRepository->updateCompany($request);
     }

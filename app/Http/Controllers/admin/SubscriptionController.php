@@ -13,21 +13,23 @@ class SubscriptionController extends Controller
 {
     
     protected $today;
-    
+
     public function __construct()
     {
         // Get today's date
         $this->today = Carbon::today()->toDateString();
     }
 
-    public function activeSubcription()
+    public function activeSubscription() 
     {
-        $subscriptions = Subscription::where('sub_end_date', '>=', $this->today)->get();
+        $active_subscriptions = Subscription::where('sub_end_date', '>=', $this->today)->where('status', 'active')->get();
+        return view('admin.subscriptions.active', compact('active_subscriptions'));
     }
 
-    public function inactiveSubcription()
+    public function inactiveSubscription()
     {
-        $subscriptions = Subscription::where('sub_end_date', '<', $this->today)->get();
+        $inactive_subscriptions = Subscription::where('sub_end_date', '<', $this->today)->get();
+        return view('admin.subscriptions.inactive', compact('inactive_subscriptions'));
     }
 
 }

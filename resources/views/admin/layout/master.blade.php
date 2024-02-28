@@ -75,12 +75,12 @@
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
-								<a href="{{route('admin.finance.requisitions.all_requisitions')}}" class="text-center">
+								<a href="{{route('admin.subscriptions.active')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Active Subscriptions</span>
                                 </a>
 
-                                <a href="{{route('admin.finance.expenses.all_expenses')}}" class="text-center">
+                                <a href="{{route('admin.subscriptions.inactive')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Inactive Subscriptions</span>
                                 </a>
@@ -152,8 +152,8 @@
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-                                        <li><a class="dropdown-item" href="{{route('admin.finance.expenses.all_expenses')}}">Active Subscriptions</a></li>
-                                        <li><a class="dropdown-item" href="{{route('admin.finance.transactions.all_transactions')}}">Inactive Subscriptions</a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.active')}}">Active Subscriptions</a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.inactive')}}">Inactive Subscriptions</a></li>
 
 									</ul>
 								</li>

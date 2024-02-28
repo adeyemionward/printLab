@@ -20,7 +20,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('includes.date_range')
+                        @include('admin.includes.date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
@@ -30,22 +30,19 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Payment Date</th>
-                                    <th>Action</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($active_subscription as $val)
+                                @foreach ($active_subscriptions as $val)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$val->title}}</td>
-                                        <td>{{$val->supplierCompany->company_name}}</td>
-                                        <td>{{$val->categoryName->category_name}}</td>
-                                        <td>&#8358;{{$val->total_cost}}</td>
-
-                                        <td>{{$val->payment_type}}</td>
-                                        <td>{{$val->expenseHistories->sum('amount_paid')}}</td>
-                                        <td>{{date('D M d, Y', strtotime($val->expense_date))}}</td>
-                                        <td><a href="{{route('finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td>{{$val->company->name}}</td>
+                                        <td>&#8358;{{$val->sub_amount}}</td>
+                                        <td>{{date('D M d, Y', strtotime($val->sub_start_date))}}</td>
+                                        <td>{{date('D M d, Y', strtotime($val->sub_end_date))}}</td>
+                                        <td>{{date('D M d, Y', strtotime($val->created_at))}}</td>
+                                        {{-- <td><a href="{{route('finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td> --}}
                                     </tr>
                                 @endforeach
 

@@ -250,6 +250,11 @@
                                     <span class="data-feather theme-item"> Users Roles & Permission</span>
                                 </a>
 
+                                <a href="{{route('company.settings.site.color_logo')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item"> Site Settings</span>
+                                </a>
+
 							</div>
 						</div>
 					</li>
@@ -408,6 +413,7 @@
 										<li><a class="dropdown-item" href="{{route('company.settings.category.add_category')}}">Category</a></li>
 										<li><a class="dropdown-item" href="{{route('company.job_order.location.add_location')}}">Locations</a></li>
                                         <li><a class="dropdown-item" href="{{route('company.roles.add_role')}}">Users Roles & Permission</a></li>
+                                        <li><a class="dropdown-item" href="{{route('company.settings.site.color_logo')}}">Site Settings</a></li>
 
 									</ul>
 								</li>

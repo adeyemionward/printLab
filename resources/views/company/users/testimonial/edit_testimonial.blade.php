@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('users.testimonial.testimonial_inc')
+                                @include('company.users.testimonial.testimonial_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">

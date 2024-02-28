@@ -245,6 +245,7 @@ class UserController extends Controller
 
         //save to testimonial
         $testimonial = new Testimonial();
+        $testimonial->company_id     = $user->company_id;
         $testimonial->customer_id     =  $customer_id;
         $testimonial->description     = $description;
         $testimonial->created_by          = $user->id;
@@ -254,7 +255,6 @@ class UserController extends Controller
             $name = $testimonial_img->hashName(); // Generate a unique, random name...
             $path = $testimonial_img->store('public/images');
             $testimonial->image = $name;
-
         }
 
         $testimonial->save();

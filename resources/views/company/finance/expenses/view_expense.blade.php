@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('finance.expenses.expense_view_inc')
+                                @include('company.finance.expenses.expense_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">

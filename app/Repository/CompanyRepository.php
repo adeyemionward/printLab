@@ -3,6 +3,7 @@
     namespace App\Repository;
     use App\Models\Company;
     use App\Models\User;
+    use App\Models\Subscription;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,8 @@
     {
         public function postCompany($data){
             DB::beginTransaction();
-            try{
+           // try{
+                //save company
                 $company = new Company();
                 $company->name             = request('name');
                 $company->contactperson    = request('contactperson');
@@ -30,8 +32,8 @@
 
                 $company->save();
 
+                //save user
                 $input = $data->all();
-
                 $input['password']      = Hash::make($input['password']);
                 $input['user_type']     = User::COMPANY;
                 $input['company_id']    = $company->id;
@@ -41,12 +43,22 @@
                 $companyUser = User::create($input);
                 $companyUser->assignRole($data->input('roles'));
 
+                //save subscription
+                $subscription = new Subscription();
+                $subscription->company_id       = $company->id;
+                $subscription->sub_amount       = request('sub_amount');
+                $subscription->sub_start_date   = request('sub_start_date');
+                $subscription->sub_end_date     = request('sub_end_date');
+                $subscription->status           = request('status');
+                $subscription->created_by       = Auth::user()->id;
+                $subscription->save();
+
                 DB::commit();
 
-            }catch(\Exception $th){
-                DB::rollBack();
-                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            }
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            // }
             return redirect(route('admin.company.list'))->with('flash_success','Company added successfully');
         }
 

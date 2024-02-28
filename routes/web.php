@@ -197,9 +197,6 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                     });
 
-
-
-
                 });
 
 
@@ -210,6 +207,19 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                         Route::get('/all_category', 'SettingController@index')->name('all__category');
                         Route::get('/edit_category/{id}', 'RequisitionController@edit')->name('edit_category');
                         Route::post('/edit_category/{id}', 'RequisitionController@update')->name('edit_category');
+                    });
+                    //site settings
+                    Route::group(['prefix' => '/site', 'as' => 'site.'], function () {
+                        Route::get('/color_logo', 'SettingController@color_logo')->name('color_logo');
+                        Route::post('/color_logo', 'SettingController@storeColorLogo')->name('color_logo');
+                        Route::get('/hero_text', 'SettingController@hero_text')->name('hero_text');
+                        Route::post('/hero_text', 'SettingController@storeHeroText')->name('hero_text');
+                        Route::get('/address', 'SettingController@address')->name('address');
+                        Route::post('/address', 'SettingController@storeAddress')->name('address');
+                        Route::get('/phone', 'SettingController@phone')->name('phone');
+                        Route::post('/phone', 'SettingController@storePhone')->name('phone');
+                        Route::get('/email', 'SettingController@email')->name('email');
+                        Route::post('/email', 'SettingController@storeEmail')->name('email');
                     });
                 });
 
@@ -267,7 +277,6 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
 
                 Route::group(['prefix' => '/suppliers', 'as' => 'suppliers.'], function () {
-
                     Route::get('/add_supplier', 'SupplierController@create')->name('add_supplier');
                     Route::post('/add_supplier', 'SupplierController@store')->name('add_supplier');
                     Route::get('/all_suppliers', 'SupplierController@index')->name('all_suppliers');
@@ -276,6 +285,9 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/view_supplier/{id}', 'SupplierController@show')->name('view_supplier');
                     Route::get('/delete_supplier/{id}', 'SupplierController@destroy')->name('delete_supplier');
                 });
+
+
+
             });
         });
     });
@@ -286,189 +298,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
     Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
         Route::middleware(['checkRole:1'])->group(function () {
             Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-
-            Route::group(['prefix' => '/job_order', 'as' => 'job_order.'], function () {
-                //status
-                Route::group(['prefix' => '/status', 'as' => 'status.'], function () {
-                    Route::get('/pending', 'JobOrderController@pending')->name('pending');
-                    Route::get('/designed', 'JobOrderController@designed')->name('designed');
-                    Route::get('/binded', 'JobOrderController@binded')->name('binded');
-                    Route::get('/completed', 'JobOrderController@completed')->name('completed');
-                    Route::get('/customer_approved', 'JobOrderController@approved')->name('customer_approved');
-                    Route::get('/delivered', 'JobOrderController@delivered')->name('delivered');
-                    Route::get('/prepressed', 'JobOrderController@prepressed')->name('prepressed');
-                    Route::get('/printed', 'JobOrderController@printed')->name('printed');
-                    Route::get('/proof_read', 'JobOrderController@proof_read')->name('proof_read');
-                });
-
-                Route::get('/all_orders', 'JobOrderController@index')->name('all_orders');
-                Route::get('/view_order/{job_title}/{id}', 'JobOrderController@view_order')->name('view_order');
-                Route::post('/view_order/{job_title}/{id}', 'JobOrderController@changeJobStatus')->name('view_order');
-                Route::post('/approved_design/{job_title}/{id}', 'JobOrderController@uploadApprovedDesign')->name('approved_design');
-                Route::get('/delete_order/{id}', 'JobOrderController@delete_job_order')->name('delete_order');
-                Route::get('/track_order/{job_title}/{id}', 'JobOrderController@track_job_order')->name('track_order');
-                Route::get('/transaction_history/{job_title}/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
-                Route::post('/transaction_history/{job_title}/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
-
-                // Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
-                Route::get('/order_invoice_pdf/{order_no?}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
-
-
-                Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
-                Route::post('/higher_education', 'JobOrderController@post_higher_education')->name('higher_education');
-                Route::get('/edit_order/{job_title}/{id}', 'JobOrderController@edit_order')->name('edit_order');
-                Route::post('/edit_order/{job_title}/{id}', 'JobOrderController@update_order')->name('edit_order');
-
-                Route::get('/20_leaves_book', 'JobOrderController@twenty_leaves')->name('20_leaves_book');
-                Route::post('/20_leaves_book', 'JobOrderController@post_twenty_leaves')->name('20_leaves_book');
-
-
-                Route::get('/40_leaves_book', 'JobOrderController@forty_leaves')->name('40_leaves_book');
-                Route::post('/40_leaves_book', 'JobOrderController@post_forty_leaves')->name('40_leaves_book');
-                Route::get('/80_leaves_book', 'JobOrderController@eighty_leaves')->name('80_leaves_book');
-                Route::post('/80_leaves_book', 'JobOrderController@post_eighty_leaves')->name('80_leaves_book');
-                Route::get('/booklets', 'JobOrderController@booklets')->name('booklets');
-                Route::post('/booklets', 'JobOrderController@post_booklets')->name('booklets');
-                Route::get('/bronchures', 'JobOrderController@bronchures')->name('bronchures');
-                Route::post('/bronchures', 'JobOrderController@post_bronchures')->name('bronchures');
-                Route::get('/business_cards', 'JobOrderController@business_cards')->name('business_cards');
-                Route::post('/business_cards', 'JobOrderController@post_business_cards')->name('business_cards');
-                Route::get('/envelopes', 'JobOrderController@envelopes')->name('envelopes');
-                Route::post('/envelopes', 'JobOrderController@post_envelopes')->name('envelopes');
-                Route::get('/flyers', 'JobOrderController@flyers')->name('flyers');
-                Route::post('/flyers', 'JobOrderController@post_flyers')->name('flyers');
-                Route::get('/notepads', 'JobOrderController@notepads')->name('notepads');
-                Route::post('/notepads', 'JobOrderController@post_notepads')->name('notepads');
-                Route::get('/small_invoice', 'JobOrderController@small_invoice')->name('small_invoice');
-                Route::post('/small_invoice', 'JobOrderController@post_small_invoice')->name('small_invoice');
-                Route::get('/stickers', 'JobOrderController@stickers')->name('stickers');
-                Route::post('/stickers', 'JobOrderController@post_stickers')->name('stickers');
-                Route::get('/service_order', 'JobOrderController@service_order')->name('service_order');
-                Route::post('/service_order', 'JobOrderController@post_service_order')->name('service_order');
-
-                Route::group(['prefix' => '/location', 'as' => 'location.'], function () {
-                    Route::get('/add_location', 'JobOrderController@add_location')->name('add_location');
-                    Route::post('/add_location', 'JobOrderController@post_location')->name('add_location');
-                    Route::get('/all_locations', 'JobOrderController@all_location')->name('all_locations');
-                    Route::get('/view_location/{id}', 'JobOrderController@view_location')->name('view_location');
-                    Route::get('/edit_location/{id}', 'JobOrderController@edit_location')->name('edit_location');
-                    Route::post('/edit_location/{id}', 'JobOrderController@update_location')->name('update_location');
-                    Route::get('/delete_location/{id}', 'JobOrderController@delete_location')->name('delete_location');
-                });
-            });
-
-
-            Route::group(['prefix' => '/external_job_order', 'as' => 'external_job_order.'], function () {
-                //status
-                Route::group(['prefix' => '/status', 'as' => 'status.'], function () {
-                    Route::get('/pending', 'ExternalJobOrderController@pending')->name('pending');
-                    Route::get('/designed', 'ExternalJobOrderController@designed')->name('designed');
-                    Route::get('/binded', 'ExternalJobOrderController@binded')->name('binded');
-                    Route::get('/completed', 'ExternalJobOrderController@completed')->name('completed');
-                    Route::get('/customer_approved', 'ExternalJobOrderController@approved')->name('customer_approved');
-                    Route::get('/delivered', 'ExternalJobOrderController@delivered')->name('delivered');
-                    Route::get('/prepressed', 'ExternalJobOrderController@prepressed')->name('prepressed');
-                    Route::get('/printed', 'ExternalJobOrderController@printed')->name('printed');
-                    Route::get('/proof_read', 'ExternalJobOrderController@proof_read')->name('proof_read');
-                });
-                Route::get('/all_orders', 'ExternalJobOrderController@index')->name('all_orders');
-                Route::get('/view_order/{id}', 'ExternalJobOrderController@view_order')->name('view_order');
-                Route::post('/view_order/{id}', 'ExternalJobOrderController@changeJobStatus')->name('view_order');
-                Route::post('/approved_design/{id}', 'ExternalJobOrderController@uploadApprovedDesign')->name('approved_design');
-                Route::get('/edit_order/{id}', 'ExternalJobOrderController@edit_order')->name('edit_order');
-                Route::post('/edit_order/{id}', 'ExternalJobOrderController@update_order')->name('edit_order');
-                Route::get('/delete_order/{id}', 'ExternalJobOrderController@delete_job_order')->name('delete_order');
-                Route::get('/track_order/{id}', 'ExternalJobOrderController@track_job_order')->name('track_order');
-                Route::get('/transaction_history/{id}', 'ExternalJobOrderController@transaction_history')->name('transaction_history');
-                Route::post('/transaction_history/{id}', 'ExternalJobOrderController@updateJobPayment')->name('transaction_history');
-                Route::get('/order_invoice_pdf/{order_no?}', 'ExternalJobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
-            });
-
-
-            Route::group(['prefix' => '/products', 'as' => 'products.'], function () {
-                Route::get('/all_products', 'ProductController@index')->name('all_products');
-
-                Route::get('/view/{job_title}/{id}', 'ProductController@show')->name('view');
-                Route::get('/edit/{job_title}/{id}', 'ProductController@edit')->name('edit');
-                Route::post('/edit/{job_title}/{id}', 'ProductController@update')->name('update');
-                Route::get('/edit_pricing/{job_title}/{id}', 'ProductController@edit_pricing')->name('edit_pricing');
-                Route::post('/edit_pricing/{job_title}/{id}', 'ProductController@update_pricing')->name('edit_pricing');
-                Route::get('/delete_product/{id}', 'ProductController@delete_product')->name('delete_product');
-
-                Route::get('/add_higher_education', 'ProductController@create_higher_education')->name('add_higher_education');
-                Route::post('/add_higher_education', 'ProductController@store_higher_education')->name('add_higher_education');
-
-                Route::get('/add_eighty_leaves', 'ProductController@create_eighty_leaves')->name('add_eighty_leaves');
-                Route::post('/add_eighty_leaves', 'ProductController@store_eighty_leaves')->name('add_eighty_leaves');
-
-                Route::get('/add_forty_leaves', 'ProductController@create_forty_leaves')->name('add_forty_leaves');
-                Route::post('/add_forty_leaves', 'ProductController@store_forty_leaves')->name('add_forty_leaves');
-
-                Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
-                Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
-            });
-
-
-            Route::group(['prefix' => '/finance', 'as' => 'finance.'], function () {
-
-                Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
-                    Route::get('/add_requisition', 'RequisitionController@create')->name('add_requisition');
-                    Route::post('/add_requisition', 'RequisitionController@store')->name('add_requisition');
-                    Route::get('/all_requisition', 'RequisitionController@index')->name('all_requisitions');
-                    Route::get('/edit_requisition/{id}', 'RequisitionController@edit')->name('edit_requisition');
-                    Route::post('/edit_requisition/{id}', 'RequisitionController@update')->name('edit_requisition');
-                });
-
-                Route::group(['prefix' => '/expenses', 'as' => 'expenses.'], function () {
-                    Route::get('/all_expenses', 'FinanceController@all_expenses')->name('all_expenses');
-                    Route::get('/add_expense', 'FinanceController@create_expense')->name('add_expense');
-                    Route::post('/add_expense', 'FinanceController@store_expense')->name('add_expense');
-                    Route::get('/view_expense/{id}', 'FinanceController@view_expense')->name('view_expense');
-                    Route::get('/edit_expense/{id}', 'FinanceController@edit_expense')->name('edit_expense');
-                    Route::post('/edit_expense/{id}', 'FinanceController@update_expense')->name('edit_expense');
-                    Route::get('/delete_expense/{id}', 'FinanceController@delete_expense')->name('delete_expense');
-                    Route::post('/update_expense_payment/{id}', 'FinanceController@update_expense_payment')->name('update_expense_payment');
-                    Route::get('/payment_history/{id}', 'FinanceController@payment_history')->name('payment_history');
-
-                });
-
-                Route::group(['prefix' => '/transactions', 'as' => 'transactions.'], function () {
-                    Route::get('/all_transactions', 'TransactionController@index')->name('all_transactions');
-                });
-
-                Route::group(['prefix' => '/report', 'as' => 'report.'], function () {
-
-                    Route::group(['prefix' => '/debtors', 'as' => 'debtors.'], function () {
-                        Route::get('/', 'FinanceController@all_debtors')->name('all_debtors');
-                    });
-
-                    Route::group(['prefix' => '/creditors', 'as' => 'creditors.'], function () {
-                        Route::get('/', 'FinanceController@all_creditors')->name('all_creditors');
-                    });
-
-                    Route::group(['prefix' => '/profit_loss', 'as' => 'profit_loss.'], function () {
-                        Route::get('/', 'FinanceController@all_profit_loss')->name('all_profit_loss');
-                    });
-
-                });
-
-
-
-
-            });
-
-
-            Route::group(['prefix' => '/settings', 'as' => 'settings.'], function () {
-                Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
-                    Route::get('/add_category', 'SettingController@create_category')->name('add_category');
-                    Route::post('/add_category', 'SettingController@post_category')->name('add_category');
-                    Route::get('/all_category', 'SettingController@index')->name('all__category');
-                    Route::get('/edit_category/{id}', 'RequisitionController@edit')->name('edit_category');
-                    Route::post('/edit_category/{id}', 'RequisitionController@update')->name('edit_category');
-                });
-            });
-
 
             Route::group(['prefix' => '/company', 'as' => 'company.'], function () {
                 Route::get('/add', 'CompanyController@create')->name('add');
@@ -482,6 +311,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
 
                 Route::get('/users/list/{id}', 'CompanyController@users_company')->name('users.list');
                 Route::get('/users/customers/{id}', 'CompanyController@customers_company')->name('users.customers');
+            });
+
+
+            Route::group(['prefix' => '/subscriptions', 'as' => 'subscriptions.'], function () {
+                Route::get('/active', 'SubscriptionController@activeSubscription')->name('active');
+                Route::get('/inactive', 'SubscriptionController@inactiveSubscription')->name('inactive');
             });
 
             Route::group(['prefix' => '/users', 'as' => 'users.'], function () {
@@ -511,7 +346,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
 
             });
 
-
             Route::group(['prefix' => '/roles', 'as' => 'roles.'], function () {
                 Route::get('/all_roles', 'RoleController@index')->name('all_roles');
                 Route::get('/add_role', 'RoleController@create')->name('add_role');
@@ -519,18 +353,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
                 Route::get('/edit_role/{id}', 'RoleController@edit')->name('edit_role');
                 Route::post('/edit_role/{id}', 'RoleController@update')->name('edit_role');
                 Route::get('/delete_role/{id}', 'RoleController@destroy')->name('delete_role');
-            });
-
-
-            Route::group(['prefix' => '/suppliers', 'as' => 'suppliers.'], function () {
-
-                Route::get('/add_supplier', 'SupplierController@create')->name('add_supplier');
-                Route::post('/add_supplier', 'SupplierController@store')->name('add_supplier');
-                Route::get('/all_suppliers', 'SupplierController@index')->name('all_suppliers');
-                Route::get('/edit_supplier/{id}', 'SupplierController@edit')->name('edit_supplier');
-                Route::post('/edit_supplier/{id}', 'SupplierController@update')->name('edit_supplier');
-                Route::get('/view_supplier/{id}', 'SupplierController@show')->name('view_supplier');
-                Route::get('/delete_supplier/{id}', 'SupplierController@destroy')->name('delete_supplier');
             });
         });
     });

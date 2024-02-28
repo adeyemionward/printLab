@@ -43,7 +43,7 @@
                                         <i data-feather="calendar"></i>
                                     </div>
                                     <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('admin.job_order.all_orders')}}"><i
+                                        <a class="text-primary float-end" href=""><i
                                             class="blue" data-feather="chevrons-right"></i>See Details</a>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                         <i data-feather="calendar"></i>
                                     </div>
                                     <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('admin.job_order.status.pending')}}"><i
+                                        <a class="text-primary float-end" href=""><i
                                             class="blue" data-feather="chevrons-right"></i>See Details</a>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                         <i data-feather="mail"></i>
                                     </div>
                                     <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('admin.job_order.status.delivered')}}"><i
+                                        <a class="text-primary float-end" href=""><i
                                             class="blue" data-feather="chevrons-right"></i>See Details</a>
                                     </div>
                                 </div>

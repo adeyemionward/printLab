@@ -49,7 +49,8 @@ class DashboardController extends Controller
         ->whereBetween('order_date', [$from, $to])
         ->get();
 
-       
+       // return $today = Carbon::parse(Carbon::today()->toDateString());
+
         return view('company.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
     }
 }

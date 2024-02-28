@@ -46,6 +46,7 @@ class DashboardController extends Controller
         ->orderByDesc('total_orders')
         ->whereBetween('order_date', [$from, $to])
         ->get();
+       
         return view('admin.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
     }
 }

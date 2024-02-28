@@ -32,7 +32,7 @@ class CompanyRequest extends FormRequest
             'name'          => 'required|string',
             'contactperson' => 'required|string',
             'phone'         => 'required|string',
-            'email'         => 'required|string|email|max:255|unique:users',
+            'email'         => 'required|string|email|max:255|unique:companies,email,'.$id,
             // 'password'      => 'required|string',
             'city'          => 'string',
             'state'         => 'string',

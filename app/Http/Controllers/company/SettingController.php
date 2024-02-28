@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
 use App\Models\User;
-use App\Models\Testimonial;
+use App\Models\Testimonial; 
+use App\Models\SiteSetting; 
+use App\Services\Company\ColorLogoService;
+use App\Services\Company\AddressService;
+use App\Services\Company\HeroTextService;
+use App\Services\Company\EmailService;
+use App\Services\Company\PhoneService;
 class SettingController extends Controller
 {
     /**
@@ -50,5 +56,50 @@ class SettingController extends Controller
                 ],
             );
         }
+    }
+
+    private function siteDetails (){
+        $user = Auth::user();
+        return SiteSetting::where('company_id', $user->company_id)->first();
+    }
+
+    public function color_logo(){
+        return view('company.settings.site.color_logo');
+    }
+
+    public function storeColorLogo(Request $request, ColorLogoService $colorlogoservice){
+        return $colorlogoservice->postColorLogo($request);
+    }
+
+    public function hero_text(){
+        return view('company.settings.site.hero_text');
+    }
+
+    public function storeHeroText(Request $request, HeroTextService $herotextservice){
+        return $herotextservice->postHeroText($request);
+    }
+
+    public function address(){
+        return view('company.settings.site.address');
+    }
+
+    public function storeAddress(Request $request, AddressService $addressservice){
+        return $addressservice->postAddress($request);
+    }
+    
+    public function email(){
+        return view('company.settings.site.email');
+    }
+
+    public function storeEmail(Request $request, EmailService $emailservice){
+        return $emailservice->postEmail($request);
+    }
+
+    public function phone(){
+        return view('company.settings.site.phone');
+    }
+
+    public function storePhone(Request $request, PhoneService $phoneservice){
+        return $phoneservice->postPhone($request);
     }
 }
