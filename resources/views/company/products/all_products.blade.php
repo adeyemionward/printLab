@@ -47,7 +47,7 @@
                                         <td>{{$val->paper_type}}</td>
                                         <td>{{$val->production_days}}</td>
                                         <td>{{$val->proof_needed}} </td>
-                                        <td><a href="{{route('products.view',[$product_name, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('company.products.view',[$product_name, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
 

@@ -10,12 +10,13 @@ class ProductCost extends Model
     use HasFactory;
 
     protected $fillable = [
+        'company_id',
         'product_id',
         'product_name',
         'quantity',
         'total_cost'
     ];
 
-    
+
 
 }

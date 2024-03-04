@@ -17,7 +17,7 @@
     margin-top: 50px;
   }
 
-  
+
   .hero1{
     margin-top: 60px;
   }
@@ -62,9 +62,9 @@ a span:hover{
 <div class="row">
 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
 <div class="hero-caption text-center">
-<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-size:45px">Order Your Customized School Notebooks, Corporate Video Profile & Marketing Brochures Here</h1>
-<p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
-<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px; margin-top:-80px" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
+<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-size:45px">{{$site_details->hero_text ?? 'No Hero Header'}}</h1>
+{{-- <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p> --}}
+<a href="#buy_products" style="background-color:{{$site_details->primary_color ?? 'red' }}; border-color: transparent; padding:25px 50px 25px 50px;" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
 </div>
 </div>
 </div>
@@ -86,12 +86,6 @@ a span:hover{
 <div class="nav-tittle" id="buy_products" style="margin-top:-80px">
 <h2 id="popular_product_text">Popular Products</h2>
 </div>
-<!-- <div class="nav nav-tabs" id="nav-tab" role="tablist">
-<a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">Men</a>
-<a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Women</a>
-<a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false">Baby</a>
-<a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-four" aria-selected="false">Fashion</a>
-</div> -->
 </nav>
 
 </div>
@@ -99,104 +93,37 @@ a span:hover{
 </div>
 </div>
 <div class="container" >
-
-<div class="tab-content" id="nav-tabContent">
-<div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-
-<div class="latest-items-active">
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Higher_Education')}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Higher_Education')}}">Higher Education Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Higher_Education')}}"><span><button class="btn btn-primary">Browse Higher Educat...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Eighty_Leaves')}}"><img src="assets/img/gallery/80-leaves.jpg" style="height: 320px;" alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Eighty_Leaves')}}">80 Leaves Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Eighty_Leaves')}}"><span><button class="btn btn-primary">Browse 80 Leaves...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Forty_Leaves')}}"><img src="assets/img/gallery/40_leaves1.jpg" style="height: 320px;"  alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Forty_Leaves')}}">40 Leaves Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Forty_Leaves')}}"><span><button class="btn btn-primary">Browse 40 Leaves...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Twenty_Leaves')}}"><img src="assets/img/gallery/note20.jpg" style="height: 320px;" alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Twenty_Leaves')}}">20 Leaves Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Twenty_Leaves')}}"><span><button class="btn btn-primary">Browse 20 Leaves...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-</div>
-</div>
-
-
-</div>
-
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+            <div class="latest-items-active">
+                @forelse ($products as $val)
+                    @php $product_name = ucwords(str_replace('_',' ', $val->name))   @endphp
+                    <div class="properties pb-30">
+                        <div class="properties-card">
+                            <div class="properties-img">
+                                <a href="{{route('product_details',[$val->name, $val->id])}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
+                                {{-- <div class="socal_icon">
+                                    <a href="#"><i class="ti-shopping-cart"></i></a>
+                                    <a href="#"><i class="ti-heart"></i></a>
+                                    <a href="#"><i class="ti-zoom-in"></i></a>
+                                </div> --}}
+                            </div>
+                            <div class="properties-caption properties-caption2">
+                                <h3><a href="{{route('product_details',[$val->name, $val->id])}}">{{$product_name}}</a></h3>
+                                <div class="properties-footer">
+                                    <div class="price">
+                                        <a href="{{route('product_details',[$val->name, $val->id])}}"><span><button class="btn btn-primary">Browse {{$product_name}}</button></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <h1>No Product Available</h1>
+                @endforelse
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>

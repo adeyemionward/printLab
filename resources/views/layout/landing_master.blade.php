@@ -30,7 +30,18 @@
 <div class="preloader-inner position-relative">
 <div class="preloader-circle"></div>
 <div class="preloader-img pere-text">
-<img src="{{asset('img/printlab.PNG')}}" alt="loder">
+@if (is_null($site_details->site_logo1 ?? ''))
+Logo
+@else
+    @if ($site_details)
+        @if (env('APP_ENV') == 'local')
+            <img src="{{ asset('storage/images/'.$site_details->site_logo1) }}" alt="site_logo" style="height: 100px; width: 100px; border-radius: 50%">
+        @else
+            <img src="{{ asset('public/storage/images/'.$site_details->site_logo1) }}" alt="site_logo" style="height: 100px; width: 100px; border-radius: 50%">
+        @endif
+    @endif
+@endif
+
 </div>
 </div>
 </div>
@@ -58,7 +69,7 @@
 <!-- <li><a href="#">My Wishlist</a></li> -->
 <li><a href="{{route('track_orders.index')}}">Track Your Order</a></li>
 
-<li><i class="fa fa-phone"> <a href="tel:08035777226">Call: 08035777226</a></i></li>
+<li><i class="fa fa-phone"> <a href="tel:08035777226">Call: {{$site_details->phone_1 ?? 'No phone'}}</a></i></li>
 </ul>
 <ul class="header-social">
 
@@ -202,10 +213,11 @@
         <div class="footer-tittle">
             <h4>Contact</h4>
             <ul style="color: #BBB9B5">
-                <li><b style="color: #fff">Lagos:</b> 14 Akinremi street, Anifowoshe, Ikeja</li>
-                <li><b style="color: #fff">Warri:</b> 1 Melcurt Road, off Opeta/Okpaka Road, by Ferobas Company, Udu, Warri,</li>
-                <li>Phone: 08035777226</li>
-                <li>Email: info@printlabs.com.ng</li>
+                <li>Address: {{$site_details->address_1 ?? 'No Address'}}</li>
+                {{-- <li>{{$site_details->address_2}}</li>
+                <li>{{$site_details->address_3}}</li> --}}
+                <li>Phone: {{$site_details->phone_1 ?? 'No Phone'}}</li>
+                <li>Email: {{$site_details->email_1 ?? 'No Email'}}</li>
             </ul>
         </div>
     </div>

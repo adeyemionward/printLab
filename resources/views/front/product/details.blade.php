@@ -74,7 +74,7 @@
                 </div>
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
-            @if (request()->title == 'Higher_Education')
+            @if (request()->title == 'higher_notebook')
                 <div class="features-caption">
                     <h3>Higher Education NoteBook</h3>
 
@@ -122,7 +122,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'Eighty_Leaves')
+            @if (request()->title == 'eighty_leaves')
                 <div class="features-caption">
                     <h3>Eighty Leaves</h3>
 
@@ -170,7 +170,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'Forty_Leaves')
+            @if (request()->title == 'forty_leaves')
                 <div class="features-caption">
                     <h3>Forty Leaves</h3>
                     <input type="hidden" value="Forty Leaves" id="product_name" name="product_name">
@@ -217,7 +217,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'Twenty_Leaves')
+            @if (request()->title == 'twenty_leaves')
                 <div class="features-caption">
                     <h3>Twenty Leaves</h3>
                     <input type="hidden" value="Twenty Leaves" id="product_name" name="product_name">

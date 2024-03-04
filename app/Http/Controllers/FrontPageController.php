@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\JobOrderTracking;
 use App\Models\ProductCost;
 use App\Models\Cart;
+use App\Models\Company;
 use App\Models\Testimonial;
 use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class FrontPageController extends Controller
     public function __construct(CheckoutService $checkoutService)
     {
         $this->middleware('auth')->only('track_orders','profile');
-        
+
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 
@@ -73,15 +74,16 @@ class FrontPageController extends Controller
 
     public function index()
     {
-        $all_testimonial = Testimonial::all();
+        $all_testimonial = Testimonial::where('company_id', app('company_id'))->get();
+        $products = Product::where('company_id', app('company_id'))->get();
         $cartCount = $this->countCart();
-        return view('front.index', compact('cartCount','all_testimonial'));
+        return view('front.index', compact('cartCount','all_testimonial','products'));
     }
 
     public function cart()
     {
-        $cartCount = $this->countCart();
-        $carts = $this->cartFunc();
+        $cartCount  = $this->countCart();
+        $carts      = $this->cartFunc();
 
         return view('front.cart.index', compact('cartCount','carts'));
     }
@@ -106,7 +108,6 @@ class FrontPageController extends Controller
         $amount_paid = 0;
 
         if (Auth::check()) {
-
             //save to job
             $cart = new JobOrder();
             $cart->product_id      = $product_id;
@@ -148,7 +149,6 @@ class FrontPageController extends Controller
     }catch(\Exception $th){
         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     }
-
         return redirect(route('cart.index'))->with('flash_success','Product added to cart');
     }
 
@@ -250,7 +250,7 @@ class FrontPageController extends Controller
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('front.product_details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
     }
 
     public function product_categories()
@@ -260,7 +260,7 @@ class FrontPageController extends Controller
         $forty_leaves = Product::where('name','forty_leaves')->first();
         $twenty_leaves = Product::where('name','twenty_leaves')->first();
         $eighty_leaves = Product::where('name','eighty_leaves')->first();
-        return view('front.product_categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
+        return view('front.product.categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
     }
 
     public function getPrice(Request $request){

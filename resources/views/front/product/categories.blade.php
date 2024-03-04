@@ -55,24 +55,24 @@
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="properties pb-30">
                                     @if (!is_null($product_higher_education))
-                                        @if (request()->title == 'Higher_Education')
+                                        @if (request()->title == 'higher_notebook')
                                             @php $product_name = str_replace('_',' ', $product_higher_education->name)   @endphp
                                             <div class="properties-card">
                                                 <div class="properties-img">
                                                     @if ( env('APP_ENV') == 'local')
-                                                        <a href="{{route('product_details',['Higher_Education',$product_higher_education->id])}}"><img src="{{asset('storage/images/'.$product_higher_education->image)}}" style="height: 320px;" alt></a>
+                                                        <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"> <img src="{{ asset('storage/images/'.$product_higher_education->image) }}" alt="product image"></a>
                                                     @else
-                                                        <a href="{{route('product_details',['Higher_Education',$product_higher_education->id])}}"><img src="{{asset('public/storage/images/'.$product_higher_education->image)}}" style="height: 320px;" alt></a>
+                                                        <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"><img src="{{asset('public/storage/images/'.$product_higher_education->image)}}" style="height: 320px;" alt="product image"></a>
                                                     @endif
 
 
                                                 </div>
                                                 <div class="properties-caption properties-caption2">
-                                                    <h3><a href="{{route('product_details',['Higher_Education',$product_higher_education->id])}}">{{ucwords($product_name)}}</a></h3>
+                                                    <h3><a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}">{{ucwords($product_name)}}</a></h3>
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$product_higher_education->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Higher_Education',$product_higher_education->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
+                                                            <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,23 +89,23 @@
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="properties pb-30">
                                     @if (!is_null($twenty_leaves))
-                                        @if (request()->title == 'Twenty_Leaves')
+                                        @if (request()->title == 'twenty_leaves')
                                             @php $product_name = str_replace('_',' ', $twenty_leaves->name)   @endphp
                                             <div class="properties-card">
                                                 <div class="properties-img">
 
                                                     @if ( env('APP_ENV') == 'local')
-                                                        <a href="{{route('product_details',['Twenty_Leaves',$twenty_leaves->id])}}"><img src="{{asset('storage/images/'.$twenty_leaves->image)}}" style="height: 320px;" alt></a>
+                                                        <a href="{{route('product_details',[$twenty_leaves->name,$twenty_leaves->id])}}"><img src="{{asset('storage/images/'.$twenty_leaves->image)}}" style="height: 320px;" alt></a>
                                                     @else
-                                                        <a href="{{route('product_details',['Twenty_Leaves',$twenty_leaves->id])}}"><img src="{{asset('public/storage/images/'.$twenty_leaves->image)}}" style="height: 320px;" alt></a>
+                                                        <a href="{{route('product_details',[$twenty_leaves->name,$twenty_leaves->id])}}"><img src="{{asset('public/storage/images/'.$twenty_leaves->image)}}" style="height: 320px;" alt></a>
                                                     @endif
                                                 </div>
                                                 <div class="properties-caption properties-caption2">
-                                                    <h3><a href="{{route('product_details',['Twenty_Leaves',$twenty_leaves->id])}}">{{ucwords($product_name)}}</a></h3>
+                                                    <h3><a href="{{route('product_details',[$twenty_leaves->name,$twenty_leaves->id])}}">{{ucwords($product_name)}}</a></h3>
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$twenty_leaves->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Twenty_Leaves',$twenty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
+                                                            <a href="{{route('product_details',[$twenty_leaves->name,$twenty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,23 +122,23 @@
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="properties pb-30">
                                     @if (!is_null($forty_leaves))
-                                        @if (request()->title == 'Forty_Leaves')
+                                        @if (request()->title == 'forty_leaves')
                                             @php $product_name = str_replace('_',' ', $forty_leaves->name)   @endphp
                                             <div class="properties-card">
                                                 <div class="properties-img">
                                                     @if ( env('APP_ENV') == 'local')
-                                                        <a href="{{route('product_details',['Forty_Leaves',$forty_leaves->id])}}"><img src="{{asset('storage/images/'.$forty_leaves->image)}}" style="height: 320px;" alt></a>
+                                                        <a href="{{route('product_details',[$forty_leaves->name,$forty_leaves->id])}}"><img src="{{asset('storage/images/'.$forty_leaves->image)}}" style="height: 320px;" alt></a>
                                                     @else
-                                                        <a href="{{route('product_details',['Forty_Leaves',$forty_leaves->id])}}"><img src="{{asset('public/storage/images/'.$forty_leaves->image)}}" style="height: 320px;" alt></a>
+                                                        <a href="{{route('product_details',[$forty_leaves->name,$forty_leaves->id])}}"><img src="{{asset('public/storage/images/'.$forty_leaves->image)}}" style="height: 320px;" alt></a>
                                                     @endif
 
                                                 </div>
                                                 <div class="properties-caption properties-caption2">
-                                                    <h3><a href="{{route('product_details',['Forty_Leaves',$forty_leaves->id])}}">{{ucwords($product_name)}}</a></h3>
+                                                    <h3><a href="{{route('product_details',[$forty_leaves->name,$forty_leaves->id])}}">{{ucwords($product_name)}}</a></h3>
                                                     <div class="properties-footer">
                                                         <div class="price">
                                                             <span>&#8358;{{$forty_leaves->productCost->total_cost}} </span> <br>
-                                                            <a href="{{route('product_details',['Forty_Leaves',$forty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
+                                                            <a href="{{route('product_details',[$forty_leaves->name,$forty_leaves->id])}}"><span><button class="btn btn-primary">See Details</button></span></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,7 +156,7 @@
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="properties pb-30">
                                     @if (!is_null($eighty_leaves))
-                                        @if (request()->title == 'Eighty_Leaves')
+                                        @if (request()->title == 'eighty_leaves')
                                             @php $product_name = str_replace('_',' ',@$eighty_leaves->name)   @endphp
                                             <div class="properties-card">
                                                 <div class="properties-img">

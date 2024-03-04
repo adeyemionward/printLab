@@ -47,6 +47,7 @@
                         }else{
                             return response()->json([ [13] ]); //go to user page dashboard
                         }
+                        
                     }elseif($user_type == User::ADMIN){
                         return response()->json([ [1] ]); //go to admin page dashboard
                     }elseif($user_type == User::COMPANY){

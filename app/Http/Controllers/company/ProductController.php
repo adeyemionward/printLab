@@ -14,6 +14,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //app('company_id') is defined in CompanyServiceProvider
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,37 +22,37 @@ class ProductController extends Controller
         $this->startDate  = request('date_from').' 23:59:59';
         $this->endDate    = request('date_to').' 23:59:59';
     }
+
+    public function subProduct($product_name){
+        return $sub_product  =  Product::where('company_id', app('company_id'))->where('name', $product_name)->first();
+    }
+
+    public function subProductCost($product_name){
+        return $sub_product_cost  =  ProductCost::where('company_id', app('company_id'))->where('product_name', $product_name)->first();
+    }
+
     public function index()
     {
         if(request()->date_to && request()->date_from){
-            $products = Product::whereBetween('created_at', [$this->startDate, $this->endDate])->get();
+            $products =  Product::whereBetween('created_at', [$this->startDate, $this->endDate])->where('company_id', app('company_id'))->get();
         }else{
-            $products =  Product::all();
+            $products =  Product::where('company_id', app('company_id'))->get();
         }
 
 
         return view('company.products.all_products',compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create_higher_education()
     {
-        return view('company.products.add_higher_education');
+        $sub_product  =  $this->subProduct('higher_notebook');
+        $sub_product_cost  =  $this->subProductCost('higher_notebook');
+        return view('company.products.add_higher_education',compact('sub_product','sub_product_cost'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store_higher_education(Request $request)
     {
-
         $user = Auth::user();
 
         $ink                        =  request('ink');
@@ -64,29 +65,36 @@ class ProductController extends Controller
 
 
         //save to product
-        $product = new Product();
-        $product->name  = 'higher_notebook';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
-        $product->production_days = $production_time;
-        $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
-        $product->description     = $description;
-        $product->created_by      = $user->id;
 
         if($eticket_img = $request->file('image')){
             $name = $eticket_img->hashName(); // Generate a unique, random name...
             $path = $eticket_img->store('public/images');
-            $product->image = $name;
+            //$product->image = $name;
         }
 
-        $product->save();
+        $product =  Product::updateOrCreate(
+            [
+                'name'              => 'higher_notebook',
+                'company_id'        => $user->company_id,
+            ],
+            [
+                'ink'               => $ink,
+                'paper_type'        => $paper_type,
+                'production_days'   => $production_time,
+                'thickness'         => $thickness,
+                'description'       => $description,
+                'image'             => $name,
+                'created_by'        => $user->id,
+            ],
+        );
+
         //save into product costs
         for ($count=0; $count < count($quantity); $count++) {
             $pro_cost =  ProductCost::updateOrCreate(
                 [
                     'product_id'        => $product->id,
-                    'product_name'        => $product->name,
+                    'company_id'        => $user->company_id,
+                    'product_name'      => $product->name,
                     'quantity'          => $quantity[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
@@ -97,15 +105,10 @@ class ProductController extends Controller
 
     public function create_eighty_leaves()
     {
-        return view('company.products.add_eighty_leaves');
+        $sub_product  =  $this->subProduct('eighty_leaves');
+        return view('company.products.add_eighty_leaves', compact('sub_product'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store_eighty_leaves(Request $request)
     {
 
@@ -120,31 +123,33 @@ class ProductController extends Controller
         $total_cost                 =  request('total_cost');
 
 
-        //save to job
-        $product = new Product();
-        $product->name  = 'eighty_leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
-        $product->production_days = $production_time;
-        $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
-        $product->description     = $description;
-        $product->created_by      = $user->id;
-
-
         if($eticket_img = $request->file('image')){
             $name = $eticket_img->hashName(); // Generate a unique, random name...
             $path = $eticket_img->store('public/images');
-            $product->image = $name;
+            //$product->image = $name;
         }
 
-
-       $product->save();
-       //save into product costs
+        $product =  Product::updateOrCreate(
+            [
+                'name'              => 'eighty_leaves',
+                'company_id'        => $user->company_id,
+            ],
+            [
+                'ink'               => $ink,
+                'paper_type'        => $paper_type,
+                'production_days'   => $production_time,
+                'thickness'         => $thickness,
+                'description'       => $description,
+                'image'             => $name,
+                'created_by'        => $user->id,
+            ],
+        );
+        //save into product costs
         for ($count=0; $count < count($quantity); $count++) {
             $pro_cost =  ProductCost::updateOrCreate(
                 [
                     'product_id'        => $product->id,
+                    'company_id'      => $user->company_id,
                     'product_name'        => $product->name,
                     'quantity'          => $quantity[$count],
                     'total_cost'        => $total_cost[$count],
@@ -158,15 +163,10 @@ class ProductController extends Controller
 
     public function create_forty_leaves()
     {
-        return view('company.products.add_forty_leaves');
+        $sub_product  =  $this->subProduct('forty_leaves');
+        return view('company.products.add_forty_leaves', compact('sub_product'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store_forty_leaves(Request $request)
     {
         $user = Auth::user();
@@ -178,37 +178,42 @@ class ProductController extends Controller
         $quantity                   =  request('quantity');
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
-        // $payment_type               =  request('payment_type');
+        // $payment_type            =  request('payment_type');
 
-
-        //save to job
-        $product = new Product();
-        $product->name  = 'forty_leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
-        $product->production_days = $production_time;
-        $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
-        $product->description     = $description;
-        $product->created_by      = $user->id;
 
 
         if($eticket_img = $request->file('image')){
             $name = $eticket_img->hashName(); // Generate a unique, random name...
             $path = $eticket_img->store('public/images');
-            $product->image = $name;
+            //$product->image = $name;
         }
 
 
-       $product->save();
+        $product =  Product::updateOrCreate(
+            [
+                'name'              => 'forty_leaves',
+                'company_id'        => $user->company_id,
+            ],
+            [
+                'ink'               => $ink,
+                'paper_type'        => $paper_type,
+                'production_days'   => $production_time,
+                'thickness'         => $thickness,
+                'description'       => $description,
+                'image'             => $name,
+                'created_by'        => $user->id,
+            ],
+        );
+
        //save into product costs
         for ($count=0; $count < count($quantity); $count++) {
             $pro_cost =  ProductCost::updateOrCreate(
                 [
-                    'product_id'        => $product->id,
-                    'product_name'        => $product->name,
-                    'quantity'          => $quantity[$count],
-                    'total_cost'        => $total_cost[$count],
+                    'company_id'      => $user->company_id,
+                    'product_id'      => $product->id,
+                    'product_name'    => $product->name,
+                    'quantity'        => $quantity[$count],
+                    'total_cost'      => $total_cost[$count],
                 ],
             );
         }
@@ -218,7 +223,8 @@ class ProductController extends Controller
 
     public function create_twenty_leaves()
     {
-        return view('company.products.add_twenty_leaves');
+        $sub_product  =  $this->subProduct('twenty_leaves');
+        return view('company.products.add_twenty_leaves',compact('sub_product'));
     }
 
     /**
@@ -240,31 +246,32 @@ class ProductController extends Controller
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
 
-
-        //save to job
-        $product = new Product();
-        $product->name  = 'twenty_leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
-        $product->production_days = $production_time;
-        $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
-        $product->description     = $description;
-        $product->created_by      = $user->id;
-
-
         if($eticket_img = $request->file('image')){
             $name = $eticket_img->hashName(); // Generate a unique, random name...
             $path = $eticket_img->store('public/images');
-            $product->image = $name;
+            //$product->image = $name;
         }
 
-
-       $product->save();
+        $product =  Product::updateOrCreate(
+            [
+                'name'              => 'twenty_leaves',
+                'company_id'        => $user->company_id,
+            ],
+            [
+                'ink'               => $ink,
+                'paper_type'        => $paper_type,
+                'production_days'   => $production_time,
+                'thickness'         => $thickness,
+                'description'       => $description,
+                'image'             => $name,
+                'created_by'        => $user->id,
+            ],
+        );
        //save into product costs
         for ($count=0; $count < count($quantity); $count++) {
             $pro_cost =  ProductCost::updateOrCreate(
                 [
+                    'company_id'      => $user->company_id,
                     'product_id'        => $product->id,
                     'product_name'        => $product->name,
                     'quantity'          => $quantity[$count],

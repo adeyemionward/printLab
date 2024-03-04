@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'name',
+        'ink',
+        'company_id',
+        'paper_type',
+        'production_days',
+        'thickness',
+        'description',
+        'image',
+        'created_by'
+    ];
     public function productCost(){
         return $this->hasOne(ProductCost::class,'product_id','id');
     }
