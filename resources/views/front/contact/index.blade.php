@@ -1,4 +1,4 @@
-@extends('layout.landing_master')
+@extends('layout.master')
 @section('content')
 @section('title', 'Contact')
 
@@ -67,8 +67,8 @@
     </div>
 </div>
 <div class="form-group mt-3">
-    {!! NoCaptcha::display() !!}
-    {!! NoCaptcha::renderJs() !!}
+    {{-- {!! NoCaptcha::display() !!}
+    {!! NoCaptcha::renderJs() !!} --}}
 <button type="submit" id="subBtn" class="button button-contactForm boxed-btn">Send</button>
 </div>
 </form>

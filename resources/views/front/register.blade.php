@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-<title>Register | PrintLabs</title>
+<title>Register | Printsoft</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" type="image/x-icon" href="assets/img/leaf.svg">
@@ -238,76 +238,107 @@ form .btn input[type="submit"] {
 .error-text{
     color: red;
 }
+
+.fields-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column {
+    flex: 1;
+    padding-right: 10px; /* Adjust spacing between columns */
+}
+
+.field {
+    margin-bottom: 20px; /* Adjust vertical spacing between fields */
+}
+
+/* Adjust the width of the input fields */
+.field input[type="text"],
+.field input[type="password"],
+.field textarea {
+    width: 100%;
+}
+
 </style>
+
 </head>
 <body>
 	<div class="wrapper">
-		<center><img src="{{asset('img/printlab.PNG')}}" alt="" width="500px" height="170px"></center>
-		<div class="title-text">
-			<div class="title login">Register</div>
-			<div class="title signup">Register</div>
-		</div>
+		<center><img src="{{asset('assets/img/logo/printlab.PNG')}}" alt="" width="500px" height="170px"></center>
+
 		<div class="form-container">
-			<div class="form-inner">
+            <div class="form-inner">
                 {{-- SIGNIN --}}
-				<form method="POST"  id="register_customer" class="register_customer">
+                <form method="POST" id="register_customer" class="register_customer">
                     @csrf
                     @method('POST')
-                    <div class="field">
-						<input type="text" name="firstname"   placeholder="Firstname" >
-                        <span class="text-danger error-text first_error"></span>
-					</div>
+                    <div class="fields-container">
+                        <div class="column">
+                            <div class="field">
+                                <input type="text" name="firstname" placeholder="Firstname">
+                                <span class="text-danger error-text first_error"></span>
+                            </div>
 
-					<div class="field">
-						<input type="text" name="lastname"   placeholder="Lastname" >
-                        <span class="text-danger error-text lastname_error"></span>
-					</div>
+                            <div class="field">
+                                <input type="text" name="phone" placeholder="Phone">
+                                <span class="text-danger error-text phone_error"></span>
+                            </div>
 
+
+                            <div class="field">
+                                <input type="email" name="email" placeholder="Email Address">
+                                <span class="text-danger error-text email_error"></span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="column">
+
+                            <div class="field">
+                                <input type="text" name="lastname" placeholder="Lastname">
+                                <span class="text-danger error-text lastname_error"></span>
+                            </div>
+
+                            <div class="field">
+                                <input type="text" name="company_name" placeholder="Company Name">
+                                <span class="text-danger error-text company_school_error"></span>
+                            </div>
+
+                            <div class="field">
+                                <input type="password" name="password" placeholder="Password" required>
+                                <span class="text-danger error-text password_error"></span>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="field">
-						<input type="text" name="email"   placeholder="Email Address" >
+                        <input type="text" name="subdomain" placeholder="Enter Subdomain">
                         <span class="text-danger error-text email_error"></span>
-					</div>
+                    </div>
 
-					<div class="field">
-						<input type="password"  name="password" placeholder="Password" required>
-                        <span class="text-danger error-text password_error"></span>
-					</div>
-
-                    <div class="field">
-						<input type="text" name="phone"   placeholder="Phone" >
-                        <span class="text-danger error-text phone_error"></span>
-					</div>
-
-                    <div class="field">
-						<input type="text" name="company_name"   placeholder="Company/School Name" >
-                        <span class="text-danger error-text company_school_error"></span>
-					</div>
-
-                    <div class="field">
-
+                    <div class="">
                         <textarea placeholder="Address" name="address"></textarea>
                         <span class="text-danger error-text lastname_error"></span>
-					</div> <br><br><br><br>
-					{{-- <div class="pass-link">
-						<a href="#">Forgot password?</a>
-					</div> --}}
-					<div class="field btn">
-						<div class="btn-layer"></div>
-						<input type="submit" id="loginBtn"  name="login"  value="Create Account" style="background-color: #df4226;">
-					</div>
+                    </div>
+
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" id="loginBtn" name="login" value="Create Account" style="background-color: #df4226;">
+                    </div>
 
                     <div class="signup-link">
-                        @if (request()->status)
-                        Not a member? <a href="{{route('login', ['status' => 'order'])}}">Login</a>
+                        Not a member? <a href="{{route('login')}}">Login</a>
 
-                        @else
-                            Not a member? <a href="{{route('login')}}">Login</a>
-                        @endif
+                    </div>
+                </form>
+            </div>
 
-					</div>
-				</form>
-			</div>
-		</div>
+
+
+        </div>
+
 	</div>
 
 </body>
@@ -350,26 +381,14 @@ form .btn input[type="submit"] {
                 if(data == 1){
                     toastr.success("Registration Successful");
                     setInterval(function(){
-                        window.location.replace('{{route("track_orders.index")}}');
+                            alert('success');
                     },2000)
 
-                }else if (data == 12){
-                    toastr.success("Registration Successful");
+                }else if (data == 5){
+                    //toastr.success("Registration Successful");
                     setInterval(function(){ //customer dashboard login
-                        window.location.href = document.referrer;
+                        alert('error');
                     },2000)
-
-                }else if(data == 5){
-                    toastr.error("Error occured: Please try later");
-                    $("#loginBtn").attr('disabled',false);
-                    $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
-
-                }else if(data == 7){
-                    toastr.error("Error occured: Incorrect Email/Password");
-                    $("#loginBtn").attr('disabled',false);
-                    $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
 
                 }
             }
