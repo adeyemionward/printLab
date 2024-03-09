@@ -21,7 +21,7 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-    {   
+    {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user(); return $next($request);
         });
@@ -38,11 +38,11 @@ class CustomerController extends Controller
 
     private function find_customer ($user_id){
        return $customer = User::find($user_id);
-    }
+    } 
 
     public function index()
     {
-        $customers = User::where('user_type', User::CUSTOMER)->where('company_id',$this->user->company_id)->get();
+        $customers = User::where('user_type', User::CUSTOMER)->where('company_id',app('company_id'))->get();
 
         return view('company.customers.all_customers', compact('customers'));
     }
@@ -142,6 +142,7 @@ class CustomerController extends Controller
 
         try{
             $user = new User();
+            $user->company_id   = app('company_id');
             $user->firstname    = request('firstname');
             $user->lastname     = request('lastname');
             $user->email        = request('email');
@@ -153,7 +154,6 @@ class CustomerController extends Controller
             $user->password     = bcrypt(request('firstname'));
             $user->company_name      = request('company_school_name');
             $user->save();
-
 
             return back()->with("flash_success","Customer saved successfully");
 

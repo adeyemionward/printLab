@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 use App\Repository\CompanyRepository;
 use App\Models\Company;
 use App\Models\User;
