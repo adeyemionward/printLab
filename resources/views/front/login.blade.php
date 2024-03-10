@@ -311,12 +311,6 @@ form .btn input[type="submit"] {
                         window.location.replace('{{route("admin.dashboard")}}');
                     },2000)
 
-                }else if(data == 3){
-                    toastr.success("Login Successful");
-                    setInterval(function(){
-                        window.location.replace('{{route("company.dashboard")}}');
-                    },2000)
-
                 }else if(data == 9){
                     toastr.error("Error occured: Account Inactive");
                     $("#loginBtn").attr('disabled',false);
