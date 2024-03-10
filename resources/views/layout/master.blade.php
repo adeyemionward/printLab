@@ -31,7 +31,7 @@
 <div class="preloader-circle"></div>
 <div class="preloader-img pere-text">
 
-<img src="{{asset('assets/img/logo/printlab.PNG')}}" alt="loder">
+<img src="{{asset('assets/img/logo/printlab.png')}}" alt="loder">
 
 </div>
 </div>
@@ -120,7 +120,7 @@ a span:hover{
 
 <div class="logo">
 
-    <a href="{{route('index')}}"><img src="{{asset('assets/img/logo/printlab.PNG')}}" style="width: 200px;" alt></a>
+    <a href="{{route('index')}}"><img src="{{asset('assets/img/logo/printlab.png')}}" style="width: 200px;" alt></a>
 </div>
 
 <div class="main-menu d-none d-lg-block">

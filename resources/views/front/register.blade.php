@@ -21,7 +21,7 @@ html, body {
 	display: grid;
 	height: 100%;
 	width: 100%;
-	place-items: center;
+	place-items: center;logo
 	background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
 }
 
@@ -265,7 +265,7 @@ form .btn input[type="submit"] {
 </head>
 <body>
 	<div class="wrapper">
-		<center><img src="{{asset('assets/img/logo/printlab.PNG')}}" alt="" width="500px" height="170px"></center>
+		<center><img src="{{asset('assets/img/logo/printlab.png')}}" alt="" width="500px" height="170px"></center>
 
 		<div class="form-container">
             <div class="form-inner">
