@@ -70,7 +70,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="primary_color">Primary Color </label>
-                                                                            <input type="color" required name="primary_color" class="form-control{{ $errors->has('primary_color') ? ' is-invalid' : '' }}" value="{{ old('primary_color') ?? $site_details->primary_color }}" id="colorInput">
+                                                                            <input type="color" required name="primary_color" class="form-control{{ $errors->has('primary_color') ? ' is-invalid' : '' }}" value="{{ old('primary_color') }}" id="colorInput">
                                                                             @error('primary_color')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -78,8 +78,8 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="secondary_color">Secondary Color </label>
-                                                                            <input type="color" required name="secondary_color" class="form-control{{ $errors->has('secondary_color') ? ' is-invalid' : '' }}" value="{{ old('secondary_color') ?? $site_details->secondary_color }}" id="colorInput1">
-                                                                            @error('primary_color')
+                                                                            <input type="color" required name="secondary_color" class="form-control{{ $errors->has('secondary_color') ? ' is-invalid' : '' }}" value="{{ old('secondary_color') }}" id="colorInput1">
+                                                                            @error('secondary_color')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>

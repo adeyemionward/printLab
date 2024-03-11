@@ -87,6 +87,29 @@
 							</div>
 						</div>
 					</li>
+
+                    <li>
+						<div class="sidebardropdown">
+							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
+								id="dropdown-btn" onclick="myFunction()"><i
+								class="data-feather theme-item" data-feather="grid"></i> <span
+								class="theme-item">Settings</span><i
+								class="sidenaviconopen float-end" id="sidenavicon"
+								data-feather="chevron-up"></i></a>
+
+							<div class="dropdown-container">
+								<a href="{{route('admin.settings.theme.create_theme')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Add Theme</span>
+                                </a>
+
+                                <a href="{{route('admin.settings.theme.list_theme')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">List Theme</span>
+                                </a>
+							</div>
+						</div>
+					</li>
 				</ul>
 
 			</nav>
@@ -154,6 +177,21 @@
 										aria-labelledby="navbarDropdownMenuLink1">
                                         <li><a class="dropdown-item" href="{{route('admin.subscriptions.active')}}">Active Subscriptions</a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.subscriptions.inactive')}}">Inactive Subscriptions</a></li>
+
+									</ul>
+								</li>
+
+                                <li class="nav-item dropdown nav-dropdown"><a
+									class="nav-item nav-link dropdown-toggle text-secondary py-0"
+									href="#" id="navbarDropdownMenuLink1" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false"><i
+										class="data-feather theme-item" data-feather="grid"></i> <span
+										class="theme-item">Settings</span><i
+										class="data-feather theme-item" data-feather="chevron-down"></i></a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink1">
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.theme.create_theme')}}">Add Theme </a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.theme.list_theme')}}">List Theme </a></li>
 
 									</ul>
 								</li>
