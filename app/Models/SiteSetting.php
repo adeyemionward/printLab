@@ -26,4 +26,8 @@ class SiteSetting extends Model
         'email_2',
         'email_3',
     ];
+
+    public function siteTheme(){
+        return $this->belongsTo(SiteTheme::class,'site_theme_id','id');
+    }
 }

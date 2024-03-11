@@ -14,13 +14,9 @@
 
         public function postColorLogo($data){
             DB::beginTransaction();
-           // try{
+            try{
 
-                // if($site_img = $data->file('site_logo')){
-                //     $name = $site_img->hashName(); // Generate a unique, random name...
-                //     $path = $site_img->store('public/images');
-                // }
-                    $fileName = $data->file('site_logo');
+                $fileName = $data->file('site_logo');
                 if ($data->hasFile('site_logo')) {
                     if ($img = $fileName) {
                         $ImageName = $fileName->getClientOriginalName();
@@ -31,20 +27,18 @@
 
                 SiteSetting::UpdateOrcreate(
                     [
-                        'company_id'      => Auth::user()->company_id,
+                        'company_id'  => Auth::user()->company_id,
                     ],
                     [
-                        'site_logo1'      => $uniqueFileName,
-                        // 'primary_color'    => request('primary_color'),
-                        // 'secondary_color' => request('secondary_color'),
+                        'site_logo1'  => $uniqueFileName,
                     ],
                 );
                 DB::commit();
 
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            // }
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
             return redirect(route('company.settings.site.color_logo'))->with('flash_success','Logo and color added successfully');
         }
     }

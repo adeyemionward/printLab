@@ -13,4 +13,5 @@ class SiteTheme extends Model
         'company_id',
         'site_theme_id',
     ];
+
 }

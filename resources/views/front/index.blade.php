@@ -64,7 +64,7 @@ a span:hover{
 <div class="hero-caption text-center">
 <h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-size:45px">{{$site_details->hero_text ?? 'No Hero Header'}}</h1>
 {{-- <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p> --}}
-<a href="#buy_products" style="background-color:{{$site_details->primary_color ?? 'red' }}; border-color: transparent; padding:25px 50px 25px 50px;" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
+<a href="#buy_products" style="background-color:{{$site_details->siteTheme->name }}; border-color: transparent; padding:25px 50px 25px 50px;" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
 </div>
 </div>
 </div>
