@@ -9,26 +9,19 @@
     use Illuminate\Support\Facades\Hash;
 
     use App\Models\SiteSetting;
-    class ColorLogoService
+    class ThemeService
     {
 
-        public function postColorLogo($data){
+        public function postTheme($data){
             DB::beginTransaction();
             try{
-
-                if($site_img = $data->file('site_logo')){
-                    $name = $site_img->hashName(); // Generate a unique, random name...
-                    $path = $site_img->store('public/images');
-                }
 
                 SiteSetting::UpdateOrcreate(
                     [
                         'company_id'      => Auth::user()->company_id,
                     ],
                     [
-                        'site_logo1'      => $name,
-                        // 'primary_color'    => request('primary_color'),
-                        // 'secondary_color' => request('secondary_color'),
+                        'site_theme_id'      => request('site_theme_id'),
                     ],
                 );
                 DB::commit();
@@ -37,7 +30,7 @@
                 DB::rollBack();
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return redirect(route('company.settings.site.color_logo'))->with('flash_success','Logo and color added successfully');
+            return redirect(route('company.settings.site.color_logo'))->with('flash_success','Theme added successfully');
         }
     }
 

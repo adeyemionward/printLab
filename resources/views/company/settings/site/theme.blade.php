@@ -1,8 +1,8 @@
 
 @extends('company.layout.master')
 @section('content')
-@section('title', 'Site Logo')
-@php $page = 'color_logo' @endphp
+@section('title', 'Site Theme')
+@php $page = 'theme' @endphp
 <style>
     .question{
         color:red;
@@ -24,12 +24,12 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Site Settings</h4>
+                    <h4 class="m-0 text-dark text-muted">Change Theme</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Site Settings</li>
+                        <li class="breadcrumb-item active">Change Theme</li>
                     </ol>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Change Site Color & Logo</h5>
+                                            <h5 class="card-title mb-0 text-muted">Change Theme</h5>
                                         </div>
                                         <div class="card-body h-100">
                                             <div class="align-items-start">
@@ -58,13 +58,15 @@
                                                                     @csrf
                                                                     @method('POST')
                                                                     <div class="row">
-                                                                        {{-- $site_details is defined inside the provider/viewserviceprovider within a view composer, to ensure single responsibility and maintainabilty --}}
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="exampleFormControlInput1">Site Logo </label>
-                                                                            <input type="file" required name="site_logo" class="form-control{{ $errors->has('site_logo') ? ' is-invalid' : '' }}" value="{{ old('site_logo') }}" id="site_logo">
-                                                                            @error('site_logo')
+                                                                            <label for="secondary_color">Select Theme </label>
+                                                                            @foreach ($themes as $theme)
+                                                                                <input type="checkbox" required name="theme" class="form-control{{ $errors->has('theme') ? ' is-invalid' : '' }}" value="{{$theme->name}}" id="colorInput1">
+                                                                            @endforeach
+                                                                            @error('theme')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
+                                                                            
                                                                         </div>
                                                                     </div>
 

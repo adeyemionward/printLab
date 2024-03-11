@@ -11,10 +11,14 @@
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'color_logo') echo 'active active_red'  ?>"
                  href="{{route('company.settings.site.color_logo')}}"
-                 aria-selected="false">Site Color & Logo</a>
+                 aria-selected="false">Sit Logo</a>
                 <div class="dropdown-divider"></div>
 
-
+                <a class="nav-link <?php if($page == 'theme') echo 'active active_red'  ?>"
+                    href="{{route('company.settings.site.theme')}}"
+                    aria-selected="false">Site Theme</a>
+                   <div class="dropdown-divider"></div>
+   
 
 
                 <a class="nav-link <?php if($page == 'hero_text') echo 'active active_red'  ?>"

@@ -212,6 +212,8 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::group(['prefix' => '/site', 'as' => 'site.'], function () {
                         Route::get('/color_logo', 'SettingController@color_logo')->name('color_logo');
                         Route::post('/color_logo', 'SettingController@storeColorLogo')->name('color_logo');
+                        Route::get('/theme', 'SettingController@theme')->name('theme');
+                        Route::post('/theme', 'SettingController@storeTheme')->name('theme');
                         Route::get('/hero_text', 'SettingController@hero_text')->name('hero_text');
                         Route::post('/hero_text', 'SettingController@storeHeroText')->name('hero_text');
                         Route::get('/address', 'SettingController@address')->name('address');
@@ -274,7 +276,6 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::post('/edit_role/{id}', 'RoleController@update')->name('edit_role');
                     Route::get('/delete_role/{id}', 'RoleController@destroy')->name('delete_role');
                 });
-
 
                 Route::group(['prefix' => '/suppliers', 'as' => 'suppliers.'], function () {
                     Route::get('/add_supplier', 'SupplierController@create')->name('add_supplier');

@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
 use App\Models\User;
 use App\Models\Testimonial; 
-use App\Models\SiteSetting; 
+use App\Models\SiteSetting;
+use App\Models\SiteTheme; 
 use App\Services\Company\ColorLogoService;
+use App\Services\Company\ThemeService;
 use App\Services\Company\AddressService;
 use App\Services\Company\HeroTextService;
 use App\Services\Company\EmailService;
@@ -65,6 +67,15 @@ class SettingController extends Controller
 
     public function color_logo(){
         return view('company.settings.site.color_logo');
+    }
+
+    public function theme(){
+        $themes = SiteTheme::all();
+        return view('company.settings.site.theme', compact('themes'));
+    }
+
+    public function storeTheme(Request $request, ThemeService $themeservice){
+        return $themeservice->postTheme($request);
     }
 
     public function storeColorLogo(Request $request, ColorLogoService $colorlogoservice){
