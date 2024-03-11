@@ -28,7 +28,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                 <div class="single-items mb-20">
                     <div class="items-img">
-                        <img src="assets/img/gallery/items1.jpg" alt>
+                        <img src="{{asset('assets/img/about_us.jpg')}}" alt>
                     </div>
                 </div>
             </div>
@@ -37,21 +37,14 @@
                     <div class="center" style="">
                         <h1>OUR COMPANY</h1>
                         <p>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Animi omnis illum exercitationem modi recusandae accusamus natus, blanditiis perferendis atque
-                            facilis a tempore iusto asperiores minima repellendus deserunt? Non, quasi eaque.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Animi omnis illum exercitationem modi recusandae accusamus natus, blanditiis perferendis atque
-                            facilis a tempore iusto asperiores minima repellendus deserunt? Non, quasi eaque.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Animi omnis illum exercitationem modi recusandae accusamus natus, blanditiis perferendis atque
-                            facilis a tempore iusto asperiores minima repellendus deserunt? Non, quasi eaque.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Animi omnis illum exercitationem modi recusandae accusamus natus, blanditiis perferendis atque
-                            facilis a tempore iusto asperiores minima repellendus deserunt? Non, quasi eaque.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Animi omnis illum exercitationem modi recusandae accusamus natus, blanditiis perferendis atque
-                            facilis a tempore iusto asperiores minima repellendus deserunt? Non, quasi eaque.
+                            At PrintSoft, we are passionate about simplifying the printing process
+                             for businesses and individuals alike. Our mission is to provide innovative printing
+                             solutions that streamline workflows, enhance efficiency, and deliver exceptional results. <br> <br>
+
+                             PrintSoft offers a comprehensive suite of printing tools and features
+                             designed to meet the diverse needs of our customers. Whether you're a small business looking
+                              to produce professional marketing materials or an individual seeking high-quality prints for
+                               personal projects, we have the tools you need to succeed.
                         </p>
                     </div>
                 </div>
@@ -224,7 +217,7 @@
                     <div class="center" style="">
                         <h1>DASHBOARD SCREEN</h1>
                         <p>
-                            Our Dashboard has an intuitive design and solutions 
+                            Our Dashboard has an intuitive design and solutions
                              to streamline your operations and elevate your business to new heights,
                             our comprehensive dashboard puts the power of management at your fingertips.
                         </p>
