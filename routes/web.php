@@ -325,6 +325,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
                 Route::get('/inactive', 'SubscriptionController@inactiveSubscription')->name('inactive');
             });
 
+            Route::group(['prefix' => '/settings', 'as' => 'settings.'], function () {
+                Route::group(['prefix' => '/theme', 'as' => 'theme.'], function () {
+                    Route::get('/add', 'SettingController@create_theme')->name('create_theme');
+                    Route::post('/add', 'SettingController@store_theme')->name('store_theme');
+                    Route::get('/list', 'SettingController@list_theme')->name('list_theme');
+                    Route::get('/edit/{id}', 'SettingController@edit_theme')->name('edit_theme');
+                    Route::post('/edit/{id}', 'SettingController@update_theme')->name('edit_theme');
+                    Route::get('/delete/{id}', 'SettingController@delete_theme')->name('delete_theme');
+                });
+            });
+
             Route::group(['prefix' => '/users', 'as' => 'users.'], function () {
                 Route::get('/add_user', 'UserController@create')->name('add_user');
                 Route::post('/add_user', 'UserController@store')->name('add_user');
