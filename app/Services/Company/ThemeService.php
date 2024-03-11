@@ -15,22 +15,20 @@
         public function postTheme($data){
             DB::beginTransaction();
             try{
-
                 SiteSetting::UpdateOrcreate(
                     [
                         'company_id'      => Auth::user()->company_id,
                     ],
                     [
-                        'site_theme_id'      => request('site_theme_id'),
+                        'site_theme_id'      => request('theme_id'),
                     ],
                 );
-                DB::commit();
-
+                DB::commit();  
             }catch(\Exception $th){
                 DB::rollBack();
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return redirect(route('company.settings.site.color_logo'))->with('flash_success','Theme added successfully');
+            return redirect(route('company.settings.site.theme'))->with('flash_success','Theme added successfully');
         }
     }
 

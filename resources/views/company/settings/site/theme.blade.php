@@ -19,7 +19,15 @@
     height: 100px;
     border: 1px solid #ccc;
 }
+
+.color-box {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    border: 1px solid #000;
+}
 </style>
+
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
@@ -52,30 +60,34 @@
                                                     <div class="tab-pane fade show active" id="nav-server"
                                                         role="tabpanel" aria-labelledby="nav-server-tab">
 
-                                                        <div class="row g-3 mb-3 mt-3">
-                                                            <div class="col-md-12">
+                                                        
                                                                 <form method="POST"  id="colorPickerForm" class="logo_color" enctype="multipart/form-data">
                                                                     @csrf
                                                                     @method('POST')
-                                                                    <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="secondary_color">Select Theme </label>
-                                                                            @foreach ($themes as $theme)
-                                                                                <input type="checkbox" required name="theme" class="form-control{{ $errors->has('theme') ? ' is-invalid' : '' }}" value="{{$theme->name}}" id="colorInput1">
-                                                                            @endforeach
-                                                                            @error('theme')
+                                                                        <div class="form-group mt-3 mb-3 row">
+                                                                            <label for="secondary_color" class="col-md-12">Select Theme </label>
+                                                                            <div class="col-md-4">
+                                                                                @foreach ($themes as $theme) 
+                                                                                
+                                                                                <div class="row row align-items-center">
+                                                                                    <div class="col-md-8">
+                                                                                        <input type="radio" style="display: inline-block; width: 24px; height: 24px;" required name="theme_id" class="{{ $errors->has('theme_id') ? ' is-invalid' : '' }}" {{$theme->id == $site_theme->site_theme_id ? 'checked' : ''}} value="{{$theme->id}}">
+                                                                                        <span class="ml-2">{{$theme->name}}</span>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="color-box" style="background-color: {{$theme->color}}"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                @endforeach
+                                                                                @error('theme')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                            
+                                                                                @enderror
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-
                                                                     <button class="btn btn-sm btn-danger" type="submit">
                                                                         <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                     </button>
                                                                 </form>
-                                                            </div>
-                                                        </div>
                                                         <hr/>
                                                     </div>
                                                 </div>

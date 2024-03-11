@@ -71,7 +71,8 @@ class SettingController extends Controller
 
     public function theme(){
         $themes = SiteTheme::all();
-        return view('company.settings.site.theme', compact('themes'));
+        $site_theme = $this->siteDetails(); 
+        return view('company.settings.site.theme', compact('themes','site_theme'));
     }
 
     public function storeTheme(Request $request, ThemeService $themeservice){

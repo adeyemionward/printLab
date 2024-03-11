@@ -11,6 +11,7 @@ class SiteSetting extends Model
 
     protected $fillable = [
         'company_id',
+        'site_theme_id',
         'site_logo1',
         'primary_color',
         'secondary_color',

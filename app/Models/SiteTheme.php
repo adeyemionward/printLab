@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SiteTheme extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'company_id',
+        'site_theme_id',
+    ];
 }
