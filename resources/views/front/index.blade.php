@@ -54,6 +54,7 @@ a span:hover{
     color:#fff;
 }
 </style>
+{{-- $site_details is from company provider --}}
 <section class="hero1" >
 <div class="">
 
@@ -148,7 +149,7 @@ a span:hover{
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4  col-sm-10">
 
                     {{-- <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000;">Contact us for other printing service</h2> --}}
-                    <a class="btn_1 hero-btn contact_now"  href="{{route('contact.index')}}" > <span>Contact now</span></a>
+                    <a class="btn_1 hero-btn contact_now"  href="{{route('contact.index')}}"  style="border-color:{{$site_details->siteTheme->name ?? 'red' }}"> <span style="color:{{$site_details->siteTheme->name ?? 'red' }}">Contact now</span></a>
 
                 </div>
             </div>
@@ -188,7 +189,6 @@ a span:hover{
                                     </div>
                                     <div class="founder-text">
                                         <span>{{$val->customer->firstname.' '.$val->customer->lastname}}</span>
-                                    {{-- <p>Designer at Colorlib</p> --}}
                                     </div>
                                     </div>
                             </div>
