@@ -229,7 +229,7 @@ form .btn input[type="submit"] {
 </head>
 <body>
 	<div class="wrapper">
-		<center><img src="{{ asset('siteimages/'.$site_details->site_logo1) }}?? {{asset('img/printlab.PNG')}}" alt="" width="350" height="170px"></center>
+		<center><img src="{{ asset('siteimages/'.@$site_details->site_logo1) }}" alt="" width="350" height="170px"></center>
 		<div class="title-text">
 			<div class="title login">Login</div>
 			<div class="title signup">Signup</div>
@@ -254,7 +254,7 @@ form .btn input[type="submit"] {
 					</div> --}}
 					<div class="field btn">
 						<div class="btn-layer"></div>
-						<input type="submit" id="loginBtn"  name="login"  value="Signin" style="background-color: {{$site_details->siteTheme->name }} ?? #df4226;">
+						<input type="submit" id="loginBtn"  name="login"  value="Signin" style="background-color: {{$site_details->siteTheme->name ?? '#df4226'}} ;">
 					</div>
 					<div class="signup-link">
                         @if (request()->status)
