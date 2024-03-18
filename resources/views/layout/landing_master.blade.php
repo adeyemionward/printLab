@@ -35,9 +35,9 @@ Logo
 @else
     @if ($site_details)
         @if (env('APP_ENV') == 'local')
-            <img src="{{ asset('storage/images/'.$site_details->site_logo1) }}" alt="site_logo" style="height: 100px; width: 100px; border-radius: 50%">
+            <img src="{{ asset('siteimages/'.$site_details->site_logo1) }}" alt="site_logo" style="height: 100px; width: 100px; border-radius: 50%">
         @else
-            <img src="{{ asset('public/storage/images/'.$site_details->site_logo1) }}" alt="site_logo" style="height: 100px; width: 100px; border-radius: 50%">
+            <img src="{{ asset('siteimages/'.$site_details->site_logo1) }}" alt="site_logo" style="height: 100px; width: 100px; border-radius: 50%">
         @endif
     @endif
 @endif
@@ -47,7 +47,16 @@ Logo
 </div>
 </div>
 <style>
-    .cart2{position:relative}.header-area .header-mid .menu-wrapper .header-right .cart2::after{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;position:absolute;content:"{{$cartCount}}";background:#FF2020;color:#fff;text-align:center;border-radius:50%;font-size:12px;top:-7px;right:0px;padding:1px 7px}
+    .cart2{
+        position:relative
+        
+    }
+    .header-area .header-mid .menu-wrapper .header-right .cart2::after{
+        -webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;
+        -o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;position:absolute;content:"{{$cartCount}}";
+        background:red;
+        color:#fff;text-align:center;border-radius:50%;font-size:12px;top:-7px;right:0px;padding:1px 7px
+    }
 </style>
 <header>
 <div class="header-area">
@@ -67,7 +76,7 @@ Logo
 <div class="header-info-right d-flex">
 <ul class="order-list">
 <!-- <li><a href="#">My Wishlist</a></li> -->
-<li><a href="{{route('track_orders.index')}}">Track Your Order</a></li>
+<li><a href="{{route('track_orders.index')}}">Track Your Order</a></li> 
 
 <li><i class="fa fa-phone"> <a href="tel:08035777226">Call: {{$site_details->phone_1 ?? 'No phone'}}</a></i></li>
 </ul>
@@ -88,8 +97,8 @@ Logo
     </ul>
 </li>
 @else
-<li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
-<li><a href="{{route('register')}}" style="color: #FF2020;">Create Account</a></li>
+<li><a href="{{route('login')}}" style="color: {{$site_details->siteTheme->name }};">Login</a></li>
+<li><a href="{{route('register')}}" style="color: {{$site_details->siteTheme->name }};">Create Account</a></li>
 @endif
 </ul>
 
@@ -104,7 +113,7 @@ Logo
 <div class="menu-wrapper">
 
 <div class="logo">
-<a href="{{route('index')}}"><img src="{{asset('img/printlab.PNG')}}" style="width: 200px;" alt></a>
+<a href="{{route('index')}}"><img src="{{ asset('siteimages/'.$site_details->site_logo1) }}" style="width: 200px; height:100px" alt="site logo"></a>
 </div>
 
 <div class="main-menu d-none d-lg-block">
