@@ -97,8 +97,8 @@ Logo
     </ul>
 </li>
 @else
-<li><a href="{{route('login')}}" style="color: {{$site_details->siteTheme->name }};">Login</a></li>
-<li><a href="{{route('register')}}" style="color: {{$site_details->siteTheme->name }};">Create Account</a></li>
+<li><a href="{{route('login')}}" style="color: {{$site_details->siteTheme->name ?? 'red' }};">Login</a></li>
+<li><a href="{{route('register')}}" style="color: {{$site_details->siteTheme->name ?? 'red' }};">Create Account</a></li>
 @endif
 </ul>
 
@@ -113,7 +113,7 @@ Logo
 <div class="menu-wrapper">
 
 <div class="logo">
-<a href="{{route('index')}}"><img src="{{ asset('siteimages/'.$site_details->site_logo1) }}" style="width: 200px; height:100px" alt="site logo"></a>
+<a href="{{route('index')}}"><img src="{{ asset('siteimages/'.@$site_details->site_logo1) }}" style="width: 200px; height:100px" alt="site logo"></a>
 </div>
 
 <div class="main-menu d-none d-lg-block">

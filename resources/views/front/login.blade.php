@@ -267,7 +267,6 @@ form .btn input[type="submit"] {
 			</div>
 		</div>
 	</div>
-
 </body>
 
 
