@@ -27,7 +27,7 @@ Route::get('/invoice', function () {
 
 
 Route::group(['middleware' => 'checkSubdomain'], function () {
-    Route::group(['namespace' => 'App\Http\Controllers\Company'],  function () {
+    Route::group(['namespace' => 'App\Http\Controllers\company'],  function () {
         Route::group(['prefix' => '/company', 'as' => 'company.'], function () {
             Route::middleware(['checkRole:3'])->group(function () {
                 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
@@ -295,7 +295,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 });
 
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
+Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
     Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
         Route::middleware(['checkRole:1'])->group(function () {
             Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
