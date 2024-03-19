@@ -315,7 +315,7 @@ form .btn input[type="submit"] {
                     </div>
                     <div class="field">
                         <input type="text" name="subdomain" placeholder="Enter Subdomain">
-                        <span class="text-danger error-text email_error"></span>
+                        <span class="text-danger error-text subdomain_error"></span>
                     </div>
 
                     <div class="">
@@ -334,8 +334,6 @@ form .btn input[type="submit"] {
                     </div>
                 </form>
             </div>
-
-
 
         </div>
 
