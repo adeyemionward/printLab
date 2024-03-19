@@ -68,7 +68,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="email_2">Email 2 </label>
-                                                                            <input type="email" required name="email_2" class="form-control{{ $errors->has('email_2') ? ' is-invalid' : '' }}" value="{{ old('email_2') ?? $site_details->email_2 }}" id="email_2">
+                                                                            <input type="email"  name="email_2" class="form-control{{ $errors->has('email_2') ? ' is-invalid' : '' }}" value="{{ old('email_2') ?? $site_details->email_2 }}" id="email_2">
                                                                             @error('email_2')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -76,7 +76,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="email_3">Email 3 </label>
-                                                                            <input type="email" required name="email_3" class="form-control{{ $errors->has('email_2') ? ' is-invalid' : '' }}" value="{{ old('email_3') ?? $site_details->email_3 }}" id="email_3">
+                                                                            <input type="email"  name="email_3" class="form-control{{ $errors->has('email_2') ? ' is-invalid' : '' }}" value="{{ old('email_3') ?? $site_details->email_3 }}" id="email_3">
                                                                             @error('email_3')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

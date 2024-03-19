@@ -61,7 +61,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-12">
                                                                             <label for="address_1">Address 1 </label>
-                                                                            <textarea name="address_1" class="form-control {{ $errors->has('address_1') ? ' is-invalid' : '' }} " id="" cols="10" rows="3">{{ old('address_1') ?? $site_details->address_1  }}</textarea>
+                                                                            <textarea name="address_1" required class="form-control {{ $errors->has('address_1') ? ' is-invalid' : '' }} " id="" cols="10" rows="3">{{ old('address_1') ?? $site_details->address_1  }}</textarea>
                                                                             @error('address_1')
                                                                                 <div class="invalid-feedback">{{ $message }}</div> 
                                                                             @enderror
