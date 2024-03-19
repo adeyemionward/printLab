@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class JobLocation extends Model
 {
@@ -13,6 +14,7 @@ class JobLocation extends Model
         'city',
         'state',
         'created_by',
+        'company_id'
     ];
 
     public function createdBy(){

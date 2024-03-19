@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Add Product')
 @php $page = 'add_location' @endphp
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('job_order.location.all_locations')}}"><li class="active btn btn-primary" style="">Location List</li></a>
+                        <a href="{{route('company.job_order.location.all_locations')}}"><li class="active btn btn-primary" style="">Location List</li></a>
                     </ol>
                 </div>
             </div>

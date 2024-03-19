@@ -82,7 +82,7 @@ class CustomerController extends Controller
             'userDetails' =>$userDetails,
             'orderDetails' => $orderDetails, // Collection of orders, for example
         ];
-        $pdf_attachment =   Pdf::loadView('invoice_attachment', $data );
+        $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
         $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
         return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
     }

@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Add Product')
 @php $page = 'view_location' @endphp
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('job_order.location.all_locations')}}"><li class="active btn btn-primary" style="">Location List</li></a>
+                        <a href="{{route('company.job_order.location.all_locations')}}"><li class="active btn btn-primary" style="">Location List</li></a>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('job_order.location.location_inc')
+                                @include('company.job_order.location.location_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">

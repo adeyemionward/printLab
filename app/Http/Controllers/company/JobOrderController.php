@@ -608,6 +608,7 @@ class JobOrderController extends Controller
         for ($count=0; $count < count($city); $count++) {
             $order_location =  JobLocation::updateOrCreate(
                 [
+                    'company_id'    => $user->company_id,
                     'city'          => $city[$count],
                     'state'         => $state[$count],
                     'created_by'    => $user->id,

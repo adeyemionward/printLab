@@ -54,7 +54,7 @@ class ExternalJobOrderController extends Controller
         }else{
             $job_orders =   $this->JobOrderQuery()->get();
         }
-        return view('external_job_order.all_orders', compact('job_orders'));
+        return view('company.external_job_order.all_orders', compact('job_orders'));
     }
 
     public function view_order($id){
@@ -62,7 +62,7 @@ class ExternalJobOrderController extends Controller
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
             ->where('job_order_id',$id)->first();
-        return view('external_job_order.view_order', compact('job_order','job_order_pay','approved_design'));
+        return view('company.external_job_order.view_order', compact('job_order','job_order_pay','approved_design'));
     }
 
     public function uploadApprovedDesign(Request $request, $id){
@@ -186,7 +186,7 @@ class ExternalJobOrderController extends Controller
         $job_orders =  JobOrder::all();
         $job_order =  JobOrder::find($id);
         $job_order->delete();
-        return redirect(route('job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
+        return redirect(route('company.job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
     }
 
     public function track_job_order($id){
@@ -196,21 +196,21 @@ class ExternalJobOrderController extends Controller
             ->where('job_order_id',$id)
             ->first();
         $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
-        return view('external_job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
+        return view('company.external_job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
     }
 
     public function transaction_history($id){
         $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
         $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
-        return view('external_job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
+        return view('company.external_job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
     }
 
 
     public function edit_order($id){
         $job_order =  JobOrder::find($id);
         $customers =  Customer::all();
-        return view('external_job_order.edit_order', compact('job_order','customers'));
+        return view('company.external_job_order.edit_order', compact('job_order','customers'));
     }
 
     public function update_order(Request $request, $id){
@@ -244,7 +244,7 @@ class ExternalJobOrderController extends Controller
             $job_order->updated_by      = $user->id;
             $job_order->save();
 
-            return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
+            return redirect(route('company.job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
 
 
         }elseif(request()->job_title == 'Higher_NoteBook'){
@@ -273,7 +273,7 @@ class ExternalJobOrderController extends Controller
             $job_order->total_cost      = $total_cost;
             $job_order->updated_by      = $user->id;
             $job_order->save();
-            return redirect(route('job_order.view_order',['Higher_NoteBook',$id]))->with('flash_success','Higher Note Book order updated successfully');
+            return redirect(route('company.job_order.view_order',['Higher_NoteBook',$id]))->with('flash_success','Higher Note Book order updated successfully');
 
         }elseif(request()->job_title == 'Twenty_Leaves'){
             $customer_id                =  request('customer_id');
@@ -299,7 +299,7 @@ class ExternalJobOrderController extends Controller
             $job_order->total_cost      = $total_cost;
             $job_order->updated_by      = $user->id;
             $job_order->save();
-            return redirect(route('job_order.view_order',['Twenty_Leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
+            return redirect(route('company.job_order.view_order',['Twenty_Leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
         }elseif(request()->job_title == 'Forty_Leaves'){
 
             $customer_id                =  request('customer_id');
@@ -326,7 +326,7 @@ class ExternalJobOrderController extends Controller
             $job_order->updated_by      = $user->id;
             $job_order->save();
 
-            return redirect(route('job_order.view_order',['Forty_Leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
+            return redirect(route('company.job_order.view_order',['Forty_Leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
 
         }elseif(request()->job_title == 'Small_Invoice'){
 
@@ -370,7 +370,7 @@ class ExternalJobOrderController extends Controller
            // $job_order->order_date     = $order_date;
             $job_order->updated_by      = $user->id;
             $job_order->save();
-            return redirect(route('job_order.view_order',['Small_Invoice',$id]))->with('flash_success','Small Invoice order updated successfully');
+            return redirect(route('company.job_order.view_order',['Small_Invoice',$id]))->with('flash_success','Small Invoice order updated successfully');
         }elseif(request()->job_title == 'Bronchures'){
             $customer_id                =  request('customer_id');
             $quantity                   =  request('quantity');
@@ -398,7 +398,7 @@ class ExternalJobOrderController extends Controller
             $job_order->total_cost      = $total_cost;
             $job_order->updated_by      = $user->id;
             $job_order->save();
-            return redirect(route('job_order.view_order',['Bronchures',$id]))->with('flash_success','Bronchures order updated successfully');
+            return redirect(route('company.job_order.view_order',['Bronchures',$id]))->with('flash_success','Bronchures order updated successfully');
 
         }elseif(request()->job_title == 'Flyer'){
             $customer_id                =  request('customer_id');
@@ -427,7 +427,7 @@ class ExternalJobOrderController extends Controller
             $job_order->total_cost      = $total_cost;
             $job_order->updated_by      = $user->id;
             $job_order->save();
-            return redirect(route('job_order.view_order',['Flyer',$id]))->with('flash_success','Flyer order updated successfully');
+            return redirect(route('company.job_order.view_order',['Flyer',$id]))->with('flash_success','Flyer order updated successfully');
 
         }elseif(request()->job_title == 'Business_Cards'){
 
@@ -456,7 +456,7 @@ class ExternalJobOrderController extends Controller
         $job_order->total_cost      = $total_cost;
         $job_order->updated_by      = $user->id;
         $job_order->save();
-        return redirect(route('job_order.view_order',['Business_Cards',$id]))->with('flash_success','Business_Cards order updated successfully');
+        return redirect(route('company.job_order.view_order',['Business_Cards',$id]))->with('flash_success','Business_Cards order updated successfully');
 
         }elseif(request()->job_title == 'Envelopes'){
             $customer_id                =  request('customer_id');
@@ -484,7 +484,7 @@ class ExternalJobOrderController extends Controller
             $job_order->updated_by      = $user->id;
             $job_order->save();
 
-            return redirect(route('job_order.view_order',['Envelopes',$id]))->with('flash_success','Envelopes order updated successfully');
+            return redirect(route('company.job_order.view_order',['Envelopes',$id]))->with('flash_success','Envelopes order updated successfully');
 
         }elseif(request()->job_title == 'Notepads'){
 
@@ -529,7 +529,7 @@ class ExternalJobOrderController extends Controller
             $job_order->updated_by      = $user->id;
             $job_order->save();
 
-            return redirect(route('job_order.view_order',['Notepads',$id]))->with('flash_success','Notepads order updated successfully');
+            return redirect(route('company.job_order.view_order',['Notepads',$id]))->with('flash_success','Notepads order updated successfully');
 
         }elseif(request()->job_title == 'Stickers'){
             $customer_id                =  request('customer_id');
@@ -554,7 +554,7 @@ class ExternalJobOrderController extends Controller
             $job_order->total_cost      = $total_cost;
             $job_order->updated_by      = $user->id;
             $job_order->save();
-            return redirect(route('job_order.view_order',['Stickers',$id]))->with('flash_success','Stickers order updated successfully');
+            return redirect(route('company.job_order.view_order',['Stickers',$id]))->with('flash_success','Stickers order updated successfully');
 
         }
 
@@ -570,7 +570,7 @@ class ExternalJobOrderController extends Controller
             $job_orders =   $this->JobOrderQuery()->where('status','Pending')->get();
         }
 
-        return view('external_job_order.status.pending', compact('job_orders'));
+        return view('company.external_job_order.status.pending', compact('job_orders'));
     }
 
     public function designed (){
@@ -580,7 +580,7 @@ class ExternalJobOrderController extends Controller
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Designed')->get();
         }
-        return view('external_job_order.status.designed', compact('job_orders'));
+        return view('company.external_job_order.status.designed', compact('job_orders'));
     }
 
     public function prepressed (){
@@ -590,7 +590,7 @@ class ExternalJobOrderController extends Controller
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Prepressed')->get();
         }
-        return view('external_job_order.status.prepressed', compact('job_orders'));
+        return view('company.external_job_order.status.prepressed', compact('job_orders'));
     }
 
     public function proof_read (){
@@ -601,7 +601,7 @@ class ExternalJobOrderController extends Controller
             $job_orders =   $this->JobOrderQuery()->where('status','Proof Read')->get();
         }
 
-        return view('external_job_order.status.proof_read', compact('job_orders'));
+        return view('company.external_job_order.status.proof_read', compact('job_orders'));
     }
 
     public function approved (){
@@ -612,7 +612,7 @@ class ExternalJobOrderController extends Controller
             $job_orders =   $this->JobOrderQuery()->where('status','Customer Approved')->get();
         }
 
-        return view('external_job_order.status.customer_approved', compact('job_orders'));
+        return view('company.external_job_order.status.customer_approved', compact('job_orders'));
     }
 
     public function printed (){
@@ -623,7 +623,7 @@ class ExternalJobOrderController extends Controller
             $job_orders =   $this->JobOrderQuery()->where('status','Printed')->get();
         }
 
-        return view('external_job_order.status.printed', compact('job_orders'));
+        return view('company.external_job_order.status.printed', compact('job_orders'));
     }
 
     public function binded (){
@@ -634,7 +634,7 @@ class ExternalJobOrderController extends Controller
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Binded')->get();
         }
-        return view('external_job_order.status.binded', compact('job_orders'));
+        return view('company.external_job_order.status.binded', compact('job_orders'));
     }
 
     public function completed (){
@@ -645,7 +645,7 @@ class ExternalJobOrderController extends Controller
             $job_orders =   $this->JobOrderQuery()->where('status','Completed')->get();
         }
 
-        return view('external_job_order.status.completed', compact('job_orders'));
+        return view('company.external_job_order.status.completed', compact('job_orders'));
     }
 
     public function delivered (){
@@ -655,7 +655,7 @@ class ExternalJobOrderController extends Controller
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Delivered')->get();
         }
-        return view('external_job_order.status.delivered', compact('job_orders'));
+        return view('company.external_job_order.status.delivered', compact('job_orders'));
     }
 
 

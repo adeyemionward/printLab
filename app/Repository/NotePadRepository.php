@@ -67,7 +67,7 @@
                 $job_order->save();
 
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
-                JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $amount_paid, $payment_type, $order_date, $user->id);
+                JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
             }catch(\Exception $th){
@@ -130,7 +130,7 @@
                 $job_order->job_location_id     = $location;
                 $job_order->save();
 
-                JobPaymentHistory::saveJobPaymentHistory($id, $customer_id, $amount_paid, $payment_type, $order_date, $user->id);
+                JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
             }catch(\Exception $th){
