@@ -24,7 +24,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 {{-- <script nonce="3266048e-d3c3-4011-98d7-9dde4087e878">(function(w,d){!function(L,M,N,O){L[N]=L[N]||{};L[N].executed=[];L.zaraz={deferred:[],listeners:[]};L.zaraz.q=[];L.zaraz._f=function(P){return async function(){var Q=Array.prototype.slice.call(arguments);L.zaraz.q.push({m:P,a:Q})}};for(const R of["track","set","debug"])L.zaraz[R]=L.zaraz._f(R);L.zaraz.init=()=>{var S=M.getElementsByTagName(O)[0],T=M.createElement(O),U=M.getElementsByTagName("title")[0];U&&(L[N].t=M.getElementsByTagName("title")[0].text);L[N].x=Math.random();L[N].w=L.screen.width;L[N].h=L.screen.height;L[N].j=L.innerHeight;L[N].e=L.innerWidth;L[N].l=L.location.href;L[N].r=M.referrer;L[N].k=L.screen.colorDepth;L[N].n=M.characterSet;L[N].o=(new Date).getTimezoneOffset();if(L.dataLayer)for(const Y of Object.entries(Object.entries(dataLayer).reduce(((Z,$)=>({...Z[1],...$[1]})),{})))zaraz.set(Y[0],Y[1],{scope:"page"});L[N].q=[];for(;L.zaraz.q.length;){const ba=L.zaraz.q.shift();L[N].q.push(ba)}T.defer=!0;for(const bb of[localStorage,sessionStorage])Object.keys(bb||{}).filter((bd=>bd.startsWith("_zaraz_"))).forEach((bc=>{try{L[N]["z_"+bc.slice(7)]=JSON.parse(bb.getItem(bc))}catch{L[N]["z_"+bc.slice(7)]=bb.getItem(bc)}}));T.referrerPolicy="origin";T.src="../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(L[N])));S.parentNode.insertBefore(T,S)};["complete","interactive"].includes(M.readyState)?zaraz.init():L.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head> --}}
 <body>
-
+<style>
+    body{
+        background: rgb(255, 253, 253)
+    }
+</style>
 <div id="preloader-active">
 <div class="preloader d-flex align-items-center justify-content-center">
 <div class="preloader-inner position-relative">
@@ -163,120 +167,80 @@ a span:hover{
 <main>
     @yield('content')
 
-
     <footer>
         <div class="footer-wrapper gray-bg">
         <div class="footer-area footer-padding">
-
-        <section class="subscribe-area">
-        <div class="container">
-        <div class="row justify-content-between subscribe-padding">
-        <div class="col-xxl-3 col-xl-3 col-lg-4">
-        <div class="subscribe-caption">
-        <h3>Subscribe Newsletter</h3>
-        <p>Subscribe newsletter to get 5% on all products.</p>
-        </div>
-        </div>
-        <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-9">
-        <div class="subscribe-caption">
-        <form action="#">
-        <input type="text" placeholder="Enter your email">
-        <button class="subscribe-btn">Subscribe</button>
-        </form>
-        </div>
-        </div>
-        <div class="col-xxl-2 col-xl-2 col-lg-4">
-
-        <div class="footer-social">
-        <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-        </div>
-        </div>
-        </div>
-        </section>
-
+    
+    
+    
         <div class="container">
         <div class="row justify-content-between">
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
         <div class="single-footer-caption mb-50">
         <div class="single-footer-caption mb-20">
-
+    
         <div class="footer-logo mb-35">
-        <a href="index-2.html"><img src="assets/img/logo/logo2_footer.png" alt></a>
+        <a href="{{route('index')}}"><img src="{{asset('img/printlab.PNG')}}" style="width: 200px;" alt></a>
+        <p style="color:#BBB9B5">
+            At PrintSoft, we are passionate about simplifying the printing process for businesses and individuals alike. 
+            Our mission is to provide innovative printing solutions that streamline workflows, enhance efficiency, 
+            and deliver exceptional results.
+        </p>
         </div>
         </div>
         </div>
         </div>
-        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
         <div class="single-footer-caption mb-50">
         <div class="footer-tittle">
-        <h4>Shop Men</h4>
+        <h4>Products</h4>
         <ul>
-        <li><a href="#">Clothing Fashion</a></li>
-        <li><a href="#">Winter</a></li>
-        <li><a href="#">Summer</a></li>
-        <li><a href="#">Formal</a></li>
-        <li><a href="#">Casual</a></li>
+        <li><a href="{{route('product_categories','Higher_Education')}}">Higher Eduaction</a></li>
+        <li><a href="{{route('product_categories','Eighty_Leaves')}}">Eighty Leaves</a></li>
+        <li><a href="{{route('product_categories', 'Forty_Leaves')}}">Forty Leaves</a></li>
+        <li><a href="{{route('product_categories','Twenty_Leaves')}}">Twenty Leaves</a></li>
         </ul>
         </div>
         </div>
         </div>
-        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
-        <div class="single-footer-caption mb-50">
-        <div class="footer-tittle">
-        <h4>Shop Women</h4>
-        <ul>
-        <li><a href="#">Clothing Fashion</a></li>
-        <li><a href="#">Winter</a></li>
-        <li><a href="#">Summer</a></li>
-        <li><a href="#">Formal</a></li>
-        <li><a href="#">Casual</a></li>
-        </ul>
-        </div>
-        </div>
-        </div>
-        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
-        <div class="single-footer-caption mb-50">
-        <div class="footer-tittle">
-        <h4>Baby Collection</h4>
-        <ul>
-        <li><a href="#">Clothing Fashion</a></li>
-        <li><a href="#">Winter</a></li>
-        <li><a href="#">Summer</a></li>
-        <li><a href="#">Formal</a></li>
-        <li><a href="#">Casual</a></li>
-        </ul>
-        </div>
-        </div>
-        </div>
-        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
         <div class="single-footer-caption mb-50">
         <div class="footer-tittle">
         <h4>Quick Links</h4>
         <ul>
-        <li><a href="#">Track Your Order</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Carrier</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
+        <li><a href="{{route('contact.index')}}">Contact</a></li>
+        <li><a href="{{route('login')}}">Login</a></li>
+        <li><a href="{{route('register')}}">Create Customer Account</a></li>
         </ul>
         </div>
         </div>
         </div>
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+            <div class="single-footer-caption mb-50">
+                <div class="footer-tittle">
+                    <h4>Contact</h4>
+                    <ul style="color: #BBB9B5">
+                        <li><b style="color: #fff">Lagos:</b> 14 Akinremi street, Anifowoshe, Ikeja</li>
+                        <li><b style="color: #fff">Warri:</b> 1 Melcurt Road, off Opeta/Okpaka Road, by Ferobas Company, Udu, Warri,</li>
+                        <li>Phone: 08035777226</li>
+                        <li>Email: info@printlabs.com.ng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
         </div>
         </div>
         </div>
-
+    
         <div class="footer-bottom-area">
         <div class="container">
         <div class="footer-border">
         <div class="row">
         <div class="col-xl-12 ">
         <div class="footer-copy-right text-center">
-        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | PrintSoft</p>
+        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </p>
         </div>
         </div>
         </div>
@@ -284,7 +248,7 @@ a span:hover{
         </div>
         </div>
         </div>
-        </footer>
+    </footer>
 
 <div id="back-top">
 <a class="wrapper" title="Go to Top" href="#">
