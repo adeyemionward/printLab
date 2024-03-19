@@ -14,7 +14,7 @@
 
         public function postColorLogo($data){
             DB::beginTransaction();
-            try{
+            //try{
 
                 $fileName = $data->file('site_logo');
                 if ($data->hasFile('site_logo')) {
@@ -35,10 +35,10 @@
                 );
                 DB::commit();
 
-            }catch(\Exception $th){
-                DB::rollBack();
-                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            }
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            // }
             return redirect(route('company.settings.site.color_logo'))->with('flash_success','Logo and color added successfully');
         }
     }

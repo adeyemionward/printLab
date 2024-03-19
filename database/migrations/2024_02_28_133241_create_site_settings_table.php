@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->string('site_logo1')->nullable();
 
-            $table->foreignId('site_theme_id')->constrained('site_themes')->nullable();
+            $table->foreignId('site_theme_id')->nullable()->constrained('site_themes');
 
             $table->string('hero_text')->nullable();
 

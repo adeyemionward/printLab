@@ -71,7 +71,7 @@
                                                                                 
                                                                                 <div class="row row align-items-center">
                                                                                     <div class="col-md-8">
-                                                                                        <input type="radio" style="display: inline-block; width: 24px; height: 24px;" required name="theme_id" class="{{ $errors->has('theme_id') ? ' is-invalid' : '' }}" {{$theme->id == $site_theme->site_theme_id ? 'checked' : ''}} value="{{$theme->id}}">
+                                                                                        <input type="radio" style="display: inline-block; width: 24px; height: 24px;" required name="theme_id" class="{{ $errors->has('theme_id') ? ' is-invalid' : '' }}" {{@$theme->id == @$site_theme->site_theme_id ? 'checked' : ''}} value="{{$theme->id}}">
                                                                                         <span class="ml-2">{{$theme->name}}</span>
                                                                                     </div>
                                                                                     <div class="col-md-4">
