@@ -300,7 +300,7 @@ Route::get('/invoice', function () {
 // });
 
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin'],  function () {
+Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
     Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
         Route::middleware(['checkRole:1'])->group(function () {
             Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
