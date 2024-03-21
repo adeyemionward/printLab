@@ -16,6 +16,7 @@ use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
 use App\Mail\SendContactFormEmail;
+use App\Mail\SendSubscriptionEmail;
 use Hash;
 use Illuminate\Support\Facades\DB;
 use App\Services\CheckoutService;
@@ -23,6 +24,8 @@ use App\Services\CheckoutService;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+
+use Illuminate\Support\Facades\Session;
 // use Google\Recaptcha\Recaptcha;
 class FrontPageController extends Controller
 {
@@ -326,6 +329,7 @@ class FrontPageController extends Controller
     public function contact()
     {
         $cartCount = $this->countCart();
+        
         return view('front.contact.index',compact('cartCount'));
     }
 
@@ -358,6 +362,47 @@ class FrontPageController extends Controller
         }catch(\Throwable $th){
             return response()->json([ [5] ]);
         }
+
+    }
+
+    public function subscription()
+    {
+        $cartCount = $this->countCart();
+        $email = Session::get('email');
+        $name = Session::get('name');
+        return view('front.subscription.index',compact('cartCount', 'email', 'name'));
+    }
+
+    public function postSubscription(Request $request)
+    {
+        //try{
+            $validator = Validator::make($request->all(), [
+                'payment_plan' => 'required',
+                'payment_mode' => 'required',
+            ]);
+
+            if(!$validator->passes()){
+                return response()->json([
+                    'status'=>0,
+                    'error'=>$validator->errors()->toArray()
+                ]);
+            }
+
+            $data = [
+                'email'         =>  Session::get('email'),
+                'name'          =>  Session::get('name'),
+                'payment_plan'  =>  request('payment_plan'),
+                'payment_mode'  =>  request('payment_mode'),
+                'bank_name'     =>  'UBA', 
+                'account_no'    =>  '123456789',
+                'account_name'  =>  'JOSHUA DELINA',
+            ];
+           
+            $send_mail = Mail::to($data['email'])->send(new SendSubscriptionEmail ($data));
+            return redirect(route('subscription.index'))->with('flash_success','Successful request. Please check your email');
+        // }catch(\Throwable $th){
+        //     return response()->json([ [5] ]);
+        // }
 
     }
 

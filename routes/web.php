@@ -412,6 +412,11 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
             Route::post('/', 'FrontPageController@postContact')->name('post');
         });
 
+        Route::group(['prefix' => '/subscription', 'as' => 'subscription.'], function () {
+            Route::get('/', 'FrontPageController@subscription')->name('index');
+            Route::post('/', 'FrontPageController@postSubscription')->name('post');
+        });
+
         Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {
             Route::get('/', 'FrontPageController@profile')->name('index');
             Route::post('/', 'FrontPageController@updateProfile')->name('post');

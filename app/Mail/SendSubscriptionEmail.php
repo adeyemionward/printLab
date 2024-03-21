@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendContactFormEmail extends Mailable
+class SendSubscriptionEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,18 +19,10 @@ class SendContactFormEmail extends Mailable
      * @return void
      */
 
-    public $name;
-    public $email;
-    public $phone;
-    public $title;
-    public $messagetext;
-    public function __construct($name, $email, $phone, $title, $messagetext)
+    public $data;
+    public function __construct($data)
     {
-        $this->name         = $name;
-        $this->email        = $email;
-        $this->phone        = $phone;
-        $this->title      = $title;
-        $this->messagetext      = $messagetext;
+        $this->data         = $data;
     }
 
     /**
@@ -41,7 +33,7 @@ class SendContactFormEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'A New Message From a Customer',
+            subject: 'Subscription Email ',
         );
     }
 
@@ -49,13 +41,15 @@ class SendContactFormEmail extends Mailable
 
     public function build()
     {
-        return $this->view('mail.contactmail')
+        return $this->view('mail.subscriptionmail')
                     ->with([
-                        'name'      => $this->name,
-                        'phone'     => $this->phone,
-                        'email'     => $this->email,
-                        'title'     => $this->title,
-                        'messagetext'   => $this->messagetext,
+                        'name'              =>  $this->data['name'],
+                        'email'             =>  $this->data['email'],
+                        'payment_mode'      =>  $this->data['payment_mode'],
+                        'payment_plan'      =>  $this->data['payment_plan'],
+                        'bank_name'         =>  $this->data['bank_name'],
+                        'account_name'      =>  $this->data['account_name'],
+                        'account_no'        =>  $this->data['account_no'],
                     ]);
     }
 

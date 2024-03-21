@@ -7,6 +7,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
     use Spatie\Permission\Models\Role;
+    use Illuminate\Support\Facades\Session;
     class RegisterService
     {
         public function postCompany($data){
@@ -23,7 +24,7 @@
                 $company->country          = request('country');
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
-                $company->status           = request('status');
+                $company->status           = Company::INACTIVE;
 
                 $company->save();
 
@@ -36,7 +37,10 @@
                 $input['lastname']      = $input['lastname'];
                 $input['remember_token'] = urlencode(Hash::make(time() . request('email')));
                 $companyUser = User::create($input);
-                $companyUser->assignRole('admin');
+                $companyUser->assignRole('admin'); 
+                
+                Session::put('name', request('company_name'));
+                Session::put('email', request('email'));
 
                 //$user_cred  =  $request->only('email', 'password');
                 DB::commit();

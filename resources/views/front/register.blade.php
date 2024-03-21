@@ -379,7 +379,7 @@ form .btn input[type="submit"] {
                 if(data == 1){
                     toastr.success("Registration Successful");
                     setInterval(function(){
-                            alert('success');
+                        window.location.replace('{{route("subscription.index")}}');
                     },2000)
 
                 }else if (data == 5){
