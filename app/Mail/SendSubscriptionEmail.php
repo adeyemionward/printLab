@@ -20,9 +20,11 @@ class SendSubscriptionEmail extends Mailable
      */
 
     public $data;
-    public function __construct($data)
+    public $banks;
+    public function __construct($data, $banks)
     {
         $this->data         = $data;
+        $this->banks         = $banks;
     }
 
     /**
@@ -47,9 +49,7 @@ class SendSubscriptionEmail extends Mailable
                         'email'             =>  $this->data['email'],
                         'payment_mode'      =>  $this->data['payment_mode'],
                         'payment_plan'      =>  $this->data['payment_plan'],
-                        'bank_name'         =>  $this->data['bank_name'],
-                        'account_name'      =>  $this->data['account_name'],
-                        'account_no'        =>  $this->data['account_no'],
+                        'banks'             =>  $this->banks,
                     ]);
     }
 

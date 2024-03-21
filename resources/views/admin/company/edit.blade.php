@@ -73,7 +73,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="city">City:</label>
                                                                             <input type="text" name="city" id="city" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{$company->city}}">
-                                                                            @error('password')
+                                                                            @error('city')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -81,7 +81,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="state">State:</label>
                                                                             <input type="text" name="state" id="state" class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" value="{{$company->state}}">
-                                                                            @error('password')
+                                                                            @error('state')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -89,7 +89,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="country">Country:</label>
                                                                             <input type="text" name="country" id="country" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" value="{{$company->country}}">
-                                                                            @error('password')
+                                                                            @error('country')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -100,17 +100,37 @@
                                                                                 <option value="active"      <?php  if($company->status  ==   'active')   echo 'selected'?>>Active</option>
                                                                                 <option value="inactive"    <?php  if($company->status  ==   'inactive') echo 'selected'?>>Inactive</option>
                                                                             </select>
-                                                                            @error('gender')
+                                                                            @error('status')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
-                                                                        </div>  
+                                                                        </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="subdomain">Company Subdomain:</label>
+                                                                            <input type="text" name="subdomain" id="subdomain" class="form-control{{ $errors->has('subdomain') ? ' is-invalid' : '' }}" value="{{$company->subdomain}}">
+                                                                            @error('subdomain')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="sub_amount">Subscription Plan:</label>
+                                                                            <select name="sub_plan" id="" class="form-select form-control{{ $errors->has('sub_plan') ? ' is-invalid' : '' }}" >
+                                                                                <option value="Quaterly"    <?php  if($company->plan  ==   'Quaterly')  echo 'selected'?>>Quaterly</option>
+                                                                                <option value="Bi-Annual"   <?php  if($company->plan  ==   'Bi-Annual') echo 'selected'?>>Bi-Annual</option>
+                                                                                <option value="Annual"      <?php  if($company->plan  ==   'Annual')    echo 'selected'?>>Annual</option>
+                                                                            </select>
+                                                                            @error('sub_plan')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_amount">Subscription Amount:</label>
                                                                             <input type="text" name="sub_amount" id="sub_amount" class="form-control{{ $errors->has('sub_amount') ? ' is-invalid' : '' }}" value="{{$company->sub_amount}}">
                                                                             @error('sub_amount')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
-                                                                        </div>
+                                                                        </div> --}}
+                                                                        
                         
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_start_date">Start Date:</label>

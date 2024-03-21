@@ -73,9 +73,12 @@
 <div class="media contact-info">
 <span class="contact-info__icon"><i class="ti-home"></i></span>
 <div class="media-body">
-<h3>Bank Name: xxxxxxxxx</h3> <br>
-<h3> Bank Acount: xxxxxxxx</h3><br>
-<h3> Bank Acount Name: xxxxxxxx</h3> <br>
+@foreach ($banks as $bank)
+        
+<h3>Bank Name: <b>{{$bank->bank_name ?? 'None'}} </b> </h3> <br>
+<h3> Bank Acount: <b>{{$bank->account_no ?? 'None'}} </b></h3> <br>
+<h3> Bank Acount Name: <b> {{$bank->account_name ?? 'None'}} </b></h3> <br>
+@endforeach
 
 </div>
 </div>

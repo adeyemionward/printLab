@@ -135,10 +135,22 @@
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_amount">Subscription Amount:</label>
                                                                             <input type="text" name="sub_amount" id="sub_amount" class="form-control{{ $errors->has('sub_amount') ? ' is-invalid' : '' }}" value="{{ old('sub_amount') }}">
                                                                             @error('sub_amount')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div> --}}
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="sub_amount">Subscription Plan:</label>
+                                                                            <select name="sub_plan" id="" class="form-select form-control{{ $errors->has('sub_plan') ? ' is-invalid' : '' }}" >
+                                                                                <option value="Quaterly">Quaterly</option>
+                                                                                <option value="Bi-Annual">Bi-Annual</option>
+                                                                                <option value="Annual">Annual</option>
+                                                                            </select>
+                                                                            @error('sub_plan')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>

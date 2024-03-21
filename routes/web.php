@@ -333,6 +333,24 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
                     Route::get('/edit/{id}', 'SettingController@edit_theme')->name('edit_theme');
                     Route::post('/edit/{id}', 'SettingController@update_theme')->name('edit_theme');
                     Route::get('/delete/{id}', 'SettingController@delete_theme')->name('delete_theme');
+
+                });
+
+                Route::group(['prefix' => '/subscription', 'as' => 'subscription.'], function () {
+                    Route::get('/list', 'SettingController@list_subscription')->name('list_subscription');
+                    Route::get('/add', 'SettingController@create_subscription')->name('create_subscription');
+                    Route::post('/add', 'SettingController@store_subscription')->name('create_subscription');
+                    Route::get('/edit/{id}', 'SettingController@edit_subscription')->name('edit_subscription');
+                    Route::post('/edit/{id}', 'SettingController@update_subscription')->name('edit_subscription');
+                    Route::get('/delete/{id}', 'SettingController@delete_subscription')->name('delete_subscription');
+                });
+                Route::group(['prefix' => '/bank', 'as' => 'bank.'], function () {
+                    Route::get('/list', 'SettingController@list_bankaccount')->name('list_bankaccount');
+                    Route::get('/add', 'SettingController@create_bankaccount')->name('create_bankaccount');
+                    Route::post('/add', 'SettingController@store_bankaccount')->name('create_bankaccount');
+                    Route::get('/edit/{id}', 'SettingController@edit_bankaccount')->name('edit_bankaccount');
+                    Route::post('/edit/{id}', 'SettingController@update_bankaccount')->name('edit_bankaccount');
+                    Route::get('/delete/{id}', 'SettingController@delete_bankaccount')->name('delete_bankaccount');
                 });
             });
 

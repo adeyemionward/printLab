@@ -107,6 +107,16 @@
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">List Theme</span>
                                 </a>
+
+								<a href="{{route('admin.settings.subscription.create_subscription')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Subscription Plan</span>
+                                </a>
+
+                                <a href="{{route('admin.settings.bank.create_bankaccount')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Bank Details</span>
+                                </a>
 							</div>
 						</div>
 					</li>
@@ -192,6 +202,8 @@
 										aria-labelledby="navbarDropdownMenuLink1">
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.create_theme')}}">Add Theme </a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.list_theme')}}">List Theme </a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.subscription.create_subscription')}}">Add Subscription </a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.bank.create_bankaccount')}}">Bank Details </a></li>
 
 									</ul>
 								</li>

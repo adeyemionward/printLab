@@ -12,6 +12,7 @@ use App\Models\ProductCost;
 use App\Models\Cart;
 use App\Models\Company;
 use App\Models\Testimonial;
+use App\Models\BankAccount;
 use App\Models\OrderApprovedDesign;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomerOrderReceipt;
@@ -351,10 +352,10 @@ class FrontPageController extends Controller
                 ]);
             }
 
-            $name       = request('name');
-            $email      = request('email');
-            $phone      = request('phone');
-            $title    = request('subject');
+            $name           = request('name');
+            $email          = request('email');
+            $phone          = request('phone');
+            $title          = request('subject');
             $messagetext    = request('message');
 
             $send_mail = Mail::to('info@printlabs.com.ng')->send(new SendContactFormEmail ($name, $email, $phone, $title, $messagetext));
@@ -370,7 +371,8 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         $email = Session::get('email');
         $name = Session::get('name');
-        return view('front.subscription.index',compact('cartCount', 'email', 'name'));
+        $banks = BankAccount::all();
+        return view('front.subscription.index',compact('cartCount', 'email', 'name','banks'));
     }
 
     public function postSubscription(Request $request)
@@ -387,18 +389,16 @@ class FrontPageController extends Controller
                     'error'=>$validator->errors()->toArray()
                 ]);
             }
-
+            $banks = BankAccount::all();
+            
             $data = [
                 'email'         =>  Session::get('email'),
                 'name'          =>  Session::get('name'),
                 'payment_plan'  =>  request('payment_plan'),
                 'payment_mode'  =>  request('payment_mode'),
-                'bank_name'     =>  'UBA', 
-                'account_no'    =>  '123456789',
-                'account_name'  =>  'JOSHUA DELINA',
             ];
            
-            $send_mail = Mail::to($data['email'])->send(new SendSubscriptionEmail ($data));
+            $send_mail = Mail::to($data['email'])->send(new SendSubscriptionEmail ($data,  $banks));
             return redirect(route('subscription.index'))->with('flash_success','Successful request. Please check your email');
         // }catch(\Throwable $th){
         //     return response()->json([ [5] ]);

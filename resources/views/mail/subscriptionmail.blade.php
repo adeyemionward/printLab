@@ -158,15 +158,19 @@
 						<h2 style=" font-weight: 400; padding-left: 30px; color:red ">
               				Bank Account Details
 						</h2>
-                        <tr>
-                            <td style="font-weight: 600; padding-top: 10px;">Bank Name: {{$bank_name}}</td>
-						</tr>
-                        <tr>
-                            <td style="font-weight: 600; padding-top: 20px;">Bank Account No: {{$account_no}}</td>
-						</tr>
-                        <tr>
-                            <td style="font-weight: 600; padding-top: 20px;">Bank Account Name: {{$account_name}}</td>
-						</tr>
+                        @foreach ($banks as $bank)
+                            <tr>
+                                <td style="font-weight: 600; padding-top: 10px;">Bank Name: {{$bank->bank_name}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600; padding-top: 20px;">Bank Account No: {{$bank->account_no}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600; padding-top: 20px;">Bank Account Name: {{$bank->account_name}}</td>
+                            </tr>
+                        </hr>
+                        @endforeach
+                       
 					</table>
 				</td>
 			</tr>
