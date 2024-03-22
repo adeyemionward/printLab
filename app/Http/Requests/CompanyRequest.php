@@ -32,12 +32,13 @@ class CompanyRequest extends FormRequest
             'name'          => 'required|string',
             'contactperson' => 'required|string',
             'phone'         => 'required|string',
+            'subdomain'     => 'required|string',
             'email'         => 'required|string|email|max:255|unique:users',
-            // 'password'      => 'required|string',
+            'password'      => 'required|string',
             'city'          => 'string',
             'state'         => 'string',
             'country'       => 'string',
-            'status'       => 'required|string',
+            'status'        => 'required|string',
             'address'       => 'required|string',
         ];
     }
@@ -47,9 +48,10 @@ class CompanyRequest extends FormRequest
         return [
             'name.required' => 'Please enter company name.',
             'contactperson.required' => 'Please enter company contactperson.',
+            'subdomain.required' => 'Please enter subdomain.',
             'email.required' => 'Please enter company email address.',
             'email.email' => 'Please enter a valid email address.',
-            // 'password.required' => 'Please enter a password.',
+            'password.required' => 'Please enter a password.',
             'city.string' => 'Please enter city.',
             'state.string' => 'Please enter state.',
             'country.string' => 'Please enter country.',

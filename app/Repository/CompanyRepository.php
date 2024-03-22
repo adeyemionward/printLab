@@ -4,6 +4,7 @@
     use App\Models\Company;
     use App\Models\User;
     use App\Models\Subscription;
+    use App\Models\SubscriptionPlan;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
@@ -12,8 +13,9 @@
     {
         public function postCompany($data){
             DB::beginTransaction();
-           // try{
+            try{
                 //save company
+                $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
                 $company = new Company();
                 $company->name             = request('name');
                 $company->contactperson    = request('contactperson');
@@ -25,11 +27,13 @@
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
                 $company->status           = request('status');
-
-                $company->sub_amount       = request('sub_amount');
+                $company->plan             = request('subscription_plan');
+                $company->sub_amount       = $sub_plan->amount ?? 0;
                 $company->sub_start_date   = request('sub_start_date');
                 $company->sub_end_date     = request('sub_end_date');
 
+                $getDomain  =  Company::where('subdomain', request('subdomain'))->first();
+                if(!is_null($getDomain)) return redirect()->back()->with('flash_error','Subdomain alresy exists');
                 $company->save();
 
                 //save user
@@ -55,18 +59,19 @@
 
                 DB::commit();
 
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            // }
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
             return redirect(route('admin.company.list'))->with('flash_success','Company added successfully');
         }
 
         public function updateCompany($data){
             DB::beginTransaction();
-           // try{
+            try{
+                $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
                 $id = request()->id;
-                 $company = Company::find($id);
+                $company = Company::find($id);
                 $company->name             = request('name');
                 $company->contactperson    = request('contactperson');
                 $company->email            = request('email');
@@ -77,19 +82,28 @@
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
                 $company->status           = request('status');
-
-                $company->sub_amount       = request('sub_amount');
+                $company->plan             = request('subscription_plan');
+                $company->sub_amount       = $sub_plan->amount ?? 0;
                 $company->sub_start_date   = request('sub_start_date');
                 $company->sub_end_date     = request('sub_end_date');
                 $company->save();
 
                 DB::commit();
+                $getDomain = Company::where('subdomain', request('subdomain'))
+                    ->whereNotIn('id', [$id])
+                    ->first();
+                if(!is_null($getDomain)) return redirect()->back()->with('flash_error','Subdomain already exists');
 
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            // }
-            return redirect(route('admin.company.list'))->with('flash_success','Company details updated successfully');
+                $getEmail = Company::where('email', request('email'))
+                    ->whereNotIn('id', [$id])
+                    ->first();
+                if(!is_null($getEmail)) return redirect()->back()->with('flash_error','Email already exists');
+                $company->save();
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
+            return redirect(route('admin.company.view',$id))->with('flash_success','Company details updated successfully');
         }
 
         public function companyStatus($status){
@@ -102,7 +116,7 @@
                  $company->save();
 
             }catch(\Exception $th){
-                //return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
 
         }

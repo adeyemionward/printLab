@@ -87,7 +87,7 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="country">Country:</label>
+                                                                            <label  for="country">Country:</label>
                                                                             <input type="text" name="country" id="country" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" value="{{ old('country') }}">
                                                                             @error('country')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -145,27 +145,28 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_amount">Subscription Plan:</label>
-                                                                            <select name="sub_plan" id="" class="form-select form-control{{ $errors->has('sub_plan') ? ' is-invalid' : '' }}" >
-                                                                                <option value="Quaterly">Quaterly</option>
-                                                                                <option value="Bi-Annual">Bi-Annual</option>
-                                                                                <option value="Annual">Annual</option>
+                                                                            <select required name="subscription_plan" id="" class="form-select form-control{{ $errors->has('subscription_plan') ? ' is-invalid' : '' }}" >
+                                                                                <option value="">Select Subscription Plan</option>
+                                                                                @foreach ($subs as $val)
+                                                                                    <option value="{{$val->name}}">{{$val->name.'----'.$val->amount}}</option>
+                                                                                @endforeach
                                                                             </select>
-                                                                            @error('sub_plan')
+                                                                            @error('subscription_plan')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
-                        
+
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_start_date">Start Date:</label>
-                                                                            <input type="date" name="sub_start_date" id="sub_start_date" class="form-control{{ $errors->has('sub_start_date') ? ' is-invalid' : '' }}" value="{{ old('sub_start_date') }}">
+                                                                            <input required type="date" name="sub_start_date" id="sub_start_date" class="form-control{{ $errors->has('sub_start_date') ? ' is-invalid' : '' }}" value="{{ old('sub_start_date') }}">
                                                                             @error('sub_start_date')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
-                        
+
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_end_date">End Date:</label>
-                                                                            <input type="date" name="sub_end_date" id="sub_end_date" class="form-control{{ $errors->has('sub_end_date') ? ' is-invalid' : '' }}" value="{{ old('sub_end_date') }}">
+                                                                            <input required type="date" name="sub_end_date" id="sub_end_date" class="form-control{{ $errors->has('sub_end_date') ? ' is-invalid' : '' }}" value="{{ old('sub_end_date') }}">
                                                                             @error('sub_end_date')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -177,7 +178,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-12">
                                                                             <label for="address">Address
                                                                                 </label>
-                                                                                <textarea name="address"  class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" value="{{ old('address') }}"
+                                                                                <textarea required name="address"  class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" value="{{ old('address') }}"
                                                                                 id="address"></textarea>
                                                                                 @error('address')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>

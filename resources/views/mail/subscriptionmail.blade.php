@@ -153,12 +153,11 @@
             <br>
             <tr>
 				<td>
-                     <br>
 					<table style="padding-left: 30px;" width="100%">
 						<h2 style=" font-weight: 400; padding-left: 30px; color:red ">
               				Bank Account Details
 						</h2>
-                        {{-- @if (!is_null($banks) && (is_array($banks) || is_object($banks))) --}}
+                        @if (!is_null($banks) && (is_array($banks) || is_object($banks)))
                             @forelse ($banks as $bank)
                                 <tr>
                                     <td style="font-weight: 600; padding-top: 10px;">Bank Name: {{$bank->bank_name}}</td>
@@ -175,10 +174,10 @@
                                 </tr>
                             </hr>
                             @endforelse
-                        {{-- @else
+                        @else
                             <!-- This content will be displayed if $banks is null or not an array/object -->
                             <tr><td>No banks found</td></tr>
-                        @endif --}}
+                        @endif
 
 					</table>
 				</td>

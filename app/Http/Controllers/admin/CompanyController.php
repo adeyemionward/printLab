@@ -9,11 +9,12 @@ use App\Http\Requests\CompanyUpdateRequest;
 use App\Repository\CompanyRepository;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\SubscriptionPlan;
 use Spatie\Permission\Models\Role;
 
 class CompanyController extends Controller
 {
-   
+
     private $companyRepository;
     public function __construct(CompanyRepository $companyRepository)
     {
@@ -35,7 +36,8 @@ class CompanyController extends Controller
     public function create()
     {
         $roles =  Role::all();
-        return view('admin.company.add', compact('roles'));
+        $subs  = SubscriptionPlan::all();
+        return view('admin.company.add', compact('roles','subs'));
     }
 
     public function store(CompanyRequest $request)
@@ -43,21 +45,22 @@ class CompanyController extends Controller
         return $response = $this->companyRepository->postCompany($request);
     }
 
-    
+
     public function show($id)
     {
         $company = $this->find_company($id);
         return view('admin.company.view',compact('company'));
     }
 
-    
+
     public function edit($id)
     {
         $company = $this->find_company($id);
-        return view('admin.company.edit',compact('company'));
+        $subs  = SubscriptionPlan::all();
+        return view('admin.company.edit',compact('company','subs'));
     }
 
-    
+
     public function update(CompanyUpdateRequest $request, $id)
     {
         return $response = $this->companyRepository->updateCompany($request);
