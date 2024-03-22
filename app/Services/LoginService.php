@@ -22,7 +22,7 @@
 
             if($company_details->status == 'inactive') return response()->json([ [9] ]); //acount is inactive
 
-            if($company_details->plan == null) return response()->json([ [15] ]); //plan is empty
+            //if($company_details->plan == null) return response()->json([ [15] ]); //plan is empty
 
             if($company_details->sub_end_date < $today ) return response()->json([ [10] ]); // subscription expired
 

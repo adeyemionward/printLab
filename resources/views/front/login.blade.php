@@ -328,12 +328,6 @@ form .btn input[type="submit"] {
                     $('#loginBtn').css('cursor', 'pointer');
                     $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
 
-                }else if(data == 15){
-                    toastr.error("Error occured: You have no active plan");
-                    $("#loginBtn").attr('disabled',false);
-                    $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
-
                 }else if (data == 12){
                     toastr.success("Login Successful");
                     setInterval(function(){ //customer dashboard login
