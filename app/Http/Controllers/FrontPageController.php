@@ -330,7 +330,7 @@ class FrontPageController extends Controller
     public function contact()
     {
         $cartCount = $this->countCart();
-        
+
         return view('front.contact.index',compact('cartCount'));
     }
 
@@ -377,7 +377,7 @@ class FrontPageController extends Controller
 
     public function postSubscription(Request $request)
     {
-        //try{
+        try{
             $validator = Validator::make($request->all(), [
                 'payment_plan' => 'required',
                 'payment_mode' => 'required',
@@ -390,19 +390,19 @@ class FrontPageController extends Controller
                 ]);
             }
             $banks = BankAccount::all();
-            
+
             $data = [
                 'email'         =>  Session::get('email'),
                 'name'          =>  Session::get('name'),
                 'payment_plan'  =>  request('payment_plan'),
                 'payment_mode'  =>  request('payment_mode'),
             ];
-           
-            $send_mail = Mail::to($data['email'])->send(new SendSubscriptionEmail ($data,  $banks));
+
+            $send_mail = Mail::to('adekunleadex173@gmail.com')->send(new SendSubscriptionEmail ($data,  $banks));
             return redirect(route('subscription.index'))->with('flash_success','Successful request. Please check your email');
-        // }catch(\Throwable $th){
-        //     return response()->json([ [5] ]);
-        // }
+        }catch(\Throwable $th){
+            return response()->json([ [5] ]);
+        }
 
     }
 
