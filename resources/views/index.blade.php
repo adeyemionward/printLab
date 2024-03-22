@@ -1,347 +1,303 @@
 @extends('layout.landing_master')
 @section('content')
-@section('title', 'Add Supplier')
+@section('title', 'Home')
 <style>
-@media screen and (min-width: 768px) {
-    .hero1{
-        margin-top: -150px;
+    body{
+        background: rgb(255, 253, 253)
     }
-
-    .more_service{
-        margin-top:-80px;
-    }
-}
-@media screen and (max-width: 768px) {
-
-  .hero-caption{
-    margin-top: 50px;
-  }
-
-  
-  .hero1{
-    margin-top: 60px;
-  }
-
-
-  .latest-items{
+    .bio-img {
     position: relative;
-    top: 80px;
-  }
-  #popular_product_text{
-    padding-left:30px;
-    margin-top: 150px;
-    font-weight: bolder;
-  }
-}
-a.contact_now {
-    background:transparent;
-    padding:20px 40px 20px 40px;
-    font-size:25px;
-    margin-bottom:30px;
-    border:2px solid #FF2020;
 }
 
-a span{
-    color:red;
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity and color as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Text color */
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-a.contact_now:hover {
-    background-color: #e74c3c;
-    color:#fff;
+.bio-img .overlay{
+    opacity: 1;
+}
 
+.overlay-text {
+    font-size: 400px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
-a span:hover{
-    color:#fff;
+
+.sub-title {
+    font-size: 18px;
+    color: green !important
 }
+
+
+
 </style>
-<section class="hero1" >
-<div class="">
-
-<div class=" slider-height d-flex align-items-center">
+<div class="site-blocks-cover" style="overflow: hidden;">
 <div class="container">
-<div class="row">
-<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
-<div class="hero-caption text-center">
-<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-size:45px">Order Your Customized School Notebooks, Corporate Video Profile & Marketing Brochures Here</h1>
-<p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p>
-<a href="#buy_products" style="background-color: #FF2020; border-color: transparent; padding:25px 50px 25px 50px; font-size:25px; margin-top:-80px" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
+<div class="row align-items-center justify-content-center">
+<div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+<img src="{{asset('front/images/hero_2.jpg')}}" alt="Image" style="margin-top: -60px; height:350px"  class="img-fluid img-absolute">
+<div class="row mb-4" data-aos="fade-up" data-aos-delay="200">
+<div class="col-lg-6 mr-auto">
+<h1>Empowering Your Financial Futures</h1>
+<p class="mb-5 lead" style="font-size:22px">Through our innovative daily contribution and cooperative savings solutions, we provide the tools and resources you need to achieve your financial goals.</p>
+<div>
+<a href="{{route('register')}}" class="btn btn-primary mr-2 mb-2">Get Started</a>
 </div>
 </div>
 </div>
 </div>
 </div>
-
-</div>
-</section>
-
-
-
-<div class="latest-items section-padding fix" style="margin-top:-200px">
-<div class="container">
-<div class="row justify-content-between">
-<div class="col-xl-12">
-<div class="nav-button">
-
-<nav>
-<div class="nav-tittle" id="buy_products" style="margin-top:-80px">
-<h2 id="popular_product_text">Popular Products</h2>
-</div>
-<!-- <div class="nav nav-tabs" id="nav-tab" role="tablist">
-<a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">Men</a>
-<a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Women</a>
-<a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false">Baby</a>
-<a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-four" aria-selected="false">Fashion</a>
-</div> -->
-</nav>
-
 </div>
 </div>
-</div>
-</div>
-<div class="container" >
-
-<div class="tab-content" id="nav-tabContent">
-<div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-
-<div class="latest-items-active">
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Higher_Education')}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Higher_Education')}}">Higher Education Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Higher_Education')}}"><span><button class="btn btn-primary">Browse Higher Educat...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Eighty_Leaves')}}"><img src="assets/img/gallery/80-leaves.jpg" style="height: 320px;" alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Eighty_Leaves')}}">80 Leaves Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Eighty_Leaves')}}"><span><button class="btn btn-primary">Browse 80 Leaves...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Forty_Leaves')}}"><img src="assets/img/gallery/40_leaves1.jpg" style="height: 320px;"  alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Forty_Leaves')}}">40 Leaves Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Forty_Leaves')}}"><span><button class="btn btn-primary">Browse 40 Leaves...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="properties pb-30">
-<div class="properties-card">
-<div class="properties-img">
-<a href="{{route('product_categories','Twenty_Leaves')}}"><img src="assets/img/gallery/note20.jpg" style="height: 320px;" alt></a>
-<div class="socal_icon">
-<a href="#"><i class="ti-shopping-cart"></i></a>
-<a href="#"><i class="ti-heart"></i></a>
-<a href="#"><i class="ti-zoom-in"></i></a>
-</div>
-</div>
-<div class="properties-caption properties-caption2">
-<h3><a href="{{route('product_categories','Twenty_Leaves')}}">20 Leaves Note Book</a></h3>
-<div class="properties-footer">
-<div class="price">
-    <a href="{{route('product_categories','Twenty_Leaves')}}"><span><button class="btn btn-primary">Browse 20 Leaves...</button></span></a>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-</div>
-</div>
-
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
-
-<section class="more_service"  >
-
+<div class="site-section" id="features-section" style="margin-top:-150px">
     <div class="container">
+        <div class="row  justify-content-center text-center" >
+            <div class="col-7 text-center  mb-5">
+                <h2 class="section-title">Our Products</h2>
 
-        <div class="col-xl-12" style="display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 20vh;
-        ">
-            <div class="row">
-
-                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8  col-sm-10">
-
-                    <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-weight:300">Contact us for other printing service & corporate video profile</h2>
-
-                </div>
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4  col-sm-10">
-
-                    {{-- <h2 data-animation="bounceIn" data-delay="0.2s" style=" color:#000;">Contact us for other printing service</h2> --}}
-                    <a class="btn_1 hero-btn contact_now"  href="{{route('contact.index')}}" > <span>Contact now</span></a>
-
-                </div>
             </div>
-
         </div>
-    </div>
-
-    </section>
-
-<div class="testimonial-area testimonial-padding">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-10 col-md-11">
-                <div class="h1-testimonial-active">
-                    @forelse ($all_testimonial as $val)
-                        <div class="single-testimonial text-center">
-                            <div class="testimonial-caption ">
-                                <div class="testimonial-top-cap">
-                                    <h2>Customer Testimonial</h2>
-                                    <p>{{$val->description}}</p>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="person">
+                    <div class="bio-img">
+                        <figure>
+                            <img src="{{asset('front/images/daily_savings.jpg')}}" alt="Image" style="height: 350px" class="img-fluid">
+                            <div class="overlay">
+                                <h2 class="overlay-text" style="font-size: 50px">Daily Savings</h2>
+                                <div style="margin-top:50px">
+                                    <a href="{{route('register')}}" class="btn btn-primary mr-2 mb-2">Get Started</a>
                                 </div>
-
-
-
-                                    <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                    <div class="founder-img">
-
-                                        {{-- <div class="founder-img"> --}}
-
-                                            {{-- </div> --}}
-
-                                    @if ( env('APP_ENV') == 'local')
-                                        <img src="{{asset('storage/images/'.$val->image)}}" alt style="height: 100px; width:100px; border-radius:50%">
-                                    @else
-                                        <img src="{{asset('public/storage/images/'.$val->image)}}"  alt="customer_image" style="height: 100px; width:100px; border-radius:50%">
-                                    @endif
-                                    </div>
-                                    <div class="founder-text">
-                                        <span>{{$val->customer->firstname.' '.$val->customer->lastname}}</span>
-                                    {{-- <p>Designer at Colorlib</p> --}}
-                                    </div>
-                                    </div>
                             </div>
-                        </div>
-                    @empty
-
-                    @endforelse
+                        </figure>
+                    </div>
+                    <p class="lead">Whether you're saving for a rainy day, a dream vacation, or a down payment on a home, Daily Savings makes it easy, convenient, and rewarding.
+                        Say hello to a brighter financial future, powered by your daily commitment to financial wellness
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="person">
+                    <div class="bio-img">
+                        <figure>
+                            <img src="{{asset('front/images/coperative_savings.jpg')}}" alt="Image" style="height: 350px" class="img-fluid">
+                            <div class="overlay">
+                                <h2 class="overlay-text" style="font-size: 50px">Cooperative Savings</h2>
+                                <div style="margin-top:50px">
+                                    <a href="{{route('register')}}" class="btn btn-primary mr-2 mb-2">Get Started</a>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                    <p class="lead">Cooperative Savings offers members opportunities for secure, affordable, and inclusive financial services.
+                        Through shared responsibility and mutual support, participants can access competitive interest rates,
+                        flexible savings options, and financial education.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-<div class="categories-area">
+<div class="site-section bg-light" id="about-section">
 <div class="container">
+<div class="row mb-5">
+<div class="col-12 text-center">
+<h2 class="section-title mb-3">Executive Director's Speech During the 3rd Year Anniversary</h2>
+</div>
+</div>
+<div class="row mb-5">
+    <div class="col-lg-6" data-aos="fade-right">
+        <p class="mb-4 lead">
+            My heartfelt well to welcome all guests and members present here today as we are celebrating this year anniversary of our noble society.
+        </p>
+
+        <p class="mb-4 lead">
+            I thank God almighty who made today a reality in the history of our great society. A society that born out of need to fill a vaccum in our lives and in our communities.
+        </p>
+
+        <p class="mb-4 lead">
+           Green Purse is not just a cooperative buta a plus to our world. Green Purse is a God's Agenda for all Psalm 23:2-3. A place of financial rest for all.
+        </p>
+
+        <p class="mb-4 lead">
+            I'm glad to announce the achievement for the past years. We  startted November, 2019 to the glory og God.
+         </p>
+
+    </div>
+    <div class="col-lg-6 ml-auto pl-lg-5">
+       
+       
+         <p class="mb-4 lead">
+            During the past year, we were able to register our name with C.A.C with Rc.No 1659025, and we also put in place our office.
+         </p>
+         <p class="mb-4 lead">
+            Many of our members have enjoined and still enjoying the benefit of loan without interest. And many more to come.
+         </p>
+
+         <p class="mb-4 lead">
+            Green Purse is designed to cater for today and better your tomorrow without any or less burden on you. With Green Purse, your
+            tomorrow without any or less burder on you. With Gren Purse, your future starts rom today. Togetherness and accountability is the
+            motor that is driving us.
+         </p>
+
+         <p class="mb-4 lead">
+            Finally, only yo can go fast, but with togetherness, we can go far.
+         </p>
+
+         <p class="mb-4">
+
+         </p>
+    </div>
+
+
+</div>
+
+<div class="row mb-5">
+    <div class="col-lg-6 ml-auto pl-lg-5">
+        <h2 class="text-black mb-4 h3 font-weight-bold">Our Vision</h2>
+        {{-- <p class="mb-4">Eos cumque optio dolores excepturi rerum temporibus magni recusandae eveniet, totam omnis consectetur maxime quibusdam expedita dolorem dolor nobis dicta labore quaerat esse magnam unde, aperiam delectus! At maiores, itaque.</p> --}}
+        <ul class="ul-check mb-5 list-unstyled success lead">
+        <li>To meet the needs of our membership with no burder</li>
+        <li>To ensure the future financial security of our members</li>
+        <li>To bring about self sustainability development of our members</li>
+        <li>For poverty alleviation in our society</li>
+        </ul>
+        {{-- <p><a href="{{route('register')}}" class="btn btn-primary">Get Started</a></p> --}}
+    </div>
+    <div class="col-lg-6 ml-auto pl-lg-5">
+        <h2 class="text-black mb-4 h3 font-weight-bold">Our Mission</h2>
+        {{-- <p class="mb-4">Eos cumque optio dolores excepturi rerum temporibus magni recusandae eveniet, totam omnis consectetur maxime quibusdam expedita dolorem dolor nobis dicta labore quaerat esse magnam unde, aperiam delectus! At maiores, itaque.</p> --}}
+        <ul class="ul-check mb-5 list-unstyled success lead">
+        <li>Enhancing the savings culture of our members</li>
+        <li>Giving our members of a better tomorrow</li>
+        <li>A plus to our world</li>
+        <li>Better life for all</li>
+        <li>Making our society a better for living</li>
+        </ul>
+        <p><a href="{{route('register')}}" class="btn btn-primary">Get Started</a></p>
+    </div>
+</div>
+</div>
+</div>
+
+    <div class="container">
+
+    </div>
+<div class="site-section" id="our-team-section">
+<div class="container">
+<div class="row mb-5 justify-content-center text-center" data-aos="fade-up">
+<div class="col-7 text-center  mb-5">
+<h2 class="section-title">Our Team</h2>
+<p class="lead">Our team is the heart and soul of our business, who are passionate about helping you succeed</p>
+</div>
+</div>
 <div class="row">
-<div class="col-lg-3 col-md-6 col-sm-6">
-<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".2s">
-<div class="cat-icon">
-<img src="assets/img/icon/services1.svg" alt>
+
+<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+<div class="person">
+<div class="bio-img">
+<figure>
+<img src="{{asset('front/images/person_4.jpg')}}" alt="Image" class="img-fluid">
+</figure>
+
 </div>
-<div class="cat-cap">
-<h5>Attention to Detail</h5>
-<p>
-    We understand that every project is unique. Our team pays meticulous attention to detail,
-    ensuring that every aspect of your
-    service experience is carefully considered and executed to perfection.
-</p>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-md-6 col-sm-6">
-<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".2s">
-<div class="cat-icon">
-<img src="assets/img/icon/services2.svg" alt>
-</div>
-<div class="cat-cap">
-<h5>Professional Expertise</h5>
-<p>
-    With a team of skilled professionals, we bring expertise to the table.
-    From project initiation to completion, you can trust that your requirements are in the hands
-    of seasoned professionals who are committed to delivering the best
-</p>
+<h2 class="text-black h1">Nicolas Stainer</h2>
+<span class="sub-title d-block mb-3">Financing</span>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
 </div>
 </div>
+<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+<div class="person">
+<div class="bio-img">
+<figure>
+<img src="{{asset('front/images/person_5.jpg')}}" alt="Image" class="img-fluid">
+</figure>
+
 </div>
-<div class="col-lg-3 col-md-6 col-sm-6">
-<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".4s">
-<div class="cat-icon">
-<img src="assets/img/icon/services3.svg" alt>
+<h2 class="text-black h1">George Brook</h2>
+<span class="sub-title d-block mb-3">Founder</span>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
 </div>
-<div class="cat-cap">
-<h5>Cutting-Edge Technology</h5>
-<p>
-    We invest in the latest technologies to ensure that our services are at the forefront of industry standards.
-    This commitment allows us to deliver high-quality results efficiently and effectively.
-</p>
+</div>
+<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+<div class="person">
+<div class="bio-img">
+<figure>
+<img src="{{asset('front/images/person_6.jpg')}}" alt="Image" class="img-fluid">
+</figure>
+
+</div>
+<h2 class="text-black h1">Emely Hopson</h2>
+<span class="sub-title d-block mb-3">Marketing</span>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
 </div>
 </div>
 </div>
-<div class="col-lg-3 col-md-6 col-sm-6">
-<div class="single-cat mb-50 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay=".5s">
-<div class="cat-icon">
-<img src="assets/img/icon/services4.svg" alt>
-</div>
-<div class="cat-cap">
-<h5>Timely Delivery</h5>
-<p>
-    We understand the importance of deadlines. Our efficient processes and proactive approach enable us to
-    consistently deliver services on time, providing you with the reliability you deserve.
-</p>
 </div>
 </div>
+<div class="site-section testimonial-wrap bg-light" id="testimonials-section">
+<div class="container">
+<div class="row mb-5">
+<div class="col-12 text-center">
+<h2 class="section-title mb-3">Testimonials</h2>
+</div>
+</div>
+</div>
+<div class="slide-one-item home-slider owl-carousel">
+<div>
+<div class="testimonial">
+<figure class="mb-4 d-block align-items-center justify-content-center">
+</figure>
+<blockquote class="mb-3">
+<p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.&rdquo;</p>
+</blockquote>
+<p class="text-black"><strong>John Smith</strong></p>
+</div>
+</div>
+<div>
+<div class="testimonial">
+<figure class="mb-4 d-block align-items-center justify-content-center">
+</figure>
+<blockquote class="mb-3">
+<p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.&rdquo;</p>
+</blockquote>
+<p class="text-black"><strong>Robert Aguilar</strong></p>
+</div>
+</div>
+<div>
+<div class="testimonial">
+<figure class="mb-4 d-block align-items-center justify-content-center">
+</figure>
+<blockquote class="mb-3">
+<p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.&rdquo;</p>
+</blockquote>
+<p class="text-black"><strong>Roger Spears</strong></p>
+</div>
+</div>
+<div>
+<div class="testimonial">
+<figure class="mb-4 d-block align-items-center justify-content-center">
+</figure>
+<blockquote class="mb-3">
+<p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.&rdquo;</p>
+</blockquote>
+<p class="text-black"><strong>Kyle McDonald</strong></p>
 </div>
 </div>
 </div>
 </div>
 
-</main>
 @endsection

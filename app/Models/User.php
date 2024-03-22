@@ -13,8 +13,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    CONST ADMIN = 1;
-    CONST CUSTOMER = 2;
+    CONST STAFF = 1;
+    CONST MEMBER = 2;
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'user_type',
+        'created_by',
         'password',
         'address',
         'status',

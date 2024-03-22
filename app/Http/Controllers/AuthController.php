@@ -45,11 +45,9 @@ class AuthController extends Controller
 
             if (Auth::attempt($user_cred)) {
                 if($user_type == 2){
-                    if(request()->status == 'order'){
-                        return response()->json([ [12] ]);
-                    }else{
-                        return response()->json([ [13] ]); //go to user page dashboard
-                    }
+
+                    return response()->json([ [12] ]);
+
                 }else{
                     return response()->json([ [1] ]); //go to admin page dashboard
                 }
@@ -142,9 +140,9 @@ class AuthController extends Controller
                 }
                 return response()->json([ [1] ]);
             }
-     }
+    }
 
-     public function logout()
+    public function logout()
     {
         Session::flush();
 

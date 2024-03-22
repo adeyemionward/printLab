@@ -1,297 +1,133 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
+<title>Green Purse Limited | A credit and Cooperative Society</title>
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>PrintLabs | Printing services in Nigeria, Lagos, Benin city</title>
-<meta name="description" content>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
-
-<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/slicknav.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/flaticon.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/animate.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/price_rangs.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/magnific-popup.css')}}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{asset('assets/css/themify-icons.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/slick.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/nice-select.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('front/fonts/icomoon/style.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/jquery-ui.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/owl.theme.default.min.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/owl.theme.default.min.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/jquery.fancybox.min.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/bootstrap-datepicker.css')}}">
+<link rel="stylesheet" href="{{asset('front/fonts/flaticon/font/flaticon.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/aos.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/style.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-{{-- <script nonce="3266048e-d3c3-4011-98d7-9dde4087e878">(function(w,d){!function(L,M,N,O){L[N]=L[N]||{};L[N].executed=[];L.zaraz={deferred:[],listeners:[]};L.zaraz.q=[];L.zaraz._f=function(P){return async function(){var Q=Array.prototype.slice.call(arguments);L.zaraz.q.push({m:P,a:Q})}};for(const R of["track","set","debug"])L.zaraz[R]=L.zaraz._f(R);L.zaraz.init=()=>{var S=M.getElementsByTagName(O)[0],T=M.createElement(O),U=M.getElementsByTagName("title")[0];U&&(L[N].t=M.getElementsByTagName("title")[0].text);L[N].x=Math.random();L[N].w=L.screen.width;L[N].h=L.screen.height;L[N].j=L.innerHeight;L[N].e=L.innerWidth;L[N].l=L.location.href;L[N].r=M.referrer;L[N].k=L.screen.colorDepth;L[N].n=M.characterSet;L[N].o=(new Date).getTimezoneOffset();if(L.dataLayer)for(const Y of Object.entries(Object.entries(dataLayer).reduce(((Z,$)=>({...Z[1],...$[1]})),{})))zaraz.set(Y[0],Y[1],{scope:"page"});L[N].q=[];for(;L.zaraz.q.length;){const ba=L.zaraz.q.shift();L[N].q.push(ba)}T.defer=!0;for(const bb of[localStorage,sessionStorage])Object.keys(bb||{}).filter((bd=>bd.startsWith("_zaraz_"))).forEach((bc=>{try{L[N]["z_"+bc.slice(7)]=JSON.parse(bb.getItem(bc))}catch{L[N]["z_"+bc.slice(7)]=bb.getItem(bc)}}));T.referrerPolicy="origin";T.src="../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(L[N])));S.parentNode.insertBefore(T,S)};["complete","interactive"].includes(M.readyState)?zaraz.init():L.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head> --}}
-<body>
-
-<div id="preloader-active">
-<div class="preloader d-flex align-items-center justify-content-center">
-<div class="preloader-inner position-relative">
-<div class="preloader-circle"></div>
-<div class="preloader-img pere-text">
-<img src="{{asset('img/printlab.PNG')}}" alt="loder">
+<script nonce="16881a12-71e0-4237-978a-d2ceec6718cd">try{(function(w,d){!function(du,dv,dw,dx){du[dw]=du[dw]||{};du[dw].executed=[];du.zaraz={deferred:[],listeners:[]};du.zaraz.q=[];du.zaraz._f=function(dy){return async function(){var dz=Array.prototype.slice.call(arguments);du.zaraz.q.push({m:dy,a:dz})}};for(const dA of["track","set","debug"])du.zaraz[dA]=du.zaraz._f(dA);du.zaraz.init=()=>{var dB=dv.getElementsByTagName(dx)[0],dC=dv.createElement(dx),dD=dv.getElementsByTagName("title")[0];dD&&(du[dw].t=dv.getElementsByTagName("title")[0].text);du[dw].x=Math.random();du[dw].w=du.screen.width;du[dw].h=du.screen.height;du[dw].j=du.innerHeight;du[dw].e=du.innerWidth;du[dw].l=du.location.href;du[dw].r=dv.referrer;du[dw].k=du.screen.colorDepth;du[dw].n=dv.characterSet;du[dw].o=(new Date).getTimezoneOffset();if(du.dataLayer)for(const dH of Object.entries(Object.entries(dataLayer).reduce(((dI,dJ)=>({...dI[1],...dJ[1]})),{})))zaraz.set(dH[0],dH[1],{scope:"page"});du[dw].q=[];for(;du.zaraz.q.length;){const dK=du.zaraz.q.shift();du[dw].q.push(dK)}dC.defer=!0;for(const dL of[localStorage,sessionStorage])Object.keys(dL||{}).filter((dN=>dN.startsWith("_zaraz_"))).forEach((dM=>{try{du[dw]["z_"+dM.slice(7)]=JSON.parse(dL.getItem(dM))}catch{du[dw]["z_"+dM.slice(7)]=dL.getItem(dM)}}));dC.referrerPolicy="origin";dC.src="../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(du[dw])));dB.parentNode.insertBefore(dC,dB)};["complete","interactive"].includes(dv.readyState)?zaraz.init():du.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<div id="overlayer"></div>
+<div class="loader">
+<div class="spinner-border text-primary" role="status">
+<span class="sr-only">Loading...</span>
 </div>
 </div>
+<div class="site-wrap" id="home-section">
+<div class="site-mobile-menu site-navbar-target">
+<div class="site-mobile-menu-header">
+<div class="site-mobile-menu-close mt-3">
+<span class="icon-close2 js-menu-toggle"></span>
 </div>
+</div>
+<div class="site-mobile-menu-body"></div>
 </div>
 <style>
-    .cart2{position:relative}.header-area .header-mid .menu-wrapper .header-right .cart2::after{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;position:absolute;content:"{{$cartCount}}";background:#FF2020;color:#fff;text-align:center;border-radius:50%;font-size:12px;top:-7px;right:0px;padding:1px 7px}
+    .nav-link{
+        font-size:18px;
+    }
 </style>
-<header>
-<div class="header-area">
-<div class="header-top d-none d-sm-block">
+<header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
 <div class="container">
-<div class="row">
-<div class="col-xl-12">
-<div class="d-flex justify-content-between flex-wrap align-items-center">
-<div class="header-info-left">
-<!-- <ul>
-<li><a href="#">About Us</a></li>
-<li><a href="#">Privacy</a></li>
-<li><a href="#">FAQ</a></li>
-<li><a href="#">Careers</a></li>
-</ul> -->
+<div class="row align-items-center">
+<div class="col-6 col-md-3 col-xl-3  d-block">
+<h1 class="mb-0 site-logo"><a href="index-2.html" class="text-black h2 mb-0">GreenPurse<span class="text-success">.</span> </a></h1>
 </div>
-<div class="header-info-right d-flex">
-<ul class="order-list">
-<!-- <li><a href="#">My Wishlist</a></li> -->
-<li><a href="{{route('track_orders.index')}}">Track Your Order</a></li>
-
-<li><i class="fa fa-phone"> <a href="tel:08035777226">Call: 08035777226</a></i></li>
-</ul>
-<ul class="header-social">
-
-<!-- <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
-<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-<li> <a href="#"><i class="fab fa-youtube"></i></a></li> -->
-
-@if (Auth::check())
-<li id="submenu1">
-    <a href="#" style="color: #FF2020">{{Auth::user()->firstname}} {{Auth::user()->lastname}}<i class="fas fa-angle-down"></i></a>
-    <ul class="submenu">
-        <li class="logout"><a href="{{route('logout')}}" style="color: black;">Logout</a></li> <br>
-        <li class="logout1"><a href="{{route('profile.index')}}" style="color: black;">Profile</a></li> <br>
-        <li class="logout1"><a href="{{route('profile.change_password')}}" style="color: black;">Change Password</a></li>
-    </ul>
+<div class="col-12 col-md-9 col-xl-9 main-menu">
+<nav class="site-navigation position-relative text-right" role="navigation">
+<ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+<li><a href="#home-section" class="nav-link">Home</a></li>
+<li><a href="#features-section" class="nav-link">Products</a></li>
+<li>
+    <a href="#about-section" class="nav-link">About Us</a>
 </li>
-@else
-<li><a href="{{route('login')}}" style="color: #FF2020;">Login</a></li>
-<li><a href="{{route('register')}}" style="color: #FF2020;">Create Account</a></li>
-@endif
-</ul>
+<li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
+<li><a href="contact" class="nav-link">Contact</a></li>
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="header-mid header-sticky">
-<div class="container">
-<div class="menu-wrapper">
-
-<div class="logo">
-<a href="{{route('index')}}"><img src="{{asset('img/printlab.PNG')}}" style="width: 200px;" alt></a>
-</div>
-
-<div class="main-menu d-none d-lg-block">
-<nav>
-<ul id="navigation">
-<li><a href="{{route('index')}}">Home</a></li>
-<li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
-
-
-<li><a href="{{route('contact.index')}}">Contact</a></li>
-
-
-
-
-
-
-
+<li><a href="{{route('login')}}" class="nav-link">Login</a></li>
+<li><a href="{{route('register')}}" class="nav-link btn btn-primary" style="color: #fff; ">Get Started</a></li>
 </ul>
 </nav>
 </div>
+<div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+</div>
+</div>
+<style>
+    .btn.btn-primary{
+        background-color: green;
+        border-color: transparent;
+    }
 
-<div class="header-right">
-<ul>
-<li>
-<div class="nav-search search-switch hearer_icon">
-<a id="search_1" href="javascript:void(0)">
-<span class="flaticon-search"></span>
-</a>
-</div>
-</li>
-{{-- <li class="cartn">
-    <a href="{{route('logout')}}"><span class="flaticon-user"></span></a>
-</li> --}}
-
-
-<li class="cart2" > <a href="{{route('cart.index')}}"><span class="flaticon-shopping-cart"></span></a> </li>
-</ul>
-</div>
-</div>
-
-<div class="search_input" id="search_input_box">
-<form class="search-inner d-flex justify-content-between ">
-<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-<button type="submit" class="btn"></button>
-<span class="ti-close" id="close_search" title="Close Search"></span>
-</form>
-</div>
-
-<div class="col-12">
-<div class="mobile_menu d-block d-lg-none"></div>
-</div>
-</div>
-</div>
-</div>
+    .btn.btn-primary:hover{
+        background-color: rgb(26, 200, 26);
+        border-color: transparent;
+    }
+</style>
 </header>
-<main>
     @yield('content')
 
 
-    <footer>
-<div class="footer-wrapper gray-bg">
-<div class="footer-area footer-padding">
-
-
-
-<div class="container">
-<div class="row justify-content-between">
-<div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
-<div class="single-footer-caption mb-50">
-<div class="single-footer-caption mb-20">
-
-<div class="footer-logo mb-35">
-<a href="{{route('index')}}"><img src="{{asset('img/printlab.PNG')}}" style="width: 200px;" alt></a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
-<div class="single-footer-caption mb-50">
-<div class="footer-tittle">
-<h4>Products</h4>
-<ul>
-<li><a href="{{route('product_categories','Higher_Education')}}">Higher Eduaction</a></li>
-<li><a href="{{route('product_categories','Eighty_Leaves')}}">Eighty Leaves</a></li>
-<li><a href="{{route('product_categories', 'Forty_Leaves')}}">Forty Leaves</a></li>
-<li><a href="{{route('product_categories','Twenty_Leaves')}}">Twenty Leaves</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
-<div class="single-footer-caption mb-50">
-<div class="footer-tittle">
-<h4>Quick Links</h4>
-<ul>
-<li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
-<li><a href="{{route('contact.index')}}">Contact</a></li>
-<li><a href="{{route('login')}}">Login</a></li>
-<li><a href="{{route('register')}}">Create Customer Account</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
-    <div class="single-footer-caption mb-50">
-        <div class="footer-tittle">
-            <h4>Contact</h4>
-            <ul style="color: #BBB9B5">
-                <li><b style="color: #fff">Lagos:</b> 14 Akinremi street, Anifowoshe, Ikeja</li>
-                <li><b style="color: #fff">Warri:</b> 1 Melcurt Road, off Opeta/Okpaka Road, by Ferobas Company, Udu, Warri,</li>
-                <li>Phone: 08035777226</li>
-                <li>Email: info@printlabs.com.ng</li>
-            </ul>
+    <div class="footer py-5 text-center">
+        <div class="container">
+        {{-- <div class="row mb-5">
+        <div class="col-12">
+        <p class="mb-0">
+        <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+        <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+        <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+        <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+        <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+        </p>
         </div>
-    </div>
-</div>
+        </div> --}}
+        <div class="row">
+        <div class="col-md-12">
+        <p class="mb-0">
 
-</div>
-</div>
-</div>
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Green Purse Limited
 
-<div class="footer-bottom-area">
-<div class="container">
-<div class="footer-border">
-<div class="row">
-<div class="col-xl-12 ">
-<div class="footer-copy-right text-center">
-<p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</footer>
+        </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <script src="{{asset('front/js/jquery-3.3.1.min.js')}}"></script>
+        <script src="{{asset('front/js/jquery-ui.js')}}"></script>
+        <script src="{{asset('front/js/popper.min.js')}}"></script>
+        <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('front/js/owl.carousel.min.js')}}"></script>
+        <script src="{{asset('front/js/jquery.countdown.min.js')}}"></script>
+        <script src="{{asset('front/js/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{asset('front/js/jquery.easing.1.3.js')}}"></script>
+        <script src="{{asset('front/js/aos.js')}}"></script>
+        <script src="{{asset('front/js/jquery.fancybox.min.js')}}"></script>
+        <script src="{{asset('front/js/jquery.sticky.js')}}"></script>
+        <script src="{{asset('front/js/main.js')}}"></script>
 
-<div id="back-top">
-<a class="wrapper" title="Go to Top" href="#">
-<div class="arrows-container">
-<div class="arrow arrow-one">
-</div>
-<div class="arrow arrow-two">
-</div>
-</div>
-</a>
-</div>
-
-
-<script src="{{asset('assets/js/vendor/modernizr-3.5.0.min.js')}}"></script>
-
-<script src="{{asset('assets/js/vendor/jquery-1.12.4.min.js')}}"></script>
-<script src="{{asset('assets/js/popper.min.js')}}"></script>
-<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-
-<script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('assets/js/slick.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery.slicknav.min.js')}}"></script>
-
-
-<script src="{{asset('assets/js/contact.js')}}"></script>
-<script src="{{asset('assets/js/jquery.form.js')}}"></script>
-<script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
-{{-- <script src="{{asset('assets/js/mail-script.js')}}"></script> --}}
-<script src="{{asset('assets/js/jquery.ajaxchimp.min.js')}}"></script>
-
-<script src="{{asset('assets/js/plugins.js')}}"></script>
-<script src="{{asset('assets/js/main.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-23581568-13');
-
-    $(".submenu").hide();
-    $("#submenu1").click(function(){
-        $(".submenu").toggle();
-    })
-</script>
-
-{{-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8375b993ec2324d2","b":1,"version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script> --}}
-@if(Session::has("flash_success"))
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
         <script>
-            toastr.success("{!! Session::get('flash_success') !!}");
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-23581568-13');
         </script>
-    @endif
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8626b46a2d29369a","b":1,"version":"2024.2.4","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+        </body>
 
-    @if(Session::has("flash_error"))
-        <script>
-            toastr.error("{!! Session::get('flash_error') !!}");
-        </script>
-    @endif
-
-    @yield('scripts')
-</body>
-
-</html>
+        </html>

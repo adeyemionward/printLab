@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/printlab.PNG">
-    <title>@yield('title') | PrintLab Web Solution</title>
+    <title>@yield('title') | GreenPurse </title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}" />
     <link rel="stylesheet" href="{{asset('css/main.css')}}" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -33,8 +33,9 @@
 					<h4 class="sidebar-title theme-item"><img src="{{asset('img/printlab.PNG')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
 				</div>
 
+
 				<ul class="list-unstyled components text-secondary" >
-					<li><a href="{{route('dashboard')}}"><i
+					<li><a href="{{route('dashboard.admin.index')}}"><i
 							class="data-feather theme-item" data-feather="home"></i> <span
 							class="theme-item"> Dashboard</span></a></li>
 
@@ -49,395 +50,171 @@
 								data-feather="chevron-up"></i></a>
 
 							<div class="dropdown-container">
-								<a href="{{route('customers.add_customer')}}" class="text-center">
+								<a href="{{route('dashboard.admin.parties.customer.add')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
                                     <span class="data-feather theme-item">Add Customer</span>
                                 </a>
 
-                                <a href="{{route('customers.all_customers')}}" class="text-center">
+                                <a href="{{route('dashboard.admin.parties.customer.index')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
                                     <span class="data-feather theme-item"> View Customers</span>
                                 </a>
 
-                                <a href="{{route('users.add_user')}}" class="text-center">
+                                <a href="{{route('dashboard.admin.parties.staff.add')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Add User</span>
+                                    <span class="data-feather theme-item">Add Staff</span>
                                 </a>
 
-                                <a href="{{route('users.all_users')}}" class="text-center">
+                                <a href="{{route('dashboard.admin.parties.staff.index')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> View Users</span>
+                                    <span class="data-feather theme-item"> View Staff</span>
                                 </a>
 
-                                <a href="{{route('suppliers.add_supplier')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Add Suppliers</span>
-                                </a>
-
-                                <a href="{{route('suppliers.all_suppliers')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">View Suppliers</span>
-                                </a>
-
-                                <a href="{{route('users.testimonial.add_testimonial')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Customer Testimonials</span>
-                                </a>
-
-
-							</div>
-						</div>
-					</li>
-
-                    <li>
-						<div class="sidebardropdown">
-							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
-								id="dropdown-btn" onclick="myFunction()"><i
-								class="data-feather theme-item" data-feather="grid"></i> <span
-								class="theme-item"> Finance</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
-
-							<div class="dropdown-container">
-								<a href="{{route('finance.requisitions.all_requisitions')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Requisitions</span>
-                                </a>
-
-                                <a href="{{route('finance.expenses.all_expenses')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Expenses</span>
-                                </a>
-
-                                <a href="{{route('finance.transactions.all_transactions')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Customer Payments</span>
-                                </a>
-                                <a href="{{route('finance.report.debtors.all_debtors')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Debtors Report</span>
-                                </a>
-                                <a href="{{route('finance.report.creditors.all_creditors')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Creditors Report</span>
-                                </a>
-
-                                <a href="{{route('finance.report.profit_loss.all_profit_loss')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Profit/Loss Report</span>
-                                </a>
-							</div>
-						</div>
-					</li>
-
-                    <li>
-						<div class="sidebardropdown">
-							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
-								id="dropdown-btn" onclick="myFunction()"><i
-								class="data-feather theme-item" data-feather="shopping-cart"></i> <span
-								class="theme-item"> Orders</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
-
-							<div class="dropdown-container">
-								<a href="{{route('job_order.all_orders')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">All Orders</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.pending')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Pending</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.designed')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Designed</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.proof_read')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Proof Read</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.customer_approved')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Customer Approved</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.prepressed')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Prepressed</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.printed')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Printed</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.binded')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Binded</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.completed')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Completed</span>
-                                </a>
-
-                                <a href="{{route('job_order.status.delivered')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">Delivered</span>
-                                </a>
-
-							</div>
-						</div>
-					</li>
-
-
-                    <li>
-						<div class="sidebardropdown">
-							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
-								id="dropdown-btn" onclick="myFunction()"><i
-								class="data-feather theme-item" data-feather="user"></i> <span
-								class="theme-item"> Users</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
-
-							<div class="dropdown-container">
-								<a href="{{route('users.add_user')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Add User</span>
-                                </a>
-
-                                <a href="{{route('users.all_users')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item">View All</span>
-                                </a>
-
-                                <a href="{{route('roles.add_role')}}" class="text-center">
+                                {{-- <a href="{{route('dashboard.admin.roles.add')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
                                     <span class="data-feather theme-item"> Roles & Permissions</span>
-                                </a>
-
+                                </a> --}}
 							</div>
 						</div>
 					</li>
 
-                    <li>
-						<div class="sidebardropdown">
-							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
-								id="dropdown-btn" onclick="myFunction()"><i
-								class="data-feather theme-item" data-feather="user"></i> <span
-								class="theme-item"> Settings</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
 
-							<div class="dropdown-container">
-								<a href="{{route('settings.category.add_category')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Category</span>
-                                </a>
-
-                                <a href="{{route('job_order.location.add_location')}}" class="text-center">
-                                    <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Locations</span>
-                                </a>
-
-
-                                <a href="{{route('roles.add_role')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> Users Roles & Permission</span>
-                                </a>
-
-							</div>
-						</div>
-					</li>
 				</ul>
 
 			</nav>
 
 			<div id="bodywrapper" class="container-fluid showhidetoggle">
 
-				<nav class="navbar navbar-expand-md  py-0"
-					aria-label="navbarexample" id="navbar" style="background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); color:#fff">
-					<div class="container-fluid">
-						<button type="button" id="sidebarCollapse"
-							class="btn btn-light py-0">
-							<i data-feather="menu"></i> <span></span>
-						</button>
-						<img src="{{asset('img/printlab.PNG')}}" alt="logo"
-							class="app-logo theme-item mx-2 navbrandarea1" style="width: 160px; height: 50px;">
-						<!-- <h4 class="sidebar-title theme-item mt-2 navbrandarea2">PRINTLAB</h4> -->
-						<button class="navbar-toggler py-0" type="button"
-							data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
-							aria-controls="navbarsExample04" aria-expanded="false"
-							aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"><i data-feather="menu"></i></span>
-						</button>
+                <nav class="navbar navbar-expand-md  py-0"
+                aria-label="navbarexample" id="navbar" style="background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); color:#fff">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse"
+                        class="btn btn-light py-0">
+                        <i data-feather="menu"></i> <span></span>
+                    </button>
+                    <img src="{{asset('img/printlab.PNG')}}" alt="logo"
+                        class="app-logo theme-item mx-2 navbrandarea1" style="width: 160px; height: 50px;">
+                    <!-- <h4 class="sidebar-title theme-item mt-2 navbrandarea2">PRINTLAB</h4> -->
+                    <button class="navbar-toggler py-0" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+                        aria-controls="navbarsExample04" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"><i data-feather="menu"></i></span>
+                    </button>
 
-						<div class="collapse navbar-collapse mx-1" id="navbarsExample04">
-							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <div class="collapse navbar-collapse mx-1" id="navbarsExample04">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-								<li class="nav-item">
-									<div class="nav-dropdown">
-										<a class="nav-item nav-link active text-secondary py-0"
-											aria-current="page" href="{{route('dashboard')}}"><i
-											class="data-feather theme-item" data-feather="home"></i> <span
-											class="theme-item">Dashboard </span></a>
-									</div>
-								</li>
+                            <li class="nav-item">
+                                <div class="nav-dropdown">
+                                    <a class="nav-item nav-link active text-secondary py-0"
+                                        aria-current="page" href="{{route('dashboard.admin.index')}}"><i
+                                        class="data-feather theme-item" data-feather="home"></i> <span
+                                        class="theme-item">Dashboard </span></a>
+                                </div>
+                            </li>
 
-								<li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="user"></i> <span
-										class="theme-item">Parties</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('customers.add_customer')}}">Add Customer</a></li>
-										<li><a class="dropdown-item" href="{{route('customers.all_customers')}}"> View Customers</a></li>
+                            <li class="nav-item dropdown nav-dropdown"><a
+                                class="nav-item nav-link dropdown-toggle text-secondary py-0"
+                                href="#" id="navbarDropdownMenuLink1" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"><i
+                                    class="data-feather theme-item" data-feather="user"></i> <span
+                                    class="theme-item">Parties</span><i
+                                    class="data-feather theme-item" data-feather="chevron-down"></i></a>
+                                <ul class="dropdown-menu"
+                                    aria-labelledby="navbarDropdownMenuLink1">
+                                    <li><a class="dropdown-item" href="{{route('dashboard.admin.parties.customer.add')}}">Add Customer</a></li>
+                                    <li><a class="dropdown-item" href="{{route('dashboard.admin.parties.customer.index')}}"> View Customers</a></li>
 
-                                        <li><a class="dropdown-item" href="{{route('users.add_user')}}">Add User</a></li>
-										<li><a class="dropdown-item" href="{{route('users.all_users')}}"> View Usesr</a></li>
-
-                                        <li><a class="dropdown-item" href="{{route('suppliers.add_supplier')}}">Add Suppliers</a></li>
-										<li><a class="dropdown-item" href="{{route('suppliers.all_suppliers')}}">View Suppliers</a></li>
-                                        <li><a class="dropdown-item" href="{{route('users.testimonial.add_testimonial')}}">Customer Testimonials</a></li>
-
-
-									</ul>
-								</li>
-
-								<li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="grid"></i> <span
-										class="theme-item">Finance</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-                                        {{-- <li><a class="dropdown-item" href="{{route('finance.requisitions.all_requisitions')}}">Requsitions</a></li> --}}
-                                        <li><a class="dropdown-item" href="{{route('finance.expenses.all_expenses')}}">Expenses</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.transactions.all_transactions')}}">Customer Payments</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.report.debtors.all_debtors')}}">Debtors Report</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.report.creditors.all_creditors')}}">Creditors Report</a></li>
-                                        <li><a class="dropdown-item" href="{{route('finance.report.profit_loss.all_profit_loss')}}">Profit/Loss Report</a></li>
-
-									</ul>
-								</li>
+                                    <li><a class="dropdown-item" href="{{route('dashboard.admin.parties.staff.add')}}">Add Staff</a></li>
+                                    <li><a class="dropdown-item" href="{{route('dashboard.admin.parties.staff.index')}}"> View Staff</a></li>
 
 
 
+                                </ul>
+                            </li>
 
-                                <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="grid"></i> <span
-										class="theme-item">Orders</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-										{{-- <li><a class="dropdown-item" href="#"></a></li>
-										<li><a class="dropdown-item" href="#"></a></li> --}}
-										<li class="dropdown-submenu">
-                                            <a class="dropdown-item mr-3" href="#">External Orders <i class="data-feather" data-feather="chevron-right"></i></a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.all_orders')}}">All Orders</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.pending')}}">Pending</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.designed')}}">Designed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.proof_read')}}">Proof Read</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.customer_approved')}}">Customer Approved</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.prepressed')}}">Prepressed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.printed')}}">Printed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.binded')}}">Binded</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.completed')}}">Completed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('external_job_order.status.delivered')}}">Delivered</a></li>
-                                            </ul>
-                                        </li>
+                            <li class="nav-item dropdown nav-dropdown"><a
+                                class="nav-item nav-link dropdown-toggle text-secondary py-0"
+                                href="#" id="navbarDropdownMenuLink1" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"><i
+                                    class="data-feather theme-item" data-feather="grid"></i> <span
+                                    class="theme-item">Cooperative</span><i
+                                    class="data-feather theme-item" data-feather="chevron-down"></i></a>
+                                <ul class="dropdown-menu"
+                                    aria-labelledby="navbarDropdownMenuLink1">
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item mr-3" href="#">Contributions <i class="data-feather" data-feather="chevron-right"></i></a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.cooperative.contributions.payments.index')}}">Payments</a></li>
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.cooperative.contributions.payouts.index')}}">Payouts</a></li>
+                                        </ul>
+                                    </li>
 
-                                        <li class="dropdown-submenu">
-                                            <a class="dropdown-item mr-3" href="#">Internal Orders <i class="data-feather" data-feather="chevron-right"></i></a>
-											<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                                                <li><a class="dropdown-item" href="{{route('job_order.all_orders')}}">All Orders</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.pending')}}">Pending</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.designed')}}">Designed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.proof_read')}}">Proof Read</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.customer_approved')}}">Customer Approved</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.prepressed')}}">Prepressed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.printed')}}">Printed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.binded')}}">Binded</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.completed')}}">Completed</a></li>
-                                                <li><a class="dropdown-item" href="{{route('job_order.status.delivered')}}">Delivered</a></li>
-                                            </ul>
-                                        </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item mr-3" href="#">Loans <i class="data-feather" data-feather="chevron-right"></i></a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.cooperative.loans.repayments.index')}}">Repayments</a></li>
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.cooperative.loans.payouts.index')}}">Payouts</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
 
 
-									</ul>
-								</li>
+                            <li class="nav-item dropdown nav-dropdown"><a
+                                class="nav-item nav-link dropdown-toggle text-secondary py-0"
+                                href="#" id="navbarDropdownMenuLink1" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"><i
+                                    class="data-feather theme-item" data-feather="grid"></i> <span
+                                    class="theme-item">Savings</span><i
+                                    class="data-feather theme-item" data-feather="chevron-down"></i></a>
+                                <ul class="dropdown-menu"
+                                    aria-labelledby="navbarDropdownMenuLink1">
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item mr-3" href="#">Contributions <i class="data-feather" data-feather="chevron-right"></i></a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.savings.contributions.payments.index')}}">Payments</a></li>
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.savings.contributions.payouts.index')}}">Payouts</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item mr-3" href="#">Loans <i class="data-feather" data-feather="chevron-right"></i></a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.savings.loans.repayments.index')}}">Repayments</a></li>
+                                            <li><a class="dropdown-item" href="{{route('dashboard.admin.savings.loans.payouts.index')}}">Payouts</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
 
-                                <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="shopping-cart"></i> <span
-										class="theme-item">Products</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('products.add_higher_education')}}">Create Product</a></li>
-										<li><a class="dropdown-item" href="{{route('products.all_products')}}">All Products</a></li>
-
-									</ul>
-								</li>
-
-
-                                <li class="nav-item dropdown nav-dropdown"><a
-									class="nav-item nav-link dropdown-toggle text-secondary py-0"
-									href="#" id="navbarDropdownMenuLink1" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false"><i
-										class="data-feather theme-item" data-feather="user"></i> <span
-										class="theme-item">Settings</span><i
-										class="data-feather theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink1">
-										<li><a class="dropdown-item" href="{{route('settings.category.add_category')}}">Category</a></li>
-										<li><a class="dropdown-item" href="{{route('job_order.location.add_location')}}">Locations</a></li>
-                                        <li><a class="dropdown-item" href="{{route('roles.add_role')}}">Users Roles & Permission</a></li>
-
-									</ul>
-								</li>
-
-							</ul>
+                        </ul>
 
 
-							<a href="{{route('job_order.higher_education')}}"><button type="button" class="btn btn-lg" style="background-color: #df4226; color: #fff;">Create Job Order </button></a>
+                        <a href=""><button type="button" class="btn btn-lg" style="background-color: #df4226; color: #fff;">Create Job Order </button></a>
 
-							<div class="usermenu">
-								<div class="nav-dropdown py-0">
-									<a href="#"
-										class="nav-item nav-link dropdown-toggle text-secondary py-0"
-										id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
-										aria-expanded="false"> <img class="theme-item user-avatar"
-										src="{{asset('img/earth.svg')}}" alt="User image"> <!--<i class="theme-item" -->
-										<!--data-feather="user"></i> --> <span class="theme-item">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</span><i class="theme-item" data-feather="chevron-down"></i></a>
-									<ul class="dropdown-menu dropdown-menu-end"
-										aria-labelledby="navbarDropdown3">
-										<li><a href="{{route('users.view_profile')}}" class="dropdown-item mt-2"><i
-												class="data-feather" data-feather="user"></i> Profile</a></li>
+                        <div class="usermenu">
+                            <div class="nav-dropdown py-0">
+                                <a href="#"
+                                    class="nav-item nav-link dropdown-toggle text-secondary py-0"
+                                    id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false"> <img class="theme-item user-avatar"
+                                    src="{{asset('img/earth.svg')}}" alt="User image"> <!--<i class="theme-item" -->
+                                    <!--data-feather="user"></i> --> <span class="theme-item">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</span><i class="theme-item" data-feather="chevron-down"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="navbarDropdown3">
+                                    <li><a href="" class="dropdown-item mt-2"><i
+                                            class="data-feather" data-feather="user"></i> Profile</a></li>
 
-										<li><a href="{{route('logout')}}" class="dropdown-item mt-2"><i
-												class="data-feather" data-feather="log-out"></i> Logout</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</nav>
+                                    <li><a href="{{route('logout')}}" class="dropdown-item mt-2"><i
+                                            class="data-feather" data-feather="log-out"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
 
 
 				<div class="settings">
@@ -706,6 +483,8 @@
 	<script src="	https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 	<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.1/dist/css/select2.min.css" rel="stylesheet" />
+    
 
 
 	<script src="{{asset('js/jspdf.min.js')}}"></script>
@@ -759,6 +538,8 @@
             toastr.error("{!! Session::get('flash_error') !!}");
         </script>
     @endif
+
+
 
     @yield('scripts')
 </body>
