@@ -158,22 +158,27 @@
 						<h2 style=" font-weight: 400; padding-left: 30px; color:red ">
               				Bank Account Details
 						</h2>
+                        @if (!is_null($banks) && (is_array($banks) || is_object($banks)))
                         @forelse ($banks as $bank)
+                                <tr>
+                                    <td style="font-weight: 600; padding-top: 10px;">Bank Name: {{$bank->bank_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; padding-top: 20px;">Bank Account No: {{$bank->account_no}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; padding-top: 20px;">Bank Account Name: {{$bank->account_name}}</td>
+                                </tr>
+                            @empty
                             <tr>
-                                <td style="font-weight: 600; padding-top: 10px;">Bank Name: {{$bank->bank_name}}</td>
+                                <td style="font-weight: 600; padding-top: 20px;">Bank Details Not Available...</td>
                             </tr>
-                            <tr>
-                                <td style="font-weight: 600; padding-top: 20px;">Bank Account No: {{$bank->account_no}}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 600; padding-top: 20px;">Bank Account Name: {{$bank->account_name}}</td>
-                            </tr>
-                        @empty
-                        <tr>
-                            <td style="font-weight: 600; padding-top: 20px;">Bank Details Not Available...</td>
-                        </tr>
-                        </hr>
-                        @endforelse
+                            </hr>
+                            @endforelse
+                        @else
+                        <!-- This content will be displayed if $banks is null or not an array/object -->
+                        <tr><td>No banks found</td></tr>
+                        @endif
 
 					</table>
 				</td>
