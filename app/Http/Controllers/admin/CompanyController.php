@@ -49,6 +49,7 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = $this->find_company($id);
+        if(is_null($company))  return redirect(route('admin.company.list'));
         return view('admin.company.view',compact('company'));
     }
 
@@ -56,6 +57,7 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $company = $this->find_company($id);
+        if(is_null($company))  return redirect(route('admin.company.list'));
         $subs  = SubscriptionPlan::all();
         return view('admin.company.edit',compact('company','subs'));
     }
