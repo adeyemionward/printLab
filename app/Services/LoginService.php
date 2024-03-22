@@ -22,6 +22,8 @@
 
             if($company_details->status == 'inactive') return response()->json([ [9] ]); //acount is inactive
 
+            if($company_details->plan == null) return response()->json([ [15] ]); //plan is empty
+
             if($company_details->sub_end_date < $today ) return response()->json([ [10] ]); // subscription expired
 
         }
@@ -47,12 +49,12 @@
                         }else{
                             return response()->json([ [13] ]); //go to user page dashboard
                         }
-                        
+
                     }elseif($user_type == User::ADMIN){
                         return response()->json([ [1] ]); //go to admin page dashboard
                     }elseif($user_type == User::COMPANY){
                         if ($this->activeSub($data) != null){
-                            return $this->activeSub($data);
+                            return $this->activeSub($data); //inactive
                         }else{
                             return response()->json([ [3] ]); //go to company page dashboard
                         }

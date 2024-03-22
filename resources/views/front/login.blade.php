@@ -302,7 +302,7 @@ form .btn input[type="submit"] {
                    // $('#save').prop('disabled', false);
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
                 }
                 if(data == 1){
                     toastr.success("Login Successful");
@@ -320,13 +320,19 @@ form .btn input[type="submit"] {
                     toastr.error("Error occured: Account Inactive");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
 
                 }else if(data == 10){
                     toastr.error("Error occured: Subscription Expired");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
+
+                }else if(data == 15){
+                    toastr.error("Error occured: You have no active plan");
+                    $("#loginBtn").attr('disabled',false);
+                    $('#loginBtn').css('cursor', 'pointer');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
 
                 }else if (data == 12){
                     toastr.success("Login Successful");
@@ -344,13 +350,13 @@ form .btn input[type="submit"] {
                     toastr.error("Error occured: Incorrect Email/Password");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
 
                 }else if(data == 5){
                     toastr.error("Error occured: Please try later");
                     $("#loginBtn").attr('disabled',false);
                     $('#loginBtn').css('cursor', 'pointer');
-                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
 
                 }
             }
