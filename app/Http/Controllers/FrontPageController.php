@@ -398,7 +398,7 @@ class FrontPageController extends Controller
                 'payment_mode'  =>  request('payment_mode'),
             ];
 
-            $send_mail = Mail::to('info@printlabs.com.ng')->send(new SendSubscriptionEmail ($data, $banks));
+            $send_mail = Mail::to('info@printlabs.com.ng')->send(new SendSubscriptionEmail ($data));
             return redirect(route('subscription.index'))->with('flash_success','Successful request. Please check your email');
         // }catch(\Throwable $th){
         //     return response()->json([ [5] ]);
