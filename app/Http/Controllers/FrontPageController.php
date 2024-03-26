@@ -406,7 +406,6 @@ class FrontPageController extends Controller
 
     }
 
-
     public function profile()
     {
         $cartCount = $this->countCart();
@@ -415,9 +414,7 @@ class FrontPageController extends Controller
 
     public function updateProfile(ProfileRequest $request, ProfileRepository $profileRepository)
     {
-
         $result = $profileRepository->storeProfile($request->all());
-
         if ($result['success']) {
             // creation was successful
             $redirectResponse =  response()->json([ [1] ]);
@@ -428,7 +425,6 @@ class FrontPageController extends Controller
             //redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
         return $redirectResponse;
-
     }
 
     public function changePassword()

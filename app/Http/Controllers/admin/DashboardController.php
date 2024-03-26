@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\JobOrder;
+use App\Models\Company;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class DashboardController extends Controller
@@ -14,39 +14,20 @@ class DashboardController extends Controller
     }
     public function index(Request $request)
     {
-
-        $all_orders         =   JobOrder::count();
-        $pending_orders     =   JobOrder::where('status','Pending')->count();
-        $delivered_orders   =   JobOrder::where('status','Delivered')->count();
-        $total_cost         =   JobOrder::sum('total_cost');
-        $top_job_orders     =   JobOrder::select('job_order_name', DB::raw('SUM(quantity) as total_orders'))
-                                ->groupBy('job_order_name')
-                                ->orderByDesc('total_orders')
-                                ->get();
+        $date60DaysAgo = Carbon::now()->subDays(60);
 
 
+        $total_companies                =   Company::count();
+        $active_companies               =   Company::where('status',Company::ACTIVE)->get();
+        $total_active_companies         =   count($active_companies);
+        $inactive_companies             =   Company::where('status',Company::INACTIVE)->get();
+        $total_inactive_companies       =   count($inactive_companies);
+        $new_companies                  =   Company::whereDate('created_at', '>=', $date60DaysAgo)->get();
+
+        $total_revenue =  3500;
 
 
-        $today   =   Carbon::now()->format('Y-m-d');
-       // $today    =   Carbon::parse($today1);
 
-
-        $from   =   $request->input('date_from');
-        $to     =   $request->input('date_to');
-
-        $today_orders  = JobOrder::select('job_order_name', DB::raw('SUM(quantity) as total_orders'))
-        ->groupBy('job_order_name')
-        ->orderByDesc('total_orders')
-        ->where('order_date', $today)
-        ->get();
-        //dd($today_orders);
-
-        $previous_orders =  JobOrder::select('job_order_name', DB::raw('SUM(quantity) as total_orders'))
-        ->groupBy('job_order_name')
-        ->orderByDesc('total_orders')
-        ->whereBetween('order_date', [$from, $to])
-        ->get();
-       
-        return view('admin.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
+        return view('admin.dashboard', compact('total_companies','active_companies','total_active_companies','inactive_companies','total_inactive_companies','total_revenue','new_companies'));
     }
 }
