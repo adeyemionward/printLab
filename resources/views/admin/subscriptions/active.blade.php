@@ -26,6 +26,7 @@
                                 <tr>
                                     <th>S/N</th>
                                     <th>Company</th>
+                                    <th>Plan</th>
                                     <th>Amount</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
@@ -37,7 +38,8 @@
                                 @foreach ($active_subscriptions as $val)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$val->company->name}}</td>
+                                        <td>{{$val->company->name ?? 'None'}}</td>
+                                        <td>{{$val->plan}}</td>
                                         <td>&#8358;{{$val->sub_amount}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->sub_start_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->sub_end_date))}}</td>

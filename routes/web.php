@@ -321,6 +321,8 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
 
 
             Route::group(['prefix' => '/subscriptions', 'as' => 'subscriptions.'], function () {
+                Route::get('/add', 'SubscriptionController@addSubscription')->name('add');
+                Route::post('/add', 'SubscriptionController@storeSubscription')->name('add');
                 Route::get('/active', 'SubscriptionController@activeSubscription')->name('active');
                 Route::get('/inactive', 'SubscriptionController@inactiveSubscription')->name('inactive');
             });

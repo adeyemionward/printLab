@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class DashboardController extends Controller
@@ -24,7 +25,7 @@ class DashboardController extends Controller
         $total_inactive_companies       =   count($inactive_companies);
         $new_companies                  =   Company::whereDate('created_at', '>=', $date60DaysAgo)->get();
 
-        $total_revenue =  3500;
+        $total_revenue = Subscription::where('status', 'active')->sum('sub_amount');
 
 
 
