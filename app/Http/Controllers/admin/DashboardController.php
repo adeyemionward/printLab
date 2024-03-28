@@ -22,9 +22,15 @@ class DashboardController extends Controller
 
 
         $total_companies                =   Company::count();
-        $active_subscribed_companies               =   Company::where('status',Company::ACTIVE)->where('sub_end_date', '>=', $this->today)->get();
+        $active_subscribed_companies    =   Company::where('status',Company::ACTIVE)->where('sub_end_date', '>=', $this->today)->get();
         $total_active_companies         =   count($active_subscribed_companies);
-        $inactive_companies             =   Company::where('status',Company::INACTIVE)->get();
+        // $inactive_companies             =   Company::whereIn('status', [Company::ACTIVE, Company::INACTIVE])->where('sub_end_date', '<', $this->today)->orWhere('status',Company::INACTIVE)->get();
+                                                      
+        $inactive_companies             =   Company::where(function ($query) {
+                                            $query->whereIn('status', [Company::ACTIVE, Company::INACTIVE])
+                                                ->where('sub_end_date', '<', $this->today);
+                                        })->orWhere('status', Company::INACTIVE)->get();
+
         $total_inactive_companies       =   count($inactive_companies);
         $new_companies                  =   Company::whereDate('created_at', '>=', $date60DaysAgo)->get();
 
