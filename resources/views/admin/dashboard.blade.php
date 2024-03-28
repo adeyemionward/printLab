@@ -190,7 +190,7 @@
                             <div class="card">
                                 <div class="content">
                                     <div class="head">
-                                        <h5 class="mb-0">Active  Companies</h5> <br>
+                                        <h5 class="mb-0">Companies with Active Subscription </h5> <br>
                                     </div>
                                     <div class="canvas-wrapper">
                                         <table class="table no-margin">
@@ -206,7 +206,7 @@
                                             </thead>
                                             <tbody>
 
-                                                    @foreach ($active_companies as $val)
+                                                    @foreach ($active_subscribed_companies as $val)
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$val->name}}</td>

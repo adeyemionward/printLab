@@ -325,6 +325,8 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
                 Route::post('/add', 'SubscriptionController@storeSubscription')->name('add');
                 Route::get('/active', 'SubscriptionController@activeSubscription')->name('active');
                 Route::get('/inactive', 'SubscriptionController@inactiveSubscription')->name('inactive');
+                Route::get('/edit/{id}', 'SubscriptionController@editSubscription')->name('edit');
+                Route::post('/edit/{id}', 'SubscriptionController@updateSubscription')->name('edit');
             });
 
             Route::group(['prefix' => '/settings', 'as' => 'settings.'], function () {

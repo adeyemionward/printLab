@@ -30,7 +30,7 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Payment Date</th>
-                                    {{-- <th>Action</th> --}}
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,7 +43,7 @@
                                         <td>{{date('D M d, Y', strtotime($val->sub_start_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->sub_end_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->created_at))}}</td>
-                                        {{-- <td><a href="{{route('finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td> --}}
+                                        <td><a href="{{route('admin.subscriptions.edit',[$val->id])}}"><span><i class="fa fa-pen"></i></span></a></td>
                                     </tr>
                                 @endforeach
                         </table>

@@ -39,6 +39,19 @@ class SubscriptionController extends Controller
         return $response = $this->subscriptionRepository->postSubscription($request);
     }
 
+    public function editSubscription($id)
+    {
+        $companies =  Company::all();
+        $subs  = SubscriptionPlan::all();
+        $subscription  = Subscription::find($id);
+        return view('admin.subscriptions.edit', compact('companies','subs','subscription'));
+    } 
+
+    public function updateSubscription(Request $request)
+    {
+        return $response = $this->subscriptionRepository->updateSubscription($request);
+    }
+
     public function activeSubscription() 
     {
         $active_subscriptions = Subscription::where('sub_end_date', '>=', $this->today)->where('status', 'active')->get();

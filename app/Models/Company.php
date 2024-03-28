@@ -11,4 +11,13 @@ class Company extends Model
     
     CONST ACTIVE    = 'active';
     CONST INACTIVE  = 'inactive';
+
+    protected $fillable = [
+        'id',
+        'sub_amount',
+        'sub_start_date',
+        'sub_end_date',
+        'plan',
+        'status',
+    ];
 }

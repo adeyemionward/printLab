@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class DashboardController extends Controller
 {
+    protected $today;
     public function __construct()
     {
+        // Get today's date
+        $this->today = Carbon::today()->toDateString();
         $this->middleware('auth');
     }
     public function index(Request $request)
@@ -19,8 +22,8 @@ class DashboardController extends Controller
 
 
         $total_companies                =   Company::count();
-        $active_companies               =   Company::where('status',Company::ACTIVE)->get();
-        $total_active_companies         =   count($active_companies);
+        $active_subscribed_companies               =   Company::where('status',Company::ACTIVE)->where('sub_end_date', '>=', $this->today)->get();
+        $total_active_companies         =   count($active_subscribed_companies);
         $inactive_companies             =   Company::where('status',Company::INACTIVE)->get();
         $total_inactive_companies       =   count($inactive_companies);
         $new_companies                  =   Company::whereDate('created_at', '>=', $date60DaysAgo)->get();
@@ -29,6 +32,6 @@ class DashboardController extends Controller
 
 
 
-        return view('admin.dashboard', compact('total_companies','active_companies','total_active_companies','inactive_companies','total_inactive_companies','total_revenue','new_companies'));
+        return view('admin.dashboard', compact('total_companies','active_subscribed_companies','total_active_companies','inactive_companies','total_inactive_companies','total_revenue','new_companies'));
     }
 }
