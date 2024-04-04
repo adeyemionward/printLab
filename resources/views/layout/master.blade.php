@@ -244,12 +244,10 @@
                                     <span class="data-feather theme-item">Locations</span>
                                 </a>
 
-
                                 <a href="{{route('roles.add_role')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
                                     <span class="data-feather theme-item"> Users Roles & Permission</span>
                                 </a>
-
 							</div>
 						</div>
 					</li>
