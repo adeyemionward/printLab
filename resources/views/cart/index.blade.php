@@ -29,6 +29,7 @@
     <div class="container">
         <div class="cart_inner">
             <div class="table-responsive">
+                <h2>Notebooks Products</h2> <br>
                 <table class="table">
                     <thead>
                         <tr>
@@ -88,7 +89,67 @@
                             @endforeach
                         </tbody>
                     @endif
+                </table>
 
+                <h2>Video Profiling Products</h2> <br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">S/N</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Color</th>
+                            <th scope="col">Paper Type</th>
+                            <th scope="col">Thickness</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    @if ($VideocartCount >= 1)
+                    <tbody>
+                        @foreach ($videocarts as $index => $val)
+                            <tr>
+                                <form method="POST">
+                                    @csrf
+                                <input type="hidden" value="{{$val->id}}" name="job_id[]">
+                                <td>{{$loop->iteration}}</td>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="{{asset('product_images/'.$val->productName->image)}}" alt />
+                                        </div>
+                                        <div class="media-body">
+                                            <p>{{ucwords($val->productName->name)}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{$val->quantity}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{$val->cover_paper}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{$val->productName->memory}} </h5>
+                                </td>
+                                <td>
+                                    <h5>{{$val->productName->screen_size}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{$val->productName->display_area}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{$val->productName->resolution}}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{'₦'.$val->total_cost}}</h5>
+                                </td>
+
+                                <td><a class="btn" href="{{route('cart.edit', [$val->productName->name, $val->video_profiling_product_id, $val->id])}}"><span >Edit Order</span></a></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    @endif
                 </table>
                 @if ($cartCount >= 1)
                     <div class="checkout_btn_inner float-right">

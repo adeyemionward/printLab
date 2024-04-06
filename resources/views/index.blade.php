@@ -124,7 +124,7 @@ a span:hover{
             <div class="properties-card">
                 <div class="properties-img">
                     <a href="{{route('product_categories','Eighty_Leaves')}}"><img src="assets/img/gallery/80-leaves.jpg" style="height: 320px;" alt></a>
-                    
+
                 </div>
                 <div class="properties-caption properties-caption2">
                     <h3><a href="{{route('product_categories','Eighty_Leaves')}}">80 Leaves Note Book</a></h3>
@@ -141,7 +141,7 @@ a span:hover{
             <div class="properties-card">
                 <div class="properties-img">
                     <a href="{{route('product_categories','Forty_Leaves')}}"><img src="assets/img/gallery/40_leaves1.jpg" style="height: 320px;"  alt></a>
-                  
+
                 </div>
                 <div class="properties-caption properties-caption2">
                     <h3><a href="{{route('product_categories','Forty_Leaves')}}">40 Leaves Note Book</a></h3>
@@ -158,7 +158,7 @@ a span:hover{
             <div class="properties-card">
                 <div class="properties-img">
                     <a href="{{route('product_categories','Twenty_Leaves')}}"><img src="assets/img/gallery/note20.jpg" style="height: 320px;" alt></a>
-                    
+
                 </div>
                 <div class="properties-caption properties-caption2">
                     <h3><a href="{{route('product_categories','Twenty_Leaves')}}">20 Leaves Note Book</a></h3>
@@ -204,26 +204,28 @@ a span:hover{
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
                 <div class="latest-items-active">
-                    <div class="properties pb-30">
-                        <div class="properties-card">
-                            <div class="properties-img">
-                                <a href="{{route('product_categories','Higher_Education')}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
-                                <div class="socal_icon">
-                                    <a href="#"><i class="ti-shopping-cart"></i></a>
-                                    <a href="#"><i class="ti-heart"></i></a>
-                                    <a href="#"><i class="ti-zoom-in"></i></a>
+                    @forelse ($video_profile as $val)
+                        <div class="properties pb-30">
+                            <div class="properties-card">
+                                <div class="properties-img">
+                                    <a href="{{route('product_categories','Higher_Education')}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+
                                 </div>
-                            </div>
-                            <div class="properties-caption properties-caption2">
-                                <h3><a href="{{route('product_categories','Higher_Education')}}">Higher Education Note Book</a></h3>
-                                <div class="properties-footer">
-                                    <div class="price">
-                                        <a href="{{route('product_categories','Higher_Education')}}"><span><button class="btn btn-primary">Browse Higher Educat...</button></span></a>
+                                <div class="properties-caption properties-caption2">
+                                    <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->name}}</a></h3>
+                                    <div class="properties-footer">
+                                        <div class="price">
+                                            <a href="{{route('video_profile.details', $val->id)}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @empty
+
+                    @endforelse
+
+
                 </div>
             </div>
         </div>

@@ -52,6 +52,28 @@ class FrontPageController extends Controller
         $this->order_date = date('Y-m-d');
     }
 
+    public function VideocartFunc(){
+        if (auth()->check()) {
+            $cart_func = VideoProfiling::where('cart_order_status', VideoProfiling::job_cart_status)
+                ->where(function ($query) {
+                    $query->where('user_id', $this->user->id)
+                        ->orWhere('local_id', $this->localIp);
+                })->get();
+        } else {
+            $cart_func = VideoProfiling::where('cart_order_status', VideoProfiling::job_cart_status)->where('local_id', $this->localIp)->get();
+        }
+
+        return $cart_func;
+    }
+
+
+    private function VideocartCount(){
+
+        $vieo_cart_func = $this->VideocartFunc();
+        $VideoCountCart  = count($vieo_cart_func);
+        return $VideoCountCart;
+    }
+
     public function cartFunc(){
         if (auth()->check()) {
             $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)
@@ -66,18 +88,21 @@ class FrontPageController extends Controller
         return $cart_func;
     }
 
+
     private function countCart(){
+        $vieo_cart_func = $this->VideocartFunc();
+        $VideoCountCart  = count($vieo_cart_func);
 
         $cart_func = $this->cartFunc();
-        $countCart  = count($cart_func);
+        $countCart  = count($cart_func) + count($vieo_cart_func);
+
         return $countCart;
     }
-
 
     public function video_profile(){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profiling =  VideoProfilingProduct::all();
+        $video_profiling =  VideoProfilingProduct::all()->take(4);
         return view('video_profile.index', compact('cartCount','all_testimonial','video_profiling'));
     }
 
@@ -96,7 +121,7 @@ class FrontPageController extends Controller
         //try{
 
         $product_id                 =  request()->id;
-        $cover_paper                =  request('cover_paper');       
+        $cover_paper                =  request('cover_paper');
         $quantity                   =  request('quantity');
         $total_cost                 =  request('total_cost');
         //$product_name               =  request('product_name');
@@ -113,14 +138,14 @@ class FrontPageController extends Controller
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
             $cart->cover_paper      = $cover_paper;
-            
+
             $cart->order_date      = $this->order_date;
             $cart->order_type      = 'external';
             $cart->user_id         = $this->user->id;
             $cart->created_by      = $this->user->id;
             $cart->save();
 
-        } else { 
+        } else {
 
             //save to job
             $cart = new VideoProfiling();
@@ -147,7 +172,8 @@ class FrontPageController extends Controller
     {
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        return view('index', compact('cartCount','all_testimonial'));
+        $video_profile =  VideoProfilingProduct::all();
+        return view('index', compact('cartCount','all_testimonial','video_profile'));
     }
 
     public function cart()
@@ -155,9 +181,11 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         $carts = $this->cartFunc();
 
-        return view('cart.index', compact('cartCount','carts'));
-    }
+        $VideocartCount = $this->VideocartCount();
+        $videocarts = $this->VideocartFunc();
 
+        return view('cart.index', compact('cartCount','carts','VideocartCount','videocarts'));
+    }
 
     public function addCart(Request $request, $title =  null, $id =  null)
     {
@@ -332,8 +360,7 @@ class FrontPageController extends Controller
 
     public function getVideoProfilePrice(Request $request){
 
-        $quantity       = $request->quantity;
-
+        $quantity   =   $request->quantity;
 
         $pro = VideoProfilingProduct::join('video_profiling_product_costs', 'video_profiling_products.id', '=', 'video_profiling_product_costs.product_id')
         ->where('video_profiling_product_costs.quantity',$quantity)
