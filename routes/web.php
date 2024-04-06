@@ -112,6 +112,15 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
             });
 
 
+            Route::group(['prefix' => '/video_profiling', 'as' => 'video_profiling.'], function () {
+                Route::group(['prefix' => '/internal', 'as' => 'internal.'], function () {
+                    Route::get('/add', 'VideoProfilingController@create')->name('add');
+                    Route::get('/list', 'VideoProfilingController@list')->name('list');
+                    Route::post('/add', 'VideoProfilingController@storeInternalProfiling')->name('add');
+                });
+            });
+
+
             Route::group(['prefix' => '/external_job_order', 'as' => 'external_job_order.'], function () {
                 //status
                 Route::group(['prefix' => '/status', 'as' => 'status.'], function () {
@@ -160,6 +169,13 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 
                 Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
                 Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
+
+
+
+                Route::get('/add_video_profile', 'ProductController@add_video_profile')->name('add_video_profile');
+                Route::post('/add_video_profile', 'ProductController@store_video_profile')->name('add_video_profile');
+                Route::get('/list_video_profile', 'ProductController@list_video_profile')->name('list_video_profile');
+                Route::get('/edit_video_profile/{id}', 'ProductController@edit_video_profile')->name('edit_video_profile');
             });
 
 
@@ -300,6 +316,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     Route::post('product_details/{title?}/{id?}', 'FrontPageController@addCart')->name('product_details');
     Route::get('/{title}/product_categories', 'FrontPageController@product_categories')->name('product_categories');
     Route::post('get_price', 'FrontPageController@getPrice')->name('get_price');
+    Route::post('get_video_profile_price', 'FrontPageController@getVideoProfilePrice')->name('get_video_profile_price');
+
 
     Route::group(['prefix' => '/track_orders', 'as' => 'track_orders.'], function () {
         Route::get('/', 'FrontPageController@track_orders')->name('index');
@@ -316,9 +334,16 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::post('/', 'FrontPageController@checkout')->name('checkout');
     });
 
+
     Route::group(['prefix' => '/contact', 'as' => 'contact.'], function () {
         Route::get('/', 'FrontPageController@contact')->name('index');
         Route::post('/', 'FrontPageController@postContact')->name('post');
+    });
+
+    Route::group(['prefix' => '/video_profile', 'as' => 'video_profile.'], function () {
+        Route::get('/', 'FrontPageController@video_profile')->name('index');
+        Route::get('details/{id}', 'FrontPageController@video_profile_details')->name('details');
+        Route::post('details/{id}', 'FrontPageController@addVideoProfileCart')->name('details');
     });
 
     Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {

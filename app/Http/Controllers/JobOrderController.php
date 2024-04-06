@@ -25,7 +25,7 @@ use App\Repository\NoteBookRepository;
 use App\Repository\NotePadRepository;
 use App\Repository\BookletRepository;
 use App\Repository\FlyerRepository;
-use App\Repository\BrochureRepository;
+use App\Repository\BrochureRepository; 
 use App\Repository\BusinessCardRepository;
 use App\Repository\EnvelopeRepository;
 use Illuminate\Support\Facades\Auth;
@@ -477,27 +477,27 @@ class JobOrderController extends Controller
         }elseif(request()->job_title == 'Small_Invoice'){
 
             $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
-           
+
         }elseif(request()->job_title == 'Brochures'){
             $response = $this->brochureRepository->updateBrochure($request);
-            
+
         }elseif(request()->job_title == 'Flyer'){
             $response = $this->flyerRepository->updateFlyer($request);
 
         }elseif(request()->job_title == 'Business_Cards'){
 
             $response = $this->businessCardRepository->updateBusinessCard($request);
-       
+
         }elseif(request()->job_title == 'Envelopes'){
             $response = $this->envelopeRepository->updateEnvelope($request);
 
         }elseif(request()->job_title == 'Notepads'){
 
-            $response = $this->notePadRepository->updateNotePadOrder($request); 
+            $response = $this->notePadRepository->updateNotePadOrder($request);
 
         }elseif(request()->job_title == 'Stickers'){
 
-            $response = $this->stickersRepository->updateStickersOrder($request);  
+            $response = $this->stickersRepository->updateStickersOrder($request);
         }
         return $response;
     }

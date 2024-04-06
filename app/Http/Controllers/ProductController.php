@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\ProductCost;
+use App\Models\VideoProfilingProduct;
+use App\Models\VideoProfilingProductCost;
+
 class ProductController extends Controller
 {
     /**
@@ -20,6 +23,74 @@ class ProductController extends Controller
 
         $this->startDate  = request('date_from').' 23:59:59';
         $this->endDate    = request('date_to').' 23:59:59';
+    }
+
+    public function list_video_profile()
+    {
+        $list_video_profiling =  VideoProfilingProduct::all();
+        return view('products.list_video_profile', compact('list_video_profiling'));
+    }
+
+    public function add_video_profile()
+    {
+        return view('products.add_video_profile');
+    }
+
+    public function edit_video_profile($id)
+    {
+        $video_profiling =  VideoProfilingProduct::find($id);
+        return view('products.edit_video_profile', compact('video_profiling'));
+    }
+
+    public function store_video_profile(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $name                       =  request('product_name');
+        $quantity                   =  request('quantity');
+        $cover_paper                =  request('cover_paper');
+        $screen_size                =  request('screen_size');
+        $display_area               =  request('display_area');
+        $resolution                 =  request('resolution');
+        $battery                    =  request('battery');
+        $memory                     =  request('memory');
+        $total_cost                 =  request('total_cost');
+        $production_time            =  request('production_time');
+        $description                =  request('description');
+
+        //save to job
+        $product = new VideoProfilingProduct();
+        $product->name              = $name;
+        $product->cover_paper       = $cover_paper;
+        $product->screen_size       = $screen_size;
+        $product->production_days   = $production_time;
+        $product->display_area      = $display_area;
+        $product->resolution        = $resolution;
+        $product->battery           = $battery;
+        $product->memory            = $memory;
+        $product->description       = $description;
+        $product->created_by        = $user->id;
+
+        if($eticket_img = $request->file('image')){
+            $name = $eticket_img->hashName(); // Generate a unique, random name...
+            $path = $eticket_img->store('public/images');
+            $product->image = $name;
+        }
+
+        $product->save();
+        //save into product costs
+        for ($count=0; $count < count($quantity); $count++) {
+            $pro_cost =  VideoProfilingProductCost::updateOrCreate(
+                [
+                    'product_id'        => $product->id,
+                    'product_name'        => $product->name,
+                    'quantity'          => $quantity[$count],
+                    'total_cost'        => $total_cost[$count],
+                ],
+            );
+        }
+        return redirect(route('products.list_video_profile'))->with('flash_success','Video Profile saved successfully');
     }
     public function index()
     {
@@ -43,12 +114,8 @@ class ProductController extends Controller
         return view('products.add_higher_education');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function store_higher_education(Request $request)
     {
 
@@ -310,7 +377,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $job_title, $id){
         $user = Auth::user();
-        $job_order =  Product::find($id);
+        $product =  Product::find($id);
         $customers =  User::where('user_type',2)->get();
         //dd(request()->job_title);
         if(request()->job_title == 'eighty_leaves'){

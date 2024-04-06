@@ -1,0 +1,218 @@
+
+@extends('layout.master')
+@section('content')
+@section('title', 'Video Profiling')
+@php $page = 'edit_video_profiling' @endphp
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <div class="col-md-6 float-start">
+                    <h4 class="m-0 text-dark text-muted">Video Profiling</h4>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-end">
+                        <li class="breadcrumb-item"><a href="#"> Home</a></li>
+                        <li class="breadcrumb-item active">Video Profiling</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="canvas-wrapper">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                {{-- @include('job_order.job_order_inc') --}}
+
+                                <div class="col-md-9 col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title mb-0 text-muted">Edit Video Profiling</h5>
+                                        </div>
+                                        <div class="card-body h-100">
+                                            <div class="align-items-start">
+                                                <div class="tab-content" id="nav-tabContent">
+                                                    <div class="tab-pane fade show active" id="nav-server"
+                                                        role="tabpanel" aria-labelledby="nav-server-tab">
+
+                                                        <div class="row g-3 mb-3 mt-3">
+                                                            <div class="col-md-12">
+                                                                <form method="POST"  id="add_twenty_leaves" class="add_twenty_leaves" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    @method('POST')
+                                                                    <input type="hidden" name="note_type" value="Higher NoteBook" >
+
+
+                                                                    <div class="row">
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Product Name</label>
+                                                                            <input required type="text" name="product_name" class="form-control" id="product_name" placeholder="eg: 4">
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlSelect1">Screen Size</label>
+                                                                                <select name="screen_size" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Screen Size--</option>
+                                                                                    <option value="2.4 Inch TFT Screen">2.4 Inch TFT Screen</option>
+                                                                                    <option value="4.3 Inch TFT Screen">4.3 Inch TFT Screen</option>
+                                                                                    <option value="5 Inch TFT Screen">5 Inch TFT Screen</option>
+                                                                                    <option value="5 Inch IPS Screen">5 Inch IPS Screen</option>
+                                                                                    <option value="7 Inch TFT Screen">7 Inch TFT Screen</option>
+                                                                                    <option value="7 Inch IPS Screen">7 Inch IPS Screen</option>
+                                                                                    <option value="10 Inch TFT Screen">10 Inch TFT Screen</option>
+                                                                                    <option value="10 Inch IPS Screen">10 Inch IPS Screen</option>
+                                                                                </select>
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="proof_needed">Display Area</label>
+                                                                            <select name="display_area" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                <option value="">--Select Display Area--</option>
+                                                                                <option value="48mm*36mm">48mm*36mm</option>
+                                                                                <option value="94mm*53mm">94mm*53mm</option>
+                                                                                <option value="110mm*61mm">110mm*61mm</option>
+                                                                                <option value="107mm*64mm">107mm*64mm</option>
+                                                                                <option value="152mm*85mm">152mm*85mm</option>
+                                                                                <option value="221mm*124mm">221mm*124mm</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlSelect1">Battery
+                                                                                </label>
+                                                                                <select name="battery" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Battery--</option>
+                                                                                    <option value="320~2000mAH">320~2000mAH</option>
+                                                                                </select>
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlSelect1">Memory Information </label>
+                                                                                <select name="memory" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Memory Information--</option>
+                                                                                    <option value="128M">128M</option>
+                                                                                    <option value="256M">256M</option>
+                                                                                    <option value="512M">512M</option>
+                                                                                    <option value="1GB">1GB</option>
+                                                                                    <option value="2GB">2GB</option>
+                                                                                    <option value="4GB">4GB</option>
+                                                                                </select>
+                                                                        </div>
+
+
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlSelect1">Resolution
+                                                                                </label>
+                                                                                <select name="resolution" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Resolution--</option>
+                                                                                    <option value="320*240">320*240</option>
+                                                                                    <option value="480*272">480*272</option>
+                                                                                    <option value="800*480">800*480</option>
+                                                                                    <option value="1024*600">1024*600</option>
+                                                                                    <option value="1280*800">1280*800</option>
+                                                                                </select>
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Production Time (Days)</label>
+                                                                            <input required type="number" name="production_time" class="form-control" id="quantity" placeholder="eg: 4">
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="thickness"> Cover Paper</label>
+                                                                            <select class="form-control form-select" required  name="cover_paper" id="thickness">
+                                                                                <option value="">--Select Cover Paper--</option>
+                                                                                <option value="soft_cover">Soft Paper Cover</option>
+                                                                                <option value="hard_cover">Hard Paper Cover</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Upload Image
+                                                                                </label>
+                                                                                <input required type="file" name="image" class="form-control"
+                                                                                id="image">
+                                                                        </div>
+
+                                                                        <table id="products">
+
+                                                                            <a id="add-product" class="btn btn-primary" >Add Pricing</a>
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Quantity</th>
+                                                                                    <th>Price</th>
+                                                                                    <th></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <!-- Initial row, can be hidden -->
+                                                                                <tr class="product-row">
+                                                                                    <td style="width:50%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
+                                                                                    <td style="width:50%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
+
+                                                                                    <td>
+                                                                                        <a class="remove-product btn btn-danger">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                                                                              </svg>
+                                                                                            </a>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-12">
+                                                                                <label for="address">Product Description
+                                                                                    </label>
+                                                                                    <textarea name="description" required  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" value="{{ old('description') }}"
+                                                                                    id="description"></textarea>
+                                                                                    @error('description')
+                                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                                    @enderror
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="btn btn-sm btn-danger" type="submit">
+                                                                        <i class="text-white me-2" data-feather="check-circle"></i>Create Video Profiling
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+@endsection
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+$(document).ready(function() {
+
+    $('#add-product').on('click', function() {
+            var newRow = $('.product-row:first').clone();
+            $('#products tbody').append(newRow);
+        });
+
+        $('#products').on('click', '.remove-product', function() {
+            $(this).closest('tr').remove();
+            calculateTotal();
+        });
+    });
+</script>

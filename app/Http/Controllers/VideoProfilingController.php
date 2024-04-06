@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\JobLocation;
+use App\Models\VideoProfiling;
+use App\Repository\VideoProfilingRepository;
 
 class VideoProfilingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $videoProfilingRepository;
+
+
+    public function __construct(
+        VideoProfilingRepository $videoProfilingRepository
+    )
+
     {
-        //
+        $this->middleware('auth');
+        $this->videoProfilingRepository = $videoProfilingRepository;
+    }
+
+    public function list()
+    {
+        $internal_video_profilig =  VideoProfiling::where('order_type',VideoProfiling::INTERNAL)->get();
+        return view('video_profiling.internal.list', compact('internal_video_profilig'));
     }
 
     /**
@@ -23,7 +35,9 @@ class VideoProfilingController extends Controller
      */
     public function create()
     {
-        return view('video_profiling.internal.add');
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        $locations =  JobLocation::getLocations();
+        return view('video_profiling.internal.add', compact('customers','locations'));
     }
 
     /**
@@ -35,6 +49,11 @@ class VideoProfilingController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function storeInternalProfiling(Request $request)
+    {
+        return $result = $this->videoProfilingRepository->postInternalVideoProfiling($request->all());
     }
 
     /**

@@ -18,6 +18,9 @@ use App\Mail\SendContactFormEmail;
 use Hash;
 use Illuminate\Support\Facades\DB;
 use App\Services\CheckoutService;
+use App\Models\VideoProfilingProduct;
+use App\Models\VideoProfiling;
+use App\Models\VideoProfilingProductCost;
 
 
 use Mail;
@@ -71,6 +74,75 @@ class FrontPageController extends Controller
     }
 
 
+    public function video_profile(){
+        $all_testimonial = Testimonial::all();
+        $cartCount = $this->countCart();
+        $video_profiling =  VideoProfilingProduct::all();
+        return view('video_profile.index', compact('cartCount','all_testimonial','video_profiling'));
+    }
+
+     public function video_profile_details($id){
+        $all_testimonial = Testimonial::all();
+        $cartCount = $this->countCart();
+        $video_profiling =  VideoProfilingProduct::find($id);
+        $video_profiling_pricing =  VideoProfilingProductCost::where('product_id',$id)->get();
+        $product_cost = VideoProfilingProductCost::where('product_id', $id)->first(); //initial pro cost
+        return view('video_profile.details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
+    }
+
+
+    public function addVideoProfileCart(Request $request, $title =  null, $id =  null)
+    {
+        //try{
+
+        $product_id                 =  request()->id;
+        $cover_paper                =  request('cover_paper');       
+        $quantity                   =  request('quantity');
+        $total_cost                 =  request('total_cost');
+        //$product_name               =  request('product_name');
+        $amount_paid = 0;
+
+        if (Auth::check()) {
+
+            //save to job
+            $cart = new VideoProfiling();
+            $cart->video_profiling_product_id      = $product_id;
+           // $cart->job_order_name  = $product_name;
+            $cart->quantity        = $quantity;
+            $cart->local_id        = $this->localIp;
+            $cart->cart_order_status = 1;
+            $cart->total_cost      = $total_cost;
+            $cart->cover_paper      = $cover_paper;
+            
+            $cart->order_date      = $this->order_date;
+            $cart->order_type      = 'external';
+            $cart->user_id         = $this->user->id;
+            $cart->created_by      = $this->user->id;
+            $cart->save();
+
+        } else { 
+
+            //save to job
+            $cart = new VideoProfiling();
+            $cart->video_profiling_product_id      = $product_id;
+           // $cart->job_order_name  = $product_name;
+            $cart->quantity        = $quantity;
+            $cart->local_id        = $this->localIp;
+            $cart->cover_paper      = $cover_paper;
+            $cart->cart_order_status = 1;
+            $cart->total_cost      = $total_cost;
+            $cart->order_date      = $this->order_date;
+            $cart->order_type      = 'external';
+            $cart->save();
+        }
+
+
+    // }catch(\Exception $th){
+    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    // }
+        return redirect(route('cart.index'))->with('flash_success','Product added to cart');
+    }
+
     public function index()
     {
         $all_testimonial = Testimonial::all();
@@ -86,12 +158,7 @@ class FrontPageController extends Controller
         return view('cart.index', compact('cartCount','carts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function addCart(Request $request, $title =  null, $id =  null)
     {
         try{
@@ -261,6 +328,20 @@ class FrontPageController extends Controller
         $twenty_leaves = Product::where('name','twenty_leaves')->first();
         $eighty_leaves = Product::where('name','eighty_leaves')->first();
         return view('product_categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
+    }
+
+    public function getVideoProfilePrice(Request $request){
+
+        $quantity       = $request->quantity;
+
+
+        $pro = VideoProfilingProduct::join('video_profiling_product_costs', 'video_profiling_products.id', '=', 'video_profiling_product_costs.product_id')
+        ->where('video_profiling_product_costs.quantity',$quantity)
+        ->first();
+
+        $price =  $pro->total_cost;
+
+        return response()->json(['price'=>$price]);
     }
 
     public function getPrice(Request $request){
