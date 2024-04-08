@@ -198,7 +198,12 @@
 
     @forelse ($products as $val)
         <div class="media post_item">
-            <img src="{{asset('storage/images/'.$val->image)}}" alt="image" style="width:80px; height:80px">
+            @if ( env('APP_ENV') == 'local')
+                <img src="{{asset('storage/images/'.$val->image)}}" alt="product_image" style="width:80px; height:80px">
+            @else
+                <img src="{{asset('public/storage/images/'.$val->image)}}"  alt="product_image" style="width:80px; height:80px">
+            @endif
+            {{-- <img src="{{asset('storage/images/'.$val->image)}}" alt="image" style="width:80px; height:80px"> --}}
             <div class="media-body">
                 <a href="{{route('product_details',[$val->name,$val->id])}}">
                     <h3 style="color: #2d2d2d;">{{$val->title}}</h3>
