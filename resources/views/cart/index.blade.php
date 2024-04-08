@@ -89,7 +89,6 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <td><a style="color:red"  onclick="return confirm('Are you sure you want to delete this cart?');" href="{{route('cart.delete', [$val->id])}}"><span >Delete</span></a></td>
-
                                                 </div>
                                             </div>
                                         </div>
