@@ -55,7 +55,7 @@
             </div>
 
             <div class="features-caption">
-                <h3>{{$video_profiling->name}}</h3>
+                <h3>{{$video_profiling->title}}</h3>
                 <input type="hidden" value="{{$video_profiling->name}}" id="product_name" name="product_name">
                 <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$video_profiling->description}}</span></p>
                 <p><b style="color: white; font-size:24px"> Specifications: </b>

@@ -215,7 +215,7 @@ a span:hover{
                                     <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->name}}</a></h3>
                                     <div class="properties-footer">
                                         <div class="price">
-                                            <a href="{{route('video_profile.details', $val->id)}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                            <a href="{{route('video_profile.product_details', $val->id)}}"><span><button class="btn btn-primary">Order Now</button></span></a>
                                         </div>
                                     </div>
                                 </div>

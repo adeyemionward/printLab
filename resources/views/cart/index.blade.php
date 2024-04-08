@@ -72,7 +72,7 @@
                                     <div class="media post_item">
                                         <img src="assets/img/post/post_1.jpg" alt="post" style="width: 120px">
                                         <div class="media-body" style="padding-left: 20px">
-                                            <a href="blog_details.html">
+                                            <a >
                                                 <h3 style="color: #2d2d2d;">{{str_replace('_',' ',ucwords($product_name))}}</h3>
                                             </a>
                                             <div class="row" >
@@ -193,20 +193,25 @@
     </div>
 <div class="col-lg-4">
 <div class="blog_right_sidebar">
-{{-- 
-<aside class="single_sidebar_widget popular_post_widget">
-<h3 class="widget_title" style="color: #2d2d2d;">Trending Products</h3>
 
-<div class="media post_item">
-<img src="assets/img/post/post_4.jpg" alt="post">
-<div class="media-body">
-<a href="blog_details.html">
-<h3 style="color: #2d2d2d;">Asteroids telescope</h3>
-</a>
-<a class="btn" href="{{route('index')}}#buy_products">Add to Cart</a>
-</div>
-</div>
-</aside> --}}
+<aside class="single_sidebar_widget popular_post_widget">
+    <h3 class="widget_title" style="color: #2d2d2d;">Trending Products</h3>
+
+    @forelse ($products as $val)
+        <div class="media post_item">
+            <img src="{{asset('storage/images/'.$val->image)}}" alt="image" style="width:80px; height:80px">
+            <div class="media-body">
+                <a href="{{route('product_details',[$val->name,$val->id])}}">
+                    <h3 style="color: #2d2d2d;">{{$val->title}}</h3>
+                </a>
+                <a  href="{{route('product_details',[$val->name,$val->id])}}"  style="color:red" >See Details</a>
+            </div>
+        </div>
+    @empty
+        
+    @endforelse
+    
+</aside>
 
 </div>
 </div>

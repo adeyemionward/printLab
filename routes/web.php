@@ -346,11 +346,12 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@contact')->name('index');
         Route::post('/', 'FrontPageController@postContact')->name('post');
     });
+    Route::get('product_details/{title?}/{id?}', 'FrontPageController@video_profile_details')->name('product_details');
+    Route::post('product_details/{title?}/{id?}', 'FrontPageController@addVideoProfileCart')->name('product_details');
 
     Route::group(['prefix' => '/video_profile', 'as' => 'video_profile.'], function () {
         Route::get('/', 'FrontPageController@video_profile')->name('index');
-        Route::get('details/{id}', 'FrontPageController@video_profile_details')->name('details');
-        Route::post('details/{id}', 'FrontPageController@addVideoProfileCart')->name('details');
+        
     });
 
     Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {

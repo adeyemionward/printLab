@@ -106,13 +106,13 @@ class FrontPageController extends Controller
         return view('video_profile.index', compact('cartCount','all_testimonial','video_profiling'));
     }
 
-     public function video_profile_details($id){
+     public function video_profile_details($title =  null, $id = null){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
         $video_profiling =  Product::find($id);
         $video_profiling_pricing =  ProductCost::where('product_id',$id)->get();
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
-        return view('video_profile.details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
+        return view('video_profile.product_details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
     }
 
 
@@ -183,8 +183,8 @@ class FrontPageController extends Controller
 
         $VideocartCount = $this->VideocartCount();
         $videocarts = $this->VideocartFunc();
-
-        return view('cart.index', compact('cartCount','carts','VideocartCount','videocarts'));
+        $products = Product::all();
+        return view('cart.index', compact('cartCount','carts','VideocartCount','videocarts','products'));
     }
 
     public function addCart(Request $request, $title =  null, $id =  null)
