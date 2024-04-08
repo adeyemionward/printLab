@@ -12,7 +12,7 @@
     {
         public function postInternalVideoProfiling($data){
             DB::beginTransaction();
-            try{
+            //try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
 
@@ -32,8 +32,9 @@
                 $location                   =  $data['location'];
 
                 //save to job
-                $job_order = new VideoProfiling();
+                $job_order = new JobOrder();
                 $job_order->user_id     = $customer_id;
+                $job_order->job_order_name  = 'Video Profile';
                 $job_order->quantity        = $quantity;
                 $job_order->cover_paper             = $cover_paper;
                 $job_order->screen_size      = $screen_size;
@@ -44,21 +45,19 @@
                 $job_order->memory      = $memory;
                 $job_order->order_type      = $order_type;
                 $job_order->total_cost      = $total_cost;
-                $job_order->payment_type      = $payment_type;
-                $job_order->amount_paid      = $amount_paid;
                 $job_order->job_location_id        = $location;
                 $job_order->created_by      = $user->id;
                 $job_order->save();
 
-                // JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
-                // JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $amount_paid, $payment_type, $order_date, $user->id);
+                JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
+                JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
-            }catch(\Exception $th){
-                DB::rollBack();
-                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            }
-            return redirect(route('video_profiling.internal.list'))->with('flash_success', 'Video Profiling Added successfully');
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            // }
+            return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 
 
