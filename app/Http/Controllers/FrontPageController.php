@@ -54,13 +54,13 @@ class FrontPageController extends Controller
 
     public function VideocartFunc(){
         if (auth()->check()) {
-            $cart_func = VideoProfiling::where('cart_order_status', VideoProfiling::job_cart_status)
+            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)
                 ->where(function ($query) {
                     $query->where('user_id', $this->user->id)
                         ->orWhere('local_id', $this->localIp);
                 })->get();
         } else {
-            $cart_func = VideoProfiling::where('cart_order_status', VideoProfiling::job_cart_status)->where('local_id', $this->localIp)->get();
+            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)->where('local_id', $this->localIp)->get();
         }
 
         return $cart_func;
@@ -94,7 +94,7 @@ class FrontPageController extends Controller
         $VideoCountCart  = count($vieo_cart_func);
 
         $cart_func = $this->cartFunc();
-        $countCart  = count($cart_func) + count($vieo_cart_func);
+        $countCart  = count($cart_func);
 
         return $countCart;
     }
@@ -102,16 +102,16 @@ class FrontPageController extends Controller
     public function video_profile(){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profiling =  VideoProfilingProduct::all()->take(4);
+        $video_profiling =  Product::where('type','video_profiling')->get();
         return view('video_profile.index', compact('cartCount','all_testimonial','video_profiling'));
     }
 
      public function video_profile_details($id){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profiling =  VideoProfilingProduct::find($id);
-        $video_profiling_pricing =  VideoProfilingProductCost::where('product_id',$id)->get();
-        $product_cost = VideoProfilingProductCost::where('product_id', $id)->first(); //initial pro cost
+        $video_profiling =  Product::find($id);
+        $video_profiling_pricing =  ProductCost::where('product_id',$id)->get();
+        $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
         return view('video_profile.details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
     }
 
@@ -124,15 +124,15 @@ class FrontPageController extends Controller
         $cover_paper                =  request('cover_paper');
         $quantity                   =  request('quantity');
         $total_cost                 =  request('total_cost');
-        //$product_name               =  request('product_name');
+        $product_name               =  request('product_name');
         $amount_paid = 0;
 
         if (Auth::check()) {
 
             //save to job
-            $cart = new VideoProfiling();
-            $cart->video_profiling_product_id      = $product_id;
-           // $cart->job_order_name  = $product_name;
+            $cart = new JobOrder();
+            $cart->product_id      = $product_id;
+            $cart->job_order_name  = $product_name;
             $cart->quantity        = $quantity;
             $cart->local_id        = $this->localIp;
             $cart->cart_order_status = 1;
@@ -148,9 +148,9 @@ class FrontPageController extends Controller
         } else {
 
             //save to job
-            $cart = new VideoProfiling();
-            $cart->video_profiling_product_id      = $product_id;
-           // $cart->job_order_name  = $product_name;
+            $cart = new JobOrder();
+            $cart->product_id      = $product_id;
+            $cart->job_order_name  = $product_name;
             $cart->quantity        = $quantity;
             $cart->local_id        = $this->localIp;
             $cart->cover_paper      = $cover_paper;
@@ -172,7 +172,7 @@ class FrontPageController extends Controller
     {
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profile =  VideoProfilingProduct::all();
+        $video_profile =  Product::where('type','video_profiling')->take(4)->get();
         return view('index', compact('cartCount','all_testimonial','video_profile'));
     }
 
@@ -261,6 +261,12 @@ class FrontPageController extends Controller
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
         return view('cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+    }
+
+    public function delete_cart($id)
+    {
+        $product = JobOrder::where('id', $id)->delete();
+        return redirect(route('cart.index'))->with('flash_success','Product cart deleted');
     }
 
     public function update_cart(Request $request, $title =  null, $id =  null, $job_id =  null)
@@ -362,7 +368,7 @@ class FrontPageController extends Controller
 
         $quantity   =   $request->quantity;
 
-        $pro = VideoProfilingProduct::join('video_profiling_product_costs', 'video_profiling_products.id', '=', 'video_profiling_product_costs.product_id')
+        $pro = Product::join('video_profiling_product_costs', 'video_profiling_products.id', '=', 'video_profiling_product_costs.product_id')
         ->where('video_profiling_product_costs.quantity',$quantity)
         ->first();
 

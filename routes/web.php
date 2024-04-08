@@ -67,6 +67,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 // Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
                 Route::get('/order_invoice_pdf/{order_no?}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
 
+                Route::get('/video_profile', 'JobOrderController@video_profile')->name('video_profile');
+                Route::post('/video_profile', 'JobOrderController@post_video_profile')->name('video_profile');
 
                 Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
                 Route::post('/higher_education', 'JobOrderController@post_higher_education')->name('higher_education');
@@ -157,6 +159,10 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 Route::get('/edit_pricing/{job_title}/{id}', 'ProductController@edit_pricing')->name('edit_pricing');
                 Route::post('/edit_pricing/{job_title}/{id}', 'ProductController@update_pricing')->name('edit_pricing');
                 Route::get('/delete_product/{id}', 'ProductController@delete_product')->name('delete_product');
+                
+                Route::get('/add_video_profile', 'ProductController@create_video_profile')->name('add_video_profile');
+                Route::post('/add_video_profile', 'ProductController@store_video_profile')->name('add_video_profile');
+
 
                 Route::get('/add_higher_education', 'ProductController@create_higher_education')->name('add_higher_education');
                 Route::post('/add_higher_education', 'ProductController@store_higher_education')->name('add_higher_education');
@@ -331,6 +337,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@cart')->name('index');
         Route::get('edit/{title?}/{id}/{job_id}', 'FrontPageController@edit_cart')->name('edit');
         Route::post('edit/{title}/{id}/{job_id}', 'FrontPageController@update_cart')->name('edit');
+        Route::get('delete/{id}', 'FrontPageController@delete_cart')->name('delete');
         Route::post('/', 'FrontPageController@checkout')->name('checkout');
     });
 

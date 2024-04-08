@@ -9,6 +9,13 @@
 
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
+
+                <a class="nav-link <?php if($page == 'video_profile') echo 'active active_red'  ?>"
+                    href="{{route('products.add_video_profile')}}"
+                    aria-selected="false">Video Profile</a>
+                   <div class="dropdown-divider"></div>
+
+
                 <a class="nav-link <?php if($page == 'higher_education') echo 'active active_red'  ?>"
                  href="{{route('products.add_higher_education')}}"
                  aria-selected="false">Higher Note Book</a>

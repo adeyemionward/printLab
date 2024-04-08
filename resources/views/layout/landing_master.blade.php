@@ -153,7 +153,7 @@
 <main>
     @yield('content')
 
-
+</main>
 <footer>
     <div class="footer-wrapper gray-bg">
     <div class="footer-area footer-padding">
@@ -253,7 +253,6 @@
 <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('assets/js/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.slicknav.min.js')}}"></script>
-
 
 <script src="{{asset('assets/js/contact.js')}}"></script>
 <script src="{{asset('assets/js/jquery.form.js')}}"></script>

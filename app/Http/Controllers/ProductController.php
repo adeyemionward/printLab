@@ -38,7 +38,7 @@ class ProductController extends Controller
 
     public function edit_video_profile($id)
     {
-        $video_profiling =  VideoProfilingProduct::find($id);
+        $video_profiling =  Product::find($id);
         return view('products.edit_video_profile', compact('video_profiling'));
     }
 
@@ -48,6 +48,7 @@ class ProductController extends Controller
         $user = Auth::user();
 
         $name                       =  request('product_name');
+        $title                      =  request('title');
         $quantity                   =  request('quantity');
         $cover_paper                =  request('cover_paper');
         $screen_size                =  request('screen_size');
@@ -60,8 +61,9 @@ class ProductController extends Controller
         $description                =  request('description');
 
         //save to job
-        $product = new VideoProfilingProduct();
-        $product->name              = $name;
+        $product = new Product();
+        $product->name              = 'video_profile';
+        $product->title             = $name;
         $product->cover_paper       = $cover_paper;
         $product->screen_size       = $screen_size;
         $product->production_days   = $production_time;
@@ -69,6 +71,7 @@ class ProductController extends Controller
         $product->resolution        = $resolution;
         $product->battery           = $battery;
         $product->memory            = $memory;
+        $product->type              = 'video_profiling';
         $product->description       = $description;
         $product->created_by        = $user->id;
 
@@ -81,16 +84,16 @@ class ProductController extends Controller
         $product->save();
         //save into product costs
         for ($count=0; $count < count($quantity); $count++) {
-            $pro_cost =  VideoProfilingProductCost::updateOrCreate(
+            $pro_cost =  ProductCost::updateOrCreate(
                 [
                     'product_id'        => $product->id,
-                    'product_name'        => $product->name,
+                    'product_name'      => $product->name,
                     'quantity'          => $quantity[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
             );
         }
-        return redirect(route('products.list_video_profile'))->with('flash_success','Video Profile saved successfully');
+        return redirect(route('products.all_products'))->with('flash_success','Video Profile saved successfully');
     }
     public function index()
     {
@@ -114,8 +117,6 @@ class ProductController extends Controller
         return view('products.add_higher_education');
     }
 
-
-
     public function store_higher_education(Request $request)
     {
 
@@ -132,7 +133,8 @@ class ProductController extends Controller
 
         //save to product
         $product = new Product();
-        $product->name  = 'higher_notebook';
+        $product->name            = 'higher_notebook';
+        $product->title           = 'Higher Notebook';
         $product->ink             = $ink;
         $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
@@ -190,6 +192,7 @@ class ProductController extends Controller
         //save to job
         $product = new Product();
         $product->name  = 'eighty_leaves';
+        $product->title           = 'Eighty Leaves';
         $product->ink             = $ink;
         $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
@@ -251,6 +254,7 @@ class ProductController extends Controller
         //save to job
         $product = new Product();
         $product->name  = 'forty_leaves';
+        $product->title           = 'Forty Leaves';
         $product->ink             = $ink;
         $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
@@ -311,6 +315,7 @@ class ProductController extends Controller
         //save to job
         $product = new Product();
         $product->name  = 'twenty_leaves';
+        $product->title           = 'Twenty Leaves';
         $product->ink             = $ink;
         $product->paper_type      = $paper_type;
         $product->production_days = $production_time;

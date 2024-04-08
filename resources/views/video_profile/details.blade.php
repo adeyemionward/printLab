@@ -36,9 +36,9 @@
             <div class="features-img">
 
                 @if ( env('APP_ENV') == 'local')
-                    <img src="{{asset('storage/images/'.$video_profiling->image)}}" alt="product_image" style="width: 100%">
+                    <img src="{{asset('storage/images/'.$video_profiling->image)}}" alt="product_image" style="width: 70%; height:450px" >
                 @else
-                    <img src="{{asset('public/storage/images/'.$video_profiling->image)}}"  alt="product_image" style="width: 100%">
+                    <img src="{{asset('public/storage/images/'.$video_profiling->image)}}"  alt="product_image" style="width: 50%">
                 @endif
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
@@ -54,11 +54,9 @@
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
 
-
             <div class="features-caption">
-                <h3>Higher Education NoteBook</h3>
-
-                <input type="hidden" value="Higher NoteBook" id="product_name" name="product_name">
+                <h3>{{$video_profiling->name}}</h3>
+                <input type="hidden" value="{{$video_profiling->name}}" id="product_name" name="product_name">
                 <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$video_profiling->description}}</span></p>
                 <p><b style="color: white; font-size:24px"> Specifications: </b>
                     <span>

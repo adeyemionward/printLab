@@ -28,6 +28,7 @@ use App\Repository\FlyerRepository;
 use App\Repository\BrochureRepository; 
 use App\Repository\BusinessCardRepository;
 use App\Repository\EnvelopeRepository;
+use App\Repository\VideoProfilingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -55,6 +56,7 @@ class JobOrderController extends Controller
     private $brochureRepository;
     private $businessCardRepository;
     private $envelopeRepository;
+    private $videoProfilingRepository;
 
     public function __construct(
         NoteBookRepository $noteBookRepository,
@@ -65,7 +67,8 @@ class JobOrderController extends Controller
         FlyerRepository $flyerRepository,
         BrochureRepository $brochureRepository,
         BusinessCardRepository $businessCardRepository,
-        EnvelopeRepository $envelopeRepository
+        EnvelopeRepository $envelopeRepository,
+        VideoProfilingRepository $videoProfilingRepository
     )
 
     {
@@ -79,6 +82,7 @@ class JobOrderController extends Controller
         $this->brochureRepository = $brochureRepository;
         $this->businessCardRepository = $businessCardRepository;
         $this->envelopeRepository = $envelopeRepository;
+        $this->videoProfilingRepository = $videoProfilingRepository;
     }
 
     private function JobOrderQuery (){
@@ -261,6 +265,20 @@ class JobOrderController extends Controller
         $job_order =  JobOrder::find($id);
         $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
         return view('job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
+    }
+
+    public function video_profile()
+    {
+        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        $locations =  JobLocation::getLocations();
+        return view('job_order.video_profile', compact('customers','locations'));
+    }
+
+    public function post_video_profile(Request $request)
+    {
+        // Call the function to postInternalVideoProfiling
+        return $response = $this->videoProfilingRepository->postInternalVideoProfiling($request);
+       
     }
 
     public function higher_education()
