@@ -118,10 +118,10 @@ a span:hover{
                                 @endif
                             </div>
                             <div class="properties-caption properties-caption2">
-                                <h3><a href="{{route('video_profile.details', $val->id)}}">{{$val->name}}</a></h3>
+                                <h3><a href="{{route('product_details',[$val->name,$val->id])}}">{{$val->title}}</a></h3>
                                 <div class="properties-footer">
                                     <div class="price">
-                                        <a href="{{route('video_profile.product_details', $val->id)}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                        <a href="{{route('product_details',[$val->name,$val->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
                                     </div>
                                 </div>
                             </div>
