@@ -208,11 +208,18 @@ a span:hover{
                         <div class="properties pb-30">
                             <div class="properties-card">
                                 <div class="properties-img">
-                                    <a href="{{route('product_categories','Higher_Education')}}"><img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt></a>
+                                    <a href="{{route('product_categories','Higher_Education')}}">
+                                        @if ( env('APP_ENV') == 'local')
+                                            <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                        @else
+                                            <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                        @endif
+                                        
+                                    </a>
 
                                 </div>
                                 <div class="properties-caption properties-caption2">
-                                    <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->name}}</a></h3>
+                                    <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->title}}</a></h3>
                                     <div class="properties-footer">
                                         <div class="price">
                                             <a href="{{route('product_details',[$val->name,$val->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
