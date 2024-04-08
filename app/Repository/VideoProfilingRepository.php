@@ -44,6 +44,7 @@
                 $job_order->battery     = $battery;
                 $job_order->memory      = $memory;
                 $job_order->order_type      = $order_type;
+                $job_order->cart_order_status      = 1;
                 $job_order->total_cost      = $total_cost;
                 $job_order->job_location_id        = $location;
                 $job_order->created_by      = $user->id;
