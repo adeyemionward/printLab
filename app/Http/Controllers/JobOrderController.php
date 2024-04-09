@@ -25,7 +25,7 @@ use App\Repository\NoteBookRepository;
 use App\Repository\NotePadRepository;
 use App\Repository\BookletRepository;
 use App\Repository\FlyerRepository;
-use App\Repository\BrochureRepository; 
+use App\Repository\BrochureRepository;
 use App\Repository\BusinessCardRepository;
 use App\Repository\EnvelopeRepository;
 use App\Repository\VideoProfilingRepository;
@@ -267,18 +267,18 @@ class JobOrderController extends Controller
         return view('job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
     }
 
-    public function video_profile()
+    public function video_brochure()
     {
         $customers =  User::where('user_type',User::CUSTOMER)->get();
         $locations =  JobLocation::getLocations();
-        return view('job_order.video_profile', compact('customers','locations'));
+        return view('job_order.video_brochure', compact('customers','locations'));
     }
 
-    public function post_video_profile(Request $request)
+    public function post_video_brochure(Request $request)
     {
         // Call the function to postInternalVideoProfiling
         return $response = $this->videoProfilingRepository->postInternalVideoProfiling($request);
-       
+
     }
 
     public function higher_education()

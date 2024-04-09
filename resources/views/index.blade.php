@@ -204,7 +204,7 @@ a span:hover{
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
                 <div class="latest-items-active">
-                    @forelse ($video_profile as $val)
+                    @forelse ($video_brochure as $val)
                         <div class="properties pb-30">
                             <div class="properties-card">
                                 <div class="properties-img">
@@ -214,7 +214,7 @@ a span:hover{
                                         @else
                                             <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
                                         @endif
-                                        
+
                                     </a>
 
                                 </div>

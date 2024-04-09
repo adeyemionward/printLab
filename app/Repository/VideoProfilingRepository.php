@@ -34,7 +34,7 @@
                 //save to job
                 $job_order = new JobOrder();
                 $job_order->user_id     = $customer_id;
-                $job_order->job_order_name  = 'Video Profile';
+                $job_order->job_order_name  = 'Video Bronchure';
                 $job_order->quantity        = $quantity;
                 $job_order->cover_paper             = $cover_paper;
                 $job_order->screen_size      = $screen_size;

@@ -67,8 +67,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 // Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
                 Route::get('/order_invoice_pdf/{order_no?}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
 
-                Route::get('/video_profile', 'JobOrderController@video_profile')->name('video_profile');
-                Route::post('/video_profile', 'JobOrderController@post_video_profile')->name('video_profile');
+                Route::get('/video_brochure', 'JobOrderController@video_brochure')->name('video_brochure');
+                Route::post('/video_brochure', 'JobOrderController@post_video_brochure')->name('video_brochure');
 
                 Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
                 Route::post('/higher_education', 'JobOrderController@post_higher_education')->name('higher_education');
@@ -159,9 +159,9 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
                 Route::get('/edit_pricing/{job_title}/{id}', 'ProductController@edit_pricing')->name('edit_pricing');
                 Route::post('/edit_pricing/{job_title}/{id}', 'ProductController@update_pricing')->name('edit_pricing');
                 Route::get('/delete_product/{id}', 'ProductController@delete_product')->name('delete_product');
-                
-                Route::get('/add_video_profile', 'ProductController@create_video_profile')->name('add_video_profile');
-                Route::post('/add_video_profile', 'ProductController@store_video_profile')->name('add_video_profile');
+
+                // Route::get('/add_video_profile', 'ProductController@create_video_profile')->name('add_video_profile');
+                // Route::post('/add_video_profile', 'ProductController@store_video_profile')->name('add_video_profile');
 
 
                 Route::get('/add_higher_education', 'ProductController@create_higher_education')->name('add_higher_education');
@@ -178,10 +178,10 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 
 
 
-                Route::get('/add_video_profile', 'ProductController@add_video_profile')->name('add_video_profile');
-                Route::post('/add_video_profile', 'ProductController@store_video_profile')->name('add_video_profile');
-                Route::get('/list_video_profile', 'ProductController@list_video_profile')->name('list_video_profile');
-                Route::get('/edit_video_profile/{id}', 'ProductController@edit_video_profile')->name('edit_video_profile');
+                Route::get('/add_video_brochure', 'ProductController@add_video_brochure')->name('add_video_brochure');
+                Route::post('/add_video_brochure', 'ProductController@store_video_brochure')->name('add_video_brochure');
+                Route::get('/list_video_brochure', 'ProductController@list_video_brochure')->name('list_video_brochure');
+                Route::get('/edit_video_brochure/{id}', 'ProductController@edit_video_brochure')->name('edit_video_brochure');
             });
 
 
@@ -346,12 +346,11 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@contact')->name('index');
         Route::post('/', 'FrontPageController@postContact')->name('post');
     });
-    Route::get('product_details/{title?}/{id?}', 'FrontPageController@video_profile_details')->name('product_details');
-    Route::post('product_details/{title?}/{id?}', 'FrontPageController@addVideoProfileCart')->name('product_details');
+    Route::get('product_details/{title?}/{id?}', 'FrontPageController@video_brochure_details')->name('product_details');
+    Route::post('product_details/{title?}/{id?}', 'FrontPageController@addVideoBrochureCart')->name('product_details');
 
-    Route::group(['prefix' => '/video_profile', 'as' => 'video_profile.'], function () {
-        Route::get('/', 'FrontPageController@video_profile')->name('index');
-        
+    Route::group(['prefix' => '/video_brochure', 'as' => 'video_brochure.'], function () {
+        Route::get('/', 'FrontPageController@video_brochure')->name('index');
     });
 
     Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {

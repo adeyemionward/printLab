@@ -99,24 +99,24 @@ class FrontPageController extends Controller
         return $countCart;
     }
 
-    public function video_profile(){
+    public function video_brochure(){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
         $video_profiling =  Product::where('type','video_profiling')->get();
-        return view('video_profile.index', compact('cartCount','all_testimonial','video_profiling'));
+        return view('video_brochure.index', compact('cartCount','all_testimonial','video_profiling'));
     }
 
-     public function video_profile_details($title =  null, $id = null){
+     public function video_brochure_details($title =  null, $id = null){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
         $video_profiling =  Product::find($id);
         $video_profiling_pricing =  ProductCost::where('product_id',$id)->get();
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
-        return view('video_profile.product_details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
+        return view('video_brochure.product_details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
     }
 
 
-    public function addVideoProfileCart(Request $request, $title =  null, $id =  null)
+    public function addVideoBrochureCart(Request $request, $title =  null, $id =  null)
     {
         //try{
 
@@ -172,8 +172,8 @@ class FrontPageController extends Controller
     {
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profile =  Product::where('type','video_profiling')->take(4)->get();
-        return view('index', compact('cartCount','all_testimonial','video_profile'));
+        $video_brochure =  Product::where('type','video_brochure')->take(4)->get();
+        return view('index', compact('cartCount','all_testimonial','video_brochure'));
     }
 
     public function cart()

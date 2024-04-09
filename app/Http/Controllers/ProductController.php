@@ -31,18 +31,18 @@ class ProductController extends Controller
         return view('products.list_video_profile', compact('list_video_profiling'));
     }
 
-    public function add_video_profile()
+    public function add_video_brochure()
     {
-        return view('products.add_video_profile');
+        return view('products.add_video_brochure');
     }
 
-    public function edit_video_profile($id)
+    public function edit_video_brochure($id)
     {
         $video_profiling =  Product::find($id);
-        return view('products.edit_video_profile', compact('video_profiling'));
+        return view('products.edit_video_brochure', compact('video_profiling'));
     }
 
-    public function store_video_profile(Request $request)
+    public function store_video_brochure(Request $request)
     {
 
         $user = Auth::user();
@@ -62,7 +62,7 @@ class ProductController extends Controller
 
         //save to job
         $product = new Product();
-        $product->name              = 'video_profile';
+        $product->name              = 'video_brochure';
         $product->title             = $name;
         $product->cover_paper       = $cover_paper;
         $product->screen_size       = $screen_size;
@@ -71,7 +71,7 @@ class ProductController extends Controller
         $product->resolution        = $resolution;
         $product->battery           = $battery;
         $product->memory            = $memory;
-        $product->type              = 'video_profiling';
+        $product->type              = 'video_brochure';
         $product->description       = $description;
         $product->created_by        = $user->id;
 
@@ -130,7 +130,6 @@ class ProductController extends Controller
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
 
-
         //save to product
         $product = new Product();
         $product->name            = 'higher_notebook';
@@ -169,12 +168,7 @@ class ProductController extends Controller
         return view('products.add_eighty_leaves');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store_eighty_leaves(Request $request)
     {
 
@@ -187,7 +181,6 @@ class ProductController extends Controller
         $quantity                   =  request('quantity');
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
-
 
         //save to job
         $product = new Product();

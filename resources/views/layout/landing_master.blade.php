@@ -101,7 +101,7 @@
 <ul id="navigation">
 <li><a href="{{route('index')}}">Home</a></li>
 <li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
-<li><a href="{{route('video_profile.index')}}">Video Profiling</a></li>
+<li><a href="{{route('video_brochure.index')}}">Video Brochure</a></li>
 
 
 <li><a href="{{route('contact.index')}}">Contact</a></li>

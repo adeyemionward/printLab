@@ -53,8 +53,6 @@
                                         <td><a href="{{route('products.edit_video_profile',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
-
-
                         </table>
                     </div>
                 </div>

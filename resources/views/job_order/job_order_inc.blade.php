@@ -9,13 +9,13 @@
             <!--<h5 class="card-title mb-3 text-primary">Select Entity</h5> -->
 
             <div class="nav nav-pills flex-column bg-white"
-                
+
 
                 id="nav-tab" role="tablist">
 
-                <a class="nav-link <?php if($page == 'video_profile') echo 'active active_red'  ?>"
-                    href="{{route('job_order.video_profile')}}"
-                    aria-selected="false">Video Profile</a>
+                <a class="nav-link <?php if($page == 'video_brochure') echo 'active active_red'  ?>"
+                    href="{{route('job_order.video_brochure')}}"
+                    aria-selected="false">Video Brochure</a>
                    <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'higher_education') echo 'active active_red'  ?>"
@@ -40,7 +40,7 @@
                 aria-selected="false">80 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 
-              
+
 
 
 
