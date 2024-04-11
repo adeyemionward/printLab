@@ -102,7 +102,7 @@ class FrontPageController extends Controller
     public function video_brochure(){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profiling =  Product::where('type','video_profiling')->get();
+        $video_profiling =  Product::where('type','video_brochure')->get();
         return view('video_brochure.index', compact('cartCount','all_testimonial','video_profiling'));
     }
 
