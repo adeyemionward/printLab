@@ -60,19 +60,39 @@ a span:hover{
 <div class=" slider-height d-flex align-items-center">
     <div class="container">
         <div class="row">
+
+
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6  col-sm-12">
-                <video width="500" height="350" controls>
+                @if ( env('APP_ENV') == 'local')
+                <video  height="350" controls>
                     <source src="{{asset('video/video_profile_1.mp4')}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                @else
+                <video  height="350" controls>
+                    <source src="{{asset('public/video/video_profile_1.mp4')}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                @endif
+
+
 
             </div>
 
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6  col-sm-12">
-                <video width="500" height="350" controls>
+                @if ( env('APP_ENV') == 'local')
+                <video  height="350" controls>
                     <source src="{{asset('video/video_profile_2.mp4')}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                @else
+                <video  height="350" controls>
+                    <source src="{{asset('public/video/video_profile_2.mp4')}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                @endif
+
+
             </div>
         </div>
     </div>
@@ -94,7 +114,7 @@ a span:hover{
 
     <nav>
     <div class="nav-tittle" id="buy_products" >
-    <h2 id="popular_product_text">Popular Video Profiling</h2>
+    <h2 id="popular_product_text">Popular Video Brochure</h2>
     </div>
 
     </nav>
