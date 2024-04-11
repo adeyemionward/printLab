@@ -57,9 +57,9 @@
                                                                                     <option value="5 Inch TFT Screen">5 Inch TFT Screen</option>
                                                                                     <option value="5 Inch IPS Screen">5 Inch IPS Screen</option>
                                                                                     <option value="7 Inch TFT Screen">7 Inch TFT Screen</option>
-                                                                                    <option value="7 Inch IPS Screen">7 Inch IPS Screen</option>
+                                                                                    {{-- <option value="7 Inch IPS Screen">7 Inch IPS Screen</option> --}}
                                                                                     <option value="10 Inch TFT Screen">10 Inch TFT Screen</option>
-                                                                                    <option value="10 Inch IPS Screen">10 Inch IPS Screen</option>
+                                                                                    {{-- <option value="10 Inch IPS Screen">10 Inch IPS Screen</option> --}}
                                                                                 </select>
                                                                         </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">

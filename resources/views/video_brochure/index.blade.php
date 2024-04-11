@@ -64,12 +64,12 @@ a span:hover{
 
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6  col-sm-12">
                 @if ( env('APP_ENV') == 'local')
-                <video  height="350" controls>
+                <video  height="350" width="500" controls>
                     <source src="{{asset('video/video_profile_1.mp4')}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 @else
-                <video  height="350" controls>
+                <video  height="350" width="500" controls>
                     <source src="{{asset('public/video/video_profile_1.mp4')}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -81,12 +81,12 @@ a span:hover{
 
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6  col-sm-12">
                 @if ( env('APP_ENV') == 'local')
-                <video  height="350" controls>
+                <video  height="350" width="500" controls>
                     <source src="{{asset('video/video_profile_2.mp4')}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 @else
-                <video  height="350" controls>
+                <video  height="350" width="500px" controls>
                     <source src="{{asset('public/video/video_profile_2.mp4')}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
