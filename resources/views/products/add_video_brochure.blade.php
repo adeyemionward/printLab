@@ -55,7 +55,7 @@
                                                                                     <option value="2.4 Inch TFT Screen">2.4 Inch TFT Screen</option>
                                                                                     <option value="4.3 Inch TFT Screen">4.3 Inch TFT Screen</option>
                                                                                     <option value="5 Inch TFT Screen">5 Inch TFT Screen</option>
-                                                                                    <option value="5 Inch IPS Screen">5 Inch IPS Screen</option>
+                                                                                    {{-- <option value="5 Inch IPS Screen">5 Inch IPS Screen</option> --}}
                                                                                     <option value="7 Inch TFT Screen">7 Inch TFT Screen</option>
                                                                                     {{-- <option value="7 Inch IPS Screen">7 Inch IPS Screen</option> --}}
                                                                                     <option value="10 Inch TFT Screen">10 Inch TFT Screen</option>
@@ -69,7 +69,7 @@
                                                                                 <option value="48mm*36mm">48mm*36mm</option>
                                                                                 <option value="94mm*53mm">94mm*53mm</option>
                                                                                 <option value="110mm*61mm">110mm*61mm</option>
-                                                                                <option value="107mm*64mm">107mm*64mm</option>
+                                                                                {{-- <option value="107mm*64mm">107mm*64mm</option> --}}
                                                                                 <option value="152mm*85mm">152mm*85mm</option>
                                                                                 <option value="221mm*124mm">221mm*124mm</option>
                                                                             </select>
