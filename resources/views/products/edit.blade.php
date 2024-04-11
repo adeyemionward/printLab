@@ -35,7 +35,7 @@
                                 @include('products.product_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
-                                    @if(request()->job_title == 'video_profile')
+                                    @if(request()->job_title == 'video_brochure')
                                     <div class="card">
                                         <div class="card-header bg-white">
                                             <h5 class="card-title mb-0 text-muted">Edit Product</h5>
@@ -143,7 +143,7 @@
                                                                         id="image">
                                                                 </div>
 
-                                                                
+
                                                             </div>
 
                                                             {{-- <table id="products">
