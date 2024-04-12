@@ -52,13 +52,13 @@
                                                                             <label for="exampleFormControlSelect1">Screen Size</label>
                                                                                 <select name="screen_size" required class="form-control form-select"  id="exampleFormControlSelect1">
                                                                                     <option value="">--Select Screen Size--</option>
-                                                                                    <option value="2.4 Inch TFT Screen">2.4 Inch TFT Screen</option>
+                                                                                    {{-- <option value="2.4 Inch TFT Screen">2.4 Inch TFT Screen</option> --}}
                                                                                     <option value="4.3 Inch TFT Screen">4.3 Inch TFT Screen</option>
                                                                                     <option value="5 Inch TFT Screen">5 Inch TFT Screen</option>
                                                                                     {{-- <option value="5 Inch IPS Screen">5 Inch IPS Screen</option> --}}
                                                                                     <option value="7 Inch TFT Screen">7 Inch TFT Screen</option>
                                                                                     {{-- <option value="7 Inch IPS Screen">7 Inch IPS Screen</option> --}}
-                                                                                    <option value="10 Inch TFT Screen">10 Inch TFT Screen</option>
+                                                                                    {{-- <option value="10 Inch TFT Screen">10 Inch TFT Screen</option> --}}
                                                                                     {{-- <option value="10 Inch IPS Screen">10 Inch IPS Screen</option> --}}
                                                                                 </select>
                                                                         </div>
@@ -66,12 +66,12 @@
                                                                             <label for="proof_needed">Display Area</label>
                                                                             <select name="display_area" required class="form-control form-select"  id="exampleFormControlSelect1">
                                                                                 <option value="">--Select Display Area--</option>
-                                                                                <option value="48mm*36mm">48mm*36mm</option>
+                                                                                {{-- <option value="48mm*36mm">48mm*36mm</option> --}}
                                                                                 <option value="94mm*53mm">94mm*53mm</option>
                                                                                 <option value="110mm*61mm">110mm*61mm</option>
                                                                                 {{-- <option value="107mm*64mm">107mm*64mm</option> --}}
                                                                                 <option value="152mm*85mm">152mm*85mm</option>
-                                                                                <option value="221mm*124mm">221mm*124mm</option>
+                                                                                {{-- <option value="221mm*124mm">221mm*124mm</option> --}}
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -107,11 +107,11 @@
                                                                                 </label>
                                                                                 <select name="resolution" required class="form-control form-select"  id="exampleFormControlSelect1">
                                                                                     <option value="">--Select Resolution--</option>
-                                                                                    <option value="320*240">320*240</option>
+                                                                                    {{-- <option value="320*240">320*240</option> --}}
                                                                                     <option value="480*272">480*272</option>
                                                                                     <option value="800*480">800*480</option>
                                                                                     <option value="1024*600">1024*600</option>
-                                                                                    <option value="1280*800">1280*800</option>
+                                                                                    {{-- <option value="1280*800">1280*800</option> --}}
                                                                                 </select>
                                                                         </div>
 

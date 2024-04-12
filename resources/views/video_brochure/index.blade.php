@@ -285,9 +285,10 @@ $(document).ready(function() {
                         htmlContent += '<img src="' + imageUrl + '" alt="product_image" style="width: 100%; height: 320px;">';
                     }
                     htmlContent += '<div class="card-body">';
-                    htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
+                    htmlContent += '<h5 class="card-title" style="padding-top:25px">' + val.title + '</h5>';
                     htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
-                    htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
+                    htmlContent += '<a href="{{ route('product_details', ['']) }}/' + val.name + '/' + val.id + '"><button class="btn btn-primary btn-block">Add to Cart</button></a>';
+
                     htmlContent += '</div>';
                     htmlContent += '</div>';
                     htmlContent += '</div>';
@@ -331,9 +332,9 @@ $(document).ready(function() {
                         htmlContent += '<img src="' + imageUrl + '" alt="product_image" style="width: 100%; height: 320px;">';
                     }
                 htmlContent += '<div class="card-body">';
-                htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
+                htmlContent += '<h5 class="card-title" style="padding-top:25px">' + val.title + '</h5>';
                 htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
-                htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
+                htmlContent += '<a href="{{ route('product_details', ['']) }}/' + val.name + '/' + val.id + '"><button class="btn btn-primary btn-block">Add to Cart</button></a>';
                 htmlContent += '</div>';
                 htmlContent += '</div>';
                 htmlContent += '</div>';
