@@ -116,8 +116,12 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="production_time">Production Time (Days)</label>
-                                                                            <input required type="number" name="production_time" class="form-control" id="quantity" placeholder="eg: 4">
+                                                                                <label for="exampleFormControlSelect1">Screen Ratio
+                                                                                    </label>
+                                                                                    <select name="screen_ratio" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                        <option value="">--Select Screen Ratio--</option>
+                                                                                        <option value="16:9">16:9</option>
+                                                                                    </select>
                                                                         </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="thickness"> Cover Paper</label>

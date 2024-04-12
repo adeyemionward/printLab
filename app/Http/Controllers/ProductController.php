@@ -57,7 +57,7 @@ class ProductController extends Controller
         $battery                    =  request('battery');
         $memory                     =  request('memory');
         $total_cost                 =  request('total_cost');
-        $production_time            =  request('production_time');
+        $screen_ratio               =  request('screen_ratio');
         $description                =  request('description');
 
         //save to job
@@ -66,7 +66,7 @@ class ProductController extends Controller
         $product->title             = $name;
         $product->cover_paper       = $cover_paper;
         $product->screen_size       = $screen_size;
-        $product->production_days   = $production_time;
+        $product->screen_ratio      = $screen_ratio;
         $product->display_area      = $display_area;
         $product->resolution        = $resolution;
         $product->battery           = $battery;
