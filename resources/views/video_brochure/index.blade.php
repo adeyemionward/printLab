@@ -166,9 +166,7 @@ label {
     </div>
     </div>
     <div class="container" >
-      
-
-        <input type="radio" id="radio1" value="soft_cover" name="coverType">
+        <input type="radio" id="radio1" value="soft_cover" name="coverType" checked>
         <label for="radio1"> Soft Cover Paper</label>
 
         <input type="radio" id="radio2" value="hard_cover" name="coverType">
