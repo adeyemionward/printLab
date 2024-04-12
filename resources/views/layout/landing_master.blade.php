@@ -36,7 +36,7 @@
 </div>
 </div>
 <style>
-    .cart2{position:relative}.header-area .header-mid .menu-wrapper .header-right .cart2::after{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;position:absolute;content:"{{$cartCount}}";background:#FF2020;color:#fff;text-align:center;border-radius:50%;font-size:12px;top:-7px;right:0px;padding:1px 7px}
+    /* .cart2{position:relative}.header-area .header-mid .menu-wrapper .header-right .cart2::after{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;position:absolute;content:"{{$cartCount}}";background:#FF2020;color:#fff;text-align:center;border-radius:50%;font-size:12px;top:-7px;right:0px;padding:1px 7px} */
 </style>
 <header>
 <div class="header-area">
@@ -246,7 +246,7 @@
 
 <script src="{{asset('assets/js/vendor/modernizr-3.5.0.min.js')}}"></script>
 
-<script src="{{asset('assets/js/vendor/jquery-1.12.4.min.js')}}"></script>
+
 <script src="{{asset('assets/js/popper.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 

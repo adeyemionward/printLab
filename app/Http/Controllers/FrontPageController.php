@@ -99,12 +99,25 @@ class FrontPageController extends Controller
         return $countCart;
     }
 
-    public function video_brochure(){
+    public function video_brochure(Request $request){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-        $video_profiling =  Product::where('type','video_brochure')->get();
-        return view('video_brochure.index', compact('cartCount','all_testimonial','video_profiling'));
+         $video_profiling =  Product::where('type','video_brochure')->where('cover_paper','soft_cover')->get();
+
+        return view('video_brochure.index',  compact('cartCount','all_testimonial','video_profiling'));
     }
+
+    public function video_brochure2(){
+        $video_profiling = Product::where('type', 'video_brochure')->where('cover_paper','soft_cover')->get();
+        return response()->json(['video_profiling'=>$video_profiling]);;
+    }
+
+    public function video_brochure3(Request $request){
+        $coverType = $request->input('coverType');
+        $video_profiling = Product::where('type', 'video_brochure')->where('cover_paper', $coverType)->get();
+        return response()->json(['video_profiling'=>$video_profiling]);;
+    }
+
 
      public function video_brochure_details($title =  null, $id = null){
         $all_testimonial = Testimonial::all();

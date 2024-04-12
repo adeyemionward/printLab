@@ -323,6 +323,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     Route::get('/{title}/product_categories', 'FrontPageController@product_categories')->name('product_categories');
     Route::post('get_price', 'FrontPageController@getPrice')->name('get_price');
     Route::post('get_video_profile_price', 'FrontPageController@getVideoProfilePrice')->name('get_video_profile_price');
+    Route::get('get_video_brochure_product', 'FrontPageController@video_brochure1')->name('get_video_brochure_product');
+
 
 
     Route::group(['prefix' => '/track_orders', 'as' => 'track_orders.'], function () {
@@ -351,6 +353,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
 
     Route::group(['prefix' => '/video_brochure', 'as' => 'video_brochure.'], function () {
         Route::get('/', 'FrontPageController@video_brochure')->name('index');
+        Route::get('in', 'FrontPageController@video_brochure2')->name('in');
+        Route::get('ina', 'FrontPageController@video_brochure3')->name('ina');
     });
 
     Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {

@@ -2,6 +2,7 @@
 @section('content')
 @section('title', 'Add Supplier')
 <style>
+    
 @media screen and (min-width: 768px) {
     .hero1{
         margin-top: -150px;
@@ -53,6 +54,47 @@ a.contact_now:hover {
 a span:hover{
     color:#fff;
 }
+/* Hide default radio button */
+input[type="radio"] {
+  display: none;
+}
+
+/* Style the label to create a custom radio button */
+label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  padding-left: 30px; /* Adjust based on your preferred size */
+}
+
+/* Style the custom radio button */
+label::before {
+  content: '';
+  display: inline-block;
+  width: 20px; /* Adjust based on your preferred size */
+  height: 20px; /* Adjust based on your preferred size */
+  border: 2px solid #ccc; /* Border color */
+  border-radius: 50%; /* Rounded shape */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Style the custom radio button when it's checked */
+input[type="radio"]:checked + label::before {
+  background-color: #007bff; /* Change to your desired color */
+}
+
+/* Optional: Style the label text */
+label {
+  font-size: 16px; /* Adjust based on your preference */
+  margin-right: 10px; /* Add spacing between the button and text */
+}
+.latest-items .properties .properties-card{background-color:#fff}.latest-items .properties .properties-card .properties-img{position:relative;overflow:hidden}.latest-items .properties .properties-card .properties-img img{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s;width:100%;transform:scale(1)}.latest-items .properties .properties-card .properties-img .socal_icon{-webkit-transition:all .2s ease-out 0s;-moz-transition:all .2s ease-out 0s;-ms-transition:all .2s ease-out 0s;-o-transition:all .2s ease-out 0s;transition:all .2s ease-out 0s;position:absolute;left:0;right:0;margin:0 auto;opacity:0;visibility:hidden;bottom:20px;text-align:center}.latest-items .properties .properties-card .properties-img .socal_icon a{-webkit-transition:all .5s ease-out 0s;-moz-transition:all .5s ease-out 0s;-ms-transition:all .5s ease-out 0s;-o-transition:all .5s ease-out 0s;transition:all .5s ease-out 0s;background:#fff;color:#292621;width:64px;height:50px;display:inline-block;font-size:24px;text-align:center;line-height:54px;margin:-3px}.latest-items .properties .properties-card .properties-img .socal_icon a:hover{background:#FF2020;color:#fff}.latest-items .properties .properties-card .properties-caption{padding:14px 20px 2px 0px;-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s}.latest-items .properties .properties-card .properties-caption h3 a{color:#292621;font-size:16px;font-weight:400;margin-bottom:6px}.latest-items .properties .properties-card .properties-caption .properties-footer{-webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;-o-transition:all .4s ease-out 0s;transition:all .4s ease-out 0s}@media (max-width: 575px){.latest-items .properties .properties-card .properties-caption .properties-footer{padding:19px 10px 20px 12px}}.latest-items .properties .properties-card .properties-caption .properties-footer .price span{color:#74706B;cursor:pointer;font-weight:500;font-size:16px}.latest-items .properties .properties-card .properties-caption .properties-footer .price span span{display:inline-block;color:#CEBD9C;text-decoration:line-through;margin:0;margin-left:12px}
+</style>
+<style>
+    
 </style>
 <section class="hero1" >
 <div class="">
@@ -124,34 +166,23 @@ a span:hover{
     </div>
     </div>
     <div class="container" >
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-                <div class="latest-items-active">
-                    @foreach ($video_profiling as $val)
-                    <div class="properties pb-30">
-                        <div class="properties-card">
-                            <div class="properties-img">
-                                @if ( env('APP_ENV') == 'local')
-                                    <img src="{{asset('storage/images/'.$val->image)}}" alt="product_image" style="width: 100%; height: 320px;">
-                                @else
-                                    <img src="{{asset('public/storage/images/'.$val->image)}}"  alt="product_image" style="width: 100%; height: 320px;">
-                                @endif
-                            </div>
-                            <div class="properties-caption properties-caption2">
-                                <h3><a href="{{route('product_details',[$val->name,$val->id])}}">{{$val->title}}</a></h3>
-                                <div class="properties-footer">
-                                    <div class="price">
-                                        <a href="{{route('product_details',[$val->name,$val->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      
 
-                @endforeach
-                </div>
-            </div>
+        <input type="radio" id="radio1" value="soft_cover" name="coverType">
+        <label for="radio1"> Soft Cover Paper</label>
+
+        <input type="radio" id="radio2" value="hard_cover" name="coverType">
+        <label for="radio2"> Hard Cover Paper</label>
+        <br><br>
+        <div id="ajaxContent" class="row">
+            <div id="loadingSpinner" class="text-center mt-5" >
+                <i class="fas fa-spinner fa-spin fa-3x"></i>
+              </div>
         </div>
+        <div id="loadingSpinner1" class="text-center mt-5" style="display:none">
+            <i class="fas fa-spinner fa-spin fa-3x"></i>
+          </div>
+       
     </div>
 
 
@@ -195,7 +226,7 @@ a span:hover{
             <div class="col-xl-10 col-lg-10 col-md-11">
                 <div class="h1-testimonial-active">
                     @forelse ($all_testimonial as $val)
-                        <div class="single-testimonial text-center">
+                        <div class="single-testimonial text-center" >
                             <div class="testimonial-caption ">
                                 <div class="testimonial-top-cap">
                                     <h2>Customer Testimonial</h2>
@@ -229,5 +260,100 @@ a span:hover{
     </div>
 </div>
 
+<script src="{{asset('assets/js/vendor/jquery-1.12.4.min.js')}}"></script>
+<script>
+
+
+
+
+$(document).ready(function() {
+    
+    // Function to fetch video profiling data based on cover type
+    function fetchVideoProfiling(coverType) {
+        // Send AJAX request to fetch data based on cover type
+        $.ajax({
+            url: "{{route('video_brochure.ina')}}",
+            method: 'GET',
+            data: { coverType: coverType },
+            success: function(response) {
+                var htmlContent = '';
+                // Iterate through the response and append HTML for each product
+            $.each(response.video_profiling, function(index, val) {
+                htmlContent += '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">';
+                htmlContent += '<div class="card">';
+                htmlContent += '<img src="' + (val.image ? '{{ asset('storage/images/') }}/' + val.image : '') + '" alt="product_image" style="width: 100%; height: 320px;">';
+                htmlContent += '<div class="card-body">';
+                htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
+                htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
+                htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
+                htmlContent += '</div>';
+                htmlContent += '</div>';
+                htmlContent += '</div>';
+                // Append the HTML content to the container
+            });
+                $('#ajaxContent').html(htmlContent);
+                $('#loadingSpinner').hide();
+                $('#loadingSpinner1').hide();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function loadVideoProfiling() {
+        // Perform AJAX request to fetch video profiling products
+        $.ajax({
+            url: "{{ route('video_brochure.in') }}",
+            type: "GET",
+           // dataType: "json",
+            success: function(response) {
+                // Clear existing content
+                $('#ajaxContent').empty();
+                $('#loadingSpinner').hide();
+                $('#loadingSpinner1').hide();
+                var htmlContent = '';
+                // Iterate through the response and append HTML for each product
+                $.each(response.video_profiling, function(index, val) {
+                    htmlContent += '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">';
+            htmlContent += '<div class="card">';
+                htmlContent += '<img src="' + (val.image ? '{{ asset('storage/images/') }}/' + val.image : '') + '" alt="product_image" style="width: 100%; height: 320px;">';
+            htmlContent += '<div class="card-body">';
+            htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
+            htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
+            htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
+            htmlContent += '</div>';
+            htmlContent += '</div>';
+            htmlContent += '</div>';
+            // Append the HTML content to the container
+            
+        });
+        $('#ajaxContent').html(htmlContent);
+        
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                //alert(error);
+                console.log(error);
+            }
+        });
+    }
+
+    // Call the function to load video profiling products on page load
+   // $(document).ready(function() {
+        loadVideoProfiling();
+        $('input[type="radio"]').change(function() {
+            $('#ajaxContent').empty();
+            $('#loadingSpinner1').show();
+        var coverType = $(this).val(); // Get the selected cover type
+        //alert(coverType);
+        fetchVideoProfiling(coverType); // Fetch data based on selected cover type
+    });
+   // });
+});
+
+</script>
+
 </main>
 @endsection
+
