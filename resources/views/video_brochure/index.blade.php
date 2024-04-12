@@ -271,28 +271,28 @@ $(document).ready(function() {
                  var htmlContent = '';
                 // Iterate through the response and append HTML for each product
                 $.each(response.video_profiling, function(index, val) {
-     htmlContent += '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">';
-    htmlContent += '<div class="card">';
-    if (val.image) {
-        var imageUrl = '';
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            // Environment is local
-            imageUrl = '{{ asset('storage/images/') }}/' + val.image;
-        } else {
-            // Environment is production
-            imageUrl = '{{ asset('public/storage/images/') }}/' + val.image;
-        }
-        htmlContent += '<img src="' + imageUrl + '" alt="product_image" style="width: 100%; height: 320px;">';
-    }
-                htmlContent += '<div class="card-body">';
-                htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
-                htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
-                htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
-                htmlContent += '</div>';
-                htmlContent += '</div>';
-                htmlContent += '</div>';
-                // Append the HTML content to the container
-            });
+                    htmlContent += '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">';
+                    htmlContent += '<div class="card" style="border: none;">';
+                    if (val.image) {
+                        var imageUrl = '';
+                        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                            // Environment is local
+                            imageUrl = '{{ asset('storage/images/') }}/' + val.image;
+                        } else {
+                            // Environment is production
+                            imageUrl = '{{ asset('public/storage/images/') }}/' + val.image;
+                        }
+                        htmlContent += '<img src="' + imageUrl + '" alt="product_image" style="width: 100%; height: 320px;">';
+                    }
+                    htmlContent += '<div class="card-body">';
+                    htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
+                    htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
+                    htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
+                    htmlContent += '</div>';
+                    htmlContent += '</div>';
+                    htmlContent += '</div>';
+                    // Append the HTML content to the container
+                });
                 $('#ajaxContent').html(htmlContent);
                 $('#loadingSpinner').hide();
                 $('#loadingSpinner1').hide();
@@ -318,27 +318,37 @@ $(document).ready(function() {
                 // Iterate through the response and append HTML for each product
                 $.each(response.video_profiling, function(index, val) {
                     htmlContent += '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">';
-            htmlContent += '<div class="card">';
-                htmlContent += '<img src="' + (val.image ? '{{ asset('storage/images/') }}/' + val.image : '') + '" alt="product_image" style="width: 100%; height: 320px;">';
-            htmlContent += '<div class="card-body">';
-            htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
-            htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
-            htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
-            htmlContent += '</div>';
-            htmlContent += '</div>';
-            htmlContent += '</div>';
-            // Append the HTML content to the container
+                htmlContent += '<div class="card" style="border: none;">';
+                if (val.image) {
+                        var imageUrl = '';
+                        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                            // Environment is local
+                            imageUrl = '{{ asset('storage/images/') }}/' + val.image;
+                        } else {
+                            // Environment is production
+                            imageUrl = '{{ asset('public/storage/images/') }}/' + val.image;
+                        }
+                        htmlContent += '<img src="' + imageUrl + '" alt="product_image" style="width: 100%; height: 320px;">';
+                    }
+                htmlContent += '<div class="card-body">';
+                htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
+                htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
+                htmlContent += '<button class="btn btn-primary btn-block">Add to Cart</button>';
+                htmlContent += '</div>';
+                htmlContent += '</div>';
+                htmlContent += '</div>';
+                // Append the HTML content to the container
             
-        });
-        $('#ajaxContent').html(htmlContent);
-        
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                //alert(error);
-                console.log(error);
-            }
-        });
+            });
+            $('#ajaxContent').html(htmlContent);
+            
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    //alert(error);
+                    console.log(error);
+                }
+            });
     }
 
     // Call the function to load video profiling products on page load
