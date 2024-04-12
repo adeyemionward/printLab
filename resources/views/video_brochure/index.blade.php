@@ -273,7 +273,8 @@ $(document).ready(function() {
             $.each(response.video_profiling, function(index, val) {
                 htmlContent += '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">';
                 htmlContent += '<div class="card border-0">';
-                htmlContent += '<img src="' + (val.image ? '{{ asset('storage/images/') }}/' + val.image : '{{ asset('public/storage/images/') }}/' + val.image) + '" alt="product_image" style="width: 100%; height: 320px;">';
+                    var imageUrl = '{{ env("APP_ENV") === "local" ? asset("storage/images/") : asset("public/storage/images/") }}/' + (val.image ? val.image : 'default.jpg');
+        var htmlContent = '<img src="' + imageUrl + '" alt="product_image" style="width: 100%; height: 320px;">';
                 htmlContent += '<div class="card-body">';
                 htmlContent += '<h5 class="card-title">' + val.title + '</h5>';
                 htmlContent += '<p class="card-text">&#8358; 2000</p>'; // Dummy price in Nigerian Naira
