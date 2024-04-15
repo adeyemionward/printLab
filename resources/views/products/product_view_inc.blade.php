@@ -21,10 +21,10 @@
                 <div class="dropdown-divider"></div>
 
 
-                <a class="nav-link <?php if($page == 'edit_pricing') echo 'active active_red'  ?>"
+                {{-- <a class="nav-link <?php if($page == 'edit_pricing') echo 'active active_red'  ?>"
                 href="{{route('products.edit_pricing', [request()->job_title,request()->id])}}"
                 aria-selected="false">Update Product Pricing</a>
-               <div class="dropdown-divider"></div>
+               <div class="dropdown-divider"></div> --}}
 
 
                 <a class="nav-link <?php if($page == 'forty_leaves') echo 'active active_red'  ?>"

@@ -38,8 +38,8 @@ class ProductController extends Controller
 
     public function edit_video_brochure($id)
     {
-        $video_profiling =  Product::find($id);
-        return view('products.edit_video_brochure', compact('video_profiling'));
+        $video_brochure =  Product::find($id);
+        return view('products.edit_video_brochure', compact('video_brochure'));
     }
 
     public function store_video_brochure(Request $request)
@@ -381,7 +381,8 @@ class ProductController extends Controller
     public function edit($job_title, $id)
     {
         $product =  Product::find($id);
-        return view('products.edit', compact('product'));
+        $product_variations = ProductCost::where('product_id', $id)->get();
+        return view('products.edit', compact('product','product_variations'));
     }
 
     /**
@@ -408,27 +409,60 @@ class ProductController extends Controller
             $total_cost                 =  request('total_cost');
 
 
-            //save to job
-        $product =  Product::find($id);
-        $product->name  = 'eighty_leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
-        $product->production_days = $production_time;
-        $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
-        $product->description     = $description;
-        $product->created_by      = $user->id;
+                //save to job
+            $product =  Product::find($id);
+            $product->name  = 'eighty_leaves';
+            // $product->ink             = $ink;
+            // $product->paper_type      = $paper_type;
+            $product->production_days = $production_time;
+            // $product->thickness       = $thickness;
+            // $product->total_cost      = $total_cost;
+            $product->description     = $description;
+            $product->created_by      = $user->id;
 
-        if(!empty($request->file('image'))){
-            if($eticket_img = $request->file('image')){
-                $name = $eticket_img->hashName(); // Generate a unique, random name...
-                $path = $eticket_img->store('public/images');
-                $product->image = $name;
+            if(!empty($request->file('image'))){
+                if($eticket_img = $request->file('image')){
+                    $name = $eticket_img->hashName(); // Generate a unique, random name...
+                    $path = $eticket_img->store('public/images');
+                    $product->image = $name;
+                }
             }
-        }
 
 
-        $product->save();
+            $pp =  $product->update();
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
 
          return redirect(route('products.view',['eighty_leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
 
@@ -447,10 +481,10 @@ class ProductController extends Controller
             //save to job
             $product =  Product::find($id);
             $product->name  = 'higher_notebook';
-            $product->ink             = $ink;
-            $product->paper_type      = $paper_type;
+            //$product->ink             = $ink;
+            //$product->paper_type      = $paper_type;
             $product->production_days = $production_time;
-            $product->thickness       = $thickness;
+            //$product->thickness       = $thickness;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
@@ -462,7 +496,40 @@ class ProductController extends Controller
                     $product->image = $name;
                 }
             }
-            $product->save();
+            $pp =  $product->update();
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
 
             return redirect(route('products.view',['higher_notebook',$id]))->with('flash_success','Higher Note Book order updated successfully');
 
@@ -479,10 +546,10 @@ class ProductController extends Controller
             //save to job
             $product =  Product::find($id);
             $product->name  = 'twenty_leaves';
-            $product->ink             = $ink;
-            $product->paper_type      = $paper_type;
+            //$product->ink             = $ink;
+            //$product->paper_type      = $paper_type;
             $product->production_days = $production_time;
-            $product->thickness       = $thickness;
+            //$product->thickness       = $thickness;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
@@ -494,7 +561,40 @@ class ProductController extends Controller
                     $product->image = $name;
                 }
             }
-            $product->save();
+            $pp =  $product->update();
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
             return redirect(route('products.view',['twenty_leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
         }elseif(request()->job_title == 'forty_leaves'){
 
@@ -510,10 +610,10 @@ class ProductController extends Controller
             //save to job
             $product =  Product::find($id);
             $product->name  = 'forty_leaves';
-            $product->ink             = $ink;
-            $product->paper_type      = $paper_type;
+            //$product->ink             = $ink;
+           // $product->paper_type      = $paper_type;
             $product->production_days = $production_time;
-            $product->thickness       = $thickness;
+            //$product->thickness       = $thickness;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
@@ -525,9 +625,123 @@ class ProductController extends Controller
                     $product->image = $name;
                 }
             }
-            $product->save();
+            $pp =  $product->update();
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
 
             return redirect(route('products.view',['forty_leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
+        }elseif(request()->job_title == 'video_brochure'){
+            $name                       =  request('product_name');
+            $title                      =  request('title');
+            $quantity                   =  request('quantity');
+            $cover_paper                =  request('cover_paper');
+            $screen_size                =  request('screen_size');
+            $display_area               =  request('display_area');
+            $resolution                 =  request('resolution');
+            $battery                    =  request('battery');
+            $memory                     =  request('memory');
+            $total_cost                 =  request('total_cost');
+            $screen_ratio               =  request('screen_ratio');
+            $description                =  request('description');
+    
+
+            //save to job
+            $product =  Product::find($id);
+            $product->title             = $name;
+            $product->screen_size       = $screen_size;
+            $product->screen_ratio      = $screen_ratio;
+            $product->display_area      = $display_area;
+            $product->resolution        = $resolution;
+            $product->battery           = $battery;
+            $product->description       = $description;
+            $product->created_by        = $user->id;
+
+            if(!empty($request->file('image'))){
+                if($eticket_img = $request->file('image')){
+                    $name = $eticket_img->hashName(); // Generate a unique, random name...
+                    $path = $eticket_img->store('public/images');
+                    $product->image = $name;
+                }
+            }
+            $pp = $product->update();
+
+            // for ($count=0; $count < count($quantity); $count++) {
+            //     $pro_cost =  ProductCost::updateOrCreate(
+            //         [
+            //             'product_id'        => $product->id,
+            //             'product_name'      => $product->name,
+            //             'quantity'          => $quantity[$count],
+            //             'cover_paper'       => $cover_paper[$count],
+            //             'memory'            => $memory[$count],
+            //             'total_cost'        => $total_cost[$count],
+            //         ],
+            //     );
+            // }
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'cover_paper'       => $cover_paper[$count],
+                            'memory'            => $memory[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'cover_paper'       => $cover_paper[$count],
+                            'memory'            => $memory[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
+
+            return redirect(route('products.view',['video_brochure',$id]))->with('flash_success','Video Brochure Product updated successfully');
         }
     }
 
