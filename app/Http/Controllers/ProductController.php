@@ -134,10 +134,10 @@ class ProductController extends Controller
         $product = new Product();
         $product->name            = 'higher_notebook';
         $product->title           = 'Higher Notebook';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
+        // $product->ink             = $ink;
+        // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
-        $product->thickness       = $thickness;
+        // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
         $product->created_by      = $user->id;
@@ -154,8 +154,11 @@ class ProductController extends Controller
             $pro_cost =  ProductCost::updateOrCreate(
                 [
                     'product_id'        => $product->id,
-                    'product_name'        => $product->name,
+                    'product_name'      => $product->name,
                     'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
             );

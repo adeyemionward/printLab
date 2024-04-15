@@ -291,7 +291,7 @@
             // Collect values from other dropdowns as needed
 
             $.ajax({
-                url: "{{route('get_price')}}",
+                url: "{{route('get_price',request()->id)}}",
                 type: "POST",
                 data: {
                     ink: ink,
