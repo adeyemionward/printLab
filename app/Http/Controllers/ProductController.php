@@ -189,10 +189,10 @@ class ProductController extends Controller
         $product = new Product();
         $product->name  = 'eighty_leaves';
         $product->title           = 'Eighty Leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
+        // $product->ink             = $ink;
+        // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
-        $product->thickness       = $thickness;
+        // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
         $product->created_by      = $user->id;
@@ -213,6 +213,9 @@ class ProductController extends Controller
                     'product_id'        => $product->id,
                     'product_name'        => $product->name,
                     'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
             );
@@ -251,10 +254,10 @@ class ProductController extends Controller
         $product = new Product();
         $product->name  = 'forty_leaves';
         $product->title           = 'Forty Leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
+        // $product->ink             = $ink;
+        // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
-        $product->thickness       = $thickness;
+        // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
         $product->created_by      = $user->id;
@@ -275,6 +278,9 @@ class ProductController extends Controller
                     'product_id'        => $product->id,
                     'product_name'        => $product->name,
                     'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
             );
@@ -312,10 +318,10 @@ class ProductController extends Controller
         $product = new Product();
         $product->name  = 'twenty_leaves';
         $product->title           = 'Twenty Leaves';
-        $product->ink             = $ink;
-        $product->paper_type      = $paper_type;
+        // $product->ink             = $ink;
+        // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
-        $product->thickness       = $thickness;
+        // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
         $product->created_by      = $user->id;
@@ -336,6 +342,9 @@ class ProductController extends Controller
                     'product_id'        => $product->id,
                     'product_name'        => $product->name,
                     'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
             );
