@@ -64,13 +64,13 @@ class ProductController extends Controller
         $product = new Product();
         $product->name              = 'video_brochure';
         $product->title             = $name;
-        $product->cover_paper       = $cover_paper;
+        // $product->cover_paper       = $cover_paper;
         $product->screen_size       = $screen_size;
         $product->screen_ratio      = $screen_ratio;
         $product->display_area      = $display_area;
         $product->resolution        = $resolution;
         $product->battery           = $battery;
-        $product->memory            = $memory;
+        // $product->memory            = $memory;
         $product->type              = 'video_brochure';
         $product->description       = $description;
         $product->created_by        = $user->id;
@@ -89,6 +89,8 @@ class ProductController extends Controller
                     'product_id'        => $product->id,
                     'product_name'      => $product->name,
                     'quantity'          => $quantity[$count],
+                    'cover_paper'       => $cover_paper[$count],
+                    'memory'            => $memory[$count],
                     'total_cost'        => $total_cost[$count],
                 ],
             );
@@ -140,6 +142,7 @@ class ProductController extends Controller
         // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
+        $product->type              = 'notebook';
         $product->created_by      = $user->id;
 
         if($eticket_img = $request->file('image')){
@@ -195,6 +198,7 @@ class ProductController extends Controller
         // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
+        $product->type              = 'notebook';
         $product->created_by      = $user->id;
 
 
@@ -260,6 +264,7 @@ class ProductController extends Controller
         // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
+        $product->type              = 'notebook';
         $product->created_by      = $user->id;
 
 
@@ -323,6 +328,7 @@ class ProductController extends Controller
         $product->production_days = $production_time;
         // $product->thickness       = $thickness;
         // $product->total_cost      = $total_cost;
+        $product->type              = 'notebook';
         $product->description     = $description;
         $product->created_by      = $user->id;
 

@@ -321,8 +321,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
     Route::get('product_details/{title?}/{id?}', 'FrontPageController@product_details')->name('product_details');
     Route::post('product_details/{title?}/{id?}', 'FrontPageController@addCart')->name('product_details');
     Route::get('/{title}/product_categories', 'FrontPageController@product_categories')->name('product_categories');
-    Route::post('get_price/{id}', 'FrontPageController@getPrice')->name('get_price');
-    Route::post('get_video_profile_price/{id}', 'FrontPageController@getVideoProfilePrice')->name('get_video_profile_price');
+    Route::post('get_price/{title?}/{id}', 'FrontPageController@getPrice')->name('get_price');
+    Route::post('get_video_profile_price/{title?}/{id}', 'FrontPageController@getVideoProfilePrice')->name('get_video_profile_price');
     Route::get('get_video_brochure_product', 'FrontPageController@video_brochure1')->name('get_video_brochure_product');
 
 

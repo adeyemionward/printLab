@@ -16,7 +16,9 @@ class ProductCost extends Model
         'total_cost',
         'thickness'   ,
         'paper_type' ,     
-        'ink'             
+        'ink'   ,
+        'memory',
+        'cover_paper'          
     ];
 
     

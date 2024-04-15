@@ -122,8 +122,8 @@
                                                                                 <th>Color</th>
                                                                                 <th>Paper</th>
                                                                                 <th>Thickness</th>
+                                                                                <th>Quantiy</th>
                                                                                 <th>Price</th>
-                                                                                <th>Quantity</th>
                                                                                 <th></th>
                                                                             </tr>
                                                                         </thead>
@@ -157,9 +157,10 @@
                                                                                         <option value="300g">300g</option>
                                                                                     </select>
                                                                                 </td>
+                                                                                <td style="width:20%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
                                                                                 <td style="width:20%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
 
-                                                                                <td style="width:20%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
+                                                                               
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">

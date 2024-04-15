@@ -59,7 +59,7 @@
                         <label for="" style="color: #fff">Memory</label>
                         <select class="form-control form-select"  name="memory" id="memory">
                             <option value="">--Select Memory Information--</option>
-                                @foreach ($product_memory as $val)
+                                @foreach ($video_profiling_pricing as $val)
                                     <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
                                 @endforeach
                         </select>
@@ -308,9 +308,9 @@
                                 <li style="list-style-type: square">
                                 Resolution:  {{$product->resolution}}
                                 </li>
-                                <li style="list-style-type: square">
+                                {{-- <li style="list-style-type: square">
                                 Memory: {{$product->memory}}
-                                </li>
+                                </li> --}}
                                 <li style="list-style-type: square">
                                     {{$product->production_days.' Production Days' }}
                                 </li>
@@ -352,8 +352,9 @@
 @endsection
 @section('scripts')
 
-<script>
-    $(document).ready(function() {
+
+        @if(request()->title =='Forty_Leaves' || request()->title =='Higher_Education' || request()->title =='Twenty_Leaves' || request()->title =='Eighty_Leaves')
+        <script>
         $('select').change(function() {
 
             var ink = $('#ink').val();
@@ -365,7 +366,7 @@
             // Collect values from other dropdowns as needed
 
             $.ajax({
-                url: "{{route('get_price', request()->id)}}",
+                url: "{{route('get_price', [request()->title, request()->id])}}",
                 type: "POST",
                 data: {
                     ink: ink,
@@ -390,6 +391,47 @@
                 }
             });
         });
-    });
-</script>
+        </script>
+        @endif
+
+
+        @if(request()->title =='video_brochure')
+        <script>
+            $('select').change(function() {
+                //alert();
+                var quantity = $('#quantity').val();
+                var memory = $('#memory').val();
+                var cover_paper = $('#cover_paper').val();
+                //alert(cover_paper);
+                var total_cost = $('#total_cost').val();
+                // Collect values from other dropdowns as needed
+
+                $.ajax({
+                    url: "{{route('get_video_profile_price',[request()->title, request()->id])}}",
+                    type: "POST",
+                    data: {
+
+                        quantity: quantity,
+                        memory: memory,
+                        cover_paper: cover_paper,
+                        total_cost: total_cost,
+                        // Add other specifications as needed
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        //alert(response.price);
+
+                        $('#price-container').html('₦'+response.price);
+                        $('#total_cost').val(response.price);
+                        //alert(response.price);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        // Handle error gracefully, e.g., display an error message
+                    }
+                });
+            });
+        </script>
+        @endif
+   
 @endsection

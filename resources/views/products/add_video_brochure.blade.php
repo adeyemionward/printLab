@@ -78,7 +78,7 @@
                                                                     <div class="row">
 
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="exampleFormControlSelect1">Battery
                                                                                 </label>
                                                                                 <select name="battery" required class="form-control form-select"  id="exampleFormControlSelect1">
@@ -87,22 +87,14 @@
                                                                                 </select>
                                                                         </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Memory Information </label>
-                                                                                <select name="memory" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    <option value="">--Select Memory Information--</option>
-                                                                                    <option value="128M">128M</option>
-                                                                                    <option value="256M">256M</option>
-                                                                                    <option value="512M">512M</option>
-                                                                                    <option value="1GB">1GB</option>
-                                                                                    <option value="2GB">2GB</option>
-                                                                                    <option value="4GB">4GB</option>
-                                                                                </select>
-                                                                        </div>
+                                                                               
+                                                                        </div> --}}
 
 
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="exampleFormControlSelect1">Resolution
                                                                                 </label>
                                                                                 <select name="resolution" required class="form-control form-select"  id="exampleFormControlSelect1">
@@ -115,23 +107,22 @@
                                                                                 </select>
                                                                         </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="exampleFormControlSelect1">Screen Ratio
-                                                                                    </label>
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                                <label for="exampleFormControlSelect1">Screen Ratio</label>
                                                                                     <select name="screen_ratio" required class="form-control form-select"  id="exampleFormControlSelect1">
                                                                                         <option value="">--Select Screen Ratio--</option>
                                                                                         <option value="16:9">16:9</option>
                                                                                     </select>
                                                                         </div>
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="thickness"> Cover Paper</label>
                                                                             <select class="form-control form-select" required  name="cover_paper" id="thickness">
                                                                                 <option value="">--Select Cover Paper--</option>
                                                                                 <option value="soft_cover">Soft Paper Cover</option>
                                                                                 <option value="hard_cover">Hard Paper Cover</option>
                                                                             </select>
-                                                                        </div>
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        </div> --}}
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="production_time">Upload Image
                                                                                 </label>
                                                                                 <input required type="file" name="image" class="form-control"
@@ -141,11 +132,13 @@
 
                                                                     </div>
 
-                                                                    <table id="products">
+                                                                    <table id="products" style="margin-top:20px">
 
-                                                                        <a id="add-product" class="btn btn-primary" >Add Pricing</a>
+                                                                        <a id="add-product" class="btn btn-primary" >Add Variation</a>
                                                                         <thead>
                                                                             <tr>
+                                                                                <th>Cover Type</th>
+                                                                                <th>Memory</th>
                                                                                 <th>Quantity</th>
                                                                                 <th>Price</th>
                                                                                 <th></th>
@@ -154,8 +147,26 @@
                                                                         <tbody>
                                                                             <!-- Initial row, can be hidden -->
                                                                             <tr class="product-row">
-                                                                                <td style="width:50%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
-                                                                                <td style="width:50%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
+                                                                                <td style="width:25%">
+                                                                                    <select class="form-control form-select" required  name="cover_paper[]" id="thickness">
+                                                                                        <option value="">--Select Cover Paper--</option>
+                                                                                        <option value="soft_cover">Soft Paper Cover</option>
+                                                                                        <option value="hard_cover">Hard Paper Cover</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td style="width:25%">
+                                                                                    <select name="memory[]" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                        <option value="">--Select Memory Information--</option>
+                                                                                        <option value="128M">128M</option>
+                                                                                        <option value="256M">256M</option>
+                                                                                        <option value="512M">512M</option>
+                                                                                        <option value="1GB">1GB</option>
+                                                                                        <option value="2GB">2GB</option>
+                                                                                        <option value="4GB">4GB</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td style="width:25%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
+                                                                                <td style="width:25%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">
