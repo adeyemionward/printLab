@@ -119,13 +119,18 @@ class FrontPageController extends Controller
     }
 
 
-     public function video_brochure_details($title =  null, $id = null){
+     public function video_brochure_details(Request $request, $title =  null, $id = null){
+        //return $title_1 = request('title_1');
+        // $video_profiling_pricing = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')->where('products.title',$title_1)
+        // ->get();
+
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
         $video_profiling =  Product::find($id);
         $video_profiling_pricing =  ProductCost::where('product_id',$id)->get();
+        $product_memory =  Product::where('id',$id)->get();
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
-        return view('video_brochure.product_details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost'));
+        return view('video_brochure.product_details', compact('cartCount','all_testimonial','video_profiling','video_profiling_pricing','product_cost','product_memory'));
     }
 
 
@@ -377,12 +382,13 @@ class FrontPageController extends Controller
         return view('product_categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
     }
 
-    public function getVideoProfilePrice(Request $request){
+    public function getVideoProfilePrice(Request $request, $id){
 
         $quantity   =   $request->quantity;
+        $memory   =   $request->memory;
 
-        $pro = Product::join('video_profiling_product_costs', 'video_profiling_products.id', '=', 'video_profiling_product_costs.product_id')
-        ->where('video_profiling_product_costs.quantity',$quantity)
+        $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
+        ->where('product_costs.quantity',$quantity)->where('products.memory',$memory)->where('products.id',request()->id)
         ->first();
 
         $price =  $pro->total_cost;
@@ -390,7 +396,7 @@ class FrontPageController extends Controller
         return response()->json(['price'=>$price]);
     }
 
-    public function getPrice(Request $request){
+    public function getPrice(Request $request, $id){
         $ink            = $request->ink;
         $paper_type     = $request->paper_type;
         $thickness      = $request->thickness;
@@ -400,7 +406,7 @@ class FrontPageController extends Controller
 
         $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
         ->where('products.ink',$ink)->where('products.paper_type',$paper_type)->where('products.thickness',$thickness)
-        ->where('product_costs.quantity',$quantity)
+        ->where('product_costs.quantity',$quantity)->where('products.id',request()->id)
         ->first();
 
         $price =  $pro->total_cost;

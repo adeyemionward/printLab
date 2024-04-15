@@ -40,6 +40,7 @@
                 @else
                     <img src="{{asset('public/storage/images/'.$video_profiling->image)}}"  alt="product_image" style="width: 70%; height:450px">
                 @endif
+                <input type="hidden" value="{{$video_profiling->title}}" name="title_1">
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
                 <div class="row">
@@ -48,6 +49,22 @@
                         <select class="form-control form-select"  name="cover_paper" id="cover_paper">
                             <option value="soft_cover" @php if($video_profiling->cover_paper == 'soft_cover') echo 'selected' @endphp>Soft Cover Paper</option>
                             <option value="hard_cover" @php if($video_profiling->cover_paper == 'hard_cover') echo 'selected' @endphp>Hard Cover Paper</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3 mb-3 col-md-4">
+                        <label for="" style="color: #fff">Memory</label>
+                        <select class="form-control form-select"  name="memory" id="memory">
+                            <option value="">--Select Memory Information--</option>
+                                @foreach ($product_memory as $val)
+                                    <option value="{{$val->memory}}" @php if($val->memory == $video_profiling->memory) echo 'selected' @endphp>{{$val->memory}}</option>
+                                @endforeach
+                                {{-- <option value="128M" @php if($video_profiling->memory == '128M') echo 'selected' @endphp>128M</option>
+                                <option value="256M" @php if($video_profiling->memory == '256M') echo 'selected' @endphp>256M</option>
+                                <option value="512M" @php if($video_profiling->memory == '512M') echo 'selected' @endphp>512M</option>
+                                <option value="1GB" @php if($video_profiling->memory == '1GB') echo 'selected' @endphp>1GB</option>
+                                <option value="2GB" @php if($video_profiling->memory == '2GB') echo 'selected' @endphp>2GB</option>
+                                <option value="4GB" @php if($video_profiling->memory == '4GB') echo 'selected' @endphp>4GB</option> --}}
                         </select>
                     </div>
                 </div>
@@ -81,28 +98,24 @@
                             </li>
                         </ul>
                     </span></p>
-                <div class="price">
-                    <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
-                    <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
-                </div>
-
-
-                <div class="row">
-                    <div class="form-group mt-3 mb-3 col-md-4">
-
-                        <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
-                            @foreach ($video_profiling_pricing as $val)
-                                <option value="{{$val->quantity}}">{{$val->quantity}}</option>
-                            @endforeach
-                        </select>
+                    <div class="price">
+                        <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                        <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
                     </div>
-                    <div class=" mt-3 mb-3 col-md-8">
-                        <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                @foreach ($video_profiling_pricing as $val)
+                                    <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class=" mt-3 mb-3 col-md-8">
+                            <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                        </div>
                     </div>
                 </div>
-                </div>
-
-
             </div>
         </div>
     </form>
@@ -121,18 +134,21 @@
 
 <script>
     $(document).ready(function() {
-        $('#quantity').change(function() {
-            ///alert();
+        $('select').change(function() {
+            //alert();
             var quantity = $('#quantity').val();
+            var memory = $('#memory').val();
+            //alert(memory);
             var total_cost = $('#total_cost').val();
             // Collect values from other dropdowns as needed
 
             $.ajax({
-                url: "{{route('get_video_profile_price')}}",
+                url: "{{route('get_video_profile_price', request()->id)}}",
                 type: "POST",
                 data: {
 
                     quantity: quantity,
+                    memory: memory,
                     total_cost: total_cost,
                     // Add other specifications as needed
                     _token: '{{ csrf_token() }}'
