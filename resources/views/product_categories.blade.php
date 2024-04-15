@@ -151,7 +151,7 @@
                         {{-- @endforeach --}}
                     </div>
 
-                    <div class="row">
+                    <div class="row"> 
                         {{-- @foreach ($eighty_leaves as $val) --}}
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="properties pb-30">

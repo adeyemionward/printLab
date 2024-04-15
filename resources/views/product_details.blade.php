@@ -45,6 +45,27 @@
                 @endif
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
+                @if(request()->title == 'video_brochure')
+                <div class="row">
+                    <div class="form-group mt-3 mb-3 col-md-4">
+                        <label for="" style="color: #fff">Cover Paper</label>
+                        <select class="form-control form-select"  name="cover_paper" id="cover_paper">
+                            <option value="soft_cover" @php if($product->cover_paper == 'soft_cover') echo 'selected' @endphp>Soft Cover Paper</option>
+                            <option value="hard_cover" @php if($product->cover_paper == 'hard_cover') echo 'selected' @endphp>Hard Cover Paper</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3 mb-3 col-md-4">
+                        <label for="" style="color: #fff">Memory</label>
+                        <select class="form-control form-select"  name="memory" id="memory">
+                            <option value="">--Select Memory Information--</option>
+                                @foreach ($product_memory as $val)
+                                    <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div>
+                @else
                 <div class="row">
                     <div class="form-group mt-3 mb-3 col-md-4">
                         <label for="" style="color: #fff">Color Type</label>
@@ -72,6 +93,10 @@
                         </select>
                     </div>
                 </div>
+                @endif
+               
+
+                
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
             @if (request()->title == 'Higher_Education')
@@ -262,6 +287,56 @@
                 </div>
             @endif
 
+
+            @if (request()->title == 'video_brochure')
+                <div class="features-caption">
+                    <h3>{{$product->title}}</h3>
+                    <input type="hidden" value="{{$product->name}}" id="product_name" name="product_name">
+                    <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
+                    <p><b style="color: white; font-size:24px"> Specifications: </b>
+                        <span>
+                            <ul style="color: #fff;font-size:21px; margin-top:-22px; margin-left:20px">
+                                <li style="list-style-type: square">
+                                    Battery: {{ucfirst($product->battery)}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    Display Area: {{$product->display_area}}
+                                </li>
+                                <li style="list-style-type: square">
+                                Screen Size:  {{$product->screen_size}}
+                                </li>
+                                <li style="list-style-type: square">
+                                Resolution:  {{$product->resolution}}
+                                </li>
+                                <li style="list-style-type: square">
+                                Memory: {{$product->memory}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->production_days.' Production Days' }}
+                                </li>
+                            </ul>
+                        </span></p>
+                        <div class="price">
+                            <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                            <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group mt-3 mb-3 col-md-4">
+                                <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                    @foreach ($video_profiling_pricing as $val)
+                                        <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class=" mt-3 mb-3 col-md-8">
+                                <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </form>
 
@@ -290,7 +365,7 @@
             // Collect values from other dropdowns as needed
 
             $.ajax({
-                url: "{{route('get_price')}}",
+                url: "{{route('get_price', request()->id)}}",
                 type: "POST",
                 data: {
                     ink: ink,

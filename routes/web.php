@@ -348,8 +348,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],  function () {
         Route::get('/', 'FrontPageController@contact')->name('index');
         Route::post('/', 'FrontPageController@postContact')->name('post');
     });
-    Route::get('product_details/{title?}/{id?}', 'FrontPageController@video_brochure_details')->name('product_details');
-    Route::post('product_details/{title?}/{id?}', 'FrontPageController@addVideoBrochureCart')->name('product_details');
+    // Route::get('product_details/{title?}/{id?}', 'FrontPageController@video_brochure_details')->name('product_details');
+    // Route::post('product_details/{title?}/{id?}', 'FrontPageController@addVideoBrochureCart')->name('product_details');
 
     Route::group(['prefix' => '/video_brochure', 'as' => 'video_brochure.'], function () {
         Route::get('/', 'FrontPageController@video_brochure')->name('index');

@@ -361,15 +361,16 @@ class FrontPageController extends Controller
         $product = Product::where('id', $id)->first();
         $cartCount = $this->countCart();
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
+        $video_profiling_pricing = ProductCost::where('product_name', 'video_brochure')->get();
 
         // $product_eighty_leaves = Product::where('id', $id)->first();
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
         $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
         $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
-
+        $product_memory =  Product::where('id',$id)->get();
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('product_details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('product_details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','product_memory','video_profiling_pricing'));
     }
 
     public function product_categories()

@@ -59,12 +59,6 @@
                                 @foreach ($product_memory as $val)
                                     <option value="{{$val->memory}}" @php if($val->memory == $video_profiling->memory) echo 'selected' @endphp>{{$val->memory}}</option>
                                 @endforeach
-                                {{-- <option value="128M" @php if($video_profiling->memory == '128M') echo 'selected' @endphp>128M</option>
-                                <option value="256M" @php if($video_profiling->memory == '256M') echo 'selected' @endphp>256M</option>
-                                <option value="512M" @php if($video_profiling->memory == '512M') echo 'selected' @endphp>512M</option>
-                                <option value="1GB" @php if($video_profiling->memory == '1GB') echo 'selected' @endphp>1GB</option>
-                                <option value="2GB" @php if($video_profiling->memory == '2GB') echo 'selected' @endphp>2GB</option>
-                                <option value="4GB" @php if($video_profiling->memory == '4GB') echo 'selected' @endphp>4GB</option> --}}
                         </select>
                     </div>
                 </div>
