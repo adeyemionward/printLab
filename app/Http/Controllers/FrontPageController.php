@@ -361,6 +361,7 @@ class FrontPageController extends Controller
     public function product_details($title =  null, $id = null)
     {
         $product = Product::where('id', $id)->first();
+        if(is_null($product)) return redirect()->back()->with('flash_error','The product does not exist');
         $cartCount = $this->countCart();
         if($title == 'Higher_Education') $higher_note =  'higher_notebook';
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
