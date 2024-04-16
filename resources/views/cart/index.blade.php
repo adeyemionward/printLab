@@ -74,7 +74,7 @@
                                         @if ( env('APP_ENV') == 'local')
                                             <img src="{{asset('storage/images/'.$val->productName->image)}}" alt="product_image" style="width: 125px; height:150px">
                                         @else
-                                            <img src="{{asset('public/storage/images/'.$val->productName->image)}}"  alt="product_image" style="width: 120px; height:250px">
+                                            <img src="{{asset('public/storage/images/'.$val->productName->image)}}"  alt="product_image" style="width: 125px; height:150px">
                                         @endif
                                         <div class="media-body" style="padding-left: 20px">
                                             <a >
