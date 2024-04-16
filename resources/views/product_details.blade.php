@@ -58,7 +58,7 @@
                     <div class="form-group mt-3 mb-3 col-md-4">
                         <label for="" style="color: #fff">Memory</label>
                         <select class="form-control form-select"  name="memory" id="memory">
-                            <option value="">--Select Memory Information--</option>
+                            {{-- <option value="">--Select Memory Information--</option> --}}
                                 @foreach ($video_profiling_pricing as $val)
                                     <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
                                 @endforeach
@@ -99,7 +99,7 @@
                 
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
-            @if (request()->title == 'Higher_Education')
+            @if (request()->title == 'higher_notebook')
                 <div class="features-caption">
                     <h3>Higher Education NoteBook</h3>
 
@@ -291,7 +291,7 @@
             @if (request()->title == 'video_brochure')
                 <div class="features-caption">
                     <h3>{{$product->title}}</h3>
-                    <input type="hidden" value="{{$product->name}}" id="product_name" name="product_name">
+                    <input type="hidden" value="{{$product->title}}" id="product_name" name="product_name">
                     <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
                     <p><b style="color: white; font-size:24px"> Specifications: </b>
                         <span>

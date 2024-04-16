@@ -60,7 +60,7 @@
         <div class="blog_left_sidebar">
             <article class="blog_item">
                 @if ($cartCount >= 1)
-                        @foreach ($carts as $index => $val)
+                        @forelse ($carts as $index => $val)
                             <div class="blog_details">
                                 @php
                                     $product_name = str_replace(' ','_', $val->job_order_name);
@@ -70,7 +70,12 @@
                                     @csrf
                                     <input type="hidden" value="{{$val->id}}" name="job_id[]">
                                     <div class="media post_item">
-                                        <img src="assets/img/post/post_1.jpg" alt="post" style="width: 120px">
+                                        {{-- <img src="assets/img/post/post_1.jpg" alt="post" style="width: 120px"> --}}
+                                        @if ( env('APP_ENV') == 'local')
+                                            <img src="{{asset('storage/images/'.$val->productName->image)}}" alt="product_image" style="width: 125px; height:150px">
+                                        @else
+                                            <img src="{{asset('public/storage/images/'.$val->image)}}"  alt="product_image" style="width: 120px; height:250px">
+                                        @endif
                                         <div class="media-body" style="padding-left: 20px">
                                             <a >
                                                 <h3 style="color: #2d2d2d;">{{str_replace('_',' ',ucwords($product_name))}}</h3>
@@ -85,7 +90,7 @@
                                                     <span><input type="hidden" class="form-control">{{'₦'.$val->total_cost}}</span>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    {{-- <td><a href="{{route('cart.edit', [$product_name, $val->product_id, $val->id])}}"><span >Edit</span></a></td> --}}
+                                                    <td><a href="{{route('cart.edit', [$product_name, $val->product_id, $val->id])}}"><span >Edit</span></a></td>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <td><a style="color:red"  onclick="return confirm('Are you sure you want to delete this cart?');" href="{{route('cart.delete', [$val->id])}}"><span >Delete</span></a></td>
@@ -174,7 +179,11 @@
                                 
                                 <p class="underline"></p>
                             </div>
-                        @endforeach
+                        @empty
+                        <div class="blog_details">
+                            Empty Cart
+                        </div>
+                        @endforelse
                         <div class="blog_details">
                             @if ($cartCount >= 1)
                             <div class="checkout_btn_inner float-right">
@@ -185,7 +194,11 @@
                         @endif
                         </div>
                                     
-                                </form>
+                        </form>
+                @else
+                    <div class="blog_details">
+                        <h1> Empty Cart</h1>
+                    </div>
                 @endif
             </article>
         </div>

@@ -102,7 +102,7 @@ a span:hover{
         <div class="properties pb-30">
             <div class="properties-card">
                 <div class="properties-img">
-                    <a href="{{route('product_categories','Higher_Education')}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
+                    <a href="{{route('product_categories','higher_notebook')}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
                     {{-- <div class="socal_icon">
                         <a href="#"><i class="ti-shopping-cart"></i></a>
                         <a href="#"><i class="ti-heart"></i></a>
@@ -110,10 +110,10 @@ a span:hover{
                     </div> --}}
                 </div>
                 <div class="properties-caption properties-caption2">
-                    <h3><a href="{{route('product_categories','Higher_Education')}}">Higher Education Note Book</a></h3>
+                    <h3><a href="{{route('product_categories','higher_notebook')}}">Higher Education Note Book</a></h3>
                     <div class="properties-footer">
                         <div class="price">
-                            <a href="{{route('product_categories','Higher_Education')}}"><span><button class="btn btn-primary">Browse Higher Educat...</button></span></a>
+                            <a href="{{route('product_categories','higher_notebook')}}"><span><button class="btn btn-primary">Browse Higher Educat...</button></span></a>
                         </div>
                     </div>
                 </div>

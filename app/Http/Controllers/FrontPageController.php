@@ -102,9 +102,9 @@ class FrontPageController extends Controller
     public function video_brochure(Request $request){
         $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
-         $video_profiling =  Product::where('type','video_brochure')->where('cover_paper','soft_cover')->get();
+         $video_brochure =  Product::where('type','video_brochure')->get();
 
-        return view('video_brochure.index',  compact('cartCount','all_testimonial','video_profiling'));
+        return view('video_brochure.index',  compact('cartCount','all_testimonial','video_brochure'));
     }
 
     public function video_brochure2(){
@@ -271,6 +271,8 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
 
+        $video_profiling_pricing = ProductCost::where('product_name', 'video_brochure')->get();
+
         // $product_eighty_leaves = Product::where('id', $id)->first();
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
         $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
@@ -278,7 +280,7 @@ class FrontPageController extends Controller
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','video_profiling_pricing'));
     }
 
     public function delete_cart($id)
@@ -301,8 +303,7 @@ class FrontPageController extends Controller
         $amount_paid = 0;
 
         if (Auth::check()) {
-
-             //save to job
+            //save to job
             $cart =  JobOrder::where('id', $job_id)->first();
             $cart->product_id      = $product_id;
             $cart->job_order_name  = $product_name;
@@ -360,6 +361,7 @@ class FrontPageController extends Controller
     {
         $product = Product::where('id', $id)->first();
         $cartCount = $this->countCart();
+        if($title == 'Higher_Education') $higher_note =  'higher_notebook';
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
         $video_profiling_pricing = ProductCost::where('product_name', 'video_brochure')->get();
 
@@ -407,7 +409,7 @@ class FrontPageController extends Controller
         $quantity       = $request->quantity;
         $product_name   =  $request->product_name;
 
-
+        if(request()->title =='Higher_Education') request()->title = 'higher_notebook';
         $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
         ->where('product_costs.ink',$ink)->where('product_costs.paper_type',$paper_type)->where('product_costs.thickness',$thickness)
         ->where('product_costs.quantity',$quantity)->where('products.id',request()->id)->where('products.name',request()->title)

@@ -160,20 +160,55 @@ label {
     </div>
     </div>
     <div class="container" >
-        <input type="radio" id="radio1" value="soft_cover" name="coverType" checked>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                <div class="latest-items-active">
+                    @forelse ($video_brochure as $val)
+                        <div class="properties pb-30">
+                            <div class="properties-card">
+                                <div class="properties-img">
+                                    <a href="{{route('product_categories','Higher_Education')}}">
+                                        @if ( env('APP_ENV') == 'local')
+                                            <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                        @else
+                                            <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                        @endif
+
+                                    </a>
+
+                                </div>
+                                <div class="properties-caption properties-caption2">
+                                    <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->title}}</a></h3>
+                                    <div class="properties-footer">
+                                        <div class="price">
+                                            <a href="{{route('product_details',[$val->name,$val->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+
+                    @endforelse
+
+
+                </div>
+            </div>
+        </div>
+        {{-- <input type="radio" id="radio1" value="soft_cover" name="coverType" checked>
         <label for="radio1"> Soft Cover Paper</label>
 
         <input type="radio" id="radio2" value="hard_cover" name="coverType">
         <label for="radio2"> Hard Cover Paper</label>
-        <br><br>
-        <div id="ajaxContent" class="row">
+        <br><br> --}}
+        {{-- <div id="ajaxContent" class="row">
             <div id="loadingSpinner" class="text-center mt-5" >
                 <i class="fas fa-spinner fa-spin fa-3x"></i>
               </div>
         </div>
         <div id="loadingSpinner1" class="text-center mt-5" style="display:none">
             <i class="fas fa-spinner fa-spin fa-3x"></i>
-          </div>
+          </div> --}}
        
     </div>
 
