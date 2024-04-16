@@ -90,7 +90,7 @@
                                                     <span><input type="hidden" class="form-control">{{'₦'.$val->total_cost}}</span>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <td><a href="{{route('cart.edit', [$product_name, $val->product_id, $val->id])}}"><span >Edit</span></a></td>
+                                                    <td><a href="{{route('cart.edit', [$val->productName->name, $val->product_id, $val->id])}}"><span >Edit</span></a></td>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <td><a style="color:red"  onclick="return confirm('Are you sure you want to delete this cart?');" href="{{route('cart.delete', [$val->id])}}"><span >Delete</span></a></td>

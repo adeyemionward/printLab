@@ -271,7 +271,8 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
 
-        $video_profiling_pricing = ProductCost::where('product_name', 'video_brochure')->get();
+        $video_profiling_memory     = ProductCost::where('product_name', 'video_brochure')->distinct()->get('memory');
+        $video_profiling_quantity   = ProductCost::where('product_name', 'video_brochure')->distinct()->get('quantity');
 
         // $product_eighty_leaves = Product::where('id', $id)->first();
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
@@ -280,7 +281,7 @@ class FrontPageController extends Controller
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','video_profiling_pricing'));
+        return view('cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','video_profiling_memory','video_profiling_quantity'));
     }
 
     public function delete_cart($id)

@@ -59,7 +59,7 @@
                         <label for="" style="color: #fff">Memory</label>
                         <select class="form-control form-select"  name="memory" id="memory">
                             {{-- <option value="">--Select Memory Information--</option> --}}
-                                @foreach ($video_profiling_pricing as $val)
+                                @foreach ($video_profiling_memory as $val)
                                     <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
                                 @endforeach
                         </select>
@@ -324,7 +324,7 @@
                         <div class="row">
                             <div class="form-group mt-3 mb-3 col-md-4">
                                 <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
-                                    @foreach ($video_profiling_pricing as $val)
+                                    @foreach ($video_profiling_quantity as $val)
                                         <option value="{{$val->quantity}}">{{$val->quantity}}</option>
                                     @endforeach
                                 </select>
