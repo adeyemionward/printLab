@@ -363,7 +363,7 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         if($title == 'Higher_Education') $higher_note =  'higher_notebook';
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
-        $video_profiling_pricing = ProductCost::where('product_name', 'video_brochure')->get();
+        $video_profiling_pricing = ProductCost::select('quantity','memory')->where('product_name', 'video_brochure')->groupBy('memory','quantity')->get();
 
         // $product_eighty_leaves = Product::where('id', $id)->first();
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
