@@ -46,53 +46,53 @@
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
                 @if(request()->title == 'video_brochure')
-                <div class="row">
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Cover Paper</label>
-                        <select class="form-control form-select"  name="cover_paper" id="cover_paper">
-                            <option value="soft_cover" @php if($product->cover_paper == 'soft_cover') echo 'selected' @endphp>Soft Cover Paper</option>
-                            <option value="hard_cover" @php if($product->cover_paper == 'hard_cover') echo 'selected' @endphp>Hard Cover Paper</option>
-                        </select>
-                    </div>
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Cover Paper</label>
+                            <select class="form-control form-select"  name="cover_paper" id="cover_paper">
+                                <option value="soft_cover" @php if($product->cover_paper == 'soft_cover') echo 'selected' @endphp>Soft Cover Paper</option>
+                                <option value="hard_cover" @php if($product->cover_paper == 'hard_cover') echo 'selected' @endphp>Hard Cover Paper</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Memory</label>
-                        <select class="form-control form-select"  name="memory" id="memory">
-                            {{-- <option value="">--Select Memory Information--</option> --}}
-                                @foreach ($video_profiling_memory as $val)
-                                    <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
-                                @endforeach
-                        </select>
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Memory</label>
+                            <select class="form-control form-select"  name="memory" id="memory">
+                                {{-- <option value="">--Select Memory Information--</option> --}}
+                                    @foreach ($video_profiling_memory as $val)
+                                        <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
+                                    @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
                 @else
-                <div class="row">
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Color Type</label>
-                        <select name="ink" class="form-control form-select"
-                            id="ink">
-                            <option value="single" @php if($product->ink == 'single') echo 'selected' @endphp>Single Color</option>
-                            <option value="full" @php if($product->ink == 'full') echo 'selected' @endphp>Full Color</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Color Type</label>
+                            <select name="ink" class="form-control form-select"
+                                id="ink">
+                                <option value="single" @php if($product->ink == 'single') echo 'selected' @endphp>Single Color</option>
+                                <option value="full" @php if($product->ink == 'full') echo 'selected' @endphp>Full Color</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Paper Type</label>
+                            <select name="paper_type" class="form-control form-select"  id="paper_type">
+                                <option value="50g" @php if($product->paper_type == '50g') echo 'selected' @endphp>50g</option>
+                                <option value="60g" @php if($product->paper_type == '60g') echo 'selected' @endphp>60g</option>
+                                <option value="70g" @php if($product->paper_type == '70g') echo 'selected' @endphp>70g</option>
+                                <option value="80g" @php if($product->paper_type == '80g') echo 'selected' @endphp>80g</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Thickness</label>
+                            <select class="form-control form-select"  name="thickness" id="thickness">
+                                <option value="199g" @php if($product->thickness == '199g') echo 'selected' @endphp>199g</option>
+                                <option value="280g" @php if($product->thickness == '280g') echo 'selected' @endphp>280g</option>
+                                <option value="300g" @php if($product->thickness == '300g') echo 'selected' @endphp>300g</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Paper Type</label>
-                        <select name="paper_type" class="form-control form-select"  id="paper_type">
-                            <option value="50g" @php if($product->paper_type == '50g') echo 'selected' @endphp>50g</option>
-                            <option value="60g" @php if($product->paper_type == '60g') echo 'selected' @endphp>60g</option>
-                            <option value="70g" @php if($product->paper_type == '70g') echo 'selected' @endphp>70g</option>
-                            <option value="80g" @php if($product->paper_type == '80g') echo 'selected' @endphp>80g</option>
-                        </select>
-                    </div>
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Thickness</label>
-                        <select class="form-control form-select"  name="thickness" id="thickness">
-                            <option value="199g" @php if($product->thickness == '199g') echo 'selected' @endphp>199g</option>
-                            <option value="280g" @php if($product->thickness == '280g') echo 'selected' @endphp>280g</option>
-                            <option value="300g" @php if($product->thickness == '300g') echo 'selected' @endphp>300g</option>
-                        </select>
-                    </div>
-                </div>
                 @endif
                
 
