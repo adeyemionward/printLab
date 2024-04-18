@@ -41,7 +41,7 @@
                 @if ( env('APP_ENV') == 'local')
                     <img src="{{asset('storage/images/'.$product->image)}}" alt="product_image" style="width: 70%; height:450px">
                 @else
-                    <img src="{{asset('public/storage/images/'.$product->image)}}"  alt="product_image" style="width: 100%">
+                    <img src="{{asset('public/storage/images/'.$product->image)}}"  alt="product_image" style="width: 70%; height:450px">
                 @endif
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
@@ -94,9 +94,9 @@
                     </div>
                 </div>
                 @endif
-               
 
-                
+
+
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
             @if (request()->title == 'Higher_Education')
@@ -311,9 +311,9 @@
                                 {{-- <li style="list-style-type: square">
                                 Memory: {{$product->memory}}
                                 </li> --}}
-                                <li style="list-style-type: square">
+                                {{-- <li style="list-style-type: square">
                                     {{$product->production_days.' Production Days' }}
-                                </li>
+                                </li> --}}
                             </ul>
                         </span></p>
                         <div class="price">
@@ -433,5 +433,5 @@
             });
         </script>
         @endif
-   
+
 @endsection

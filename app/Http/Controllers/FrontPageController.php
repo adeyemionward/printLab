@@ -307,7 +307,7 @@ class FrontPageController extends Controller
             //save to job
             $cart =  JobOrder::where('id', $job_id)->first();
             $cart->product_id      = $product_id;
-            $cart->job_order_name  = $product_name;
+            // $cart->job_order_name  = $product_name;
             $cart->ink             = $ink;
             $cart->paper_type      = $paper_type;
             $cart->quantity        = $quantity;
@@ -329,7 +329,7 @@ class FrontPageController extends Controller
              //save to job
              $cart =  JobOrder::where('id', $job_id)->first();
              $cart->product_id      = $product_id;
-             $cart->job_order_name  = $product_name;
+            //  $cart->job_order_name  = $product_name;
              $cart->ink             = $ink;
              $cart->paper_type      = $paper_type;
              $cart->quantity        = $quantity;
@@ -365,10 +365,10 @@ class FrontPageController extends Controller
         $cartCount = $this->countCart();
         if($title == 'Higher_Education') $higher_note =  'higher_notebook';
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
-        
+
         $video_profiling_memory     = ProductCost::where('product_name', 'video_brochure')->where('product_id',$id)->distinct()->get('memory');
         $video_profiling_quantity   = ProductCost::where('product_name', 'video_brochure')->where('product_id',$id)->distinct()->get('quantity');
-      
+
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
         $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
         $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
@@ -405,7 +405,7 @@ class FrontPageController extends Controller
     }
 
     public function getPrice(Request $request, $title, $id){
-       
+
         $ink            = $request->ink;
         $paper_type     = $request->paper_type;
         $thickness      = $request->thickness;
