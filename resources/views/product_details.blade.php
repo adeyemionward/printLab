@@ -94,9 +94,9 @@
                         </div>
                     </div>
                 @endif
-               
 
-                
+
+
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
             @if (request()->title == 'higher_notebook')
@@ -117,9 +117,9 @@
                                 <li style="list-style-type: square">
                                     {{$product->thickness.' Thickness'}}
                                 </li>
-                                <li style="list-style-type: square">
+                                {{-- <li style="list-style-type: square">
                                     {{$product->production_days.' Production Days' }}
-                                </li>
+                                </li> --}}
                             </ul>
                         </span></p>
                     <div class="price">
@@ -433,5 +433,5 @@
             });
         </script>
         @endif
-   
+
 @endsection
