@@ -133,7 +133,7 @@
                                                     <p style="font-size: 20px">Cover Paper</p>
                                                 </div>
                                                 <div class="col-md-6 col">
-                                                    <p style="font-size: 20px">{{$val->productName->cover_paper}}</p>
+                                                    <p style="font-size: 20px">{{$val->cover_paper}}</p>
                                                 </div>
                                             @endif
 
@@ -142,7 +142,7 @@
                                                     <p style="font-size: 20px">Memory</p>
                                                 </div>
                                                 <div class="col-md-6 col">
-                                                    <p style="font-size: 20px">{{$val->productName->memory}}</p>
+                                                    <p style="font-size: 20px">{{$val->memory}}</p>
                                                 </div>
                                             @endif
 
