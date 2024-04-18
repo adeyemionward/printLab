@@ -21,7 +21,7 @@
         width: 100%; /* Full width on smaller screens */
     }
 
-    
+
 .col {
     width: calc(50% - 10px); /* Two columns per row */
     margin-bottom: 20px; /* Spacing between rows */
@@ -163,7 +163,7 @@
                                                     <p style="font-size: 20px">{{$val->productName->display_area}}</p>
                                                 </div>
                                             @endif
-                                            
+
                                             @if(!is_null($val->resolution))
                                                 <div class="col-md-6 col">
                                                     <p style="font-size: 20px">Resolution</p>
@@ -175,8 +175,8 @@
 
                                         </div>
                                     </div>
-                                    
-                                
+
+
                                 <p class="underline"></p>
                             </div>
                         @empty
@@ -193,7 +193,7 @@
                             </div>
                         @endif
                         </div>
-                                    
+
                         </form>
                 @else
                     <div class="blog_details">
@@ -225,9 +225,9 @@
             </div>
         </div>
     @empty
-        
+
     @endforelse
-    
+
 </aside>
 
 </div>
