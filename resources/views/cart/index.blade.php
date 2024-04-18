@@ -133,11 +133,11 @@
                                                     <p style="font-size: 20px">Cover Paper</p>
                                                 </div>
                                                 <div class="col-md-6 col">
-                                                    <p style="font-size: 20px">{{$val->cover_paper}}</p>
+                                                    <p style="font-size: 20px">{{str_replace('_',' ',ucwords($val->cover_paper))}}</p>
                                                 </div>
                                             @endif
 
-                                            @if(!is_null($val->productName->memory))
+                                            @if(!is_null($val->memory))
                                                 <div class="col-md-6 col">
                                                     <p style="font-size: 20px">Memory</p>
                                                 </div>
