@@ -215,6 +215,7 @@ class FrontPageController extends Controller
         $thickness                  =  request('thickness');
         $quantity                   =  request('quantity');
         $total_cost                 =  request('total_cost');
+        $memory                     =  request('memory');
         $product_name               =  request('product_name');
         $amount_paid = 0;
 
@@ -231,6 +232,7 @@ class FrontPageController extends Controller
             $cart->local_id        = $this->localIp;
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
+            $cart->memory          = $memory;
             $cart->order_date      = $this->order_date;
             $cart->order_type      = 'external';
             $cart->user_id         = $this->user->id;
@@ -250,6 +252,7 @@ class FrontPageController extends Controller
             $cart->local_id        = $this->localIp;
             $cart->cart_order_status = 1;
             $cart->total_cost      = $total_cost;
+            $cart->memory          = $memory;
             $cart->order_date      = $this->order_date;
             $cart->order_type      = 'external';
             //  $cart->user_id         = '';
