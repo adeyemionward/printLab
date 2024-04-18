@@ -117,9 +117,9 @@
                                 <li style="list-style-type: square">
                                     {{$product->thickness.' Thickness'}}
                                 </li>
-                                {{-- <li style="list-style-type: square">
+                                <li style="list-style-type: square">
                                     {{$product->production_days.' Production Days' }}
-                                </li> --}}
+                                </li>
                             </ul>
                         </span></p>
                     <div class="price">
@@ -311,9 +311,9 @@
                                 {{-- <li style="list-style-type: square">
                                 Memory: {{$product->memory}}
                                 </li> --}}
-                                <li style="list-style-type: square">
+                                {{-- <li style="list-style-type: square">
                                     {{$product->production_days.' Production Days' }}
-                                </li>
+                                </li> --}}
                             </ul>
                         </span></p>
                         <div class="price">
