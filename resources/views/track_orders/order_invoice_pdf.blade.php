@@ -70,7 +70,10 @@
         <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
 
           <tr>
-            <td width="70" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
+            <td width="70" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px">
+                <span style="font-weight: bold"> 75% of #{{$totalCost}}:&nbsp; (#{{ 75/100 * $totalCost}})  must be paid before we can process your order</span> <br><br>
+                <span style="font-weight: bold">BANK&nbsp;DETAILS</span> <br><br> 
+                Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
             <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> #{{$totalCost}} </td>
           </tr>
         </table></td>
