@@ -50,75 +50,63 @@
                                                             @csrf
                                                             @method('POST')
                                                             <input type="hidden" name="note_type" value="Higher NoteBook">
-                                                           
+
 
                                                             <div class="row">
+
                                                                 <div class="form-group mt-3 mb-3 col-md-4">
-                                                                    <label for="production_time">Product Name</label>
-                                                                    <input required type="text" name="product_name" class="form-control" value="{{$product->title}}" id="product_name" placeholder="eg: 4">
-                                                                </div>
-                                                                <div class="form-group mt-3 mb-3 col-md-4">
-                                                                    <label for="exampleFormControlSelect1">Screen Size</label>
-                                                                        <select name="screen_size" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                            
+                                                                    <label for="screenSizeSelect">Screen Size</label>
+                                                                        <select name="screen_size" required class="form-control form-select"  id="screenSizeSelect">
+
                                                                             <option value="4.3 Inch TFT Screen" @php if($product->screen_size == '4.3 Inch TFT Screen') echo 'selected' @endphp>4.3 Inch TFT Screen</option>
                                                                             <option value="5 Inch TFT Screen" @php if($product->screen_size == '5 Inch TFT Screen') echo 'selected' @endphp>5 Inch TFT Screen</option>
-                                                                            
+
                                                                             <option value="7 Inch TFT Screen" @php if($product->screen_size == '7 Inch TFT Screen') echo 'selected' @endphp>7 Inch TFT Screen</option>
-                                                                          
+
                                                                         </select>
                                                                 </div>
+
+                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                    <label for="production_time">Product Name</label>
+                                                                    <input required readonly name="product_name" class="form-control" value="{{$product->title}}" id="productName">
+                                                                </div>
+
                                                                 <div class="form-group mt-3 mb-3 col-md-4">
                                                                     <label for="proof_needed">Display Area</label>
-                                                                    <select name="display_area" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                        <option value="">--Select Display Area--</option>
-                                                                        {{-- <option value="48mm*36mm">48mm*36mm</option> --}}
-                                                                        <option value="94mm*53mm" @php if($product->display_area == '94mm*53mm') echo 'selected' @endphp>94mm*53mm</option>
-                                                                        <option value="110mm*61mm" @php if($product->display_area == '110mm*61mm') echo 'selected' @endphp>110mm*61mm</option>
-                                                                        {{-- <option value="107mm*64mm">107mm*64mm</option> --}}
-                                                                        <option value="152mm*85mm" @php if($product->display_area == '152mm*85mm') echo 'selected' @endphp>152mm*85mm</option>
-                                                                        {{-- <option value="221mm*124mm">221mm*124mm</option> --}}
+                                                                    <select name="display_area" required class="form-control form-select"  id="displayAreaSelect">
+                                                                        <option value="{{$product->display_area}}">{{$product->display_area}}</option>
+
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
 
-
                                                                 <div class="form-group mt-3 mb-3 col-md-3">
-                                                                    <label for="exampleFormControlSelect1">Battery
+                                                                    <label for="battery">Battery
                                                                         </label>
-                                                                        <select name="battery" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                        <select name="battery" required class="form-control form-select"  id="battery">
                                                                             <option value="320~2000mAH">320~2000mAH</option>
                                                                         </select>
                                                                 </div>
 
-                                                                {{-- <div class="form-group mt-3 mb-3 col-md-4">
-                                                                    <label for="exampleFormControlSelect1">Memory Information </label>
-                                                                       
-                                                                </div> --}}
-
-
-
                                                                 <div class="form-group mt-3 mb-3 col-md-3">
-                                                                    <label for="exampleFormControlSelect1">Resolution
+                                                                    <label for="Resolution">Resolution
                                                                         </label>
-                                                                        <select name="resolution" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                            {{-- <option value="320*240">320*240</option> --}}
-                                                                            <option value="480*272" @php if($product->resolution == '480*272') echo 'selected' @endphp>480*272</option>
-                                                                            <option value="800*480" @php if($product->resolution == '800*480') echo 'selected' @endphp>800*480</option>
-                                                                            <option value="1024*600" @php if($product->resolution == '1024*600') echo 'selected' @endphp>1024*600</option>
-                                                                            {{-- <option value="1280*800">1280*800</option> --}}
+                                                                        <select name="resolution" required class="form-control form-select"  id="Resolution">
+
+                                                                            <option value="{{$product->resolution}}">{{$product->resolution}}</option>
+
                                                                         </select>
                                                                 </div>
 
                                                                 <div class="form-group mt-3 mb-3 col-md-3">
-                                                                        <label for="exampleFormControlSelect1">Screen Ratio</label>
-                                                                            <select name="screen_ratio" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                        <label for="screenRatio">Screen Ratio</label>
+                                                                            <select name="screen_ratio" required class="form-control form-select"  id="screenRatio">
                                                                                 <option value="16:9">16:9</option>
                                                                             </select>
                                                                 </div>
                                                                 <div class="form-group mt-3 mb-3 col-md-3">
-                                                                    <label for="production_time">Upload Image <span class="text-warning">(Don't upload if you are not uploading a new image) </span> </label>
+                                                                    <label for="production_time">Upload Image <span class="text-warning">(Only upload a new image) </span> </label>
                                                                         <input  type="file" name="image" class="form-control"
                                                                         id="image">
                                                                 </div>
@@ -139,7 +127,7 @@
                                                                 <tbody>
                                                                     <!-- Initial row, can be hidden -->
                                                                     @forelse($product_variations as $val)
-                                                                    
+
                                                                         <tr class="product-row">
                                                                             <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                             <td style="width:25%">
@@ -173,7 +161,7 @@
                                                                     @empty
                                                                     @endforelse
 
-                                                
+
                                                                 </tbody>
                                                             </table>
 
@@ -244,7 +232,7 @@
 
 
                                                                 <div class="row">
-                                                                   
+
 
                                                                 </div>
 
@@ -268,14 +256,14 @@
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
-                                                                                      
+
                                                                                         <option value="single" @php if($val->ink == 'single') echo 'selected' @endphp>Single Color</option>
                                                                                         <option value="full" @php if($val->ink == 'full') echo 'selected' @endphp>Full Color</option>
                                                                                     </select>
                                                                                 </td>
                                                                                 <td style="width:20%">
                                                                                     <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    
+
                                                                                         <option value="50g" @php if($val->paper_type == '50g') echo 'selected' @endphp>50g</option>
                                                                                         <option value="60g" @php if($val->paper_type == '60g') echo 'selected' @endphp>60g</option>
                                                                                         <option value="70g" @php if($val->paper_type == '70g') echo 'selected' @endphp>70g</option>
@@ -293,7 +281,7 @@
                                                                                 <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
                                                                                 <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
 
-                                                                            
+
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">
@@ -306,7 +294,7 @@
                                                                             </tr>
                                                                         @empty
                                                                         @endforelse
-                                                                        
+
                                                                     </tbody>
                                                                 </table>
 
@@ -377,7 +365,7 @@
 
 
                                                                 <div class="row">
-                                                                   
+
 
                                                                 </div>
 
@@ -401,14 +389,14 @@
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
-                                                                                      
+
                                                                                         <option value="single" @php if($val->ink == 'single') echo 'selected' @endphp>Single Color</option>
                                                                                         <option value="full" @php if($val->ink == 'full') echo 'selected' @endphp>Full Color</option>
                                                                                     </select>
                                                                                 </td>
                                                                                 <td style="width:20%">
                                                                                     <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    
+
                                                                                         <option value="50g" @php if($val->paper_type == '50g') echo 'selected' @endphp>50g</option>
                                                                                         <option value="60g" @php if($val->paper_type == '60g') echo 'selected' @endphp>60g</option>
                                                                                         <option value="70g" @php if($val->paper_type == '70g') echo 'selected' @endphp>70g</option>
@@ -426,7 +414,7 @@
                                                                                 <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
                                                                                 <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
 
-                                                                            
+
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">
@@ -439,7 +427,7 @@
                                                                             </tr>
                                                                         @empty
                                                                         @endforelse
-                                                                        
+
                                                                     </tbody>
                                                                 </table>
 
@@ -511,7 +499,7 @@
 
 
                                                                 <div class="row">
-                                                                   
+
 
                                                                 </div>
 
@@ -535,14 +523,14 @@
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
-                                                                                      
+
                                                                                         <option value="single" @php if($val->ink == 'single') echo 'selected' @endphp>Single Color</option>
                                                                                         <option value="full" @php if($val->ink == 'full') echo 'selected' @endphp>Full Color</option>
                                                                                     </select>
                                                                                 </td>
                                                                                 <td style="width:20%">
                                                                                     <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    
+
                                                                                         <option value="50g" @php if($val->paper_type == '50g') echo 'selected' @endphp>50g</option>
                                                                                         <option value="60g" @php if($val->paper_type == '60g') echo 'selected' @endphp>60g</option>
                                                                                         <option value="70g" @php if($val->paper_type == '70g') echo 'selected' @endphp>70g</option>
@@ -560,7 +548,7 @@
                                                                                 <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
                                                                                 <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
 
-                                                                            
+
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">
@@ -573,7 +561,7 @@
                                                                             </tr>
                                                                         @empty
                                                                         @endforelse
-                                                                        
+
                                                                     </tbody>
                                                                 </table>
 
@@ -645,7 +633,7 @@
 
 
                                                                 <div class="row">
-                                                                   
+
 
                                                                 </div>
 
@@ -669,14 +657,14 @@
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
-                                                                                      
+
                                                                                         <option value="single" @php if($val->ink == 'single') echo 'selected' @endphp>Single Color</option>
                                                                                         <option value="full" @php if($val->ink == 'full') echo 'selected' @endphp>Full Color</option>
                                                                                     </select>
                                                                                 </td>
                                                                                 <td style="width:20%">
                                                                                     <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    
+
                                                                                         <option value="50g" @php if($val->paper_type == '50g') echo 'selected' @endphp>50g</option>
                                                                                         <option value="60g" @php if($val->paper_type == '60g') echo 'selected' @endphp>60g</option>
                                                                                         <option value="70g" @php if($val->paper_type == '70g') echo 'selected' @endphp>70g</option>
@@ -694,7 +682,7 @@
                                                                                 <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
                                                                                 <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
 
-                                                                            
+
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">
@@ -707,7 +695,7 @@
                                                                             </tr>
                                                                         @empty
                                                                         @endforelse
-                                                                        
+
                                                                     </tbody>
                                                                 </table>
 
@@ -752,16 +740,62 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
+        $('#screenSizeSelect').on('change', function() {
+            var screenSize = $(this).val();
+            var productName = '';
+            var displayAreas = {};
+            var resolution = {};
 
-    $('#add-product').on('click', function() {
-            var newRow = $('.product-row:first').clone();
-            $('#products tbody').append(newRow);
-        });
+            if (screenSize === "4.3 Inch TFT Screen") {
+                productName = screenSize+' Video Brochure';
+                displayAreas = {
+                    "94mm*53mm": "94mm*53mm",
+                };
+                resolution = {
+                    "480*272": "480*272",
+                };
+            } else if (screenSize === "5 Inch TFT Screen") {
+                productName = screenSize+' Video Brochure';
+                displayAreas = {
+                    "110mm*61mm": "110mm*61mm",
+                };
+                resolution = {
+                    "800*480": "800*480",
+                };
+            } else if (screenSize === "7 Inch TFT Screen") {
+                productName = screenSize+' Video Brochure';
+                displayAreas = {
+                    "152mm*85mm": "152mm*85mm",
+                };
+                resolution = {
+                    "1024*600": "1024*600",
+                };
+            }
 
-        $('#products').on('click', '.remove-product', function() {
-            $(this).closest('tr').remove();
-            calculateTotal();
+            $('#displayAreaSelect').empty();
+            $('#Resolution').empty();
+            $('#productName').val(productName);
+
+            $.each(displayAreas, function(key, value) {
+                $('#displayAreaSelect').append('<option value="' + value + '">' + value + '</option>');
+            });
+
+            $.each(resolution, function(key, value) {
+                $('#Resolution').append('<option value="' + value + '">' + value + '</option>');
+            });
         });
+    });
+    $(document).ready(function() {
+
+        $('#add-product').on('click', function() {
+                var newRow = $('.product-row:first').clone();
+                $('#products tbody').append(newRow);
+            });
+
+            $('#products').on('click', '.remove-product', function() {
+                $(this).closest('tr').remove();
+                calculateTotal();
+            });
     });
 </script>

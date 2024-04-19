@@ -44,34 +44,27 @@
 
 
                                                                     <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="production_time">Product Name</label>
-                                                                            <input required type="text" name="product_name" class="form-control" id="product_name" placeholder="eg: 4">
-                                                                        </div>
+
+
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Screen Size</label>
-                                                                                <select name="screen_size" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    <option value="">--Select Screen Size--</option>
-                                                                                    {{-- <option value="2.4 Inch TFT Screen">2.4 Inch TFT Screen</option> --}}
-                                                                                    <option value="4.3 Inch TFT Screen">4.3 Inch TFT Screen</option>
-                                                                                    <option value="5 Inch TFT Screen">5 Inch TFT Screen</option>
-                                                                                    {{-- <option value="5 Inch IPS Screen">5 Inch IPS Screen</option> --}}
-                                                                                    <option value="7 Inch TFT Screen">7 Inch TFT Screen</option>
-                                                                                    {{-- <option value="7 Inch IPS Screen">7 Inch IPS Screen</option> --}}
-                                                                                    {{-- <option value="10 Inch TFT Screen">10 Inch TFT Screen</option> --}}
-                                                                                    {{-- <option value="10 Inch IPS Screen">10 Inch IPS Screen</option> --}}
-                                                                                </select>
+                                                                            <select name="screen_size" required class="form-control form-select" id="screenSizeSelect">
+                                                                                <option value="">--Select Screen Size--</option>
+                                                                                <option value="4.3 Inch TFT Screen">4.3 Inch TFT Screen</option>
+                                                                                <option value="5 Inch TFT Screen">5 Inch TFT Screen</option>
+                                                                                <option value="7 Inch TFT Screen">7 Inch TFT Screen</option>
+                                                                            </select>
                                                                         </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Product Name</label>
+                                                                            <input required readonly name="product_name" class="form-control" id="productName">
+                                                                        </div>
+
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Display Area</label>
-                                                                            <select name="display_area" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                            <select name="display_area" required class="form-control form-select" id="displayAreaSelect">
                                                                                 <option value="">--Select Display Area--</option>
-                                                                                {{-- <option value="48mm*36mm">48mm*36mm</option> --}}
-                                                                                <option value="94mm*53mm">94mm*53mm</option>
-                                                                                <option value="110mm*61mm">110mm*61mm</option>
-                                                                                {{-- <option value="107mm*64mm">107mm*64mm</option> --}}
-                                                                                <option value="152mm*85mm">152mm*85mm</option>
-                                                                                {{-- <option value="221mm*124mm">221mm*124mm</option> --}}
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -82,46 +75,25 @@
                                                                             <label for="exampleFormControlSelect1">Battery
                                                                                 </label>
                                                                                 <select name="battery" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    <option value="">--Select Battery--</option>
+
                                                                                     <option value="320~2000mAH">320~2000mAH</option>
                                                                                 </select>
                                                                         </div>
 
-                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="exampleFormControlSelect1">Memory Information </label>
-                                                                               
-                                                                        </div> --}}
-
-
-
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="exampleFormControlSelect1">Resolution
-                                                                                </label>
-                                                                                <select name="resolution" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                    <option value="">--Select Resolution--</option>
-                                                                                    {{-- <option value="320*240">320*240</option> --}}
-                                                                                    <option value="480*272">480*272</option>
-                                                                                    <option value="800*480">800*480</option>
-                                                                                    <option value="1024*600">1024*600</option>
-                                                                                    {{-- <option value="1280*800">1280*800</option> --}}
-                                                                                </select>
+                                                                            <label for="proof_needed">Resolution</label>
+                                                                            <select name="resolution" required class="form-control form-select" id="Resolution">
+                                                                                <option value="">--Select Resolution--</option>
+                                                                            </select>
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="exampleFormControlSelect1">Screen Ratio</label>
                                                                                     <select name="screen_ratio" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                        <option value="">--Select Screen Ratio--</option>
+
                                                                                         <option value="16:9">16:9</option>
                                                                                     </select>
                                                                         </div>
-                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="thickness"> Cover Paper</label>
-                                                                            <select class="form-control form-select" required  name="cover_paper" id="thickness">
-                                                                                <option value="">--Select Cover Paper--</option>
-                                                                                <option value="soft_cover">Soft Paper Cover</option>
-                                                                                <option value="hard_cover">Hard Paper Cover</option>
-                                                                            </select>
-                                                                        </div> --}}
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="production_time">Upload Image
                                                                                 </label>
@@ -222,6 +194,52 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
+$(document).ready(function() {
+    $('#screenSizeSelect').on('change', function() {
+        var screenSize = $(this).val();
+        var productName = '';
+        var displayAreas = {};
+        var resolution = {};
+
+        if (screenSize === "4.3 Inch TFT Screen") {
+            productName = screenSize+' Video Brochure';
+            displayAreas = {
+                "94mm*53mm": "94mm*53mm",
+            };
+            resolution = {
+                "480*272": "480*272",
+            };
+        } else if (screenSize === "5 Inch TFT Screen") {
+            productName = screenSize+' Video Brochure';
+            displayAreas = {
+                "110mm*61mm": "110mm*61mm",
+            };
+            resolution = {
+                "800*480": "800*480",
+            };
+        } else if (screenSize === "7 Inch TFT Screen") {
+            productName = screenSize+' Video Brochure';
+            displayAreas = {
+                "152mm*85mm": "152mm*85mm",
+            };
+            resolution = {
+                "1024*600": "1024*600",
+            };
+        }
+
+        $('#displayAreaSelect').empty();
+        $('#Resolution').empty();
+        $('#productName').val(productName);
+
+        $.each(displayAreas, function(key, value) {
+            $('#displayAreaSelect').append('<option value="' + value + '">' + value + '</option>');
+        });
+
+        $.each(resolution, function(key, value) {
+            $('#Resolution').append('<option value="' + value + '">' + value + '</option>');
+        });
+    });
+});
 $(document).ready(function() {
 
     $('#add-product').on('click', function() {
