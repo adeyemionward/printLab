@@ -187,7 +187,8 @@
                         <div class="blog_details">
                             @if ($cartCount >= 1)
                             <div class="checkout_btn_inner float-right">
-                                <p >NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
+                                <p >NOTE: You will be contacted on delivery processes as soon as we receive your order. Please check your email for more info.</p> 
+                                <p >NOTE: 75% of the total amount must be paid before we can process your order.</p> <br>
                                 <a class="btn" href="{{route('index')}}#buy_products">Continue Shopping</a>
                                 <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Make&nbsp;Order</button>
                             </div>

@@ -77,7 +77,7 @@
             $this->updateJobOrders($user->id, $jobIds, $this->order_date, $randomInteger);
             $this->sendOrderEmails($user->id, $jobIds);
 
-            return redirect(route('track_orders.index'))->with('flash_success', 'Product Order Successful');
+            return redirect(route('track_orders.index'))->with('flash_success', 'Product Order Successful, Kindly check your email for more details');
         }
     }
 

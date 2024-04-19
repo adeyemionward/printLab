@@ -449,12 +449,6 @@ class FrontPageController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function vieworder($id)
     {
         $cartCount = $this->countCart();
