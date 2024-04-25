@@ -103,7 +103,7 @@ a span:hover{
                         <div class="properties-card">
                             <div class="properties-img">
                                 {{-- <a href="{{route('product_details',[$val->name, $val->id])}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a> --}}
-                                <a href="{{route('product_categories','Higher_Education')}}">
+                                <a href="{{route('product_details',[$val->name, $val->id])}}">
                                     @if ( env('APP_ENV') == 'local')
                                         <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
                                     @else
