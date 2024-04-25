@@ -1,8 +1,8 @@
 /node_modules
 /public/build
 /public/hot
-/public/product_images
-/public/storage
+# /public/product_images
+# /public/storage
 /storage/*.key
 /vendor
 .env
