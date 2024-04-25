@@ -93,7 +93,7 @@
 
                 //update subscription
                 $subscription = Subscription::where('company_id',$company->id)->first();
-                $subscription->sub_amount       = $sub_plan->amount ?? 0;
+                $subscription->sub_amount       = 10000;
                 $subscription->sub_start_date   = request('sub_start_date');
                 $subscription->sub_end_date     = request('sub_end_date');
                 $subscription->status           = request('status');
