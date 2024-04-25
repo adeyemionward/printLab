@@ -386,6 +386,8 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
         Route::post('product_details/{title?}/{id?}', 'FrontPageController@addCart')->name('product_details');
         Route::get('/{title}/product_categories', 'FrontPageController@product_categories')->name('product_categories');
         Route::post('get_price', 'FrontPageController@getPrice')->name('get_price');
+        Route::get('/', 'FrontPageController@video_brochure')->name('index');
+
 
         Route::group(['prefix' => '/track_orders', 'as' => 'track_orders.'], function () {
             Route::get('/', 'FrontPageController@track_orders')->name('index');

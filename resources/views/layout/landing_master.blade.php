@@ -49,7 +49,7 @@ Logo
 <style>
     .cart2{
         position:relative
-        
+
     }
     .header-area .header-mid .menu-wrapper .header-right .cart2::after{
         -webkit-transition:all .4s ease-out 0s;-moz-transition:all .4s ease-out 0s;-ms-transition:all .4s ease-out 0s;
@@ -76,7 +76,7 @@ Logo
 <div class="header-info-right d-flex">
 <ul class="order-list">
 <!-- <li><a href="#">My Wishlist</a></li> -->
-<li><a href="{{route('track_orders.index')}}">Track Your Order</a></li> 
+<li><a href="{{route('track_orders.index')}}">Track Your Order</a></li>
 
 <li><i class="fa fa-phone"> <a href="tel:08035777226">Call: {{$site_details->phone_1 ?? 'No phone'}}</a></i></li>
 </ul>
@@ -121,6 +121,8 @@ Logo
 <ul id="navigation">
 <li><a href="{{route('index')}}">Home</a></li>
 <li><a href="{{route('index')}}#buy_products">Printing Services</a></li>
+
+<li><a href="{{route('video_brochure.index')}}">Video Brochure</a></li>
 
 
 <li><a href="{{route('contact.index')}}">Contact</a></li>

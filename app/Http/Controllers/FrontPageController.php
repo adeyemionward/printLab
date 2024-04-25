@@ -253,6 +253,15 @@ class FrontPageController extends Controller
         return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
     }
 
+    public function video_brochure(Request $request){
+        // $all_testimonial = Testimonial::all();
+        $cartCount = $this->countCart();
+         $video_brochure =  Product::where('type','video_brochure')->get();
+
+        return view('front.video_brochure.index',  compact('cartCount','video_brochure'));
+    }
+
+
     public function product_categories()
     {
         $cartCount = $this->countCart();
