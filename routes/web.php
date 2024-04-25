@@ -151,6 +151,9 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                     Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
                     Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
+
+                    Route::get('/add_video_brochure', 'ProductController@add_video_brochure')->name('add_video_brochure');
+                    Route::post('/add_video_brochure', 'ProductController@store_video_brochure')->name('add_video_brochure');
                 });
 
 
@@ -385,8 +388,9 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
         Route::get('product_details/{title?}/{id?}', 'FrontPageController@product_details')->name('product_details');
         Route::post('product_details/{title?}/{id?}', 'FrontPageController@addCart')->name('product_details');
         Route::get('/{title}/product_categories', 'FrontPageController@product_categories')->name('product_categories');
-        Route::post('get_price', 'FrontPageController@getPrice')->name('get_price');
-        Route::get('/', 'FrontPageController@video_brochure')->name('index');
+        Route::post('get_price/{title?}/{id}', 'FrontPageController@getPrice')->name('get_price');
+        Route::post('get_video_profile_price/{title?}/{id}', 'FrontPageController@getVideoProfilePrice')->name('get_video_profile_price');
+        Route::get('/video_brochure', 'FrontPageController@video_brochure')->name('video_brochure.index');
 
 
         Route::group(['prefix' => '/track_orders', 'as' => 'track_orders.'], function () {

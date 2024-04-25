@@ -39,39 +39,64 @@
 
 
                 @if ( env('APP_ENV') == 'local')
-                    <img src="{{asset('storage/images/'.$product->image)}}" alt="product_image" style="width: 100%">
+                    <img src="{{asset('storage/images/'.$product->image)}}" alt="product_image" style="width: 70%; height:450px">
                 @else
-                    <img src="{{asset('public/storage/images/'.$product->image)}}"  alt="product_image" style="width: 100%">
+                    <img src="{{asset('public/storage/images/'.$product->image)}}"  alt="product_image" style="width: 70%; height:450px">
                 @endif
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
-                <div class="row">
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Color Type</label>
-                        <select name="ink" class="form-control form-select"
-                            id="ink">
-                            <option value="single" @php if($product->ink == 'single') echo 'selected' @endphp>Single Color</option>
-                            <option value="full" @php if($product->ink == 'full') echo 'selected' @endphp>Full Color</option>
-                        </select>
+                @if(request()->title == 'video_brochure')
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Cover Paper</label>
+                            <select class="form-control form-select"  name="cover_paper" id="cover_paper">
+                                <option value="soft_cover" @php if($product->cover_paper == 'soft_cover') echo 'selected' @endphp>Soft Cover Paper</option>
+                                <option value="hard_cover" @php if($product->cover_paper == 'hard_cover') echo 'selected' @endphp>Hard Cover Paper</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Memory</label>
+                            <select class="form-control form-select"  name="memory" id="memory">
+                                {{-- <option value="">--Select Memory Information--</option> --}}
+                                    @foreach ($video_profiling_memory as $val)
+                                        <option value="{{$val->memory}}" @php if($val->memory == $product->memory) echo 'selected' @endphp>{{$val->memory}}</option>
+                                    @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Paper Type</label>
-                        <select name="paper_type" class="form-control form-select"  id="paper_type">
-                            <option value="50g" @php if($product->paper_type == '50g') echo 'selected' @endphp>50g</option>
-                            <option value="60g" @php if($product->paper_type == '60g') echo 'selected' @endphp>60g</option>
-                            <option value="70g" @php if($product->paper_type == '70g') echo 'selected' @endphp>70g</option>
-                            <option value="80g" @php if($product->paper_type == '80g') echo 'selected' @endphp>80g</option>
-                        </select>
+                @else
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Color Type</label>
+                            <select name="ink" class="form-control form-select"
+                                id="ink">
+                                <option value="single" @php if($product->ink == 'single') echo 'selected' @endphp>Single Color</option>
+                                <option value="full" @php if($product->ink == 'full') echo 'selected' @endphp>Full Color</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Paper Type</label>
+                            <select name="paper_type" class="form-control form-select"  id="paper_type">
+                                <option value="50g" @php if($product->paper_type == '50g') echo 'selected' @endphp>50g</option>
+                                <option value="60g" @php if($product->paper_type == '60g') echo 'selected' @endphp>60g</option>
+                                <option value="70g" @php if($product->paper_type == '70g') echo 'selected' @endphp>70g</option>
+                                <option value="80g" @php if($product->paper_type == '80g') echo 'selected' @endphp>80g</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                            <label for="" style="color: #fff">Thickness</label>
+                            <select class="form-control form-select"  name="thickness" id="thickness">
+                                <option value="199g" @php if($product->thickness == '199g') echo 'selected' @endphp>199g</option>
+                                <option value="280g" @php if($product->thickness == '280g') echo 'selected' @endphp>280g</option>
+                                <option value="300g" @php if($product->thickness == '300g') echo 'selected' @endphp>300g</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group mt-3 mb-3 col-md-4">
-                        <label for="" style="color: #fff">Thickness</label>
-                        <select class="form-control form-select"  name="thickness" id="thickness">
-                            <option value="199g" @php if($product->thickness == '199g') echo 'selected' @endphp>199g</option>
-                            <option value="280g" @php if($product->thickness == '280g') echo 'selected' @endphp>280g</option>
-                            <option value="300g" @php if($product->thickness == '300g') echo 'selected' @endphp>300g</option>
-                        </select>
-                    </div>
-                </div>
+                @endif
+
+
+
                 <p style="color: #fff">NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
             </div>
             @if (request()->title == 'higher_notebook')
@@ -122,7 +147,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'eighty_leaves')
+            @if (request()->title == 'Eighty_Leaves')
                 <div class="features-caption">
                     <h3>Eighty Leaves</h3>
 
@@ -170,7 +195,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'forty_leaves')
+            @if (request()->title == 'Forty_Leaves')
                 <div class="features-caption">
                     <h3>Forty Leaves</h3>
                     <input type="hidden" value="Forty Leaves" id="product_name" name="product_name">
@@ -217,7 +242,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'twenty_leaves')
+            @if (request()->title == 'Twenty_Leaves')
                 <div class="features-caption">
                     <h3>Twenty Leaves</h3>
                     <input type="hidden" value="Twenty Leaves" id="product_name" name="product_name">
@@ -262,6 +287,56 @@
                 </div>
             @endif
 
+
+            @if (request()->title == 'video_brochure')
+                <div class="features-caption">
+                    <h3>{{$product->title}}</h3>
+                    <input type="hidden" value="{{$product->title}}" id="product_name" name="product_name">
+                    <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
+                    <p><b style="color: white; font-size:24px"> Specifications: </b>
+                        <span>
+                            <ul style="color: #fff;font-size:21px; margin-top:-22px; margin-left:20px">
+                                <li style="list-style-type: square">
+                                    Battery: {{ucfirst($product->battery)}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    Display Area: {{$product->display_area}}
+                                </li>
+                                <li style="list-style-type: square">
+                                Screen Size:  {{$product->screen_size}}
+                                </li>
+                                <li style="list-style-type: square">
+                                Resolution:  {{$product->resolution}}
+                                </li>
+                                {{-- <li style="list-style-type: square">
+                                Memory: {{$product->memory}}
+                                </li> --}}
+                                {{-- <li style="list-style-type: square">
+                                    {{$product->production_days.' Production Days' }}
+                                </li> --}}
+                            </ul>
+                        </span></p>
+                        <div class="price">
+                            <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                            <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group mt-3 mb-3 col-md-4">
+                                <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                    @foreach ($video_profiling_quantity as $val)
+                                        <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class=" mt-3 mb-3 col-md-8">
+                                <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </form>
 
@@ -277,8 +352,9 @@
 @endsection
 @section('scripts')
 
-<script>
-    $(document).ready(function() {
+
+        @if(request()->title =='Forty_Leaves' || request()->title =='Higher_Education' || request()->title =='Twenty_Leaves' || request()->title =='Eighty_Leaves')
+        <script>
         $('select').change(function() {
 
             var ink = $('#ink').val();
@@ -290,7 +366,7 @@
             // Collect values from other dropdowns as needed
 
             $.ajax({
-                url: "{{route('get_price')}}",
+                url: "{{route('get_price', [request()->title, request()->id])}}",
                 type: "POST",
                 data: {
                     ink: ink,
@@ -315,6 +391,47 @@
                 }
             });
         });
-    });
-</script>
+        </script>
+        @endif
+
+
+        @if(request()->title =='video_brochure')
+        <script>
+            $('select').change(function() {
+                //alert();
+                var quantity = $('#quantity').val();
+                var memory = $('#memory').val();
+                var cover_paper = $('#cover_paper').val();
+                //alert(cover_paper);
+                var total_cost = $('#total_cost').val();
+                // Collect values from other dropdowns as needed
+
+                $.ajax({
+                    url: "{{route('get_video_profile_price',[request()->title, request()->id])}}",
+                    type: "POST",
+                    data: {
+
+                        quantity: quantity,
+                        memory: memory,
+                        cover_paper: cover_paper,
+                        total_cost: total_cost,
+                        // Add other specifications as needed
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        //alert(response.price);
+
+                        $('#price-container').html('₦'+response.price);
+                        $('#total_cost').val(response.price);
+                        //alert(response.price);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        // Handle error gracefully, e.g., display an error message
+                    }
+                });
+            });
+        </script>
+        @endif
+
 @endsection

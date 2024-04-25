@@ -77,7 +77,9 @@ class FrontPageController extends Controller
         $all_testimonial = Testimonial::where('company_id', app('company_id'))->get();
         $products = Product::where('company_id', app('company_id'))->get();
         $cartCount = $this->countCart();
-        return view('front.index', compact('cartCount','all_testimonial','products'));
+        $video_brochure =  Product::where('type','video_brochure')->take(4)->get();
+
+        return view('front.index', compact('cartCount','all_testimonial','products','video_brochure'));
     }
 
     public function cart()
@@ -254,11 +256,11 @@ class FrontPageController extends Controller
     }
 
     public function video_brochure(Request $request){
-        // $all_testimonial = Testimonial::all();
+        $all_testimonial = Testimonial::all();
         $cartCount = $this->countCart();
          $video_brochure =  Product::where('type','video_brochure')->get();
 
-        return view('front.video_brochure.index',  compact('cartCount','video_brochure'));
+        return view('front.video_brochure.index',  compact('cartCount','all_testimonial','video_brochure'));
     }
 
 
@@ -272,17 +274,55 @@ class FrontPageController extends Controller
         return view('front.product.categories', compact('cartCount','product_higher_education','forty_leaves','twenty_leaves','eighty_leaves'));
     }
 
-    public function getPrice(Request $request){
+
+
+    // public function getPrice(Request $request){
+    //     $ink            = $request->ink;
+    //     $paper_type     = $request->paper_type;
+    //     $thickness      = $request->thickness;
+    //     $quantity       = $request->quantity;
+    //     $product_name   =  $request->product_name;
+
+
+    //     $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
+    //     ->where('products.ink',$ink)->where('products.paper_type',$paper_type)->where('products.thickness',$thickness)
+    //     ->where('product_costs.quantity',$quantity)
+    //     ->first();
+
+    //     $price =  $pro->total_cost;
+
+    //     return response()->json(['price'=>$price]);
+    // }
+
+    public function getVideoProfilePrice(Request $request, $title, $id){
+
+        $quantity       =   $request->quantity;
+        $memory         =   $request->memory;
+        $cover_paper     =   $request->cover_paper;
+
+        $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
+        ->where('product_costs.quantity',$quantity)->where('product_costs.memory',$memory)
+        ->where('product_costs.cover_paper',$cover_paper)->where('products.id',request()->id)
+        ->first();
+
+        $price =  $pro->total_cost;
+
+        return response()->json(['price'=>$price]);
+    }
+
+
+    public function getPrice(Request $request, $title, $id){
+
         $ink            = $request->ink;
         $paper_type     = $request->paper_type;
         $thickness      = $request->thickness;
         $quantity       = $request->quantity;
         $product_name   =  $request->product_name;
 
-
+        if(request()->title =='Higher_Education') request()->title = 'higher_notebook';
         $pro = Product::join('product_costs', 'products.id', '=', 'product_costs.product_id')
-        ->where('products.ink',$ink)->where('products.paper_type',$paper_type)->where('products.thickness',$thickness)
-        ->where('product_costs.quantity',$quantity)
+        ->where('product_costs.ink',$ink)->where('product_costs.paper_type',$paper_type)->where('product_costs.thickness',$thickness)
+        ->where('product_costs.quantity',$quantity)->where('products.id',request()->id)->where('products.name',request()->title)
         ->first();
 
         $price =  $pro->total_cost;

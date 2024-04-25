@@ -1,7 +1,7 @@
 
 @extends('layout.master')
 @section('content')
-@section('title', 'Dashboard')
+@section('title', 'View Product')
 @php $page = 'view_product' @endphp
 <style>
     .question{

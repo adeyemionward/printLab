@@ -19,6 +19,7 @@ class JobOrder extends Model
     public function productName(){
         return $this->hasOne(Product::class,'id','product_id');
     }
+    
 
     public function createdBy(){
         return $this->belongsTo(User::class,'created_by','id');

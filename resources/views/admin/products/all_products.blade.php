@@ -40,13 +40,13 @@
                                 @php $product_name1 = str_replace('_',' ', $val->name)   @endphp
                                     <tr>
                                         <td>{{$index+1}}</td>
-                                        <td>{{$product_name1}}</td>
+                                        <td>{{$val->title ?? 'Null'}}</td>
 
-                                        <td>{{$val->description}} </td>
-                                        <td>{{$val->ink}}</td>
-                                        <td>{{$val->paper_type}}</td>
+                                        <td>{{$val->description ?? 'Null'}} </td>
+                                        <td>{{$val->ink ?? 'Null'}}</td>
+                                        <td>{{$val->paper_type ?? str_replace('_',' ',$val->cover_paper)}}</td>
                                         <td>{{$val->production_days}}</td>
-                                        <td>{{$val->proof_needed}} </td>
+                                        <td>{{$val->proof_needed ?? 'Null'}} </td>
                                         <td><a href="{{route('products.view',[$product_name, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach

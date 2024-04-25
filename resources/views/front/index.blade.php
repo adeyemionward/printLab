@@ -130,6 +130,67 @@ a span:hover{
 </div>
 </div>
 
+<div class="latest-items section-padding fix" style="margin-top:-150px">
+    <div class="container">
+        <div class="row justify-content-between">
+        <div class="col-xl-12">
+        <div class="nav-button">
+
+        <nav>
+        <div class="nav-tittle" id="buy_products" >
+        <h2 id="popular_product_text">Popular Video Profiling</h2>
+        </div>
+
+        </nav>
+
+        </div>
+        </div>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                <div class="latest-items-active">
+                    @forelse ($video_brochure as $val)
+                        <div class="properties pb-30">
+                            <div class="properties-card">
+                                <div class="properties-img">
+                                    <a href="{{route('product_categories','Higher_Education')}}">
+                                        @if ( env('APP_ENV') == 'local')
+                                            <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                        @else
+                                            <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                        @endif
+
+                                    </a>
+
+                                </div>
+                                <div class="properties-caption properties-caption2">
+                                    <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->title}}</a></h3>
+                                    <div class="properties-footer">
+                                        <div class="price">
+                                            <a href="{{route('product_details',[$val->name,$val->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+
+                    @endforelse
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+</div>
+</div>
+
 <section class="more_service"  >
 
     <div class="container">
