@@ -102,18 +102,21 @@ a span:hover{
                     <div class="properties pb-30">
                         <div class="properties-card">
                             <div class="properties-img">
-                                <a href="{{route('product_details',[$val->name, $val->id])}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a>
-                                {{-- <div class="socal_icon">
-                                    <a href="#"><i class="ti-shopping-cart"></i></a>
-                                    <a href="#"><i class="ti-heart"></i></a>
-                                    <a href="#"><i class="ti-zoom-in"></i></a>
-                                </div> --}}
+                                {{-- <a href="{{route('product_details',[$val->name, $val->id])}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a> --}}
+                                <a href="{{route('product_categories','Higher_Education')}}">
+                                    @if ( env('APP_ENV') == 'local')
+                                        <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                    @else
+                                        <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                    @endif
+
+                                </a>
                             </div>
                             <div class="properties-caption properties-caption2">
-                                <h3><a href="{{route('product_details',[$val->name, $val->id])}}">{{$product_name}}</a></h3>
-                                <div class="properties-footer">
-                                    <div class="price">
-                                        <a href="{{route('product_details',[$val->name, $val->id])}}"><span><button class="btn btn-primary">Browse {{$product_name}}</button></span></a>
+                                <h3><a href="{{route('product_details',[$val->name, $val->id])}}">{{$val->title}}</a></h3>
+                                <div class="">
+                                    <div >
+                                        <a href="{{route('product_details',[$val->name, $val->id])}}"><span><button class="btn btn-primary">Browse Details</button></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +133,7 @@ a span:hover{
 </div>
 </div>
 
-<div class="latest-items section-padding fix" style="margin-top:-150px">
+{{-- <div class="latest-items section-padding fix" style="margin-top:-150px">
     <div class="container">
         <div class="row justify-content-between">
         <div class="col-xl-12">
@@ -189,7 +192,7 @@ a span:hover{
 
 </div>
 </div>
-</div>
+</div> --}}
 
 <section class="more_service"  >
 

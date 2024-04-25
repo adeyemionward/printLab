@@ -21,13 +21,13 @@
                 <div class="dropdown-divider"></div>
 
 
-                <a class="nav-link <?php if($page == 'edit_pricing') echo 'active active_red'  ?>"
+                {{-- <a class="nav-link <?php if($page == 'edit_pricing') echo 'active active_red'  ?>"
                 href="{{route('company.products.edit_pricing', [request()->job_title,request()->id])}}"
                 aria-selected="false">Update Product Pricing</a>
-               <div class="dropdown-divider"></div>
+               <div class="dropdown-divider"></div> --}}
 
 
-                <a class="nav-link <?php if($page == 'forty_leaves') echo 'active active_red'  ?>"
+                <a onclick="return confirm('Are you sure you want to delete this product?');" class="nav-link  <?php if($page == 'forty_leaves') echo 'active active_red'  ?>"
                 href="{{route('company.products.delete_product', [request()->id])}}"
                 aria-selected="false">Delete Product</a>
                <div class="dropdown-divider"></div>

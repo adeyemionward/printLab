@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('admin.layout.master')
 @section('content')
 @section('title', 'Edit Product')
 @php $page = 'edit_product' @endphp
@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('products.product_view_inc')
+                                @include('admin.products.product_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     @if(request()->job_title == 'video_brochure')

@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('admin.layout.master')
 @section('content')
 @section('title', 'All Products')
     <div class="content">
@@ -20,7 +20,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('includes.date_range')
+                        @include('admin.includes.date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
@@ -47,7 +47,7 @@
                                         <td>{{$val->paper_type ?? str_replace('_',' ',$val->cover_paper)}}</td>
                                         <td>{{$val->production_days}}</td>
                                         <td>{{$val->proof_needed ?? 'Null'}} </td>
-                                        <td><a href="{{route('products.view',[$product_name, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('admin.products.view',[$product_name, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
 

@@ -14,8 +14,14 @@ class ProductCost extends Model
         'product_id',
         'product_name',
         'quantity',
-        'total_cost'
+        'total_cost',
+        'thickness'   ,
+        'paper_type' ,
+        'ink'   ,
+        'memory',
+        'cover_paper'
     ];
+
 
 
 

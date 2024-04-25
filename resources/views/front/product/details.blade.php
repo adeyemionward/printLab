@@ -35,9 +35,6 @@
         <div class="single-services d-flex align-items-center mb-0">
             <div class="features-img">
 
-
-
-
                 @if ( env('APP_ENV') == 'local')
                     <img src="{{asset('storage/images/'.$product->image)}}" alt="product_image" style="width: 70%; height:450px">
                 @else
@@ -147,7 +144,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'Eighty_Leaves')
+            @if (request()->title == 'eighty_leaves')
                 <div class="features-caption">
                     <h3>Eighty Leaves</h3>
 
@@ -195,7 +192,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'Forty_Leaves')
+            @if (request()->title == 'forty_leaves')
                 <div class="features-caption">
                     <h3>Forty Leaves</h3>
                     <input type="hidden" value="Forty Leaves" id="product_name" name="product_name">
@@ -242,7 +239,7 @@
                 </div>
             @endif
 
-            @if (request()->title == 'Twenty_Leaves')
+            @if (request()->title == 'twenty_leaves')
                 <div class="features-caption">
                     <h3>Twenty Leaves</h3>
                     <input type="hidden" value="Twenty Leaves" id="product_name" name="product_name">
@@ -353,7 +350,7 @@
 @section('scripts')
 
 
-        @if(request()->title =='Forty_Leaves' || request()->title =='Higher_Education' || request()->title =='Twenty_Leaves' || request()->title =='Eighty_Leaves')
+        @if(request()->title =='forty_leaves' || request()->title =='higher_notebook' || request()->title =='twenty_leaves' || request()->title =='eighty_leaves')
         <script>
         $('select').change(function() {
 

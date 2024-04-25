@@ -56,13 +56,14 @@ class FrontPageController extends Controller
                 ->where(function ($query) {
                     $query->where('user_id', $this->user->id)
                         ->orWhere('local_id', $this->localIp);
-                })->get();
+                })->where('company_id',app('company_id'))->get();
         } else {
-            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)->where('local_id', $this->localIp)->get();
+            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)->where('local_id', $this->localIp)->where('company_id',app('company_id'))->get();
         }
 
         return $cart_func;
     }
+
 
     private function countCart(){
 
@@ -77,17 +78,28 @@ class FrontPageController extends Controller
         $all_testimonial = Testimonial::where('company_id', app('company_id'))->get();
         $products = Product::where('company_id', app('company_id'))->get();
         $cartCount = $this->countCart();
-        $video_brochure =  Product::where('type','video_brochure')->take(4)->get();
+        $video_brochure =  Product::where('type','video_brochure')->where('company_id', app('company_id'))->take(4)->get();
 
         return view('front.index', compact('cartCount','all_testimonial','products','video_brochure'));
     }
 
+    // public function cart()
+    // {
+    //     $cartCount  = $this->countCart();
+    //     $carts      = $this->cartFunc();
+
+    //     return view('front.cart.index', compact('cartCount','carts'));
+    // }
+
     public function cart()
     {
-        $cartCount  = $this->countCart();
-        $carts      = $this->cartFunc();
+        $cartCount = $this->countCart();
+        $carts = $this->cartFunc();
 
-        return view('front.cart.index', compact('cartCount','carts'));
+        // $VideocartCount = $this->VideocartCount();
+        // $videocarts = $this->VideocartFunc();
+        $products = Product::all();
+        return view('front.cart.index', compact('cartCount','carts','products'));
     }
 
     /**
@@ -96,69 +108,196 @@ class FrontPageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addCart(Request $request, $title =  null, $id =  null)
-    {
-        try{
+    // public function addCart(Request $request, $title =  null, $id =  null)
+    // {
+    //     try{
 
-        $product_id                 =  request()->id;
-        $ink                        =  request('ink');
-        $paper_type                 =  request('paper_type');
-        $thickness                  =  request('thickness');
-        $quantity                   =  request('quantity');
-        $total_cost                 =  request('total_cost');
-        $product_name               =  request('product_name');
-        $amount_paid = 0;
+    //     $product_id                 =  request()->id;
+    //     $ink                        =  request('ink');
+    //     $paper_type                 =  request('paper_type');
+    //     $thickness                  =  request('thickness');
+    //     $quantity                   =  request('quantity');
+    //     $total_cost                 =  request('total_cost');
+    //     $product_name               =  request('product_name');
+    //     $amount_paid = 0;
+
+    //     if (Auth::check()) {
+    //         //save to job
+    //         $cart = new JobOrder();
+    //         $cart->product_id      = $product_id;
+    //         $cart->job_order_name  = $product_name;
+    //         $cart->ink             = $ink;
+    //         $cart->paper_type      = $paper_type;
+    //         $cart->quantity        = $quantity;
+    //         $cart->thickness       = $thickness;
+    //         $cart->local_id        = $this->localIp;
+    //         $cart->cart_order_status = 1;
+    //         $cart->total_cost      = $total_cost;
+    //         $cart->order_date      = $this->order_date;
+    //         $cart->order_type      = 'external';
+    //         $cart->user_id         = $this->user->id;
+    //         $cart->created_by      = $this->user->id;
+    //         $cart->save();
+
+    //     } else {
+
+    //         //save to job
+    //         $cart = new JobOrder();
+    //         $cart->product_id      = $product_id;
+    //         $cart->job_order_name  = $product_name;
+    //         $cart->ink             = $ink;
+    //         $cart->paper_type      = $paper_type;
+    //         $cart->quantity        = $quantity;
+    //         $cart->thickness       = $thickness;
+    //         $cart->local_id        = $this->localIp;
+    //         $cart->cart_order_status = 1;
+    //         $cart->total_cost      = $total_cost;
+    //         $cart->order_date      = $this->order_date;
+    //         $cart->order_type      = 'external';
+    //         //  $cart->user_id         = '';
+    //         //  $cart->created_by      = '';
+    //         $cart->save();
+    //     }
+
+
+    // }catch(\Exception $th){
+    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    // }
+    //     return redirect(route('cart.index'))->with('flash_success','Product added to cart');
+    // }
+
+
+    public function addCart(Request $request, $title = null, $id = null)
+    {
+    try {
+        $product_id    = request()->id;
+        $ink           = request('ink');
+        $paper_type    = request('paper_type');
+        $thickness     = request('thickness');
+        $quantity      = request('quantity');
+        $total_cost    = request('total_cost');
+        $memory        = request('memory');
+        $cover_paper   = request('cover_paper');
+        $product_name  = request('product_name');
+        $amount_paid   = 0;
 
         if (Auth::check()) {
-            //save to job
-            $cart = new JobOrder();
-            $cart->product_id      = $product_id;
-            $cart->job_order_name  = $product_name;
-            $cart->ink             = $ink;
-            $cart->paper_type      = $paper_type;
-            $cart->quantity        = $quantity;
-            $cart->thickness       = $thickness;
-            $cart->local_id        = $this->localIp;
-            $cart->cart_order_status = 1;
-            $cart->total_cost      = $total_cost;
-            $cart->order_date      = $this->order_date;
-            $cart->order_type      = 'external';
-            $cart->user_id         = $this->user->id;
-            $cart->created_by      = $this->user->id;
-            $cart->save();
+            $user_id = $this->user->id;
+            $existingCart = JobOrder::where(function ($query) use ($user_id, $product_id) {
+                $query->where('user_id', $user_id)
+                    ->orWhere('local_id', $this->localIp);
+            })->where('product_id', $product_id)->where('cart_order_status', 1)->first();
 
+
+            if ($existingCart) {
+               // return 'old';
+                // Update existing cart
+                $existingCart->update([
+                    'ink'           => $ink,
+                    'company_id' => app('company_id'),
+                    'paper_type'    => $paper_type,
+                    'quantity'      => $existingCart->quantity + $quantity, // Update quantity
+                    'thickness'     => $thickness,
+                    'total_cost'    => $existingCart->total_cost + $total_cost, // Update total cost
+                    'memory'        => $memory,
+                    'cover_paper'   => $cover_paper,
+                ]);
+            } else {
+                //return 'new';
+                // Create new cart
+                $cart = new JobOrder();
+                $cart->user_id            = $user_id;
+                $cart->product_id         = $product_id;
+                $cart->job_order_name     = $product_name;
+                $cart->ink                = $ink;
+                $cart->company_id  = app('company_id');
+                $cart->paper_type         = $paper_type;
+                $cart->quantity           = $quantity;
+                $cart->thickness          = $thickness;
+                $cart->local_id           = $this->localIp;
+                $cart->cart_order_status  = 1;
+                $cart->total_cost         = $total_cost;
+                $cart->memory             = $memory;
+                $cart->cover_paper        = $cover_paper;
+                $cart->order_date         = $this->order_date;
+                $cart->order_type         = 'external';
+                $cart->user_id          = $this->user->id;
+                $cart->created_by         = $user_id;
+                $cart->save();
+            }
         } else {
 
-            //save to job
-            $cart = new JobOrder();
-            $cart->product_id      = $product_id;
-            $cart->job_order_name  = $product_name;
-            $cart->ink             = $ink;
-            $cart->paper_type      = $paper_type;
-            $cart->quantity        = $quantity;
-            $cart->thickness       = $thickness;
-            $cart->local_id        = $this->localIp;
-            $cart->cart_order_status = 1;
-            $cart->total_cost      = $total_cost;
-            $cart->order_date      = $this->order_date;
-            $cart->order_type      = 'external';
-            //  $cart->user_id         = '';
-            //  $cart->created_by      = '';
-            $cart->save();
+            $existingCart = JobOrder::where('product_id', $product_id)
+            ->where(function ($query) {
+                $query->where('local_id', $this->localIp);
+            })->where('product_id', $product_id)->where('cart_order_status', 1)->first();
+
+            if ($existingCart) {
+                // Update existing cart
+                $existingCart->update([
+                    'ink'           => $ink,
+                    'company_id' => app('company_id'),
+                    'paper_type'    => $paper_type,
+                    'quantity'      => $existingCart->quantity + $quantity, // Update quantity
+                    'thickness'     => $thickness,
+                    'total_cost'    => $existingCart->total_cost + $total_cost, // Update total cost
+                    'memory'        => $memory,
+                    'cover_paper'   => $cover_paper,
+                ]);
+            }else{
+                        // Handle case where user is not authenticated
+                $cart = new JobOrder();
+                $cart->product_id      = $product_id;
+                $cart->job_order_name  = $product_name;
+                $cart->company_id  = app('company_id');
+                $cart->ink             = $ink;
+                $cart->paper_type      = $paper_type;
+                $cart->quantity        = $quantity;
+                $cart->thickness       = $thickness;
+                $cart->local_id        = $this->localIp;
+                $cart->cart_order_status = 1;
+                $cart->total_cost      = $total_cost;
+                $cart->memory          = $memory;
+                $cart->cover_paper     = $cover_paper;
+                $cart->order_date      = $this->order_date;
+                $cart->order_type      = 'external';
+                //  $cart->user_id         = '';
+                //  $cart->created_by      = '';
+                $cart->save();
+            }
         }
 
+        return redirect(route('cart.index'))->with('flash_success', 'Product added to cart');
+    } catch (\Exception $th) {
+        return redirect()->back()->with('flash_error', 'An Error Occured: Please try later');
+    }
+    }
 
-    }catch(\Exception $th){
-        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-    }
-        return redirect(route('cart.index'))->with('flash_success','Product added to cart');
-    }
+    // public function edit_cart($title =  null, $id = null, $job_id =  null)
+    // {
+    //     $product = Product::where('id', $id)->first();
+    //     $cartCount = $this->countCart();
+    //     $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
+
+    //     // $product_eighty_leaves = Product::where('id', $id)->first();
+    //     $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
+    //     $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
+    //     $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
+
+    //     $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
+
+    //     return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+    // }
+
 
     public function edit_cart($title =  null, $id = null, $job_id =  null)
     {
         $product = Product::where('id', $id)->first();
         $cartCount = $this->countCart();
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
+
+        $video_profiling_memory     = ProductCost::where('product_name', 'video_brochure')->where('product_id',$id)->distinct()->get('memory');
+        $video_profiling_quantity   = ProductCost::where('product_name', 'video_brochure')->where('product_id',$id)->distinct()->get('quantity');
 
         // $product_eighty_leaves = Product::where('id', $id)->first();
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
@@ -167,7 +306,14 @@ class FrontPageController extends Controller
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','video_profiling_memory','video_profiling_quantity'));
+    }
+
+
+    public function delete_cart($id)
+    {
+        $product = JobOrder::where('id', $id)->delete();
+        return redirect(route('front.cart.index'))->with('flash_success','Product cart deleted');
     }
 
     public function update_cart(Request $request, $title =  null, $id =  null, $job_id =  null)
@@ -239,20 +385,40 @@ class FrontPageController extends Controller
         return $this->checkoutService->processCheckout();
     }
 
+    // public function product_details($title =  null, $id = null)
+    // {
+    //     $product = Product::where('id', $id)->first();
+    //     $cartCount = $this->countCart();
+    //     $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
+
+    //     // $product_eighty_leaves = Product::where('id', $id)->first();
+    //     $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
+    //     $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
+    //     $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
+
+    //     $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
+
+    //     return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+    // }
+
     public function product_details($title =  null, $id = null)
     {
         $product = Product::where('id', $id)->first();
+        if(is_null($product)) return redirect()->back()->with('flash_error','The product does not exist');
         $cartCount = $this->countCart();
+        if($title == 'Higher_Education') $higher_note =  'higher_notebook';
         $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
 
-        // $product_eighty_leaves = Product::where('id', $id)->first();
+        $video_profiling_memory     = ProductCost::where('product_name', 'video_brochure')->where('product_id',$id)->distinct()->get('memory');
+        $video_profiling_quantity   = ProductCost::where('product_name', 'video_brochure')->where('product_id',$id)->distinct()->get('quantity');
+
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
         $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
         $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
-
+        $product_memory =  Product::where('id',$id)->get();
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
+        return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','product_memory','video_profiling_memory','video_profiling_quantity'));
     }
 
     public function video_brochure(Request $request){

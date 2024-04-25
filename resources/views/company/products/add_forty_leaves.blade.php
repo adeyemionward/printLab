@@ -51,7 +51,11 @@
                                                                                 @enderror
                                                                             </select>
                                                                         </div>
-
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Production Time (Days)
+                                                                                </label> <input required type="number" name="production_time" class="form-control"
+                                                                                id="quantity" placeholder="eg: 4">
+                                                                        </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Upload Image
                                                                                 </label>
@@ -59,48 +63,44 @@
                                                                                 id="image">
                                                                         </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Default Ink
 
                                                                             </label>
                                                                             <select name="ink" required class="form-control form-select"
                                                                                 id="exampleFormControlSelect1">
                                                                                 <option value="">--Select Default Color Type--</option>
-                                                                                <option value="single" {{ $sub_product && $sub_product->ink == 'single' ? 'selected' : '' }}>Single Color</option>
-                                                                                <option value="full" {{ $sub_product && $sub_product->ink == 'full' ? 'selected' : '' }}>Full Color</option>
+                                                                                <option value="single">Single Color</option>
+                                                                                <option value="full">Full Color</option>
                                                                             </select>
-                                                                        </div>
+                                                                        </div> --}}
 
 
                                                                     </div>
 
 
                                                                     <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="production_time">Production Time (Days)
-                                                                                </label> <input required type="number" name="production_time" class="form-control"
-                                                                                id="quantity" placeholder="eg: 4" value="{{$sub_product->production_days ?? ''}}">
-                                                                        </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="thickness">Default Cover Thickness</label>
                                                                             <select class="form-control form-select" required  name="thickness" id="thickness">
                                                                                 <option value="">--Select Default Cover Thickness--</option>
-                                                                                <option value="199g" {{ $sub_product && $sub_product->thickness == '199g' ? 'selected' : '' }}>199g</option>
-                                                                                <option value="280g" {{ $sub_product && $sub_product->thickness == '280g' ? 'selected' : '' }}>280g</option>
-                                                                                <option value="300g" {{ $sub_product && $sub_product->thickness == '300g' ? 'selected' : '' }}>300g</option>
+                                                                                <option value="199g">199g</option>
+                                                                                <option value="280g">280g</option>
+                                                                                <option value="300g">300g</option>
                                                                             </select>
-                                                                        </div>
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        </div> --}}
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="paper_type">Default Paper Type </label>
                                                                             <select name="paper_type" required class="form-control form-select"  id="exampleFormControlSelect1">
                                                                                 <option value="">--Select Default Paper Type--</option>
-                                                                                <option value="50g" {{ $sub_product && $sub_product->paper_type == '50g' ? 'selected' : '' }}>50g</option>
-                                                                                <option value="60g" {{ $sub_product && $sub_product->paper_type == '60g' ? 'selected' : '' }}>60g</option>
-                                                                                <option value="70g" {{ $sub_product && $sub_product->paper_type == '70g' ? 'selected' : '' }}>70g</option>
-                                                                                <option value="80g" {{ $sub_product && $sub_product->paper_type == '80g' ? 'selected' : '' }}>80g</option>
+                                                                                <option value="50g">50g</option>
+                                                                                <option value="60g">60g</option>
+                                                                                <option value="70g">70g</option>
+                                                                                <option value="80g">80g</option>
                                                                             </select>
-                                                                        </div>
+                                                                        </div> --}}
 
                                                                         {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Proof Needed</label>
@@ -112,11 +112,14 @@
                                                                         </div> --}}
                                                                     </div>
 
-                                                                    <table id="products">
+                                                                    <table id="products" style="margin-top:20px">
 
-                                                                        <a id="add-product" class="btn btn-primary" >Add Pricing</a>
+                                                                        <a id="add-product" class="btn btn-primary" >Add Variation</a>
                                                                         <thead>
                                                                             <tr>
+                                                                                <th>Color</th>
+                                                                                <th>Paper</th>
+                                                                                <th>Thickness</th>
                                                                                 <th>Quantity</th>
                                                                                 <th>Price</th>
                                                                                 <th></th>
@@ -124,9 +127,36 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <!-- Initial row, can be hidden -->
-                                                                            <tr class="product-row">
-                                                                                <td style="width:50%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
-                                                                                <td style="width:50%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
+
+
+                                                                            <tr class="product-row" style="margin-top:20px">
+                                                                                <td style="width:20%">
+                                                                                    <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
+                                                                                        <option value="">--Select Color Type--</option>
+                                                                                        <option value="single">Single Color</option>
+                                                                                        <option value="full">Full Color</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td style="width:20%">
+                                                                                    <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                        <option value="">--Select Paper Type--</option>
+                                                                                        <option value="50g">50g</option>
+                                                                                        <option value="60g">60g</option>
+                                                                                        <option value="70g">70g</option>
+                                                                                        <option value="80g">80g</option>
+                                                                                    </select>
+                                                                                </td>
+
+                                                                                <td style="width:20%">
+                                                                                    <select required class="form-control form-select"  name="thickness[]" id="thickness">
+                                                                                        <option value="">--Select Cover Thickness--</option>
+                                                                                        <option value="199g">199g</option>
+                                                                                        <option value="280g">280g</option>
+                                                                                        <option value="300g">300g</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td style="width:20%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
+                                                                                <td style="width:20%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">
@@ -146,12 +176,16 @@
                                                                             <label for="address">Product Description
                                                                                 </label>
                                                                                 <textarea name="description" required  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" value="{{ old('description') }}"
-                                                                                id="description">{{$sub_product->description ?? ''}}</textarea>
+                                                                                id="description"></textarea>
                                                                                 @error('description')
                                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                                 @enderror
                                                                         </div>
+
+
+
                                                                     </div>
+
                                                             </div>
                                                         </div>
                                                         <hr/>

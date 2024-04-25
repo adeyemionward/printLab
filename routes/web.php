@@ -405,6 +405,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
             Route::get('/', 'FrontPageController@cart')->name('index');
             Route::get('edit/{title?}/{id}/{job_id}', 'FrontPageController@edit_cart')->name('edit');
             Route::post('edit/{title}/{id}/{job_id}', 'FrontPageController@update_cart')->name('edit');
+            Route::get('delete/{id}', 'FrontPageController@delete_cart')->name('delete');
             Route::post('/', 'FrontPageController@checkout')->name('checkout');
         });
 

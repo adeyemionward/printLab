@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Video Brochure')
 @php $page = 'video_brochure' @endphp
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('products.product_inc')
+                                @include('company.products.product_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">

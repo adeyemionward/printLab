@@ -12,14 +12,26 @@ class JobOrder extends Model
     const job_cart_status = 1;
     const ORDER_COMPLETED = 2;
 
+    protected $fillable = [
+        'ink',
+        'paper_type',
+        'quantity',
+        'thickness',
+        'total_cost',
+        'memory',
+        'cover_paper'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
 
+
     public function productName(){
         return $this->hasOne(Product::class,'id','product_id');
     }
-    
+
+
 
     public function createdBy(){
         return $this->belongsTo(User::class,'created_by','id');
