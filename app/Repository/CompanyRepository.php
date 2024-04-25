@@ -69,7 +69,7 @@
 
         public function updateCompany($data){
             DB::beginTransaction();
-            try{
+            //try{
                  $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
                  
                 $id = request()->id;
@@ -125,10 +125,10 @@
                     ->first();
                 if(!is_null($getEmail)) return redirect()->back()->with('flash_error','Email already exists');
                 $company->save();
-            }catch(\Exception $th){
-                DB::rollBack();
-                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            }
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            // }
             return redirect(route('admin.company.view',$id))->with('flash_success','Company details updated successfully');
         }
 
