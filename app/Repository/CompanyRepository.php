@@ -15,7 +15,7 @@
             DB::beginTransaction();
             try{
                 //save company
-                return $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
+                $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
                 $company = new Company();
                 $company->name             = request('name');
                 $company->contactperson    = request('contactperson');
@@ -70,7 +70,7 @@
         public function updateCompany($data){
             DB::beginTransaction();
             try{
-                $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
+                return $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
                 $id = request()->id;
                 $company = Company::find($id);
                 $company->name             = request('name');
