@@ -70,7 +70,8 @@
         public function updateCompany($data){
             DB::beginTransaction();
             try{
-                return $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
+                 $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
+                 return $sub_plan->amount;
                 $id = request()->id;
                 $company = Company::find($id);
                 $company->name             = request('name');
