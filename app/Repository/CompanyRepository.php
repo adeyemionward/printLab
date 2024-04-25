@@ -104,7 +104,7 @@
                 }else{
                     $subscription = new Subscription();
                     $subscription->sub_amount       = $sub_plan->amount ?? 0;
-                    $subscription->company_id       = $$company->id;
+                    $subscription->company_id       = $company->id;
                     $subscription->sub_start_date   = request('sub_start_date');
                     $subscription->sub_end_date     = request('sub_end_date');
                     $subscription->status           = request('status');
