@@ -60,9 +60,9 @@
                                             <div class="properties-card">
                                                 <div class="properties-img">
                                                     @if ( env('APP_ENV') == 'local')
-                                                        <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"> <img src="{{ asset('storage/images/'.$product_higher_education->image) }}" alt="product image"></a>
+                                                        <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"> <img src="{{ asset($product_higher_education->image) }}" alt="product image"></a>
                                                     @else
-                                                        <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"><img src="{{asset('public/storage/images/'.$product_higher_education->image)}}" style="height: 320px;" alt="product image"></a>
+                                                        <a href="{{route('product_details',[$product_higher_education->name,$product_higher_education->id])}}"><img src="{{asset($product_higher_education->image)}}" style="height: 320px;" alt="product image"></a>
                                                     @endif
 
 

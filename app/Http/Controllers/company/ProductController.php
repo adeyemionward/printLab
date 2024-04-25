@@ -23,6 +23,19 @@ class ProductController extends Controller
         $this->endDate    = request('date_to').' 23:59:59';
     }
 
+
+    function handleFileUpload($hasFile, $fileName, $dir){
+        if ($hasFile) {
+            if ($img = $fileName) {
+                $ImageName = $fileName->getClientOriginalName();
+                $uniqueFileName = time() . '_' . $ImageName;
+                $ImagePath = $dir.'/images/' . $uniqueFileName;
+                $img->move(public_path($dir.'/images/'), $uniqueFileName);
+                return $ImagePath;
+            }
+        }
+    }
+
     public function subProduct($product_name){
         return $sub_product  =  Product::where('company_id', app('company_id'))->where('name', $product_name)->first();
     }
@@ -65,28 +78,24 @@ class ProductController extends Controller
         $total_cost                 =  request('total_cost');
         $screen_ratio               =  request('screen_ratio');
         $description                =  request('description');
-
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
+ 
         //save to job
         $product = new Product();
         $product->name              = 'video_brochure';
         $product->title             = $name;
-        $product->company_id             = $user->company_id;
+        $product->company_id        = $user->company_id;
         // $product->cover_paper       = $cover_paper;
         $product->screen_size       = $screen_size;
         $product->screen_ratio      = $screen_ratio;
         $product->display_area      = $display_area;
         $product->resolution        = $resolution;
         $product->battery           = $battery;
-        // $product->memory            = $memory;
+        $product->image             = $image;
         $product->type              = 'video_brochure';
         $product->description       = $description;
         $product->created_by        = $user->id;
-
-        if($eticket_img = $request->file('image')){
-            $name = $eticket_img->hashName(); // Generate a unique, random name...
-            $path = $eticket_img->store('public/images');
-            $product->image = $name;
-        }
+      
 
         $product->save();
         //save into product costs
@@ -127,7 +136,7 @@ class ProductController extends Controller
         $quantity                   =  request('quantity');
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
-
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
         //save to product
         $product = new Product();
 
@@ -136,17 +145,17 @@ class ProductController extends Controller
          $product->company_id             = $user->company_id;
         // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
-        // $product->thickness       = $thickness;
+        $product->image = $image;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
         $product->type              = 'notebook';
         $product->created_by      = $user->id;
 
-        if($eticket_img = $request->file('image')){
-            $name = $eticket_img->hashName(); // Generate a unique, random name...
-            $path = $eticket_img->store('public/images');
-            $product->image = $name;
-        }
+        // if($eticket_img = $request->file('image')){
+        //     $name = $eticket_img->hashName(); // Generate a unique, random name...
+        //     $path = $eticket_img->store('public/images');
+        //     $product->image = $name;
+        // }
 
         $product->save();
         //save into product costs
@@ -236,7 +245,7 @@ class ProductController extends Controller
         $quantity                   =  request('quantity');
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
-
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
         //save to job
         $product = new Product();
         $product->name  = 'eighty_leaves';
@@ -244,18 +253,18 @@ class ProductController extends Controller
         $product->company_id             = $user->company_id;
         // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
-        // $product->thickness       = $thickness;
+        $product->image = $image;
         // $product->total_cost      = $total_cost;
         $product->description     = $description;
         $product->type              = 'notebook';
         $product->created_by      = $user->id;
 
 
-        if($eticket_img = $request->file('image')){
-            $name = $eticket_img->hashName(); // Generate a unique, random name...
-            $path = $eticket_img->store('public/images');
-            $product->image = $name;
-        }
+        // if($eticket_img = $request->file('image')){
+        //     $name = $eticket_img->hashName(); // Generate a unique, random name...
+        //     $path = $eticket_img->store('public/images');
+        //     $product->image = $name;
+        // }
 
 
        $product->save();
@@ -297,6 +306,7 @@ class ProductController extends Controller
         $quantity                   =  request('quantity');
         $description                =  request('description');
         $total_cost                 =  request('total_cost');
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
         // $payment_type               =  request('payment_type');
 
 
@@ -308,17 +318,17 @@ class ProductController extends Controller
         // $product->paper_type      = $paper_type;
         $product->production_days = $production_time;
         // $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
+        $product->image      = $image;
         $product->description     = $description;
         $product->type              = 'notebook';
         $product->created_by      = $user->id;
 
 
-        if($eticket_img = $request->file('image')){
-            $name = $eticket_img->hashName(); // Generate a unique, random name...
-            $path = $eticket_img->store('public/images');
-            $product->image = $name;
-        }
+        // if($eticket_img = $request->file('image')){
+        //     $name = $eticket_img->hashName(); // Generate a unique, random name...
+        //     $path = $eticket_img->store('public/images');
+        //     $product->image = $name;
+        // }
 
 
        $product->save();
@@ -341,60 +351,7 @@ class ProductController extends Controller
         return redirect(route('company.products.all_products'))->with('flash_success','Forty Leaves Book product saved successfully');
     }
 
-    public function store_twenty_leaves(Request $request)
-    {
-
-        $user = Auth::user();
-
-        $ink                        =  request('ink');
-        $paper_type                 =  request('paper_type');
-        $production_time            =  request('production_time');
-        $thickness                  =  request('thickness');
-        $quantity                   =  request('quantity');
-        $description                =  request('description');
-        $total_cost                 =  request('total_cost');
-
-
-        //save to job
-        $product = new Product();
-        $product->name  = 'twenty_leaves';
-        $product->title           = 'Twenty Leaves';
-        $product->company_id      = $user->company_id;
-        // $product->paper_type      = $paper_type;
-        $product->production_days = $production_time;
-        // $product->thickness       = $thickness;
-        // $product->total_cost      = $total_cost;
-        $product->type              = 'notebook';
-        $product->description     = $description;
-        $product->created_by      = $user->id;
-
-
-        if($eticket_img = $request->file('image')){
-            $name = $eticket_img->hashName(); // Generate a unique, random name...
-            $path = $eticket_img->store('public/images');
-            $product->image = $name;
-        }
-
-
-       $product->save();
-       //save into product costs
-        for ($count=0; $count < count($quantity); $count++) {
-            $pro_cost =  ProductCost::updateOrCreate(
-                [
-                    'company_id'        => $user->company_id,
-                    'product_id'        => $product->id,
-                    'product_name'        => $product->name,
-                    'quantity'          => $quantity[$count],
-                    'thickness'         => $thickness[$count],
-                    'paper_type'        => $paper_type[$count],
-                    'ink'               => $ink[$count],
-                    'total_cost'        => $total_cost[$count],
-                ],
-            );
-        }
-
-        return redirect(route('company.products.all_products'))->with('flash_success','Twenty Leaves Book product saved successfully');
-    }
+    
 
     // public function store_forty_leaves(Request $request)
     // {
@@ -454,6 +411,61 @@ class ProductController extends Controller
     {
         $sub_product  =  $this->subProduct('twenty_leaves');
         return view('company.products.add_twenty_leaves',compact('sub_product'));
+    }
+
+    public function store_twenty_leaves(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $ink                        =  request('ink');
+        $paper_type                 =  request('paper_type');
+        $production_time            =  request('production_time');
+        $thickness                  =  request('thickness');
+        $quantity                   =  request('quantity');
+        $description                =  request('description');
+        $total_cost                 =  request('total_cost');
+
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
+        //save to job
+        $product = new Product();
+        $product->name  = 'twenty_leaves';
+        $product->title           = 'Twenty Leaves';
+        $product->company_id      = $user->company_id;
+        // $product->paper_type      = $paper_type;
+        $product->production_days = $production_time;
+        // $product->thickness       = $thickness;
+        $product->image      = $image;
+        $product->type              = 'notebook';
+        $product->description     = $description;
+        $product->created_by      = $user->id;
+
+
+        // if($eticket_img = $request->file('image')){
+        //     $name = $eticket_img->hashName(); // Generate a unique, random name...
+        //     $path = $eticket_img->store('public/images');
+        //     $product->image = $name;
+        // }
+
+
+       $product->save();
+       //save into product costs
+        for ($count=0; $count < count($quantity); $count++) {
+            $pro_cost =  ProductCost::updateOrCreate(
+                [
+                    'company_id'        => $user->company_id,
+                    'product_id'        => $product->id,
+                    'product_name'        => $product->name,
+                    'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
+                    'total_cost'        => $total_cost[$count],
+                ],
+            );
+        }
+
+        return redirect(route('company.products.all_products'))->with('flash_success','Twenty Leaves Book product saved successfully');
     }
 
     // /**
@@ -691,6 +703,7 @@ class ProductController extends Controller
         $product =  Product::find($id);
         $customers =  User::where('user_type',2)->get();
         //dd(request()->job_title);
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
         if(request()->job_title == 'eighty_leaves'){
             $user = Auth::user();
 
@@ -709,18 +722,18 @@ class ProductController extends Controller
             // $product->ink             = $ink;
             // $product->paper_type      = $paper_type;
             $product->production_days = $production_time;
-            // $product->thickness       = $thickness;
+            $product->image       = $image;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->created_by      = $user->id;
 
-            if(!empty($request->file('image'))){
-                if($eticket_img = $request->file('image')){
-                    $name = $eticket_img->hashName(); // Generate a unique, random name...
-                    $path = $eticket_img->store('public/images');
-                    $product->image = $name;
-                }
-            }
+            // if(!empty($request->file('image'))){
+            //     if($eticket_img = $request->file('image')){
+            //         $name = $eticket_img->hashName(); // Generate a unique, random name...
+            //         $path = $eticket_img->store('public/images');
+            //         $product->image = $name;
+            //     }
+            // }
 
 
             $pp =  $product->update();
@@ -778,18 +791,18 @@ class ProductController extends Controller
             //$product->ink             = $ink;
             //$product->paper_type      = $paper_type;
             $product->production_days = $production_time;
-            //$product->thickness       = $thickness;
+            $product->image       = $image;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
 
-            if(!empty($request->file('image'))){
-                if($eticket_img = $request->file('image')){
-                    $name = $eticket_img->hashName(); // Generate a unique, random name...
-                    $path = $eticket_img->store('public/images');
-                    $product->image = $name;
-                }
-            }
+            // if(!empty($request->file('image'))){
+            //     if($eticket_img = $request->file('image')){
+            //         $name = $eticket_img->hashName(); // Generate a unique, random name...
+            //         $path = $eticket_img->store('public/images');
+            //         $product->image = $name;
+            //     }
+            // }
             $pp =  $product->update();
             $product_cost_id = $request->product_cost_id ?? [];
             if ($pp) {
@@ -843,18 +856,19 @@ class ProductController extends Controller
             //$product->ink             = $ink;
             //$product->paper_type      = $paper_type;
             $product->production_days = $production_time;
-            //$product->thickness       = $thickness;
+            $product->image       = $image;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
 
-            if(!empty($request->file('image'))){
-                if($eticket_img = $request->file('image')){
-                    $name = $eticket_img->hashName(); // Generate a unique, random name...
-                    $path = $eticket_img->store('public/images');
-                    $product->image = $name;
-                }
-            }
+            // if(!empty($request->file('image'))){
+            //     if($eticket_img = $request->file('image')){
+            //         $name = $eticket_img->hashName(); // Generate a unique, random name...
+            //         $path = $eticket_img->store('public/images');
+            //         $product->image = $name;
+            //     }
+            // }
+
             $pp =  $product->update();
             $product_cost_id = $request->product_cost_id ?? [];
             if ($pp) {
@@ -900,25 +914,24 @@ class ProductController extends Controller
             $description                =  request('description');
             $total_cost                 =  request('total_cost');
 
-
             //save to job
             $product =  Product::find($id);
             $product->name  = 'forty_leaves';
-            //$product->ink             = $ink;
-           // $product->paper_type      = $paper_type;
+            $product->image       = $image;
+            // $product->paper_type      = $paper_type;
             $product->production_days = $production_time;
             //$product->thickness       = $thickness;
             // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
 
-            if(!empty($request->file('image'))){
-                if($eticket_img = $request->file('image')){
-                    $name = $eticket_img->hashName(); // Generate a unique, random name...
-                    $path = $eticket_img->store('public/images');
-                    $product->image = $name;
-                }
-            }
+            // if(!empty($request->file('image'))){
+            //     if($eticket_img = $request->file('image')){
+            //         $name = $eticket_img->hashName(); // Generate a unique, random name...
+            //         $path = $eticket_img->store('public/images');
+            //         $product->image = $name;
+            //     }
+            // }
             $pp =  $product->update();
             $product_cost_id = $request->product_cost_id ?? [];
             if ($pp) {
@@ -978,30 +991,12 @@ class ProductController extends Controller
             $product->display_area      = $display_area;
             $product->resolution        = $resolution;
             $product->battery           = $battery;
+            $product->image             = $image;
             $product->description       = $description;
             $product->created_by        = $user->id;
 
-            if(!empty($request->file('image'))){
-                if($eticket_img = $request->file('image')){
-                    $name = $eticket_img->hashName(); // Generate a unique, random name...
-                    $path = $eticket_img->store('public/images');
-                    $product->image = $name;
-                }
-            }
             $pp = $product->update();
 
-            // for ($count=0; $count < count($quantity); $count++) {
-            //     $pro_cost =  ProductCost::updateOrCreate(
-            //         [
-            //             'product_id'        => $product->id,
-            //             'product_name'      => $product->name,
-            //             'quantity'          => $quantity[$count],
-            //             'cover_paper'       => $cover_paper[$count],
-            //             'memory'            => $memory[$count],
-            //             'total_cost'        => $total_cost[$count],
-            //         ],
-            //     );
-            // }
             $product_cost_id = $request->product_cost_id ?? [];
             if ($pp) {
                 for ($count = 0; $count < count($quantity); $count++) {

@@ -72,9 +72,9 @@
                                     <div class="media post_item">
                                         {{-- <img src="assets/img/post/post_1.jpg" alt="post" style="width: 120px"> --}}
                                         @if ( env('APP_ENV') == 'local')
-                                            <img src="{{asset('storage/images/'.@$val->productName->image)}}" alt="product_image" style="width: 125px; height:150px">
+                                            <img src="{{asset($val->productName->image)}}" alt="product_image" style="width: 125px; height:150px">
                                         @else
-                                            <img src="{{asset('public/storage/images/'.@$val->productName->image)}}"  alt="product_image" style="width: 125px; height:150px">
+                                            <img src="{{asset($val->productName->image)}}"  alt="product_image" style="width: 125px; height:150px">
                                         @endif
                                         <div class="media-body" style="padding-left: 20px">
                                             <a >
@@ -213,9 +213,9 @@
     @forelse ($products as $val)
         <div class="media post_item">
             @if ( env('APP_ENV') == 'local')
-                <img src="{{asset('storage/images/'.$val->image)}}" alt="product_image" style="width:80px; height:80px">
+                <img src="{{asset($val->image)}}" alt="product_image" style="width:80px; height:80px">
             @else
-                <img src="{{asset('public/storage/images/'.$val->image)}}"  alt="product_image" style="width:80px; height:80px">
+                <img src="{{asset($val->image)}}"  alt="product_image" style="width:80px; height:80px">
             @endif
             {{-- <img src="{{asset('storage/images/'.$val->image)}}" alt="image" style="width:80px; height:80px"> --}}
             <div class="media-body">

@@ -36,10 +36,13 @@
             <div class="features-img">
 
                 @if ( env('APP_ENV') == 'local')
-                    <img src="{{asset('storage/images/'.$product->image)}}" alt="product_image" style="width: 70%; height:450px">
+                    <img src="{{asset($product->image)}}" alt="product_image" style="width: 70%; height:450px">
                 @else
-                    <img src="{{asset('public/storage/images/'.$product->image)}}"  alt="product_image" style="width: 70%; height:450px">
+                    <img src="{{asset($product->image)}}"  alt="product_image" style="width: 70%; height:450px">
                 @endif
+
+
+
 
                 <center style="color:#fff; font-size:24px; padding-top:16px;"><label for="">Select Other Specifications</label></center>
                 @if(request()->title == 'video_brochure')
