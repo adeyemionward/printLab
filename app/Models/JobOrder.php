@@ -9,6 +9,17 @@ class JobOrder extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'ink',
+        'paper_type',
+        'quantity',
+        'thickness',
+        'total_cost',
+        'memory',
+        'cover_paper'
+    ];
+
+
     const job_cart_status = 1;
     const ORDER_COMPLETED = 2;
 

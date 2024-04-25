@@ -205,71 +205,174 @@ class FrontPageController extends Controller
         return view('cart.index', compact('cartCount','carts','VideocartCount','videocarts','products'));
     }
 
-    public function addCart(Request $request, $title =  null, $id =  null)
-    {
-        try{
+    // public function addCart(Request $request, $title =  null, $id =  null)
+    // {
+    //     try{
 
-        $product_id                 =  request()->id;
-        $ink                        =  request('ink');
-        $paper_type                 =  request('paper_type');
-        $thickness                  =  request('thickness');
-        $quantity                   =  request('quantity');
-        $total_cost                 =  request('total_cost');
-        $memory                     =  request('memory');
-        $cover_paper                =  request('cover_paper');
-        $product_name               =  request('product_name');
-        $amount_paid = 0;
+    //     $product_id                 =  request()->id;
+    //     $ink                        =  request('ink');
+    //     $paper_type                 =  request('paper_type');
+    //     $thickness                  =  request('thickness');
+    //     $quantity                   =  request('quantity');
+    //     $total_cost                 =  request('total_cost');
+    //     $memory                     =  request('memory');
+    //     $cover_paper                =  request('cover_paper');
+    //     $product_name               =  request('product_name');
+    //     $amount_paid = 0;
+
+    //     if (Auth::check()) {
+
+    //         //save to job
+    //         $cart = new JobOrder();
+    //         $cart->product_id      = $product_id;
+    //         $cart->job_order_name  = $product_name;
+    //         $cart->ink             = $ink;
+    //         $cart->paper_type      = $paper_type;
+    //         $cart->quantity        = $quantity;
+    //         $cart->thickness       = $thickness;
+    //         $cart->local_id        = $this->localIp;
+    //         $cart->cart_order_status = 1;
+    //         $cart->total_cost      = $total_cost;
+    //         $cart->memory          = $memory;
+    //         $cart->cover_paper     = $cover_paper;
+    //         $cart->order_date      = $this->order_date;
+    //         $cart->order_type      = 'external';
+    //         $cart->user_id         = $this->user->id;
+    //         $cart->created_by      = $this->user->id;
+    //         $cart->save();
+
+    //     } else {
+
+    //         //save to job
+    //         $cart = new JobOrder();
+    //         $cart->product_id      = $product_id;
+    //         $cart->job_order_name  = $product_name;
+    //         $cart->ink             = $ink;
+    //         $cart->paper_type      = $paper_type;
+    //         $cart->quantity        = $quantity;
+    //         $cart->thickness       = $thickness;
+    //         $cart->local_id        = $this->localIp;
+    //         $cart->cart_order_status = 1;
+    //         $cart->total_cost      = $total_cost;
+    //         $cart->memory          = $memory;
+    //         $cart->cover_paper     = $cover_paper;
+    //         $cart->order_date      = $this->order_date;
+    //         $cart->order_type      = 'external';
+    //         //  $cart->user_id         = '';
+    //         //  $cart->created_by      = '';
+    //         $cart->save();
+    //     }
+
+
+    // }catch(\Exception $th){
+    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    // }
+
+    //     return redirect(route('cart.index'))->with('flash_success','Product added to cart');
+    // }
+
+    public function addCart(Request $request, $title = null, $id = null)
+    {
+    try {
+        $product_id    = request()->id;
+        $ink           = request('ink');
+        $paper_type    = request('paper_type');
+        $thickness     = request('thickness');
+        $quantity      = request('quantity');
+        $total_cost    = request('total_cost');
+        $memory        = request('memory');
+        $cover_paper   = request('cover_paper');
+        $product_name  = request('product_name');
+        $amount_paid   = 0;
 
         if (Auth::check()) {
+            $user_id = $this->user->id;
+            $existingCart = JobOrder::where(function ($query) use ($user_id, $product_id) {
+                $query->where('user_id', $user_id)
+                    ->orWhere('local_id', $this->localIp);
+            })->where('product_id', $product_id)->where('cart_order_status', 1)->first();
 
-            //save to job
-            $cart = new JobOrder();
-            $cart->product_id      = $product_id;
-            $cart->job_order_name  = $product_name;
-            $cart->ink             = $ink;
-            $cart->paper_type      = $paper_type;
-            $cart->quantity        = $quantity;
-            $cart->thickness       = $thickness;
-            $cart->local_id        = $this->localIp;
-            $cart->cart_order_status = 1;
-            $cart->total_cost      = $total_cost;
-            $cart->memory          = $memory;
-            $cart->cover_paper     = $cover_paper;
-            $cart->order_date      = $this->order_date;
-            $cart->order_type      = 'external';
-            $cart->user_id         = $this->user->id;
-            $cart->created_by      = $this->user->id;
-            $cart->save();
 
+            if ($existingCart) {
+               // return 'old';
+                // Update existing cart
+                $existingCart->update([
+                    'ink'           => $ink,
+                    'paper_type'    => $paper_type,
+                    'quantity'      => $existingCart->quantity + $quantity, // Update quantity
+                    'thickness'     => $thickness,
+                    'total_cost'    => $existingCart->total_cost + $total_cost, // Update total cost
+                    'memory'        => $memory,
+                    'cover_paper'   => $cover_paper,
+                ]);
+            } else {
+                //return 'new';
+                // Create new cart
+                $cart = new JobOrder();
+                $cart->user_id            = $user_id;
+                $cart->product_id         = $product_id;
+                $cart->job_order_name     = $product_name;
+                $cart->ink                = $ink;
+                $cart->paper_type         = $paper_type;
+                $cart->quantity           = $quantity;
+                $cart->thickness          = $thickness;
+                $cart->local_id           = $this->localIp;
+                $cart->cart_order_status  = 1;
+                $cart->total_cost         = $total_cost;
+                $cart->memory             = $memory;
+                $cart->cover_paper        = $cover_paper;
+                $cart->order_date         = $this->order_date;
+                $cart->order_type         = 'external';
+                $cart->user_id          = $this->user->id;
+                $cart->created_by         = $user_id;
+                $cart->save();
+            }
         } else {
 
-            //save to job
-            $cart = new JobOrder();
-            $cart->product_id      = $product_id;
-            $cart->job_order_name  = $product_name;
-            $cart->ink             = $ink;
-            $cart->paper_type      = $paper_type;
-            $cart->quantity        = $quantity;
-            $cart->thickness       = $thickness;
-            $cart->local_id        = $this->localIp;
-            $cart->cart_order_status = 1;
-            $cart->total_cost      = $total_cost;
-            $cart->memory          = $memory;
-            $cart->cover_paper     = $cover_paper;
-            $cart->order_date      = $this->order_date;
-            $cart->order_type      = 'external';
-            //  $cart->user_id         = '';
-            //  $cart->created_by      = '';
-            $cart->save();
+            $existingCart = JobOrder::where('product_id', $product_id)
+            ->where(function ($query) {
+                $query->where('local_id', $this->localIp);
+            })->where('product_id', $product_id)->where('cart_order_status', 1)->first();
+
+            if ($existingCart) {
+                // Update existing cart
+                $existingCart->update([
+                    'ink'           => $ink,
+                    'paper_type'    => $paper_type,
+                    'quantity'      => $existingCart->quantity + $quantity, // Update quantity
+                    'thickness'     => $thickness,
+                    'total_cost'    => $existingCart->total_cost + $total_cost, // Update total cost
+                    'memory'        => $memory,
+                    'cover_paper'   => $cover_paper,
+                ]);
+            }else{
+                        // Handle case where user is not authenticated
+                $cart = new JobOrder();
+                $cart->product_id      = $product_id;
+                $cart->job_order_name  = $product_name;
+                $cart->ink             = $ink;
+                $cart->paper_type      = $paper_type;
+                $cart->quantity        = $quantity;
+                $cart->thickness       = $thickness;
+                $cart->local_id        = $this->localIp;
+                $cart->cart_order_status = 1;
+                $cart->total_cost      = $total_cost;
+                $cart->memory          = $memory;
+                $cart->cover_paper     = $cover_paper;
+                $cart->order_date      = $this->order_date;
+                $cart->order_type      = 'external';
+                //  $cart->user_id         = '';
+                //  $cart->created_by      = '';
+                $cart->save();
+            }
         }
 
-
-    }catch(\Exception $th){
-        return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        return redirect(route('cart.index'))->with('flash_success', 'Product added to cart');
+    } catch (\Exception $th) {
+        return redirect()->back()->with('flash_error', 'An Error Occured: Please try later');
+    }
     }
 
-        return redirect(route('cart.index'))->with('flash_success','Product added to cart');
-    }
 
     public function edit_cart($title =  null, $id = null, $job_id =  null)
     {
