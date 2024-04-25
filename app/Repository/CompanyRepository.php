@@ -93,13 +93,25 @@
 
                 //update subscription
                 $subscription = Subscription::where('company_id',$company->id)->first();
-                $subscription->sub_amount       = $sub_plan->amount ?? 0;
-                $subscription->sub_start_date   = request('sub_start_date');
-                $subscription->sub_end_date     = request('sub_end_date');
-                $subscription->status           = request('status');
-                $subscription->plan             = request('subscription_plan');
-                $subscription->updated_by       = Auth::user()->id;
-                $subscription->save();
+                if(!is_null($subscription)){
+                    $subscription->sub_amount       = $sub_plan->amount ?? 0;
+                    $subscription->sub_start_date   = request('sub_start_date');
+                    $subscription->sub_end_date     = request('sub_end_date');
+                    $subscription->status           = request('status');
+                    $subscription->plan             = request('subscription_plan');
+                    $subscription->updated_by       = Auth::user()->id;
+                    $subscription->save();
+                }else{
+                    $subscription = new Subscription();
+                    $subscription->sub_amount       = $sub_plan->amount ?? 0;
+                    $subscription->sub_start_date   = request('sub_start_date');
+                    $subscription->sub_end_date     = request('sub_end_date');
+                    $subscription->status           = request('status');
+                    $subscription->plan             = request('subscription_plan');
+                    $subscription->updated_by       = Auth::user()->id;
+                    $subscription->save();
+                }
+               
 
                 DB::commit();
                 $getDomain = Company::where('subdomain', request('subdomain'))
