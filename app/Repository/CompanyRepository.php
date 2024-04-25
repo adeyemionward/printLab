@@ -104,11 +104,12 @@
                 }else{
                     $subscription = new Subscription();
                     $subscription->sub_amount       = $sub_plan->amount ?? 0;
+                    $subscription->company_id       = $$company->id;
                     $subscription->sub_start_date   = request('sub_start_date');
                     $subscription->sub_end_date     = request('sub_end_date');
                     $subscription->status           = request('status');
                     $subscription->plan             = request('subscription_plan');
-                    $subscription->updated_by       = Auth::user()->id;
+                    $subscription->created_by       = Auth::user()->id;
                     $subscription->save();
                 }
                
