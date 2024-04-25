@@ -15,7 +15,7 @@
             DB::beginTransaction();
             try{
                 //save company
-                $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
+                return $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
                 $company = new Company();
                 $company->name             = request('name');
                 $company->contactperson    = request('contactperson');
