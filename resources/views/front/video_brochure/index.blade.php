@@ -169,9 +169,9 @@ label {
                                 <div class="properties-img">
                                     <a href="{{route('product_categories','Higher_Education')}}">
                                         @if ( env('APP_ENV') == 'local')
-                                            <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                            <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
                                         @else
-                                            <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                            <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
                                         @endif
 
                                     </a>
