@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('product_name')->nullable();
             $table->integer('quantity')->nullable();
             $table->decimal('total_cost', 10, 2)->nullable();
-            $table->foreignId('company_id')->constrained('companies')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->timestamps();
         });
     }
