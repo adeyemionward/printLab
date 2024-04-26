@@ -476,7 +476,7 @@
                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                         <label for="production_time">Product Name</label>
                                                                         <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select">
-                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Eighty Leaves</option>
+                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Forty Leaves</option>
                                                                             @error('product_name')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -610,7 +610,7 @@
                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                         <label for="production_time">Product Name</label>
                                                                         <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select">
-                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Eighty Leaves</option>
+                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Twenty Leaves</option>
                                                                             @error('product_name')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
