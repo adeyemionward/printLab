@@ -75,6 +75,7 @@ class SupplierController extends Controller
         ]);
         try{
             $supplier = new Supplier();
+            $supplier->company_id   = app('company_id');
             $supplier->company_name = request('company_name');
             $supplier->firstname    = request('firstname');
             $supplier->lastname     = request('lastname');
