@@ -26,7 +26,7 @@
                 $company->subdomain        = request('subdomain');
 
                 $company->admin_username   = request('admin_username');
-                $company->admin_password   = Hash::make(request('admin_password'));
+                $company->admin_password   = Hash::make(request('password'));
                 $company->status           = Company::INACTIVE;
 
                 $company->save();
@@ -44,11 +44,11 @@
 
 
                 //for admin
-                
+
                 $companyUserAdmin = new User();
                 $companyUserAdmin->email              = 'admin@'.request('admin_username');
                 $companyUserAdmin->admin_username     = request('admin_username');
-                $companyUserAdmin->admin_password     = Hash::make(request('password'));
+                $companyUserAdmin->password           = Hash::make(request('password'));
                 $companyUserAdmin->user_type          = User::COMPANY;
                 $companyUserAdmin->company_id         = $company->id;
                 $companyUserAdmin->firstname        = request('firstname');
@@ -57,7 +57,7 @@
 
                 $companyUserAdmin->assignRole('admin');
 
-              
+
                 Session::put('name', request('company_name'));
                 Session::put('email', request('email'));
 
