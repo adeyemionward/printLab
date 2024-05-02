@@ -276,7 +276,7 @@ form .btn input[type="submit"] {
                     <div class="fields-container">
                         <div class="column">
                             <div class="field">
-                                <input type="text" name="firstname" placeholder="Firstname">
+                                <input type="text" name="firstname" id="firstname" placeholder="Firstname">
                                 <span class="text-danger error-text first_error"></span>
                             </div>
 
@@ -285,30 +285,36 @@ form .btn input[type="submit"] {
                                 <span class="text-danger error-text phone_error"></span>
                             </div>
 
-
                             <div class="field">
                                 <input type="email" name="email" placeholder="Email Address">
                                 <span class="text-danger error-text email_error"></span>
                             </div>
 
-
+                            <div class="field">
+                                <input readonly id="admin_user" name="admin_username"  placeholder="Admin Login Username">
+                                <span class="text-danger error-text admin_username"></span>
+                            </div>
                         </div>
 
                         <div class="column">
-
                             <div class="field">
                                 <input type="text" name="lastname" placeholder="Lastname">
                                 <span class="text-danger error-text lastname_error"></span>
                             </div>
 
                             <div class="field">
-                                <input type="text" name="company_name" placeholder="Company Name">
+                                <input type="text" name="company_name" id="company_name" placeholder="Company Name">
                                 <span class="text-danger error-text company_school_error"></span>
                             </div>
 
                             <div class="field">
                                 <input type="password" name="password" placeholder="Password" required>
                                 <span class="text-danger error-text password_error"></span>
+                            </div>
+
+                            <div class="field">
+                                <input type="password" name="admin_password" placeholder="Admin Login Password" required>
+                                <span class="text-danger error-text admin_password" ></span>
                             </div>
                         </div>
 
@@ -345,6 +351,14 @@ form .btn input[type="submit"] {
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+
+    document.getElementById('company_name').addEventListener('input', function() {
+        const firstName = this.value.trim();
+        const emailInput = document.getElementById('admin_user');
+        const indexOfSpace = firstName.indexOf(' ');
+        const generatedEmail = indexOfSpace !== -1 ? firstName.substring(0, indexOfSpace) : firstName;
+        emailInput.value = 'admin.' + generatedEmail; // Modify as needed
+    });
 
       $("#register_customer").submit(function(e){
         e.preventDefault();

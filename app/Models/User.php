@@ -33,7 +33,9 @@ class User extends Authenticatable
         'address',
         'status',
         'company_id',
-        'gender'
+        'gender',
+        'admin_username',
+        'admin_password'
     ];
 
     /**
@@ -64,6 +66,6 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-   
+
 
 }
