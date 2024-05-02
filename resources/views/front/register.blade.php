@@ -30,6 +30,16 @@ html, body {
 	color: #fff;
 }
 
+.fields-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.field {
+    flex: 0 0 48%; /* Adjust as needed */
+}
+
 .wrapper {
 	overflow: hidden;
 	max-width: 600px;
@@ -242,7 +252,7 @@ form .btn input[type="submit"] {
 </head>
 <body>
 	<div class="wrapper">
-		<center><img src="{{ asset('siteimages/'.@$site_details->site_logo1) }}?? {{asset('img/printlab.PNG')}}" alt="" width="500px" height="170px"></center>
+		<center><img src="{{ asset('siteimages/'.@$site_details->site_logo1) }}?? {{asset('img/printlab.PNG')}}" alt="" width="600px" height="170px"></center>
 		<div class="title-text">
 			<div class="title login">Register</div>
 			<div class="title signup">Register</div>
@@ -250,63 +260,54 @@ form .btn input[type="submit"] {
 		<div class="form-container">
 			<div class="form-inner">
                 {{-- SIGNIN --}}
-				<form method="POST"  id="register_customer" class="register_customer">
+                <form method="POST" id="register_customer" class="register_customer">
                     @csrf
                     @method('POST')
-                    <div class="field">
-						<input type="text" name="firstname"   placeholder="Firstname" >
-                        <span class="text-danger error-text first_error"></span>
-					</div>
+                    <div class="fields-wrapper">
+                        <div class="field">
+                            <input type="text" name="firstname" placeholder="Firstname">
+                            <span class="text-danger error-text first_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="lastname" placeholder="Lastname">
+                            <span class="text-danger error-text lastname_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="email" placeholder="Email Address">
+                            <span class="text-danger error-text email_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="password" name="password" placeholder="Password" required>
+                            <span class="text-danger error-text password_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="phone" placeholder="Phone">
+                            <span class="text-danger error-text phone_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="company_name" placeholder="Company/School Name">
+                            <span class="text-danger error-text company_school_error"></span>
+                        </div>
 
-					<div class="field">
-						<input type="text" name="lastname"   placeholder="Lastname" >
-                        <span class="text-danger error-text lastname_error"></span>
-					</div>
-
-                    <div class="field">
-						<input type="text" name="email"   placeholder="Email Address" >
-                        <span class="text-danger error-text email_error"></span>
-					</div>
-
-					<div class="field">
-						<input type="password"  name="password" placeholder="Password" required>
-                        <span class="text-danger error-text password_error"></span>
-					</div>
-
-                    <div class="field">
-						<input type="text" name="phone"   placeholder="Phone" >
-                        <span class="text-danger error-text phone_error"></span>
-					</div>
-
-                    <div class="field">
-						<input type="text" name="company_name"   placeholder="Company/School Name" >
-                        <span class="text-danger error-text company_school_error"></span>
-					</div>
-
-                    <div class="field">
-
+                    </div>
+                    <div class="">
                         <textarea placeholder="Address" name="address"></textarea>
-                        <span class="text-danger error-text lastname_error"></span>
-					</div> <br><br><br><br>
-					{{-- <div class="pass-link">
-						<a href="#">Forgot password?</a>
-					</div> --}}
-					<div class="field btn">
-						<div class="btn-layer"></div>
-						<input type="submit" id="loginBtn"  name="login"  value="Create Account" style="background-color: {{$site_details->siteTheme->name ?? '#df4226' }} ;">
-					</div>
-
+                        <span class="text-danger error-text address_error"></span>
+                    </div>
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" id="loginBtn" name="login" value="Create Account" style="background-color: {{$site_details->siteTheme->name ?? '#df4226'}};">
+                    </div>
                     <div class="signup-link">
                         @if (request()->status)
-                        Not a member? <a href="{{route('login', ['status' => 'order'])}}">Login</a>
-
+                            Not a member? <a href="{{route('login', ['status' => 'order'])}}">Login</a>
                         @else
                             Not a member? <a href="{{route('login')}}">Login</a>
                         @endif
+                    </div>
+                </form>
+            </div>
 
-					</div>
-				</form>
-			</div>
 		</div>
 	</div>
 
