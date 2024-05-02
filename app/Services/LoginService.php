@@ -12,7 +12,7 @@
     {
         protected function activeSub($data){
             $email = request('email');
-            $user_details = User::where('email', $email)->first();
+            $user_details = User::where('email', $email)->orWhere('admin_username',$email)->first();
             $today = Carbon::today()->toDateString();
             $subdomain = explode('.', $data->getHost())[0];
             $company_details = Company::where('subdomain', $subdomain)->first();
@@ -29,11 +29,31 @@
         }
         public function login($data){
            // try{
-                $user_cred   = $data->only('email', 'password');
+                $user_cred   = $data->only('password');
 
-                $email = request('email');
-                $user_details = User::where('email', $email)->first();
+                //$email = request('email');
+
+                $input = request('email');
+                $isEmail = filter_var($input, FILTER_VALIDATE_EMAIL);
+
+                // Prepare the query to find the user
+                $userQuery = User::where(function ($query) use ($input, $isEmail) {
+                    if ($isEmail) {
+                        // If it's an email, search by email
+                        $query->where('email', $input);
+                    } else {
+                        // If it's not an email, search by username
+                        $query->where('admin_username', $input);
+                    }
+                });
+
+                // Retrieve the user details
+                $user_details = $userQuery->first();
+
+                //$user_details = User::where('email', $email)->first();
                 if(is_null($user_details)) return response()->json([ [7] ]);
+
+                $user_cred['email'] = $isEmail ? $input : $user_details->email;
 
                 $user_type =  $user_details->user_type;
 

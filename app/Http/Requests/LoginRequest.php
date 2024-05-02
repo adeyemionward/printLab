@@ -28,7 +28,7 @@ class LoginRequest extends FormRequest
     {
         $user = Auth::user();
         return [
-            'email' => ['required',  'email', 'max:50'],
+            // 'email' => ['required',  'email', 'max:50'],
             'password'  =>  'required',
         ];
     }
@@ -36,9 +36,9 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            
-            'email.required' => 'Please enter company email address.',
-            'email.email' => 'Please enter a valid email address.',
+
+            // 'email.required' => 'Please enter company email address.',
+            // 'email.email' => 'Please enter a valid email address.',
             'password.required' => 'Please enter a password.',
         ];
     }
