@@ -285,15 +285,7 @@ form .btn input[type="submit"] {
                                 <span class="text-danger error-text phone_error"></span>
                             </div>
 
-                            <div class="field">
-                                <input type="email" name="email" placeholder="Email Address">
-                                <span class="text-danger error-text email_error"></span>
-                            </div>
-
-                            <div class="field">
-                                <input readonly id="admin_user" name="admin_username"  placeholder="Admin Login Username">
-                                <span class="text-danger error-text admin_username"></span>
-                            </div>
+                           
                         </div>
 
                         <div class="column">
@@ -307,17 +299,27 @@ form .btn input[type="submit"] {
                                 <span class="text-danger error-text company_school_error"></span>
                             </div>
 
-                            <div class="field">
-                                <input type="password" name="password" placeholder="Password" required>
-                                <span class="text-danger error-text password_error"></span>
-                            </div>
 
-                            <div class="field">
+                            {{-- <div class="field">
                                 <input type="password" name="admin_password" placeholder="Admin Login Password" required>
                                 <span class="text-danger error-text admin_password" ></span>
-                            </div>
+                            </div> --}}
                         </div>
 
+                    </div>
+                    <div class="field">
+                        <input type="email" name="email" placeholder="Email Address">
+                        <span class="text-danger error-text email_error"></span>
+                    </div>
+
+                    <div class="field">
+                        <input readonly id="admin_user" name="admin_username"  placeholder="Admin Login Username">
+                        <span class="text-danger error-text admin_username"></span>
+                    </div>
+                    
+                    <div class="field">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <span class="text-danger error-text password_error"></span>
                     </div>
                     <div class="field">
                         <input type="text" name="subdomain" placeholder="Enter Subdomain">

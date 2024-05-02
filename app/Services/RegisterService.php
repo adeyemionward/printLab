@@ -31,19 +31,33 @@
 
                 $company->save();
 
-                $input = $data->all();
+                //for user
+                $companyUser = new User();
+                $companyUser->email         = request('email');
+                $companyUser->password      = Hash::make(request('password'));
+                $companyUser->user_type     = User::COMPANY;
+                $companyUser->company_id     = $company->id;
+                $companyUser->firstname        = request('firstname');
+                $companyUser->lastname         = request('lastname');
+                $companyUser->remember_token   = urlencode(Hash::make(time() . request('email')));
+                $companyUser->save();
 
-                $input['password']           = Hash::make($input['password']);
-                $input['user_type']          = User::COMPANY;
-                $input['company_id']         = $company->id;
-                $input['firstname']          = $input['firstname'];
-                $input['lastname']           = $input['lastname'];
-                $input['admin_username']     = $input['admin_username'];
-                $input['admin_password']     = Hash::make($input['admin_password']);
-                $input['remember_token']     = urlencode(Hash::make(time() . request('email')));
-                $companyUser = User::create($input);
-                $companyUser->assignRole('admin');
 
+                //for admin
+                
+                $companyUserAdmin = new User();
+                $companyUserAdmin->email              = 'admin@'.request('admin_username');
+                $companyUserAdmin->admin_username     = request('admin_username');
+                $companyUserAdmin->admin_password     = Hash::make(request('password'));
+                $companyUserAdmin->user_type          = User::COMPANY;
+                $companyUserAdmin->company_id         = $company->id;
+                $companyUserAdmin->firstname        = request('firstname');
+                $companyUserAdmin->lastname         = request('lastname');
+                $companyUserAdmin->save();
+
+                $companyUserAdmin->assignRole('admin');
+
+              
                 Session::put('name', request('company_name'));
                 Session::put('email', request('email'));
 
