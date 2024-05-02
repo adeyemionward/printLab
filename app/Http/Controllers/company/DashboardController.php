@@ -17,13 +17,14 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-        $all_orders         =   JobOrder::count();
-        $pending_orders     =   JobOrder::where('status','Pending')->count();
-        $delivered_orders   =   JobOrder::where('status','Delivered')->count();
-        $total_cost         =   JobOrder::sum('total_cost');
+        $all_orders         =   JobOrder::where('company_id', app('company_id'))->count();
+        $pending_orders     =   JobOrder::where('status','Pending')->where('company_id', app('company_id'))->count();
+        $delivered_orders   =   JobOrder::where('status','Delivered')->where('company_id', app('company_id'))->count();
+        $total_cost         =   JobOrder::where('company_id', app('company_id'))->sum('total_cost');
         $top_job_orders     =   JobOrder::select('job_order_name', DB::raw('SUM(quantity) as total_orders'))
                                 ->groupBy('job_order_name')
                                 ->orderByDesc('total_orders')
+                                ->where('company_id', app('company_id'))
                                 ->get();
 
 
@@ -40,6 +41,7 @@ class DashboardController extends Controller
         ->groupBy('job_order_name')
         ->orderByDesc('total_orders')
         ->where('order_date', $today)
+        ->where('company_id', app('company_id'))
         ->get();
         //dd($today_orders);
 
@@ -47,6 +49,7 @@ class DashboardController extends Controller
         ->groupBy('job_order_name')
         ->orderByDesc('total_orders')
         ->whereBetween('order_date', [$from, $to])
+        ->where('company_id', app('company_id'))
         ->get();
 
        // return $today = Carbon::parse(Carbon::today()->toDateString());
