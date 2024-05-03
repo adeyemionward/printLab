@@ -66,13 +66,6 @@
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="email">Password:</label>
-                                                                            <input type="text" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}">
-                                                                            @error('password')
-                                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="phone">Phone:</label>
@@ -84,7 +77,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="gender">Gender:</label>
-                                                                            <select name="gender" id="" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" value="{{ old('gender') }}">
+                                                                            <select name="gender" id="" class="form-control {{ $errors->has('gender') ? ' is-invalid' : '' }}" value="{{ old('gender') }}">
                                                                                 <option value="">--Select Gender--</option>
                                                                                 <option value="male" <?php if($user->gender =='male') echo "selected" ?>  >Male</option>
                                                                                 <option value="female"<?php if($user->gender =='female') echo "selected" ?> >Female</option>
@@ -94,7 +87,7 @@
                                                                             @enderror
                                                                         </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="status">Status:</label>
                                                                             <select name="status" id="" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" value="{{ old('status') }}">
                                                                                 <option value="">--Select Status--</option>
@@ -104,7 +97,7 @@
                                                                             @error('gender')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
 
                                                                     <div class="row">

@@ -3,7 +3,7 @@
         background-color: #df4226 !important;
     }
 </style>
-<form method="POST"  action="{{route('company.company.job_order.view_order',[request()->job_title, request()->id])}}" class="order_status">
+<form method="POST"  action="{{route('company.job_order.view_order',[request()->job_title, request()->id])}}" class="order_status">
     @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal" tabindex="-1"

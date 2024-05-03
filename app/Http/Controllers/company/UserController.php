@@ -34,6 +34,8 @@ class UserController extends Controller
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
+   
+
     public function find_testimonial($id)
     {
         return Testimonial::find($id);
@@ -44,23 +46,13 @@ class UserController extends Controller
         return view('company.users.all_users', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         $roles =  Role::all();
         return view('company.users.add_user', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -103,37 +95,19 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = User::find($id);
         return view('company.users.view_user', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         $user = User::find($id);
         return view('company.users.edit_user', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -362,14 +336,75 @@ class UserController extends Controller
 
     }
 
+    // public function edit_user_password()
+    // {
+    //     $user = Auth::user();
+    //     return view('company.users.update_user_password', compact('user'));
+    // }
+
+    public function update_user_password(Request $request, $id)
+    {
+        //$user = Auth::user();
+
+        $validatedData = $request->validate([
+            'password' => 'required|confirmed',
+
+            // Add more rules as needed
+        ], [
+         
+            'password.required' => 'Please enter new password.',
+            'password.confirmed' => 'Please enter password confirmation correctly.',
+        ]);
+
+        try{
+            if (request('password')) {
+                $user =  User::find($id);
+                $user->password = Hash::make(request('password'));
+                $user->save();
+                return back()->with("flash_success","User Password Changed successfully");
+            }
+        }catch (\Throwable $th){
+            return back()->with("flash_error","Password failed to change");
+        }
+
+    }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+    // public function edit_add_user_role()
+    // {
+    //     $roles = Role::where('company_id' ,app('company_id'))->get();
+    //     return view('company.users.update_user_password', compact('roles'));
+    // }
+
+    public function update_add_user_role(Request $request, $id)
+    {
+        //$user = Auth::user();
+
+        $validatedData = $request->validate([
+            'password' => 'required|confirmed',
+
+            // Add more rules as needed
+        ], [
+         
+            'password.required' => 'Please enter new password.',
+            'password.confirmed' => 'Please enter password confirmation correctly.',
+        ]);
+
+        try{
+            if (request('password')) {
+                $user =  User::find($id);
+                $user->password = Hash::make(request('password'));
+                $user->save();
+                return back()->with("flash_success","User Password Changed successfully");
+            }
+        }catch (\Throwable $th){
+            return back()->with("flash_error","Password failed to change");
+        }
+
+    }
+
+
     public function destroy($id)
     {
         $user = User::find($id)->delete();

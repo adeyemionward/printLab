@@ -29,7 +29,7 @@ class RoleController extends Controller
         $userRoles = Auth::user()->getRoleNames();
 
         // Get all roles
-        $roles = Role::all();
+        $roles = Role::where('name', '!=','admin')->get();
 
         // Retrieve permissions associated with each role
         $rolesWithPermissions = $roles->map(function ($role) {
@@ -67,8 +67,8 @@ class RoleController extends Controller
 
 
         $validatedData = $request->validate([
-            'name' => 'required|string', // Ensure at least one checkbox is selected
-            'permission' => 'required', // Ensure at least one checkbox is selected
+            'name' => 'required|string', //
+            'permission' => 'required', //
 
 
             // Add more rules as needed
@@ -83,7 +83,8 @@ class RoleController extends Controller
         return redirect()->route('company.roles.add_role')->with('flash_error','Role alreadt exists');
         $role = Role::create(
             [
-                'name' => $request->input('name')
+                'company_id' => app('company_id'),
+                'name' => $request->input('name'),
             ]
         );
 

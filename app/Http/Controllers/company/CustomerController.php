@@ -94,7 +94,7 @@ class CustomerController extends Controller
         $cartCount = $this->countCart($id);
         $job_orders =  JobOrder::where('user_id', $id)->where('cart_order_status',2)->get();
 
-        return view('customers.customer_job_orders', compact('customer','job_orders','cartCount'));
+        return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }
 
     public function transaction_history($id){

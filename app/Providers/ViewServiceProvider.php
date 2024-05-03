@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
 use App\Models\Company;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\View;
@@ -60,6 +61,12 @@ class ViewServiceProvider extends ServiceProvider
             // Pass the  variables to all views
 
             $view->with('remaining_days', $remaining_days);
+
+            $roles = Role::where('company_id', app('company_id'))->orWhere('name','admin')->get();
+            
+            // Pass the  variables to all views
+
+            $view->with('roles', $roles);
         });
     }
 }

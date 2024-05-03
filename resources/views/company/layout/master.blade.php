@@ -306,7 +306,7 @@
 										<li><a class="dropdown-item" href="{{route('company.customers.all_customers')}}"> View Customers</a></li>
 
                                         <li><a class="dropdown-item" href="{{route('company.users.add_user')}}">Add User</a></li>
-										<li><a class="dropdown-item" href="{{route('company.users.all_users')}}"> View Usesr</a></li>
+										<li><a class="dropdown-item" href="{{route('company.users.all_users')}}"> View Users</a></li>
 
                                         <li><a class="dropdown-item" href="{{route('company.suppliers.add_supplier')}}">Add Suppliers</a></li>
 										<li><a class="dropdown-item" href="{{route('company.suppliers.all_suppliers')}}">View Suppliers</a></li>

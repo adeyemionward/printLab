@@ -250,6 +250,10 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/all_users', 'UserController@index')->name('all_users');
                     Route::get('/edit_user/{id}', 'UserController@edit')->name('edit_user');
                     Route::post('/edit_user/{id}', 'UserController@update')->name('edit_user');
+                    // Route::get('/update_password/{id}', 'UserController@edit_user_password')->name('update_password');
+                    Route::post('/update_password/{id}', 'UserController@update_user_password')->name('update_password');
+                    // Route::get('/add_user_role/{id}', 'UserController@edit_add_user_role')->name('add_user_role');
+                    Route::post('/add_user_role/{id}', 'UserController@update_add_user_role')->name('add_user_role');
                     Route::get('/view_user/{id}', 'UserController@show')->name('view_user');
                     Route::get('/delete_user/{id}', 'UserController@destroy')->name('delete_user');
 
