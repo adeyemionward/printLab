@@ -77,7 +77,19 @@ class SettingController extends Controller
         try{
             $expense_category =  ExpenseCategory::find($id);
             $expense_category->category_name = request('name');
+            $expense_category->save();
             return redirect(route('company.settings.category.all_category'))->with('flash_success','Expense category edited successfully');
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
+    }
+
+    public function deleteCategory($id){
+        try{
+            $expense_category =  ExpenseCategory::find($id);
+            $expense_category->delete();
+            return redirect(route('company.settings.category.all_category'))->with('flash_success','Expense category deleted successfully');
         }catch(\Exception $th){
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }

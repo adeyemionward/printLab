@@ -33,7 +33,9 @@
                                     <tr>
                                         <td>{{$index+1}}</td>
                                         <td>{{$val->category_name}}</td>
-                                        <td><a href="{{route('company.settings.category.edit_category',$val->id)}}"><span><i class="fa fa-edit"></i></span></a></td>
+                                        <td><a href="{{route('company.settings.category.edit_category',$val->id)}}"><span><i class="fa fa-edit"></i></span></a>
+                                            <a href="{{route('company.settings.category.delete_category',$val->id)}}" onclick="return confirm('Are you sure you want to delete this category?');"><span><i class="fa fa-trash"></i></span></a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

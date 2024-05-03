@@ -210,6 +210,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                         Route::get('/all_category', 'SettingController@all_category')->name('all_category');
                         Route::get('/edit_category/{id}', 'SettingController@editCategory')->name('edit_category');
                         Route::post('/edit_category/{id}', 'SettingController@updateCategory')->name('edit_category');
+                        Route::get('/delete_category/{id}', 'SettingController@deleteCategory')->name('delete_category');
                     });
                     //site settings
                     Route::group(['prefix' => '/site', 'as' => 'site.'], function () {

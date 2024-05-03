@@ -3,7 +3,7 @@
 @section('content')
 @section('title', 'Add User')
 
-
+@can('user-create')
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
@@ -154,6 +154,7 @@
             </div>
         </div>
     </div>
+@can('role-create')
 @endsection
 
 
