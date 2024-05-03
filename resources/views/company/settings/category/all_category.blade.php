@@ -10,8 +10,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Expense Category</li>
+                        <a href="{{route('company.settings.category.add_category')}}"><li class="active btn btn-primary" style="">Add Expense Category</li></a>
                     </ol>
                 </div>
             </div>
