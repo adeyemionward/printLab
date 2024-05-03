@@ -14,13 +14,13 @@
 
         public function postColorLogo($data){
             DB::beginTransaction();
-            //try{
+            try{
 
                 $fileName = $data->file('site_logo');
                 if ($data->hasFile('site_logo')) {
                     if ($img = $fileName) {
                         $ImageName = $fileName->getClientOriginalName();
-                        $uniqueFileName = time() . '_' . $ImageName; 
+                        $uniqueFileName = time() . '_' . $ImageName;
                         $img->move(public_path('siteimages/'), $uniqueFileName);
                     }
                 }
@@ -35,10 +35,10 @@
                 );
                 DB::commit();
 
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            // }
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
             return redirect(route('company.settings.site.color_logo'))->with('flash_success','Logo and color added successfully');
         }
     }

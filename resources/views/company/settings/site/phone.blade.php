@@ -61,7 +61,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="phone_1">Phone 1 </label>
-                                                                            <input type="text" required name="phone_1" class="form-control{{ $errors->has('phone_1') ? ' is-invalid' : '' }}" value="{{ old('phone_1') ?? $site_details->phone_1 }}" id="phone_1">
+                                                                            <input type="text" required name="phone_1" class="form-control{{ $errors->has('phone_1') ? ' is-invalid' : '' }}" value="{{ old('phone_1') ?? @$site_details->phone_1 }}" id="phone_1">
                                                                             @error('phone_1')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -69,7 +69,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="phone_2">Phone 2 </label>
-                                                                            <input type="text"  name="phone_2" class="form-control{{ $errors->has('phone_2') ? ' is-invalid' : '' }}" value="{{ old('phone_2') ?? $site_details->phone_2 }}" id="phone_2">
+                                                                            <input type="text"  name="phone_2" class="form-control{{ $errors->has('phone_2') ? ' is-invalid' : '' }}" value="{{ old('phone_2') ?? @$site_details->phone_2 }}" id="phone_2">
                                                                             @error('phone_2')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -77,7 +77,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="phone_3">Phone 3 </label>
-                                                                            <input type="text"  name="phone_3" class="form-control{{ $errors->has('phone_3') ? ' is-invalid' : '' }}" value="{{ old('phone_3') ?? $site_details->phone_3 }}" id="phone_3">
+                                                                            <input type="text"  name="phone_3" class="form-control{{ $errors->has('phone_3') ? ' is-invalid' : '' }}" value="{{ old('phone_3') ?? @$site_details->phone_3 }}" id="phone_3">
                                                                             @error('phone_3')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

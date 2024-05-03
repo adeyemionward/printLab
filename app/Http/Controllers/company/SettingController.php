@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
 use App\Models\User;
-use App\Models\Testimonial; 
+use App\Models\Testimonial;
 use App\Models\SiteSetting;
-use App\Models\SiteTheme; 
+use App\Models\SiteTheme;
 use App\Services\Company\ColorLogoService;
 use App\Services\Company\ThemeService;
 use App\Services\Company\AddressService;
@@ -31,7 +31,8 @@ class SettingController extends Controller
 
     public function all_category()
     {
-        return view('company.settings.category.all_category');
+        $expense_category =  ExpenseCategory::where('company_id', app('company_id'))->get();
+        return view('company.settings.category.all_category', compact('expense_category'));
     }
 
     public function create_category()
@@ -46,18 +47,41 @@ class SettingController extends Controller
      */
     public function post_category()
     {
-        $user = Auth::user();
-        //save into locations
+        try{
+            $user = Auth::user();
+            //save into locations
 
-        $name                 =  request('name');
-        for ($count=0; $count < count($name); $count++) {
-            $order_location =  ExpenseCategory::updateOrCreate(
-                [
-                    'category_name'          => $name[$count],
-                    'created_by'    => $user->id,
-                ],
-            );
+            $name                 =  request('name');
+            for ($count=0; $count < count($name); $count++) {
+                $order_location =  ExpenseCategory::updateOrCreate(
+                    [
+                        'company_id'    => app('company_id'),
+                        'category_name' => $name[$count],
+                        'created_by'    => $user->id,
+                    ],
+                );
+            }
+            return redirect(route('company.settings.category.all_category'))->with('flash_success','Expense category added successfully');
+        }catch(\Exception $th){
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
+
+    }
+
+    public function editCategory($id){
+        $expense_category =  ExpenseCategory::find($id);
+        return view('company.settings.category.edit_category', compact('expense_category'));
+    }
+
+    public function updateCategory($id){
+        try{
+            $expense_category =  ExpenseCategory::find($id);
+            $expense_category->category_name = request('name');
+            return redirect(route('company.settings.category.all_category'))->with('flash_success','Expense category edited successfully');
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
     }
 
     private function siteDetails (){
@@ -70,8 +94,8 @@ class SettingController extends Controller
     }
 
     public function theme(){
-        $themes = SiteTheme::all();
-        $site_theme = $this->siteDetails(); 
+        $themes = SiteTheme::where('company_id', app('company_id'))->get();
+        $site_theme = $this->siteDetails();
         return view('company.settings.site.theme', compact('themes','site_theme'));
     }
 
@@ -98,7 +122,7 @@ class SettingController extends Controller
     public function storeAddress(Request $request, AddressService $addressservice){
         return $addressservice->postAddress($request);
     }
-    
+
     public function email(){
         return view('company.settings.site.email');
     }

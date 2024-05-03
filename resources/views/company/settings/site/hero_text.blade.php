@@ -58,9 +58,10 @@
                                                                     @csrf
                                                                     @method('POST')
                                                                     <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <div class="form-group mt-3 mb-3 col-md-12">
                                                                             <label for="hero_text">Hero Text </label>
-                                                                            <input type="text" required name="hero_text" class="form-control{{ $errors->has('hero_text') ? ' is-invalid' : '' }}" value="{{ old('hero_text') ?? $site_details->hero_text }}" id="hero_text">
+                                                                            {{-- <input type="text" required name="hero_text" class="form-control{{ $errors->has('hero_text') ? ' is-invalid' : '' }}" value="{{ old('hero_text') ?? @$site_details->hero_text }}" id="hero_text"> --}}
+                                                                            <textarea name="hero_text" class="form-control {{ $errors->has('hero_text') ? ' is-invalid' : '' }} " id="" cols="10" rows="3">{{ old('hero_text') ?? @$site_details->hero_text }}</textarea>
                                                                             @error('hero_text')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

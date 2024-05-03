@@ -207,9 +207,9 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
                         Route::get('/add_category', 'SettingController@create_category')->name('add_category');
                         Route::post('/add_category', 'SettingController@post_category')->name('add_category');
-                        Route::get('/all_category', 'SettingController@index')->name('all__category');
-                        Route::get('/edit_category/{id}', 'RequisitionController@edit')->name('edit_category');
-                        Route::post('/edit_category/{id}', 'RequisitionController@update')->name('edit_category');
+                        Route::get('/all_category', 'SettingController@all_category')->name('all_category');
+                        Route::get('/edit_category/{id}', 'SettingController@editCategory')->name('edit_category');
+                        Route::post('/edit_category/{id}', 'SettingController@updateCategory')->name('edit_category');
                     });
                     //site settings
                     Route::group(['prefix' => '/site', 'as' => 'site.'], function () {
