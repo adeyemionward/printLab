@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Dashboard</h4>
+                    <h4 class="m-0 text-dark text-muted">Users</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">All users</li>
                     </ol>
                 </div>
             </div>

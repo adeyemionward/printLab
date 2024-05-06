@@ -108,14 +108,14 @@
                                                                         {{-- <input type="text" name="user_type" value="1"> --}}
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="phone">Role:</label>
+                                                                            <label for="role">Role:</label>
                                                                             <select name="roles" class="form-control" id="">
                                                                                 <option value="">--Select User Role--</option>
                                                                                 @foreach ($roles as $val)
                                                                                     <option value="{{$val->name}}">{{ucfirst($val->name)}}</option>
                                                                                 @endforeach
                                                                             </select>
-                                                                            @error('phone')
+                                                                            @error('role')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>

@@ -49,12 +49,13 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles =  Role::all();
+        $roles = Role::where('company_id', app('company_id'))->orWhere('name','admin')->get();
         return view('company.users.add_user', compact('roles'));
     }
 
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
@@ -79,18 +80,33 @@ class UserController extends Controller
             'roles.required' => 'Please select role.',
             'address.required' => 'Please enter user address.',
         ]);
+        try{
 
-        $input = $request->all();
+            $input = $request->all();
 
-        $input['password'] = Hash::make($input['password']);
-        $input['user_type'] = User::COMPANY;
-        $input['company_id'] = Auth::user()->company_id;
-        $user = User::create($input);
+            $input['password']   = Hash::make($input['password']);
+            $input['user_type']  = User::COMPANY;
+            $input['company_id'] = Auth::user()->company_id;
+            $user = User::create($input);
 
-         $user->assignRole($request->input('roles'));
+            //assign roels and permission to user
+            $user->assignRole($request->input('roles'));
 
-        if($user){
-            return redirect(route('company.users.all_users'))->with('flash_success','User has been created Successful');
+            $role = Role::with('permissions')->where('name', request('roles'))->first();
+
+            if ($role) {
+                $permissions = $role->permissions;
+                $user->syncPermissions($permissions);
+            } else {
+                // Handle the case where the role doesn't exist
+                return back()->with("flash_error","Role doesn't exist");
+            }
+
+            if($user){
+                return redirect(route('company.users.all_users'))->with('flash_success','User has been created Successful');
+            }
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
 
     }
