@@ -65,16 +65,22 @@ class ViewServiceProvider extends ServiceProvider
 
             $roles = Role::where('company_id', app('company_id'))->orWhere('name','admin')->get();
             $userId = request()->id;
-            $user =  User::find($userId);
-            $current_roles = $user->getRoleNames();
+            if(!is_null($userId)){
+                $user =  User::find($userId);
+                $current_roles = @$user->getRoleNames();
 
-            foreach($current_roles as $current_role1){
-                $current_role =  $current_role1;
+                foreach($current_roles as $current_role1){
+                    $current_role =  $current_role1;
+                }
+                $view->with('current_role', $current_role);
             }
+
+
+
             // Pass the  variables to all views
 
             $view->with('roles', $roles);
-            $view->with('current_role', $current_role);
+
         });
     }
 }
