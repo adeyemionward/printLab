@@ -80,6 +80,28 @@ class JobOrderController extends Controller
         $this->brochureRepository = $brochureRepository;
         $this->businessCardRepository = $businessCardRepository;
         $this->envelopeRepository = $envelopeRepository;
+
+
+        $this->middleware('permission:job-list', ['only' => ['index']]);
+        $this->middleware('permission:job-create', ['only' => [
+            'forty_leaves','post_forty_leaves','twenty_leaves','post_twenty_leaves','eighty_leaves','post_eighty_leaves',
+            'service_order','post_service_order','booklets','post_booklets','bronchures','post_bronchures',
+            'business_cards','post_business_cards','envelopes','post_envelopes','flyers','post_flyers','notepads',
+            'post_notepads','small_invoice','post_small_invoice','stickers','post_stickers','work_order_templates'
+            ]]);
+        $this->middleware('permission:job-update-status', ['only' => ['changeJobStatus']]);
+        $this->middleware('permission:job-upload-approved-design', ['only' => ['uploadApprovedDesign']]);
+        $this->middleware('permission:job-delete', ['only' => ['delete_job_order']]);
+        $this->middleware('permission:job-view', ['only' => ['view_order']]);
+        $this->middleware('permission:job-track-order', ['only' => ['track_job_order']]);
+        $this->middleware('permission:job-transaction-history-list', ['only' => ['transaction_history']]);
+
+        $this->middleware('permission:location-list', ['only' => ['all_location']]);
+        $this->middleware('permission:location-create', ['only' => ['add_location','post_location']]);
+        $this->middleware('permission:location-view', ['only' => ['view_location']]);
+        $this->middleware('permission:location-edit', ['only' => ['edit_location','edit_location']]);
+        $this->middleware('permission:location-delete', ['only' => ['delete_location']]);
+
     }
 
     private function JobOrderQuery (){
@@ -211,6 +233,7 @@ class JobOrderController extends Controller
         return $pdf->stream('order_invoice.pdf');
     }
 
+    //remember do  perm here
     public function updateJobPayment(Request $request, $job_title, $id){
         $user = Auth::user();
         $order_date = date('Y-m-d');
@@ -652,73 +675,5 @@ class JobOrderController extends Controller
     public function delete_location($id){
         $location =  JobLocation::find($id)->delete();
         return redirect(route('company.job_order.location.all_locations'))->with('flash_success','Order Location deleted successfully');
-    }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -29,6 +29,15 @@ class PermissionsTableSeeder extends Seeder
             'user-view',
             'user-delete',
 
+            'user-password-create',
+            'user-role-create',
+
+            'testimonial-create',
+            'testimonial-edit',
+            'testimonial-list',
+            'testimonial-view',
+            'testimonial-delete',
+
             'job-create',
             'job-list',
             'job-edit',
@@ -36,12 +45,19 @@ class PermissionsTableSeeder extends Seeder
             'job-delete',
             'job-update-status',
             'job-track-order',
+            'job-upload-approved-design',
+            'job-transaction-history-list',
+
+            'location-list',
+            'location-create',
+            'location-view',
+            'location-edit',
+            'location-delete',
 
             'requisition-create',
             'requisition-list',
             'requisition-edit',
             'requisition-view',
-            'requisition-delete',
 
             'supplier-create',
             'supplier-list',
@@ -49,11 +65,50 @@ class PermissionsTableSeeder extends Seeder
             'supplier-view',
             'supplier-delete',
 
+
+            'settings-category-list',
+            'settings-category-create',
+            'settings-category-edit',
+            'settings-category-delete',
+            'settings-logo-create',
+            'settings-theme-create',
+            'settings-hero-text-create',
+            'settings-address-create',
+            'settings-email-create',
+            'settings-phone-text-create',
+
+
+            'finance-create',
+            'finance-expenses-lst',
+            'finance-edit',
+            'finance-delete',
+            'finance-payment-history-list',
+            'finance-debtors-list',
+            'finance-creditors-list',
+            'finance-profits-list',
+            'finance-expense-update',
+
+
+            'product-create',
+            'product-lst',
+            'product-view',
+            'product-edit',
+            'product-delete',
+
             'customer-create',
             'customer-list',
             'customer-edit',
             'customer-view',
             'customer-delete',
+
+            'customer-cart',
+            'customer-checkout',
+            'customer-job-orders',
+            'customer-transaction-history',
+
+            'transaction-list',
+
+
             // Add more permissions as needed
         ];
 

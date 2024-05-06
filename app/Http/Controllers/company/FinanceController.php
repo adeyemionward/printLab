@@ -27,6 +27,22 @@ class FinanceController extends Controller
     {
         $this->middleware('auth');
 
+
+
+
+        $this->middleware('permission:finance-create', ['only' => ['create_expense','store_expense']]);
+
+        $this->middleware('permission:finance-expenses-lst', ['only' => ['all_expenses']]);
+        $this->middleware('permission:finance-expenses', ['only' => ['view_expenses']]);
+        $this->middleware('permission:finance-edit', ['only' => ['edit_expense','update_expense']]);
+        $this->middleware('permission:finance-delete', ['only' => ['delete_expense']]);
+        $this->middleware('permission:finance-payment-history-list', ['only' => ['payment_history']]);
+        $this->middleware('permission:finance-debtors-list', ['only' => ['all_debtors']]);
+        $this->middleware('permission:finance-creditors-list', ['only' => ['all_creditors']]);
+        $this->middleware('permission:finance-profits-list', ['only' => ['all_profit_loss']]);
+
+        $this->middleware('permission:finance-expense-update', ['only' => ['update_expense_payment']]);
+
         $this->startDate  = request('date_from');
         $this->endDate    = request('date_to');
     }
@@ -197,11 +213,6 @@ class FinanceController extends Controller
         return back()->with("flash_success","Expense Payment updated successfully");
     }
 
-    public function payment_history($id)
-    {
-        $expense_pay_history = ExpensePaymentHistory::where('expense_id',$id)->get();
-        return view('company.finance.expenses.payment_history',compact('expense_pay_history'));
-    }
 
     public function delete_expense($id)
     {
@@ -209,6 +220,13 @@ class FinanceController extends Controller
 
         return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense deleted successfully');
     }
+
+    public function payment_history($id)
+    {
+        $expense_pay_history = ExpensePaymentHistory::where('expense_id',$id)->get();
+        return view('company.finance.expenses.payment_history',compact('expense_pay_history'));
+    }
+
 
 
      public function all_debtors(Request $request)

@@ -25,6 +25,20 @@ class SettingController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->middleware('permission:settings-category-list', ['only' => ['all_category']]);
+        $this->middleware('permission:settings-category-create', ['only' => ['create_category','post_category']]);
+
+        $this->middleware('permission:settings-category-edit', ['only' => ['editCategory','updateCategory']]);
+        $this->middleware('permission:settings-category-delete', ['only' => ['deleteCategory']]);
+
+        $this->middleware('permission:settings-logo-create', ['only' => ['color_logo','storeColorLogo']]);
+        $this->middleware('permission:settings-theme-create', ['only' => ['theme','storeTheme']]);
+        $this->middleware('permission:settings-hero-text-create', ['only' => ['hero_text','storeHeroText']]);
+
+        $this->middleware('permission:settings-address-create', ['only' => ['address','storeAddress']]);
+        $this->middleware('permission:settings-email-create', ['only' => ['email','storeEmail']]);
+        $this->middleware('permission:settings-phone-create', ['only' => ['phone','storePhone']]);
     }
 
 

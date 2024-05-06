@@ -8,17 +8,21 @@ use App\Models\ErrorLog;
 use Illuminate\Support\Facades\Auth;
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public  $startDate;
     public $endDate;
 
     public function __construct()
     {
         $this->middleware('auth');
+
+
+        $this->middleware('permission:supplier-create', ['only' => ['create','store']]);
+
+        $this->middleware('permission:supplier-list', ['only' => ['index']]);
+        $this->middleware('permission:supplier-view', ['only' => ['show']]);
+        $this->middleware('permission:supplier-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:supplier-delete', ['only' => ['destroy']]);
 
         $this->startDate  = request('date_from').' 23:59:59';
         $this->endDate    = request('date_to').' 23:59:59';
@@ -36,23 +40,11 @@ class SupplierController extends Controller
         return view('company.suppliers.all_suppliers', compact('suppliers'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('company.suppliers.add_supplier');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -93,37 +85,17 @@ class SupplierController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $supplier = Supplier::find($id);
         return view('company.suppliers.view_supplier', compact('supplier'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $supplier = Supplier::find($id);
         return view('company.suppliers.edit_supplier', compact('supplier'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $user = Auth::user();
@@ -131,7 +103,6 @@ class SupplierController extends Controller
             'company_name' => 'required|string',
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            // 'email' => 'stemaring',
             'phone' => 'required|string',
             'address' => 'required|string',
             // Add more rules as needed
@@ -139,8 +110,6 @@ class SupplierController extends Controller
             'company_name.required' => 'Please enter supplier company name.',
             'firstname.required' => 'Please enter supplier  firstname.',
             'lastname.required' => 'Please enter supplier  lastname.',
-            // 'email.required' => 'Please enter customer email address.',
-            // 'email.email' => 'Please enter a valid email address.',
             'phone.required' => 'Please enter supplier phone number.',
             'address.required' => 'Please enter supplier address.',
         ]);
@@ -163,13 +132,6 @@ class SupplierController extends Controller
             return back()->with("flash_error","There is an error processing this request");
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $supplier = Supplier::find($id)->delete();

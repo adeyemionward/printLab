@@ -27,6 +27,18 @@ class CustomerController extends Controller
         });
 
         $this->middleware('auth');
+
+        $this->middleware('permission:customer-create', ['only' => ['create','store']]);
+
+        $this->middleware('permission:customer-list', ['only' => ['index']]);
+        $this->middleware('permission:customer-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
+
+        $this->middleware('permission:customer-cart', ['only' => ['customer_cart']]);
+        $this->middleware('permission:customer-checkout', ['only' => ['checkout']]);
+        $this->middleware('permission:customer-job-orders', ['only' => ['customer_job_orders']]);
+        $this->middleware('permission:customer-transaction-history', ['only' => ['transaction_history']]);
+
     }
 
     private function countCart($user_id){
@@ -38,7 +50,7 @@ class CustomerController extends Controller
 
     private function find_customer ($user_id){
        return $customer = User::find($user_id);
-    } 
+    }
 
     public function index()
     {

@@ -32,6 +32,19 @@ class UserController extends Controller
         $this->middleware('permission:user-create', ['only' => ['create','store']]);
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+
+
+        $this->middleware('permission:user-password-create', ['only' => ['update_user_password']]);
+        $this->middleware('permission:user-role-create', ['only' => ['update_add_user_role']]);
+
+        $this->middleware('permission:testimonial-create', ['only' => ['create_testimonial','post_testimonial']]);
+        $this->middleware('permission:testimonial-view', ['only' => ['view_testimonial']]);
+        $this->middleware('permission:testimonial-edit', ['only' => ['edit_testimonial','update_testimonial']]);
+        $this->middleware('permission:testimonial-delete', ['only' => ['delete_testimonial']]);
+
+
+
+
     }
 
 
@@ -148,23 +161,29 @@ class UserController extends Controller
             'address.required' => 'Please enter user address.',
         ]);
 
-        $user =  User::find($id);
+        try{
 
-        $user->firstname         =  request('firstname');
-        $user->lastname         =  request('lastname');
-        $user->phone            =  request('phone');
-        $user->email            =  request('email');
-        $user->gender           =  request('gender');
-        // if(request('password') != null){
-        //     $user->password         =  bcrypt(request('password'));
-        // }
 
-        // $user->status           =  request('status');
-        $user->address          =  request('address');
+            $user =  User::find($id);
 
-        $user->update();
+            $user->firstname         =  request('firstname');
+            $user->lastname         =  request('lastname');
+            $user->phone            =  request('phone');
+            $user->email            =  request('email');
+            $user->gender           =  request('gender');
+            // if(request('password') != null){
+            //     $user->password         =  bcrypt(request('password'));
+            // }
 
-        return back()->with("flash_success","User updated successfully");
+            // $user->status           =  request('status');
+            $user->address          =  request('address');
+
+            $user->update();
+
+            return back()->with("flash_success","User updated successfully");
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
     }
 
     public function view_profile()
@@ -201,18 +220,21 @@ class UserController extends Controller
             'address.required' => 'Please enter user address.',
         ]);
 
+        try{
+            $user->firstname         =  request('firstname');
+            $user->lastname         =  request('lastname');
+            $user->phone            =  request('phone');
+            $user->email            =  request('email');
+            $user->gender           =  request('gender');
+            $user->address          =  request('address');
+
+            $user->update();
+            return back()->with("flash_success","Profile updated successfully1111");
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
 
 
-        $user->firstname         =  request('firstname');
-        $user->lastname         =  request('lastname');
-        $user->phone            =  request('phone');
-        $user->email            =  request('email');
-        $user->gender           =  request('gender');
-        $user->address          =  request('address');
-
-        $user->update();
-        return back()->with("flash_success","Profile updated successfully1111");
-        //return view('users.edit_profile', compact('user'));
     }
 
 

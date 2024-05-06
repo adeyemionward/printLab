@@ -67,7 +67,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="email">Password:</label>
-                                                                            <input type="text" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" value="{{ old('password') }}">
+                                                                            <input type="password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" value="{{ old('password') }}">
                                                                             @error('password')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

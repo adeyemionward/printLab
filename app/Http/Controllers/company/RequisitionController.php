@@ -17,6 +17,13 @@ class RequisitionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->middleware('permission:requisition-list', ['only' => ['index']]);
+        $this->middleware('permission:requisition-create', ['only' => ['create','store']]);
+
+        $this->middleware('permission:requisition-view', ['only' => ['view']]);
+        $this->middleware('permission:requisition-edit', ['only' => ['edit','update']]);
+
     }
     public function index()
     {
@@ -71,23 +78,6 @@ class RequisitionController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $req = Requisition::find($id);
@@ -130,16 +120,5 @@ class RequisitionController extends Controller
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
