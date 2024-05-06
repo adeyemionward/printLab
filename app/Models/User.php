@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
@@ -64,6 +64,9 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-   
+    public function role()
+    {
+        return $this->hasOne(Role::class); // Assuming a one-to-one or one-to-many relationship
+    }
 
 }

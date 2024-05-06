@@ -20,10 +20,10 @@
                     <div class="form-group col-md-12">
                         <label for="backsided">Select a Role</label>
                         <select required class="form-control form-select"  name="role" id="role">
-                            <option >--select a role--</option>
+                            <option value="">--select a role--</option>
                             {{-- <option value="Designed">Admin</option> --}}
-                            @foreach ($roles as $val) 
-                                <option value="{{$val->id}}">{{$val->name}}</option>
+                            @foreach ($roles as $val)
+                                <option value="{{$val->name}}" <?php if($val->name == $current_role) echo 'selected' ?>>{{$val->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -57,8 +57,16 @@
                 <div class="modal-body">
                     <div class="form-group mt-3 mb-3 col-md-12">
                         <label for="email">Password:</label>
-                        <input type="text" required name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}">
+                        <input type="password" required name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}">
                         @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mt-3 mb-3 col-md-12">
+                        <label for="email">Password:</label>
+                        <input type="password" required name="password_confirmation" id="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}">
+                        @error('password_confirmation')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -77,7 +85,7 @@
 <div class="col-md-3 col-xl-3">
     <div class="card mb-3">
         <div class="card-body text-center">
-            
+
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view') echo 'active active_red'  ?>"
@@ -89,18 +97,18 @@
                     href="{{route('company.users.edit_user', request()->id)}}"
                     aria-selected="false">Update User Details </a>
 
-                 
+
                 <div class="dropdown-divider"></div>
 
 
                 <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="nav-link <?php if($page == 'password') echo 'active active_red'  ?>" id="nav-database-tab"
-                   
+
                     aria-selected="false">Update User Password </a>
 
                 <div class="dropdown-divider"></div>
 
                 <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link <?php if($page == 'role') echo 'active active_red'  ?>" id="nav-database-tab"
-                   
+
                     aria-selected="false">Add Role to User </a>
                 <div class="dropdown-divider"></div>
 

@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use App\Models\Company;
+use App\Models\User;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
@@ -63,10 +64,17 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('remaining_days', $remaining_days);
 
             $roles = Role::where('company_id', app('company_id'))->orWhere('name','admin')->get();
-            
+            $userId = request()->id;
+            $user =  User::find($userId);
+            $current_roles = $user->getRoleNames();
+
+            foreach($current_roles as $current_role1){
+                $current_role =  $current_role1;
+            }
             // Pass the  variables to all views
 
             $view->with('roles', $roles);
+            $view->with('current_role', $current_role);
         });
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Testimonial;
 use Illuminate\Support\Facades\Hash;
 
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 use DB;
 use Illuminate\Support\Arr;
@@ -34,7 +35,7 @@ class UserController extends Controller
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
-   
+
 
     public function find_testimonial($id)
     {
@@ -46,7 +47,7 @@ class UserController extends Controller
         return view('company.users.all_users', compact('users'));
     }
 
-    
+
     public function create()
     {
         $roles =  Role::all();
@@ -101,7 +102,7 @@ class UserController extends Controller
         return view('company.users.view_user', compact('user'));
     }
 
-    
+
     public function edit($id)
     {
         $user = User::find($id);
@@ -114,10 +115,10 @@ class UserController extends Controller
             'firstname' => 'required|string',
             'lastname' => 'required|string',
             'email' => 'required|string|email|max:255|unique:users,email,'.$id,
-            'password' => 'nullable|string',
+            // 'password' => 'nullable|string',
             'phone' => 'required|string',
             'gender' => 'required|string',
-            'status' => 'required|string',
+            // 'status' => 'required|string',
             'address' => 'required|string',
 
             // Add more rules as needed
@@ -127,7 +128,7 @@ class UserController extends Controller
             'email.required' => 'Please enter user email address.',
             'email.email' => 'Please enter a valid email address.',
             'phone.required' => 'Please enter user phone number.',
-            'status.required' => 'Please enter user status.',
+            // 'status.required' => 'Please enter user status.',
             'gender.required' => 'Please enter user gender.',
             'address.required' => 'Please enter user address.',
         ]);
@@ -139,11 +140,11 @@ class UserController extends Controller
         $user->phone            =  request('phone');
         $user->email            =  request('email');
         $user->gender           =  request('gender');
-        if(request('password') != null){
-            $user->password         =  bcrypt(request('password'));
-        }
+        // if(request('password') != null){
+        //     $user->password         =  bcrypt(request('password'));
+        // }
 
-        $user->status           =  request('status');
+        // $user->status           =  request('status');
         $user->address          =  request('address');
 
         $user->update();
@@ -336,11 +337,6 @@ class UserController extends Controller
 
     }
 
-    // public function edit_user_password()
-    // {
-    //     $user = Auth::user();
-    //     return view('company.users.update_user_password', compact('user'));
-    // }
 
     public function update_user_password(Request $request, $id)
     {
@@ -351,7 +347,7 @@ class UserController extends Controller
 
             // Add more rules as needed
         ], [
-         
+
             'password.required' => 'Please enter new password.',
             'password.confirmed' => 'Please enter password confirmation correctly.',
         ]);
@@ -370,36 +366,41 @@ class UserController extends Controller
     }
 
 
-    
-    // public function edit_add_user_role()
-    // {
-    //     $roles = Role::where('company_id' ,app('company_id'))->get();
-    //     return view('company.users.update_user_password', compact('roles'));
-    // }
-
     public function update_add_user_role(Request $request, $id)
     {
         //$user = Auth::user();
 
         $validatedData = $request->validate([
-            'password' => 'required|confirmed',
+            'role' => 'required',
 
             // Add more rules as needed
         ], [
-         
-            'password.required' => 'Please enter new password.',
-            'password.confirmed' => 'Please enter password confirmation correctly.',
+
+            'role.required' => 'Please enter a role.',
         ]);
 
         try{
-            if (request('password')) {
+            if (request('role')) {
                 $user =  User::find($id);
-                $user->password = Hash::make(request('password'));
+                //$current_roles = $user->getRoleNames();
+
                 $user->save();
-                return back()->with("flash_success","User Password Changed successfully");
+                $user->roles()->detach(); // Detach all existing roles
+                $user->assignRole(request('role')); // Assign the new role
+
+                $role = Role::with('permissions')->where('name', request('role'))->first();
+                if ($role) {
+                    $permissions = $role->permissions;
+                    $user->syncPermissions($permissions);
+                } else {
+                    // Handle the case where the role doesn't exist
+                    return back()->with("flash_error","Role doesn't exist");
+                }
+
+                return back()->with("flash_success","User Role Changed successfully");
             }
         }catch (\Throwable $th){
-            return back()->with("flash_error","Password failed to change");
+            return back()->with("flash_error","User role failed to change");
         }
 
     }

@@ -86,18 +86,6 @@
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
-
-                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="status">Status:</label>
-                                                                            <select name="status" id="" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" value="{{ old('status') }}">
-                                                                                <option value="">--Select Status--</option>
-                                                                                <option value="active" <?php if($user->status =='active') echo "selected" ?>>Active</option>
-                                                                                <option value="inactive" <?php if($user->status =='inactive') echo "selected" ?>>Inactive</option>
-                                                                            </select>
-                                                                            @error('gender')
-                                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div> --}}
                                                                     </div>
 
                                                                     <div class="row">
