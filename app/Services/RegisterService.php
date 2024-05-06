@@ -12,7 +12,7 @@
     {
         public function postCompany($data){
             DB::beginTransaction();
-           try{
+           //try{
                 $contact_person =  request('firstname').' '.request('lastname');
                 $company = new Company();
                 $company->name             = request('company_name');
@@ -71,10 +71,10 @@
                 //     return response()->json([ [1] ]);
                 // }
 
-            }catch(\Exception $th){
-                DB::rollBack();
-                return response()->json([ [5] ]);
-            }
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return response()->json([ [5] ]);
+            // }
             return response()->json([ [1] ]);
         }
 

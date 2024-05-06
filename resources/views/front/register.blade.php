@@ -285,7 +285,7 @@ form .btn input[type="submit"] {
                                 <span class="text-danger error-text phone_error"></span>
                             </div>
 
-                           
+
                         </div>
 
                         <div class="column">
@@ -316,7 +316,7 @@ form .btn input[type="submit"] {
                         <input readonly id="admin_user" name="admin_username"  placeholder="Admin Login Username">
                         <span class="text-danger error-text admin_username"></span>
                     </div>
-                    
+
                     <div class="field">
                         <input type="password" name="password" placeholder="Password" required>
                         <span class="text-danger error-text password_error"></span>
@@ -362,7 +362,7 @@ form .btn input[type="submit"] {
         emailInput.value = 'admin.' + generatedEmail; // Modify as needed
     });
 
-      $("#register_customer").submit(function(e){
+      $("#register_customera").submit(function(e){
         e.preventDefault();
         //alert();
 
