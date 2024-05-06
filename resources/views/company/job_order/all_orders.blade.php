@@ -52,7 +52,7 @@
                                         <td>{{$val->production_days}}</td>
                                         <td>{{'₦'.$val->total_cost}} </td>
                                         <td>{{$val->status}}</td>
-                                        <td><a href="{{route('job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
 
