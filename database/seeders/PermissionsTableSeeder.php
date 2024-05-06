@@ -100,7 +100,6 @@ class PermissionsTableSeeder extends Seeder
             'customer-edit',
             'customer-view',
             'customer-delete',
-
             'customer-cart',
             'customer-checkout',
             'customer-job-orders',
@@ -120,3 +119,5 @@ class PermissionsTableSeeder extends Seeder
         $this->command->info('Permissions seeded successfully!');
     }
 }
+
+

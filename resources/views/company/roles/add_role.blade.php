@@ -48,10 +48,37 @@
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <input type="checkbox" id="selectAll"><strong> &nbsp;Select All Permissions</strong>  <br>
                                                                                 <label for="permission">Permission Name:</label> <br>
-                                                                                @foreach ($permissions as $val)
+                                                                                {{-- @foreach ($permissions as $val)
                                                                                     <input type="checkbox"  name="permission[]"  value="{{$val->name}}" id="permission" class="checkbox{{ $errors->has('permission') ? ' is-invalid' : '' }}"> {{$val->name}}
 
-                                                                                @endforeach
+                                                                                @endforeach --}}
+<?php
+                                                                                $groupedPermissions = [];
+
+foreach ($permissions as $permission) {
+    $prefix = explode('-', $permission)[0]; // Extract the first prefix
+
+    if (!isset($groupedPermissions[$prefix])) {
+        $groupedPermissions[$prefix] = [];
+    }
+
+    $groupedPermissions[$prefix][] = $permission;
+}
+
+// Now $groupedPermissions contains the permissions grouped by their first prefix
+// You can access each section by its prefix
+
+foreach ($groupedPermissions as $section => $sectionPermissions) {
+    echo "Section: $section\n";
+    echo "Permissions: \n";
+    foreach ($sectionPermissions as $perm) {
+        echo "- $perm\n";
+    }
+    echo "\n";
+}
+?>
+
+
 
                                                                                 @error('permission')
                                                                                     <div class="invalid-feedback">{{ $message }}</div>
