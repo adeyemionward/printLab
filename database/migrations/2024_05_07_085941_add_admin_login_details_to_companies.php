@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('admin_username')->after('email')->nullable();
             $table->string('admin_password')->after('email')->nullable();
         });
+       // 03-21  create sub__ down //admin login --- 05-02// create sub
     }
 
     /**

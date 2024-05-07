@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-<title>Register | Printsoft</title>
+<title>Register | PrintLabs</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" type="image/x-icon" href="assets/img/leaf.svg">
@@ -21,13 +21,23 @@ html, body {
 	display: grid;
 	height: 100%;
 	width: 100%;
-	place-items: center;logo
+	place-items: center;
 	background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
 }
 
 ::selection {
 	background: #fa4299;
 	color: #fff;
+}
+
+.fields-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.field {
+    flex: 0 0 48%; /* Adjust as needed */
 }
 
 .wrapper {
@@ -238,113 +248,67 @@ form .btn input[type="submit"] {
 .error-text{
     color: red;
 }
-
-.fields-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.column {
-    flex: 1;
-    padding-right: 10px; /* Adjust spacing between columns */
-}
-
-.field {
-    margin-bottom: 20px; /* Adjust vertical spacing between fields */
-}
-
-/* Adjust the width of the input fields */
-.field input[type="text"],
-.field input[type="password"],
-.field textarea {
-    width: 100%;
-}
-
 </style>
-
 </head>
 <body>
 	<div class="wrapper">
-		<center><img src="{{asset('assets/img/logo/printlab.png')}}" alt="" width="500px" height="170px"></center>
-
+		<center><img src="{{ asset('siteimages/'.@$site_details->site_logo1) }}?? {{asset('img/printlab.PNG')}}" alt="" width="600px" height="170px"></center>
+		<div class="title-text">
+			<div class="title login">Register</div>
+			<div class="title signup">Register</div>
+		</div>
 		<div class="form-container">
-            <div class="form-inner">
+			<div class="form-inner">
                 {{-- SIGNIN --}}
                 <form method="POST" id="register_customer" class="register_customer">
                     @csrf
                     @method('POST')
-                    <div class="fields-container">
-                        <div class="column">
-                            <div class="field">
-                                <input type="text" name="firstname" id="firstname" placeholder="Firstname">
-                                <span class="text-danger error-text first_error"></span>
-                            </div>
-
-                            <div class="field">
-                                <input type="text" name="phone" placeholder="Phone">
-                                <span class="text-danger error-text phone_error"></span>
-                            </div>
-
-
+                    <div class="fields-wrapper">
+                        <div class="field">
+                            <input type="text" name="firstname" placeholder="Firstname">
+                            <span class="text-danger error-text first_error"></span>
                         </div>
-
-                        <div class="column">
-                            <div class="field">
-                                <input type="text" name="lastname" placeholder="Lastname">
-                                <span class="text-danger error-text lastname_error"></span>
-                            </div>
-
-                            <div class="field">
-                                <input type="text" name="company_name" id="company_name" placeholder="Company Name">
-                                <span class="text-danger error-text company_school_error"></span>
-                            </div>
-
-
-                            {{-- <div class="field">
-                                <input type="password" name="admin_password" placeholder="Admin Login Password" required>
-                                <span class="text-danger error-text admin_password" ></span>
-                            </div> --}}
+                        <div class="field">
+                            <input type="text" name="lastname" placeholder="Lastname">
+                            <span class="text-danger error-text lastname_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="email" placeholder="Email Address">
+                            <span class="text-danger error-text email_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="password" name="password" placeholder="Password" required>
+                            <span class="text-danger error-text password_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="phone" placeholder="Phone">
+                            <span class="text-danger error-text phone_error"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="company_name" placeholder="Company/School Name">
+                            <span class="text-danger error-text company_school_error"></span>
                         </div>
 
                     </div>
-                    <div class="field">
-                        <input type="email" name="email" placeholder="Email Address">
-                        <span class="text-danger error-text email_error"></span>
-                    </div>
-
-                    <div class="field">
-                        <input readonly id="admin_user" name="admin_username"  placeholder="Admin Login Username">
-                        <span class="text-danger error-text admin_username"></span>
-                    </div>
-
-                    <div class="field">
-                        <input type="password" name="password" placeholder="Password" required>
-                        <span class="text-danger error-text password_error"></span>
-                    </div>
-                    <div class="field">
-                        <input type="text" name="subdomain" placeholder="Enter Subdomain">
-                        <span class="text-danger error-text subdomain_error"></span>
-                    </div>
-
                     <div class="">
                         <textarea placeholder="Address" name="address"></textarea>
-                        <span class="text-danger error-text lastname_error"></span>
+                        <span class="text-danger error-text address_error"></span>
                     </div>
-
                     <div class="field btn">
                         <div class="btn-layer"></div>
-                        <input type="submit" id="loginBtn" name="login" value="Create Account" style="background-color: #df4226;">
+                        <input type="submit" id="loginBtn" name="login" value="Create Account" style="background-color: {{$site_details->siteTheme->name ?? '#df4226'}};">
                     </div>
-
                     <div class="signup-link">
-                        Not a member? <a href="{{route('login')}}">Login</a>
-
+                        @if (request()->status)
+                            Not a member? <a href="{{route('login', ['status' => 'order'])}}">Login</a>
+                        @else
+                            Not a member? <a href="{{route('login')}}">Login</a>
+                        @endif
                     </div>
                 </form>
             </div>
 
-        </div>
-
+		</div>
 	</div>
 
 </body>
@@ -354,15 +318,7 @@ form .btn input[type="submit"] {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
 
-    document.getElementById('company_name').addEventListener('input', function() {
-        const firstName = this.value.trim();
-        const emailInput = document.getElementById('admin_user');
-        const indexOfSpace = firstName.indexOf(' ');
-        const generatedEmail = indexOfSpace !== -1 ? firstName.substring(0, indexOfSpace) : firstName;
-        emailInput.value = 'admin.' + generatedEmail; // Modify as needed
-    });
-
-      $("#register_customera").submit(function(e){
+      $("#register_customer").submit(function(e){
         e.preventDefault();
         //alert();
 
@@ -395,14 +351,26 @@ form .btn input[type="submit"] {
                 if(data == 1){
                     toastr.success("Registration Successful");
                     setInterval(function(){
-                        window.location.replace('{{route("subscription.index")}}');
+                        window.location.replace('{{route("track_orders.index")}}');
                     },2000)
 
-                }else if (data == 5){
-                    //toastr.success("Registration Successful");
+                }else if (data == 12){
+                    toastr.success("Registration Successful");
                     setInterval(function(){ //customer dashboard login
-                        alert('error');
+                        window.location.href = document.referrer;
                     },2000)
+
+                }else if(data == 5){
+                    toastr.error("Error occured: Please try later");
+                    $("#loginBtn").attr('disabled',false);
+                    $('#loginBtn').css('cursor', 'pointer');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
+
+                }else if(data == 7){
+                    toastr.error("Error occured: Incorrect Email/Password");
+                    $("#loginBtn").attr('disabled',false);
+                    $('#loginBtn').css('cursor', 'pointer');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Sign Up </span>');
 
                 }
             }
