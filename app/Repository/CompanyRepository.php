@@ -26,6 +26,7 @@
                 $company->country          = request('country');
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
+                $company->admin_username   = request('admin_username');
                 $company->status           = request('status');
                 $company->plan             = request('subscription_plan');
                 $company->sub_amount       = $sub_plan->amount ?? 0;

@@ -124,9 +124,9 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="admin_user">Comapany Admin Username</label>
-                                                                            <input type="text" name="admin_user" id="admin_user" class="form-control{{ $errors->has('admin_user') ? ' is-invalid' : '' }}" value="{{ old('admin_user') }}">
-                                                                            @error('admin_user')
+                                                                            <label for="admin_username">Comapany Admin Username</label>
+                                                                            <input type="text" name="admin_username" id="admin_user" class="form-control{{ $errors->has('admin_username') ? ' is-invalid' : '' }}" value="{{ old('admin_username') }}">
+                                                                            @error('admin_username')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
