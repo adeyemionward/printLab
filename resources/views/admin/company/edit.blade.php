@@ -112,7 +112,7 @@
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="admin_username">Comapany Admin Username</label>
+                                                                            <label for="admin_username">Company Admin Username</label>
                                                                             <input type="text" name="admin_username" id="admin_user" class="form-control{{ $errors->has('admin_username') ? ' is-invalid' : '' }}" value="{{$company->admin_username}}">
                                                                             @error('admin_username')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
