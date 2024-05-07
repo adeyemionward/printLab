@@ -55,7 +55,7 @@
 
             $orderDetails = $this->jobOrder->whereIn('id', $jobIds)->get();
 
-            $pdfAttachment = Pdf::loadView('invoice_attachment', [
+            $pdfAttachment = Pdf::loadView('front.invoice_attachment', [
                 'amount_paid' => 0,
                 'userDetails' => $userDetails,
                 'orderDetails' => $orderDetails,
