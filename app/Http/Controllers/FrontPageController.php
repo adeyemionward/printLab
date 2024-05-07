@@ -169,7 +169,7 @@ class FrontPageController extends Controller
 
     public function addCart(Request $request, $title = null, $id = null)
     {
-    try {
+    //try {
         $product_id    = request()->id;
         $ink           = request('ink');
         $paper_type    = request('paper_type');
@@ -268,9 +268,9 @@ class FrontPageController extends Controller
         }
 
         return redirect(route('cart.index'))->with('flash_success', 'Product added to cart');
-    } catch (\Exception $th) {
-        return redirect()->back()->with('flash_error', 'An Error Occured: Please try later');
-    }
+    // } catch (\Exception $th) {
+    //     return redirect()->back()->with('flash_error', 'An Error Occured: Please try later');
+    // }
     }
 
     // public function edit_cart($title =  null, $id = null, $job_id =  null)
