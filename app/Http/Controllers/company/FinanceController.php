@@ -50,7 +50,7 @@ class FinanceController extends Controller
     {
 
         if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->get();
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
         }else{
             $expenses = Expense::with('expenseHistories')->get();
         }
@@ -76,29 +76,30 @@ class FinanceController extends Controller
     {
         DB::beginTransaction();
         $user = Auth::user();
-        // $validatedData = $request->validate([
-        //     'title' => 'required|string',
-        //     'category_id' => 'required|integer',
-        //     'supplier_id' => 'required|integer',
-        //     'payment_type' => 'required|integer',
-        //     'total_cost' => 'required|integer',
-        //     'amount_paid' => 'required|integer',
-        //     'expense_date' => 'required|string',
-        //     'description' => 'required|string',
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'category_id' => 'required|integer',
+            'supplier_id' => 'required|integer',
+            'payment_type' => 'required',
+            'total_cost' => 'required|integer',
+            'amount_paid' => 'required|integer',
+            'expense_date' => 'required|string',
+            // 'description' => 'required|string',
 
-        // ], [
-        //     'title.required' => 'Please enter title.',
-        //     'category_id.required' => 'Please select category.',
-        //     'supplier_id.required' => 'Please select supplier.',
-        //     'payment_type.required' => 'Please select supplier.',
-        //     'total_cost.required' => 'Please enter total cost.',
-        //     'amount_paid.required' => 'Please enter ampunt paid.',
-        //     'expense_date.required' => 'Please select expense date.',
-        //     'description.required' => 'Please enter Description.',
-        // ]);
+        ], [
+            'title.required' => 'Please enter title.',
+            'category_id.required' => 'Please select category.',
+            'supplier_id.required' => 'Please select supplier.',
+            'payment_type.required' => 'Please select supplier.',
+            'total_cost.required' => 'Please enter total cost.',
+            'amount_paid.required' => 'Please enter ampunt paid.',
+            'expense_date.required' => 'Please select expense date.',
+            // 'description.required' => 'Please enter Description.',
+        ]);
 
         try{
             $expense = new Expense();
+            $expense->company_id         = app('company_id');
             $expense->title         = request('title');
             $expense->category_id   = request('category_id');
             $expense->supplier_id   = request('supplier_id');
@@ -113,6 +114,7 @@ class FinanceController extends Controller
             //save into expense payment history
             $expense_history = new ExpensePaymentHistory();
             $expense_history->expense_id    = $expense->id;
+            $expense_history->company_id    = app('company_id');
             $expense_history->amount_paid   = request('amount_paid');
             $expense_history->payment_type  = request('payment_type');
             $expense_history->expense_date  = request('expense_date');

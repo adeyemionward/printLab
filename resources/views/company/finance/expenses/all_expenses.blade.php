@@ -44,9 +44,9 @@
                                         <td>&#8358;{{$val->total_cost}}</td>
 
                                         <td>{{$val->payment_type}}</td>
-                                        <td>{{$val->expenseHistories->sum('amount_paid')}}</td>
+                                        <td>&#8358;{{$val->expenseHistories->sum('amount_paid')}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->expense_date))}}</td>
-                                        <td><a href="{{route('finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('company.finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
 

@@ -124,25 +124,25 @@ class UserController extends Controller
 
     }
 
-    public function show($id)
+    public function show($user_company_id)
     {
-        $user = User::find($id);
+        $user = User::find($user_company_id);
         return view('company.users.view_user', compact('user'));
     }
 
 
-    public function edit($id)
+    public function edit($user_company_id)
     {
-        $user = User::find($id);
+        $user = User::find($user_company_id);
         return view('company.users.edit_user', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_company_id)
     {
         $validatedData = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user_company_id,
             // 'password' => 'nullable|string',
             'phone' => 'required|string',
             'gender' => 'required|string',
@@ -164,7 +164,7 @@ class UserController extends Controller
         try{
 
 
-            $user =  User::find($id);
+            $user =  User::find($user_company_id);
 
             $user->firstname         =  request('firstname');
             $user->lastname         =  request('lastname');
@@ -375,7 +375,7 @@ class UserController extends Controller
     }
 
 
-    public function update_user_password(Request $request, $id)
+    public function update_user_password(Request $request, $user_company_id)
     {
         //$user = Auth::user();
 
@@ -391,7 +391,7 @@ class UserController extends Controller
 
         try{
             if (request('password')) {
-                $user =  User::find($id);
+                $user =  User::find($user_company_id);
                 $user->password = Hash::make(request('password'));
                 $user->save();
                 return back()->with("flash_success","User Password Changed successfully");
@@ -403,7 +403,7 @@ class UserController extends Controller
     }
 
 
-    public function update_add_user_role(Request $request, $id)
+    public function update_add_user_role(Request $request, $user_company_id)
     {
         //$user = Auth::user();
 
@@ -418,7 +418,7 @@ class UserController extends Controller
 
         try{
             if (request('role')) {
-                $user =  User::find($id);
+                $user =  User::find($user_company_id);
                 //$current_roles = $user->getRoleNames();
 
                 $user->save();
@@ -443,9 +443,9 @@ class UserController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($user_company_id)
     {
-        $user = User::find($id)->delete();
+        $user = User::find($user_company_id)->delete();
         return redirect(route('company.users.all_users'))->with('flash_success','User has been deleted');
     }
 }

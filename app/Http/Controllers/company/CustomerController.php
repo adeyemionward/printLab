@@ -140,6 +140,7 @@ class CustomerController extends Controller
             'firstname' => 'required|string',
             'lastname'  => 'required|string',
             'phone'     => 'required|string',
+            'email'     => 'email|string|unique:users,email',
             'address'   => 'required|string',
             'company_school_name'   => 'required|string',
         ], [
@@ -147,6 +148,7 @@ class CustomerController extends Controller
             'lastname.required' => 'Please enter customer lastname.',
             'email.required' => 'Please enter customer email address.',
             'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email has been taken.',
             'company_school_name.required' => 'Please enter company name/school name.',
             'phone.required' => 'Please enter customer phone number.',
             'address.required' => 'Please enter customer address.',

@@ -64,7 +64,7 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('remaining_days', $remaining_days);
 
             $roles = Role::where('company_id', app('company_id'))->orWhere('name','admin')->get();
-            $userId = request()->id;
+            $userId = request()->user_company_id;
             if(!is_null($userId)){
                 $user =  User::find($userId);
                 $current_roles = @$user->getRoleNames();

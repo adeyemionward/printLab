@@ -38,7 +38,7 @@
                                 @foreach ($suppliers as $index => $val)
                                     <tr>
                                         <td>{{$index+1}}</td>
-                                        <td>{{$val->customer_name}}</td>
+                                        <td>{{$val->company_name}}</td>
                                         <td>{{$val->firstname}}</td>
                                         <td>{{$val->lastname}}</td>
                                         <td>{{$val->email}}</td>

@@ -4,7 +4,7 @@
     }
 </style>
 {{-- add role to user modal --}}
-<form method="POST"  action="{{route('company.users.add_user_role',[request()->id])}}" class="user_role">
+<form method="POST"  action="{{route('company.users.add_user_role',[request()->user_company_id])}}" class="user_role">
     @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -42,7 +42,7 @@
 
 
 {{-- update password of  user modal --}}
-<form method="POST"  action="{{route('company.users.update_password',[request()->id])}}" class="update_password">
+<form method="POST"  action="{{route('company.users.update_password',[request()->user_company_id])}}" class="update_password">
     @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal1" tabindex="-1"
@@ -89,12 +89,12 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view') echo 'active active_red'  ?>"
-                    href="{{route('company.users.view_user', request()->id)}}"
+                    href="{{route('company.users.view_user', request()->user_company_id)}}"
                     aria-selected="false">View User</a>
                    <div class="dropdown-divider"></div>
 
                 <a  class="nav-link <?php if($page == 'edit') echo 'active active_red'  ?>" id="nav-database-tab"
-                    href="{{route('company.users.edit_user', request()->id)}}"
+                    href="{{route('company.users.edit_user', request()->user_company_id)}}"
                     aria-selected="false">Update User Details </a>
 
 
@@ -113,7 +113,7 @@
                 <div class="dropdown-divider"></div>
 
                 <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to deactivate this user?');"
-                    href="{{route('company.users.delete_user', request()->id)}}"
+                    href="{{route('company.users.delete_user', request()->user_company_id)}}"
                     aria-selected="false">Deactivate User </a>
                 <div class="dropdown-divider"></div>
 
