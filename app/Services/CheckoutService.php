@@ -39,6 +39,7 @@
 
             foreach ($jobIds as $jobId) {
                 DB::table('job_order_trackings')->insert([
+                    'company_id' => app('company_id'),
                     'job_order_id' => $jobId,
                     'pending_status' => 1,
                     'pending_date' => $order_date
