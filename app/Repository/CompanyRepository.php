@@ -45,7 +45,7 @@
                 $input['lastname']      = $input['name'];
                 $input['remember_token'] = urlencode(Hash::make(time() . request('email')));
                 $companyUser = User::create($input);
-                $companyUser->assignRole($data->input('roles'));
+                $companyUser->assignRole('admin');
 
                 //save subscription
                 $subscription = new Subscription();
@@ -71,7 +71,7 @@
             DB::beginTransaction();
             //try{
                  $sub_plan = SubscriptionPlan::where('name',request('subscription_plan'))->first();
-                 
+
                 $id = request()->id;
                 $company = Company::find($id);
                 $company->name             = request('name');
@@ -112,7 +112,7 @@
                     $subscription->created_by       = Auth::user()->id;
                     $subscription->save();
                 }
-               
+
 
                 DB::commit();
                 $getDomain = Company::where('subdomain', request('subdomain'))

@@ -39,7 +39,7 @@
                                                                     @method('POST')
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="name">Name:</label>
+                                                                            <label for="name">Company Name:</label>
                                                                             <input type="text" name="name" id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}">
                                                                             @error('name')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -124,24 +124,12 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="phone">Role:</label>
-                                                                            <select name="roles" class="form-control" id="">
-                                                                                <option value="">--Select User Role--</option>
-                                                                                @foreach ($roles as $val)
-                                                                                    <option value="{{$val->name}}">{{ucfirst($val->name)}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                            @error('roles')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-3">
-                                                                            <label for="sub_amount">Subscription Amount:</label>
-                                                                            <input type="text" name="sub_amount" id="sub_amount" class="form-control{{ $errors->has('sub_amount') ? ' is-invalid' : '' }}" value="{{ old('sub_amount') }}">
-                                                                            @error('sub_amount')
+                                                                            <label for="admin_user">Comapany Admin Username</label>
+                                                                            <input type="text" name="admin_user" id="admin_user" class="form-control{{ $errors->has('admin_user') ? ' is-invalid' : '' }}" value="{{ old('admin_user') }}">
+                                                                            @error('admin_user')
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
-                                                                        </div> --}}
+                                                                        </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_amount">Subscription Plan:</label>
@@ -206,6 +194,19 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+<script>
+
+    document.getElementById('name').addEventListener('input', function() {
+        const firstName = this.value.trim();
+        const emailInput = document.getElementById('admin_user');
+        const indexOfSpace = firstName.indexOf(' ');
+        const generatedEmail = indexOfSpace !== -1 ? firstName.substring(0, indexOfSpace) : firstName;
+        emailInput.value = 'admin.' + generatedEmail; // Modify as needed
+    });
+
+
+</script>
 @endsection
 
 
