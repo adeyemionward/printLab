@@ -39,6 +39,7 @@
                 $companyUser->company_id     = $company->id;
                 $companyUser->firstname        = request('firstname');
                 $companyUser->lastname         = request('lastname');
+                $companyUser->status           = User::ACTIVE;
                 $companyUser->remember_token   = urlencode(Hash::make(time() . request('email')));
                 $companyUser->save();
 
@@ -50,6 +51,7 @@
                 $companyUserAdmin->admin_username     = request('admin_username');
                 $companyUserAdmin->password           = Hash::make(request('password'));
                 $companyUserAdmin->user_type          = User::COMPANY;
+                $companyUserAdmin->status             = User::ACTIVE;
                 $companyUserAdmin->company_id         = $company->id;
                 $companyUserAdmin->firstname        = request('firstname');
                 $companyUserAdmin->lastname         = request('lastname');

@@ -16,6 +16,9 @@ class User extends Authenticatable
     CONST ADMIN = 1;
     CONST CUSTOMER = 2;
     CONST COMPANY = 3;
+
+    CONST ACTIVE    = 'active';
+    CONST INACTIVE  = 'inactive';
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
