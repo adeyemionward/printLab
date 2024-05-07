@@ -112,6 +112,13 @@
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
+                                                                            <label for="admin_username">Comapany Admin Username</label>
+                                                                            <input type="text" name="admin_username" id="admin_user" class="form-control{{ $errors->has('admin_username') ? ' is-invalid' : '' }}" value="{{$company->admin_username}}">
+                                                                            @error('admin_username')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="sub_amount">Subscription Plan:</label>
                                                                             <select required name="subscription_plan" id="" class="form-select form-control{{ $errors->has('subscription_plan') ? ' is-invalid' : '' }}" >
 
@@ -182,6 +189,19 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
+    <script>
+
+        document.getElementById('name').addEventListener('input', function() {
+            const firstName = this.value.trim();
+            const emailInput = document.getElementById('admin_user');
+            const indexOfSpace = firstName.indexOf(' ');
+            const generatedEmail = indexOfSpace !== -1 ? firstName.substring(0, indexOfSpace) : firstName;
+            emailInput.value = 'admin.' + generatedEmail; // Modify as needed
+        });
+
+
+    </script>
 @endsection
 
 

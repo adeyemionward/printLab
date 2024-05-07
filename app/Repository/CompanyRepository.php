@@ -84,12 +84,13 @@
                 $company->country          = request('country');
                 $company->address          = request('address');
                 $company->subdomain        = request('subdomain');
+                $company->admin_username   = request('admin_username');
                 $company->status           = request('status');
                 $company->plan             = request('subscription_plan');
                 $company->sub_amount       = $sub_plan->amount ?? 0;
                 $company->sub_start_date   = request('sub_start_date');
                 $company->sub_end_date     = request('sub_end_date');
-                // $company->updated_by       = Auth::user()->id;
+                // $company->updated_by    = Auth::user()->id;
                 $company->save();
 
                 //update subscription
