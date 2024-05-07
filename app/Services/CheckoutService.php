@@ -47,7 +47,6 @@
             }
         }
 
-
         protected function sendOrderEmails($user, $jobIds){
             $userDetails = $this->user->find($this->auth::user()->id);
             $userEmail = $userDetails->email;
@@ -61,7 +60,7 @@
                 'orderDetails' => $orderDetails,
             ]);
 
-            $this->mail::to('adeyemiadeshina6@gmail.com')->send(new CustomerOrderReceipt($orderDetails, 0, $userName, $pdfAttachment));
+            $this->mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, 0, $userName, $pdfAttachment));
             $this->mail::to(env('MAIL_USERNAME'))->send(new CustomerOrderToAdmin($orderDetails, 0, $userName, $pdfAttachment));
         }
 
