@@ -29,7 +29,7 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Payment Date</th>
-                                    <th>Action</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
