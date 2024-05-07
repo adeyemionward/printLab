@@ -41,7 +41,7 @@
                                         <td>{{date('D M d, Y', strtotime($val->sub_start_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->sub_end_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->created_at))}}</td>
-                                        <td><a href="{{route('admin.finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        {{-- <td><a href="{{route('admin.finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td> --}}
                                     </tr>
                                 @endforeach
                         </table>
