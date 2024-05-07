@@ -10,7 +10,7 @@ use App\Models\Testimonial;
 use Illuminate\Support\Facades\Hash;
 
 use Spatie\Permission\Models\Role;
-
+use Spatie\Permission\Models\Permission;
 use DB;
 use Illuminate\Support\Arr;
 class UserController extends Controller
@@ -96,6 +96,15 @@ class UserController extends Controller
         $user = User::create($input);
 
          $user->assignRole($request->input('roles'));
+         $role = Role::with('permissions')->where('name', request('roles'))->first();
+
+         if ($role) {
+             $permissions = $role->permissions;
+             $user->syncPermissions($permissions);
+         } else {
+             // Handle the case where the role doesn't exist
+             return back()->with("flash_error","Role doesn't exist");
+         }
 
         if($user){
             return redirect(route('company.users.all_users'))->with('flash_success','User has been created Successful');

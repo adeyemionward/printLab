@@ -9,6 +9,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
     use Spatie\Permission\Models\Role;
+    use Spatie\Permission\Models\Permission;
     class CompanyRepository
     {
         public function postCompany($data){
@@ -47,6 +48,13 @@
                 $input['remember_token'] = urlencode(Hash::make(time() . request('email')));
                 $companyUser = User::create($input);
                 $companyUser->assignRole('admin');
+                $role = Role::with('permissions')->where('name', 'admin')->first();
+
+                if ($role) {
+                    $permissions = $role->permissions;
+                    $user->syncPermissions($permissions);
+                }
+                
 
                 //save subscription
                 $subscription = new Subscription();

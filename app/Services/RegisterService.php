@@ -7,6 +7,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
     use Spatie\Permission\Models\Role;
+    use Spatie\Permission\Models\Permission;
     use Illuminate\Support\Facades\Session;
     class RegisterService
     {
@@ -58,6 +59,12 @@
                 $companyUserAdmin->save();
 
                 $companyUserAdmin->assignRole('admin');
+                $role = Role::with('permissions')->where('name', 'admin')->first();
+
+                if ($role) {
+                    $permissions = $role->permissions;
+                    $user->syncPermissions($permissions);
+                }
 
 
                 Session::put('name', request('company_name'));
