@@ -261,8 +261,8 @@ class FrontPageController extends Controller
                 $cart->cover_paper     = $cover_paper;
                 $cart->order_date      = $this->order_date;
                 $cart->order_type      = 'external';
-                $cart->user_id         = '';
-                $cart->created_by      = '';
+                //$cart->user_id         = '';
+                //$cart->created_by      = '';
                 $cart->save();
             }
         }
