@@ -33,7 +33,7 @@ class AuthController extends Controller
 
     public function postRegister(Request $request){
         //try{
-        // if(request('register')== 'register'){
+            // if(request('register')== 'register'){
             $validate = Validator::make($request->all(), [
                 'firstname' => ['required', 'string', 'max:50'],
                 'lastname' => ['required', 'string', 'max:50'],

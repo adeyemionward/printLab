@@ -63,7 +63,7 @@ class CustomerController extends Controller
     {
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
-        $job_orders =  JobOrder::where('user_id', $id)->where('cart_order_status',1)->get();
+        $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',1)->get();
 
         return view('company.customers.customer_cart', compact('customer','job_orders','cartCount'));
     }
@@ -74,7 +74,7 @@ class CustomerController extends Controller
         $job_id  = request('job_id');
         $randomInteger = random_int(100000, 999999);
 
-        $checkout =  JobOrder::whereIn('id', $job_id)->update(
+        $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
             [
                 'cart_order_status' =>  2,
                 'order_no' =>  $randomInteger,
@@ -85,7 +85,7 @@ class CustomerController extends Controller
         $userEmail  =  $userDetails->email;
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
-        $orderDetails   = JobOrder::whereIn('id',$job_id)->get();
+        $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
         $payment_type =  0;
         $amount_paid = 0;
         $data = [
@@ -104,7 +104,7 @@ class CustomerController extends Controller
 
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
-        $job_orders =  JobOrder::where('user_id', $id)->where('cart_order_status',2)->get();
+        $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
 
         return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }
@@ -113,7 +113,7 @@ class CustomerController extends Controller
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
 
-        $job_pay_history =  JobPaymentHistory::where('user_id',$id)->get();
+        $job_pay_history =  JobPaymentHistory::where('user_id',$id)->where('company_id',app('company_id'))->get();
         return view('company.customers.transaction_history', compact('customer','job_pay_history','cartCount'));
     }
 

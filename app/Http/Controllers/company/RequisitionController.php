@@ -27,7 +27,7 @@ class RequisitionController extends Controller
     }
     public function index()
     {
-        $requisitions = Requisition::all();
+        $requisitions = Requisition::where('company_id',app('company_id'))->get();
         return view('company.finance.requisitions.all_requisitions', compact('requisitions'));
     }
 
@@ -64,6 +64,7 @@ class RequisitionController extends Controller
         ]);
         try{
             $requisition = new Requisition();
+            $requisition->company_id    = app('company_id');
             $requisition->item          = request('item');
             $requisition->quantity      = request('quantity');
             $requisition->cost          = request('cost');

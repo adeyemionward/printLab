@@ -79,7 +79,7 @@ class PermissionsTableSeeder extends Seeder
 
 
             'finance-create',
-            'finance-expenses-lst',
+            'finance-expenses-list',
             'finance-edit',
             'finance-delete',
             'finance-payment-history-list',
@@ -90,7 +90,7 @@ class PermissionsTableSeeder extends Seeder
 
 
             'product-create',
-            'product-lst',
+            'product-list',
             'product-view',
             'product-edit',
             'product-delete',

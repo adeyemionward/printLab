@@ -55,8 +55,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public static function getCustomers (){
-        return $customers =  User::where('user_type',User::CUSTOMER)->get();
+        return $customers =  User::where('user_type',User::CUSTOMER)->where('company_id',app('company_id'))->get();
     }
 
     public function company()

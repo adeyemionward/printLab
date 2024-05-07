@@ -52,7 +52,7 @@ class FinanceController extends Controller
         if(request()->date_to && request()->date_from){
             $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
         }else{
-            $expenses = Expense::with('expenseHistories')->get();
+            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->get();
         }
 
         return view('company.finance.expenses.all_expenses', compact('expenses'));
@@ -60,8 +60,8 @@ class FinanceController extends Controller
 
     public function create_expense()
     {
-        $categories =  ExpenseCategory::all();
-        $suppliers =  Supplier::all();
+        $categories =  ExpenseCategory::where('company_id',app('company_id'))->get();
+        $suppliers =  Supplier::where('company_id',app('company_id'))->get();
 
         return view('company.finance.expenses.add_expense', compact('categories','suppliers'));
     }
@@ -99,7 +99,7 @@ class FinanceController extends Controller
 
         try{
             $expense = new Expense();
-            $expense->company_id         = app('company_id');
+            $expense->company_id    = app('company_id');
             $expense->title         = request('title');
             $expense->category_id   = request('category_id');
             $expense->supplier_id   = request('supplier_id');
@@ -143,7 +143,7 @@ class FinanceController extends Controller
     {
         $expense =  Expense::find($id);
         $expense_history  = ExpensePaymentHistory::select(DB::raw('SUM(amount_paid) as amount_paid'))
-            ->where('expense_id',$id)
+            ->where('expense_id',$id)->where('company_id',app('company_id'))
             ->first();
         return view('company.finance.expenses.view_expense', compact('expense','expense_history'));
     }
@@ -151,8 +151,8 @@ class FinanceController extends Controller
     public function edit_expense($id)
     {
         $expense =  Expense::find($id);
-        $categories =  ExpenseCategory::all();
-        $suppliers =  Supplier::all();
+        $categories =  ExpenseCategory::where('company_id',app('company_id'))->get();
+        $suppliers =  Supplier::where('company_id',app('company_id'))->get();
         return view('company.finance.expenses.edit_expense', compact('expense','categories','suppliers'));
     }
     public function update_expense($id)
@@ -237,9 +237,9 @@ class FinanceController extends Controller
         $endDate    = request('date_to');
 
         if(request()->date_to && request()->date_from){
-            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->whereBetween('order_date', [$this->startDate, $this->endDate])->get();
+            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->whereBetween('order_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
         }else{
-            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->get();
+            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
 
         }
 
@@ -251,9 +251,9 @@ class FinanceController extends Controller
 
 
         if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->get();
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
         }else{
-            $expenses = Expense::with('expenseHistories')->get();
+            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->get();
 
         }
 
@@ -262,15 +262,20 @@ class FinanceController extends Controller
 
     public function all_profit_loss(Request $request)
     {
-        $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
-            ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
-            ->where('cart_order_status',JobOrder::ORDER_COMPLETED)
-            ->groupBy('job_orders.job_order_name');
+        // $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, job_orders.company_id, SUM(amount) as total_pay')
+        //     ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+        //     ->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('job_orders.company_id',app('company_id'))
+        //     ->groupBy('job_orders.job_order_name');
+        $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, job_orders.company_id, SUM(amount) as total_pay')
+    ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+    ->where('cart_order_status', JobOrder::ORDER_COMPLETED)
+    ->where('job_orders.company_id', app('company_id'))
+    ->groupBy('job_orders.job_order_name', 'job_orders.company_id');
 
-        $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
+        $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_payment_histories.company_id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
             ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
-            ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
-            ->groupBy('expense_categories.id', 'expense_categories.category_name');
+            ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')->where('expense_payment_histories.company_id',app('company_id'))
+            ->groupBy('expense_categories.id', 'expense_categories.category_name','expense_payment_histories.company_id');
 
 
         if(request()->date_to && request()->date_from){

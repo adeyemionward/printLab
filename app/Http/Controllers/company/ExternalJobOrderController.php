@@ -40,11 +40,11 @@ class ExternalJobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-      return $jobQuery =  JobOrder::where('order_type','external')->where('cart_order_status',JobOrder::ORDER_COMPLETED);
+      return $jobQuery =  JobOrder::where('order_type','external')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'));
     }
 
     private function filterOrdersByDateExternal(){
-        return $this->filterOrdersByDate()->where('order_type','external');
+        return $this->filterOrdersByDate()->where('order_type','external')->where('company_id',app('company_id'));
     }
 
     public function index()
@@ -175,34 +175,34 @@ class ExternalJobOrderController extends Controller
 
     public function orderInvoicePdf($order_no){
 
-        $orderDetails =  JobOrder::where('order_no', $order_no)->get();
-        $order1 =  JobOrder::where('order_no', $order_no)->first();
+        $orderDetails =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->get();
+        $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
         $pdf = PDF::loadView('track_orders.order_invoice_pdf',compact('orderDetails','order1'));
         return $pdf->stream('order_invoice.pdf');
     }
 
     public function delete_job_order(Request $request, $id){
-        $job_orders =  JobOrder::all();
+        $job_orders =  JobOrder::where('company_id',app('company_id'))->get();
         $job_order =  JobOrder::find($id);
         $job_order->delete();
         return redirect(route('company.job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
     }
 
     public function track_job_order($id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->where('company_id',app('company_id'))->first();
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-            ->where('job_order_id',$id)
+            ->where('job_order_id',$id)->where('company_id',app('company_id'))
             ->first();
         $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
         return view('company.external_job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
     }
 
     public function transaction_history($id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->where('company_id',app('company_id'))->first();
         $job_order =  JobOrder::find($id);
-        $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
+        $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->where('company_id',app('company_id'))->get();
         return view('company.external_job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
     }
 

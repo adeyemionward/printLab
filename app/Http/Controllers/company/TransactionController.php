@@ -23,9 +23,9 @@ class TransactionController extends Controller
         $endDate    = request('date_to');
 
         if(request()->date_to && request()->date_from){
-            $job_order_pay  = JobPaymentHistory::whereBetween('payment_date', [$startDate, $endDate])->get();
+            $job_order_pay  = JobPaymentHistory::whereBetween('payment_date', [$startDate, $endDate])->where('company_id', app('company_id'))->get();
         }else{
-            $job_order_pay  = JobPaymentHistory::all();
+            $job_order_pay  = JobPaymentHistory::where('company_id', app('company_id'))->get();
 
         }
         return view('company.finance.transactions.all_transactions', compact('job_order_pay'));

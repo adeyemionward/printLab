@@ -31,9 +31,9 @@ class SupplierController extends Controller
     {
 
         if(request()->date_to && request()->date_from){
-            $suppliers = Supplier::whereBetween('created_at', [$this->startDate, $this->endDate])->get();
+            $suppliers = Supplier::whereBetween('created_at', [$this->startDate, $this->endDate])->where('company_id', app('company_id'))->get();
         }else{
-            $suppliers = Supplier::all();
+            $suppliers = Supplier::where('company_id', app('company_id'))->get();
         }
 
 

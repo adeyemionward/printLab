@@ -105,11 +105,11 @@ class JobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->orderBy('id','DESC');
+        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'))->orderBy('id','DESC');
     }
 
     private function filterOrdersByDateInternal(){
-        return $this->filterOrdersByDate()->where('order_type','internal');
+        return $this->filterOrdersByDate()->where('order_type','internal')->where('company_id',app('company_id'));
     }
 
     private function postNoteBook(Request $request){
@@ -226,8 +226,8 @@ class JobOrderController extends Controller
 
     public function orderInvoicePdf($order_no){
 
-        $orderDetails =  JobOrder::where('order_no', $order_no)->get();
-        $order1 =  JobOrder::where('order_no', $order_no)->first();
+        $orderDetails =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->get();
+        $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
         $pdf = PDF::loadView('job_order.order_invoice_pdf',compact('orderDetails','order1'));
         return $pdf->stream('order_invoice.pdf');
@@ -255,7 +255,7 @@ class JobOrderController extends Controller
     }
 
     public function delete_job_order(Request $request, $id){
-        $job_orders =  JobOrder::all();
+        $job_orders =  JobOrder::where('company_id',app('company_id'))->get();
         $job_order =  JobOrder::find($id);
         $job_order->delete();
         return redirect(route('company.job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
@@ -271,17 +271,17 @@ class JobOrderController extends Controller
     }
 
     public function track_job_order($job_title,$id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->where('company_id',app('company_id'))->first();
         $job_order =  JobOrder::find($id);
         $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-            ->where('job_order_id',$id)
+            ->where('job_order_id',$id)->where('company_id',app('company_id'))
             ->first();
-        $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
+        $job_order_track =  JobOrderTracking::where('job_order_id',$id)->where('company_id',app('company_id'))->first();
         return view('company.job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
     }
 
     public function transaction_history($job_title,$id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->where('company_id',app('company_id'))->first();
         $job_order =  JobOrder::find($id);
         $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
         return view('company.job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
@@ -289,7 +289,7 @@ class JobOrderController extends Controller
 
     public function higher_education()
     {
-        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        $customers = User::getCustomers();
         $locations =  JobLocation::getLocations();
         return view('company.job_order.higher_education', compact('customers','locations'));
     }
@@ -304,8 +304,8 @@ class JobOrderController extends Controller
 
     public function twenty_leaves()
     {
-        $customers =  User::where('user_type',2)->get();
-        $locations =  JobLocation::select('id','city')->get();
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
         return view('company.job_order.20_leaves_book', compact('customers','locations'));
 
     }
@@ -319,13 +319,13 @@ class JobOrderController extends Controller
 
     public function edit_twenty_leaves($job_title, $id){
         $job_order =  JobOrder::find($id);
-        $customers =  User::where('user_type',2)->get();
+        $customers =  User::getCustomers();
         return view('company.job_order.edit_twenty_leaves', compact('job_order','customers'));
     }
 
     public function forty_leaves()
     {
-        $customers =  User::where('user_type',2)->get();
+        $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
         return view('company.job_order.40_leaves_book', compact('customers','locations'));
     }
@@ -339,7 +339,7 @@ class JobOrderController extends Controller
 
     public function eighty_leaves()
     {
-        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
         return view('company.job_order.80_leaves_book', compact('customers','locations'));
     }
@@ -487,8 +487,8 @@ class JobOrderController extends Controller
     public function edit_order($job_title, $id){
         $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order =  JobOrder::find($id);
-        $customers =  User::where('user_type',2)->get();
-        $locations =  JobLocation::select('id','city')->get();
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
         return view('company.job_order.edit_order', compact('job_order','customers','locations','approved_design'));
     }
 
@@ -614,7 +614,7 @@ class JobOrderController extends Controller
     }
 
     public function all_location(){
-        $location =  JobLocation::all();
+        $location =  JobLocation::where('company_id',app('company_id'))->get();
         return view('company.job_order.location.all_locations',compact('location'));
     }
 

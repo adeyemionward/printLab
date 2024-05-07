@@ -41,13 +41,19 @@ class UserController extends Controller
         $this->middleware('permission:testimonial-view', ['only' => ['view_testimonial']]);
         $this->middleware('permission:testimonial-edit', ['only' => ['edit_testimonial','update_testimonial']]);
         $this->middleware('permission:testimonial-delete', ['only' => ['delete_testimonial']]);
-
-
-
-
     }
 
-
+    function handleFileUpload($hasFile, $fileName, $dir){
+        if ($hasFile) {
+            if ($img = $fileName) {
+                $ImageName = $fileName->getClientOriginalName();
+                $uniqueFileName = time() . '_' . $ImageName;
+                $ImagePath = $dir.'/images/' . $uniqueFileName;
+                $img->move(public_path($dir.'/images/'), $uniqueFileName);
+                return $ImagePath;
+            }
+        }
+    }
 
     public function find_testimonial($id)
     {
@@ -241,7 +247,7 @@ class UserController extends Controller
 
     public function create_testimonial()
     {
-        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        $customers =  User::where('user_type',User::CUSTOMER)->where('company_id', app('company_id'))->get();
         return view('company.users.testimonial.add_testimonial', compact('customers'));
     }
 
@@ -254,20 +260,23 @@ class UserController extends Controller
         $customer_id   =  request('customer_id');
         $description    =  request('description');
 
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'testimonials');
+
 
         //save to testimonial
         $testimonial = new Testimonial();
-        $testimonial->company_id     = $user->company_id;
-        $testimonial->customer_id     =  $customer_id;
-        $testimonial->description     = $description;
-        $testimonial->created_by          = $user->id;
+        $testimonial->company_id    = $user->company_id;
+        $testimonial->customer_id   =  $customer_id;
+        $testimonial->description   = $description;
+        $testimonial->image         = $image;
+        $testimonial->created_by    = $user->id;
 
 
-        if($testimonial_img = $request->file('image')){
-            $name = $testimonial_img->hashName(); // Generate a unique, random name...
-            $path = $testimonial_img->store('public/images');
-            $testimonial->image = $name;
-        }
+        // if($testimonial_img = $request->file('image')){
+        //     $name = $testimonial_img->hashName(); // Generate a unique, random name...
+        //     $path = $testimonial_img->store('public/images');
+        //     $testimonial->image = $name;
+        // }
 
         $testimonial->save();
 
@@ -276,7 +285,7 @@ class UserController extends Controller
 
     public function all_testimonial()
     {
-        $all_testimonial = Testimonial::all();
+        $all_testimonial = Testimonial::where('company_id', app('company_id'))->get();
         return view('company.users.testimonial.all_testimonials', compact('all_testimonial'));
     }
 
@@ -289,7 +298,7 @@ class UserController extends Controller
     public function edit_testimonial($id)
     {
         $testimonial =  $this->find_testimonial($id);
-        $customers =  User::where('user_type',User::CUSTOMER)->get();
+        $customers =  User::where('user_type',User::CUSTOMER)->where('company_id', app('company_id'))->get();
         return view('company.users.testimonial.edit_testimonial', compact('testimonial','customers'));
     }
 
@@ -301,6 +310,7 @@ class UserController extends Controller
         $description    =  request('description');
 
         try{
+            $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'testimonials');
             $testimonial =  $this->find_testimonial($id);
 
             //update to testimonial
@@ -310,9 +320,8 @@ class UserController extends Controller
 
 
             if($testimonial_img = $request->file('image')){
-                $name = $testimonial_img->hashName(); // Generate a unique, random name...
-                $path = $testimonial_img->store('public/images');
-                $testimonial->image = $name;
+
+                $testimonial->image = $image;
 
             }
 

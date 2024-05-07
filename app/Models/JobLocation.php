@@ -26,6 +26,6 @@ class JobLocation extends Model
     }
 
     public static function getLocations (){
-        return  JobLocation::select('id','city')->get();
+        return  JobLocation::select('id','city')->where('company_id',app('company_id'))->get();
     }
 }
