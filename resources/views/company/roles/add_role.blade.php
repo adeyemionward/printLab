@@ -38,52 +38,40 @@
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <label for="name">Role Name:</label>
-                                                                                <input type="text"  name="name" id="role" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}">
+                                                                                <input type="text" required  name="name" id="role" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}">
                                                                                 @error('name')
                                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                                 @enderror
                                                                             </div>
 
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <input type="checkbox" id="selectAll"><strong> &nbsp;Select All Permissions</strong>  <br>
-                                                                                <label for="permission">Permission Name:</label> <br>
-                                                                                {{-- @foreach ($permissions as $val)
-                                                                                    <input type="checkbox"  name="permission[]"  value="{{$val->name}}" id="permission" class="checkbox{{ $errors->has('permission') ? ' is-invalid' : '' }}"> {{$val->name}}
-
-                                                                                @endforeach --}}
-<?php
-                                                                                $groupedPermissions = [];
-
-foreach ($permissions as $permission) {
-    $prefix = explode('-', $permission)[0]; // Extract the first prefix
-
-    if (!isset($groupedPermissions[$prefix])) {
-        $groupedPermissions[$prefix] = [];
-    }
-
-    $groupedPermissions[$prefix][] = $permission;
-}
-
-// Now $groupedPermissions contains the permissions grouped by their first prefix
-// You can access each section by its prefix
-
-foreach ($groupedPermissions as $section => $sectionPermissions) {
-    echo "Section: $section\n";
-    echo "Permissions: \n";
-    foreach ($sectionPermissions as $perm) {
-        echo "- $perm\n";
-    }
-    echo "\n";
-}
-?>
-
-
-
-                                                                                @error('permission')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
+                                                                            <div class="form-group mt-3 mb-3 row">
+                                                                                <div class="col-md-12">
+                                                                                    <input type="checkbox" id="selectAll"><strong> &nbsp;Select All Permissions</strong>  <br>
+                                                                                   
+                                                                            
+                                                                                    <div class="row">
+                                                                                        @foreach ($groupedPermissions as $prefix => $permissions)
+                                                                                            <div class="col-md-4">
+                                                                                                <h4>{{ ucfirst($prefix) }} Permissions</h4>
+                                                                                                <ul>
+                                                                                                    @foreach ($permissions as $permission)
+                                                                                                        <li>
+                                                                                                            <input type="checkbox" name="permission[]" value="{{ $permission->name }}" id="permission_{{ $permission->id }}" class="checkbox{{ $errors->has('permission') ? ' is-invalid' : '' }}">
+                                                                                                            <label for="permission_{{ $permission->id }}">{{ $permission->name }}</label>
+                                                                                                        </li>
+                                                                                                    @endforeach
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </div>
+                                                                            
+                                                                                    @error('permission')
+                                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                                    @enderror
+                                                                                </div>
                                                                             </div>
+                                                                            
 
                                                                         </div>
 

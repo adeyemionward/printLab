@@ -43,7 +43,12 @@ class RoleController extends Controller
     public function create()
     {
          $permissions = Permission::get();
-        return view('company.roles.add_role', compact('permissions'));
+         // Group permissions by prefix
+$groupedPermissions = $permissions->groupBy(function ($permission) {
+    // Extract the first prefix
+    return explode('-', $permission->name)[0];
+});
+        return view('company.roles.add_role', compact('permissions','groupedPermissions'));
     }
     public function store(Request $request)
     {
