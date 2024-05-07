@@ -37,7 +37,7 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->company->name}}</td>
-                                        <td>&#8358;{{$val->amount}}</td>
+                                        <td>&#8358;{{$val->sub_amount}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->sub_start_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->sub_end_date))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->created_at))}}</td>
