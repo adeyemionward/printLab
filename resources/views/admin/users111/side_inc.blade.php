@@ -11,19 +11,19 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view') echo 'active active_red'  ?>"
-                    href="{{route('admin.users.view_profile')}}"
-                    aria-selected="false">View Profile</a>
+                    href="{{route('users.view_user', request()->id)}}"
+                    aria-selected="false">View User</a>
                    <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'edit') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('users.edit_profile')}}"
-                aria-selected="false">Edit Profile </a>
+                href="{{route('users.edit_user', request()->id)}}"
+                aria-selected="false">Edit User </a>
                <div class="dropdown-divider"></div>
 
 
-                <a class="nav-link <?php if($page == 'password') echo 'active active_red'  ?>" id="nav-database-tab" 
-                 href="{{route('users.change_password')}}"
-                 aria-selected="false">Change Password </a>
+                <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to delete this user?');"
+                 href="{{route('users.delete_user', request()->id)}}"
+                 aria-selected="false">Delete User </a>
                 <div class="dropdown-divider"></div>
 
             </div>
