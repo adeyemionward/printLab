@@ -36,7 +36,7 @@
 <h2 class="contact-title">Choose Your Subscription Plan</h2>
 </div>
 <div class="col-lg-8">
-<form class="form-contact contact_form" id="subscription" novalidate="novalidate" method="POST">
+<form class="form-contact contact_form" id="subscription"  method="POST">
     @csrf
 <div class="row">
 <input type="hidden" name="email" value="{{$email ?? ''}}">
