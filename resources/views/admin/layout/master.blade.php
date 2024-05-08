@@ -77,17 +77,17 @@
 							<div class="dropdown-container">
                                 <a href="{{route('admin.subscriptions.add')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Add Subscription</span>
+                                    <span class="data-feather theme-item">Add New Company Subscription</span>
                                 </a>
 
 								<a href="{{route('admin.subscriptions.active')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Active Subscriptions</span>
+                                    <span class="data-feather theme-item">Active Company Subscriptions</span>
                                 </a>
 
                                 <a href="{{route('admin.subscriptions.inactive')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
-                                    <span class="data-feather theme-item">Inactive Subscriptions</span>
+                                    <span class="data-feather theme-item">Inactive Company Subscriptions</span>
                                 </a>
 							</div>
 						</div>
@@ -190,9 +190,9 @@
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.add')}}">Add New Subscription</a></li>
-                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.active')}}">Active Subscriptions</a></li>
-                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.inactive')}}">Inactive Subscriptions</a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.add')}}">Add New Company Subscription</a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.active')}}">Active Company Subscriptions</a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.subscriptions.inactive')}}">Inactive Company Subscriptions</a></li>
 
 									</ul>
 								</li>
