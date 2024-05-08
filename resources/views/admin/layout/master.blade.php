@@ -118,7 +118,7 @@
                                     <span class="data-feather theme-item">Subscription Plan</span>
                                 </a>
 
-                                <a href="{{route('admin.settings.bank.create_bankaccount')}}" class="text-center">
+                                <a href="{{route('admin.settings.bank.list_bankaccount')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Bank Details</span>
                                 </a>

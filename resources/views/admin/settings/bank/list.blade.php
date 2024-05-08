@@ -8,10 +8,17 @@
                 <div class="col-md-6 float-start">
                     <h4 class="m-0 text-dark text-muted">Theme</h4>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item"><a href="#"> Home</a></li>
                         <li class="breadcrumb-item active">Theme</li>
+                    </ol>
+                    
+                </div> --}}
+
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-end">
+                        <a href="{{route('admin.settings.bank.list_bankaccount')}}"><li class="active btn btn-primary" style="">Add Bank Details </li></a>
                     </ol>
                 </div>
             </div>
