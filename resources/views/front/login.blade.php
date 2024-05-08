@@ -334,6 +334,12 @@ form .btn input[type="submit"] {
                         window.location.href = document.referrer;
                     },2000)
 
+                }else if(data == 11){
+                    toastr.error("Invalid Access: Please login at printsoft.printlabs.com.ng");
+                    $("#loginBtn").attr('disabled',false);
+                    $('#loginBtn').css('cursor', 'pointer');
+                    $('#loginBtn').html('<span class="flex justify-center items-center">Signin </span>');
+
                 }else if (data == 13){ //customer dashboard login
                     toastr.success("Login Successful");
                     setInterval(function(){

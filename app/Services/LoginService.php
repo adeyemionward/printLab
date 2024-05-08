@@ -71,7 +71,7 @@
                         }
 
                     }elseif($user_type == User::ADMIN){
-                        return response()->json([ [1] ]); //go to admin page dashboard
+                        return response()->json([ [11] ]); //go to admin page dashboard
                     }elseif($user_type == User::COMPANY){
                         if ($this->activeSub($data) != null){
                             return $this->activeSub($data); //inactive
