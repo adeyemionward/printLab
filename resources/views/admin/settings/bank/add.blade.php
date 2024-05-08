@@ -11,8 +11,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Bank Details</li>
+                        <a href="{{route('admin.settings.bank.list_bankaccount')}}"><li class="active btn btn-primary" style="">Add Bank Details </li></a>
                     </ol>
                 </div>
             </div>

@@ -209,7 +209,7 @@
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.create_theme')}}">Add Theme </a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.list_theme')}}">List Theme </a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.settings.subscription.create_subscription')}}">Add Subscription </a></li>
-                                        <li><a class="dropdown-item" href="{{route('admin.settings.bank.create_bankaccount')}}">Bank Details </a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.bank.list_bankaccount')}}">Bank Details </a></li>
 
 									</ul>
 								</li>
