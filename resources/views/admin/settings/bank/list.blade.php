@@ -18,7 +18,7 @@
 
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('admin.settings.bank.list_bankaccount')}}"><li class="active btn btn-primary" style="">Add Bank Details </li></a>
+                        <a href="{{route('admin.settings.bank.create_bankaccount')}}"><li class="active btn btn-primary" style="">Add Bank Details </li></a>
                     </ol>
                 </div>
             </div>
