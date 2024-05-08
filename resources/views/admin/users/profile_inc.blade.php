@@ -16,13 +16,13 @@
                    <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'edit') echo 'active active_red'  ?>" id="nav-database-tab"
-                href="{{route('users.edit_profile')}}"
+                href="{{route('admin.users.edit_profile')}}"
                 aria-selected="false">Edit Profile </a>
                <div class="dropdown-divider"></div>
 
 
                 <a class="nav-link <?php if($page == 'password') echo 'active active_red'  ?>" id="nav-database-tab" 
-                 href="{{route('users.change_password')}}"
+                 href="{{route('admin.users.change_password')}}"
                  aria-selected="false">Change Password </a>
                 <div class="dropdown-divider"></div>
 
