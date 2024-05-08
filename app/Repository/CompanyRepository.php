@@ -52,7 +52,7 @@
 
                 if ($role) {
                     $permissions = $role->permissions;
-                    $user->syncPermissions($permissions);
+                    $input->syncPermissions($permissions);
                 }
                 
 
