@@ -38,7 +38,7 @@
                 if(!is_null($getDomain)) return redirect()->back()->with('flash_error','Subdomain alresy exists');
                 $company->save();
 
-                //save user
+                //save company admin
                 $input = $data->all();
                 $input['password']      = Hash::make($input['password']);
                 $input['user_type']     = User::COMPANY;
@@ -46,13 +46,13 @@
                 $input['firstname']     = $input['name'];
                 $input['lastname']      = $input['name'];
                 $input['remember_token'] = urlencode(Hash::make(time() . request('email')));
-                $companyUser = User::create($input);
-                $companyUser->assignRole('admin');
+                $companyUserAdmin = User::create($input);
+                $companyUserAdmin->assignRole('admin');
                 $role = Role::with('permissions')->where('name', 'admin')->first();
 
                 if ($role) {
                     $permissions = $role->permissions;
-                    $input->syncPermissions($permissions);
+                    $companyUserAdmin->syncPermissions($permissions);
                 }
                 
 
