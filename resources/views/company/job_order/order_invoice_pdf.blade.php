@@ -48,11 +48,15 @@
                 <td bgcolor="#E3E3E3" height="28" align="right">Amount&nbsp;Paid</td>
                 <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
             </tr>
-            @php $totalCost =0; $amountPaid = 0; @endphp
+            @php $totalCost =0; @endphp
             @foreach ($orderDetails as $val)
-            @foreach ($val->jobPaymentHistories as $val1) 
-                @php $amountPaid  += $val1->amount @endphp
-            @endforeach
+              @php 
+                    $amountPaid = 0; // Initialize amount paid for each order
+                    foreach ($val->jobPaymentHistories as $val1) { 
+                        $amountPaid += $val1->amount; // Accumulate the amounts paid
+                    }
+                    $totalCost = $val->total_cost; // Total cost for the current order
+                @endphp
                 @php  $totalCost +=  $val->total_cost;   @endphp
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
