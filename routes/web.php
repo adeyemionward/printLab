@@ -337,11 +337,10 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
                     Route::get('/edit/{id}', 'SettingController@edit_theme')->name('edit_theme');
                     Route::post('/edit/{id}', 'SettingController@update_theme')->name('edit_theme');
                     Route::get('/delete/{id}', 'SettingController@delete_theme')->name('delete_theme');
-                    Route::get('/admin_role', 'SettingController@admin_role')->name('admin_role');
-                    Route::post('admin_role', 'SettingController@update_admin_role')->name('admin_role');
-                    
-
                 });
+
+                Route::get('/admin_role', 'SettingController@admin_role')->name('admin_role');
+                Route::post('/admin_role', 'SettingController@update_admin_role')->name('admin_role');
 
                 Route::group(['prefix' => '/subscription', 'as' => 'subscription.'], function () {
                     Route::get('/list', 'SettingController@list_subscription')->name('list_subscription');
@@ -360,6 +359,8 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
                     Route::get('/delete/{id}', 'SettingController@delete_bankaccount')->name('delete_bankaccount');
                 });
             });
+
+            
 
             Route::group(['prefix' => '/users', 'as' => 'users.'], function () {
                 Route::get('/add_user', 'UserController@create')->name('add_user');

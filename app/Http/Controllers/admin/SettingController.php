@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\SiteTheme;
 use App\Models\SubscriptionPlan;
 use App\Models\BankAccount;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class SettingController extends Controller
 {
@@ -149,10 +151,35 @@ class SettingController extends Controller
         }
     }
 
-    public function list_subscription()
+    public function admin_role()
     {
-        $subs  = SubscriptionPlan::all();
-        return view('admin.settings.admin_role', compact('subs'));
+        // Get all roles
+        $role = Role::where('name','admin')->orWhere('name','Admin')->first();
+
+        // Retrieve permissions associated with each role
+        $existingPermissions = $role->permissions;
+        $permissions = Permission::all();
+        return view('admin.settings.admin_role', compact('existingPermissions','permissions'));
+    }
+
+
+    public function update_admin_role(Request $request)
+    {
+        $validatedData = $request->validate([
+            
+            'permission' => 'required', // Ensure at least one checkbox is selected
+        ], [
+            'permission.required' => 'Please select permission.',
+
+        ]);
+
+        $role = Role::where('name','admin')->orWhere('name','Admin')->first();
+
+        // Sync new permissions
+        $newPermissions = $request->input('permission', []);
+        $role->syncPermissions($newPermissions);
+
+        return redirect()->route('admin.settings.admin_role')->with('flash_success','Company Admin Permissions updated successfully');
     }
 
     public function list_bankaccount()
