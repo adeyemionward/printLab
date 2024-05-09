@@ -122,6 +122,11 @@
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Bank Details</span>
                                 </a>
+
+                                <a href="{{route('admin.settings.bank.list_bankaccount')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Company Admin Role</span>
+                                </a>
 							</div>
 						</div>
 					</li>
@@ -210,6 +215,7 @@
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.list_theme')}}">List Theme </a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.settings.subscription.create_subscription')}}">Add Subscription </a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.settings.bank.list_bankaccount')}}">Bank Details </a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.admin_role')}}">Company Admin Role </a></li>
 
 									</ul>
 								</li>

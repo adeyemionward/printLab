@@ -149,6 +149,12 @@ class SettingController extends Controller
         }
     }
 
+    public function list_subscription()
+    {
+        $subs  = SubscriptionPlan::all();
+        return view('admin.settings.admin_role', compact('subs'));
+    }
+
     public function list_bankaccount()
     {
         $banks  = BankAccount::all();
