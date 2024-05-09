@@ -53,87 +53,102 @@ a.contact_now:hover {
 a span:hover{
     color:#fff;
 }
+#popular_product_text_right:hover{
+    color:red;
+    text-decoration:underline;
+}
 </style>
 {{-- $site_details is from company provider --}}
 <section class="hero1" >
-<div class="">
+    <div class="">
 
-<div class=" slider-height d-flex align-items-center">
-<div class="container">
-<div class="row">
-<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
-<div class="hero-caption text-center">
-<h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-size:45px">{{$site_details->hero_text ?? 'No Hero Header'}}</h1>
-{{-- <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p> --}}
-<a href="#buy_products" style="background-color:{{$site_details->siteTheme->name ?? 'red' }}; border-color: transparent; padding:25px 50px 25px 50px;" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <div class=" slider-height d-flex align-items-center">
+    <div class="container">
+    <div class="row">
+    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12  col-sm-10">
+    <div class="hero-caption text-center">
+    <h1 data-animation="bounceIn" data-delay="0.2s" style=" color:#000; font-size:45px">{{$site_details->hero_text ?? 'No Hero Header'}}</h1>
+    {{-- <p data-animation="fadeInUp" data-delay="0.4s" style=" color:#fff">A digital printing hub for high quality services and customer satisfaction.</p> --}}
+    <a href="#buy_products" style="background-color:{{$site_details->siteTheme->name ?? 'red' }}; border-color: transparent; padding:25px 50px 25px 50px;" class="btn_1 hero-btn shop_now" data-animation="fadeInUp" data-delay="0.7s" style="margin-bottom:-2000px; margin-top:-80px">Shop Now</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 
-</div>
+    </div>
 </section>
 
 
 
-<div class="latest-items section-padding fix" style="margin-top:-200px">
-<div class="container">
-<div class="row justify-content-between">
-<div class="col-xl-12">
-<div class="nav-button">
-
-<nav>
-<div class="nav-tittle" id="buy_products" style="margin-top:-80px">
-<h2 id="popular_product_text">Popular Products</h2>
-</div>
-</nav>
-
-</div>
-</div>
-</div>
-</div>
-<div class="container" >
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-            <div class="latest-items-active">
-                @forelse ($products as $val)
-                    @php $product_name = ucwords(str_replace('_',' ', $val->name))   @endphp
-                    <div class="properties pb-30">
-                        <div class="properties-card">
-                            <div class="properties-img">
-                                {{-- <a href="{{route('product_details',[$val->name, $val->id])}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a> --}}
-                                <a href="{{route('product_details',[$val->name, $val->id])}}">
-                                    @if ( env('APP_ENV') == 'local')
-                                        <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
-                                    @else
-                                        <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
-                                    @endif
-
-                                </a>
+    <div class="latest-items section-padding fix" style="margin-top:-200px">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col">
+                    <div class="nav-button">
+                        <nav>
+                            <div class="nav-tittle" id="buy_products" style="margin-top:-80px">
+                                <h2 id="popular_product_text_left" style="text-decoration:underline; color:red">Popular Products</h2>
                             </div>
-                            <div class="properties-caption properties-caption2">
-                                <h3><a href="{{route('product_details',[$val->name, $val->id])}}">{{$val->title}}</a></h3>
-                                <div class="">
-                                    <div >
-                                        <a href="{{route('product_details',[$val->name, $val->id])}}"><span><button class="btn btn-primary">Browse Details</button></span></a>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="nav-button">
+                        <nav>
+                            <div class="nav-tittle" id="buy_products" style="margin-top:-80px">
+                                <a href="#video_brochure"><h2 id="popular_product_text_right">Video Brochure</h2></a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="container" >
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                    <div class="latest-items-active">
+                        @forelse ($products as $val)
+                            @php $product_name = ucwords(str_replace('_',' ', $val->name))   @endphp
+                            <div class="properties pb-30">
+                                <div class="properties-card">
+                                    <div class="properties-img">
+                                        {{-- <a href="{{route('product_details',[$val->name, $val->id])}}"><img src="assets/img/gallery/hero1.jpg" style="height: 320px;" alt></a> --}}
+                                        <a href="{{route('product_details',[$val->name, $val->id])}}">
+                                            @if ( env('APP_ENV') == 'local')
+                                                <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
+                                            @else
+                                                <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
+                                            @endif
+
+                                        </a>
+                                    </div>
+                                    <div class="properties-caption properties-caption2">
+                                        <h3><a href="{{route('product_details',[$val->name, $val->id])}}">{{$val->title}}</a></h3>
+                                        <div class="">
+                                            <div >
+                                                <a href="{{route('product_details',[$val->name, $val->id])}}"><span><button class="btn btn-primary">Browse Details</button></span></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @empty
+                            <h1>No Product Available</h1>
+                        @endforelse
                     </div>
-                @empty
-                    <h1>No Product Available</h1>
-                @endforelse
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
+
+    {{-- video --}}
+  
 </div>
 </div>
 
-{{-- <div class="latest-items section-padding fix" style="margin-top:-150px">
+<div class="latest-items section-padding fix" id="video_brochure" style="margin-top:-150px">
     <div class="container">
         <div class="row justify-content-between">
         <div class="col-xl-12">
@@ -141,7 +156,7 @@ a span:hover{
 
         <nav>
         <div class="nav-tittle" id="buy_products" >
-        <h2 id="popular_product_text">Popular Video Profiling</h2>
+        <h2 id="popular_product_text" style="text-decoration:underline; color:red">Popular Video Brochure</h2>
         </div>
 
         </nav>
@@ -158,21 +173,21 @@ a span:hover{
                         <div class="properties pb-30">
                             <div class="properties-card">
                                 <div class="properties-img">
-                                    <a href="{{route('product_categories','Higher_Education')}}">
+                                    <a href="{{route('product_details',[$val->name, $val->id])}}">
                                         @if ( env('APP_ENV') == 'local')
-                                            <img src="{{asset('storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                            <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
                                         @else
-                                            <img src="{{asset('public/storage/images/'.$val->image)}}" style="height: 320px;" alt="product_image">
+                                            <img src="{{asset($val->image)}}" style="height: 320px;" alt="product_image">
                                         @endif
 
                                     </a>
 
                                 </div>
                                 <div class="properties-caption properties-caption2">
-                                    <h3><a href="{{route('product_categories','Higher_Education')}}">{{$val->title}}</a></h3>
+                                    <h3><a href="{{route('product_details',[$val->name, $val->id])}}">{{$val->title}}</a></h3>
                                     <div class="properties-footer">
                                         <div class="price">
-                                            <a href="{{route('product_details',[$val->name,$val->id])}}"><span><button class="btn btn-primary">Order Now</button></span></a>
+                                            <a href="{{route('product_details',[$val->name, $val->id])}}"><span><button class="btn btn-primary">Browse Details</button></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +207,7 @@ a span:hover{
 
 </div>
 </div>
-</div> --}}
+</div>
 
 <section class="more_service"  >
 

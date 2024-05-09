@@ -76,9 +76,9 @@ class FrontPageController extends Controller
     public function index()
     {
         $all_testimonial = Testimonial::where('company_id', app('company_id'))->get();
-        $products = Product::where('company_id', app('company_id'))->get();
+        $products = Product::where('name', '!=','video_brochure')->where('company_id', app('company_id'))->get();
         $cartCount = $this->countCart();
-        $video_brochure =  Product::where('type','video_brochure')->where('company_id', app('company_id'))->take(4)->get();
+        $video_brochure =  Product::where('name','video_brochure')->where('company_id', app('company_id'))->get();
 
         return view('front.index', compact('cartCount','all_testimonial','products','video_brochure'));
     }
