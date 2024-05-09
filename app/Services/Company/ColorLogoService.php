@@ -19,7 +19,7 @@
                 $fileName = $data->file('site_logo');
                 if ($data->hasFile('site_logo')) {
                     if ($img = $fileName) {
-                        $ImageName = $fileName->getClientOriginalName();
+                        $ImageName = str_replace(' ', '', $fileName->getClientOriginalName());//$fileName->getClientOriginalName();
                         $uniqueFileName = time() . '_' . $ImageName;
                         $img->move(public_path('siteimages/'), $uniqueFileName);
                     }

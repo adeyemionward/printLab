@@ -46,7 +46,7 @@ class UserController extends Controller
     function handleFileUpload($hasFile, $fileName, $dir){
         if ($hasFile) {
             if ($img = $fileName) {
-                $ImageName = $fileName->getClientOriginalName();
+                $ImageName = str_replace(' ', '', $fileName->getClientOriginalName());//$fileName->getClientOriginalName();
                 $uniqueFileName = time() . '_' . $ImageName;
                 $ImagePath = $dir.'/images/' . $uniqueFileName;
                 $img->move(public_path($dir.'/images/'), $uniqueFileName);
