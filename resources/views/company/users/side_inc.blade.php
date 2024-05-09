@@ -56,7 +56,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group mt-3 mb-3 col-md-12">
-                        <label for="email">Password:</label>
+                        <label for="password">Password:</label>
                         <input type="password" required name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}">
                         @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="form-group mt-3 mb-3 col-md-12">
-                        <label for="email">Password:</label>
+                        <label for="confirm_password">Confirm Password:</label>
                         <input type="password" required name="password_confirmation" id="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}">
                         @error('password_confirmation')
                         <div class="invalid-feedback">{{ $message }}</div>
