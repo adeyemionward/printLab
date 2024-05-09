@@ -24,8 +24,8 @@ class RoleController extends Controller
         $userRoles = Auth::user()->getRoleNames();
 
         // Get all roles
-        // $roles = Role::where('name', '!=','admin')->get();
-        $roles = Role::all();
+         $roles = Role::where('name', '!=','admin')->where('company_id',app('company_id'))->get();
+        //$roles = Role::all();
 
         // Retrieve permissions associated with each role
         $rolesWithPermissions = $roles->map(function ($role) {
@@ -45,10 +45,10 @@ class RoleController extends Controller
     {
          $permissions = Permission::all();
          // Group permissions by prefix
-$groupedPermissions = $permissions->groupBy(function ($permission) {
-    // Extract the first prefix
-    return explode('-', $permission->name)[0];
-});
+        $groupedPermissions = $permissions->groupBy(function ($permission) {
+            // Extract the first prefix
+            return explode('-', $permission->name)[0];
+        });
         return view('company.roles.add_role', compact('permissions','groupedPermissions'));
     }
     public function store(Request $request)
