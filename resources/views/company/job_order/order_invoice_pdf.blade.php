@@ -56,8 +56,10 @@
                     <td align="right" width="25">{{$val->quantity}}</td>
                     {{-- <td align="right" width="25"> NONE</td>
                     <td align="right" width="15"> 0</td> --}}
-                    <td align="right" width="25"> {{$val->jobPaymentHistory->payment_type}}</td>
-                    <td align="right" width="15"> #{{$val->jobPaymentHistory->amount}}</td>
+                    @foreach ($val->jobPaymentHistories as $val1)
+                        <td align="right" width="25"> {{$val1->payment_type}}</td>
+                        <td align="right" width="15"> #{{$val1->amount}}</td>
+                    @endforeach
                     <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
                 </tr>
             @endforeach
