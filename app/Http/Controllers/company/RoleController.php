@@ -24,7 +24,8 @@ class RoleController extends Controller
         $userRoles = Auth::user()->getRoleNames();
 
         // Get all roles
-        $roles = Role::where('name', '!=','admin')->get();
+        // $roles = Role::where('name', '!=','admin')->get();
+        $roles = Role::all();
 
         // Retrieve permissions associated with each role
         $rolesWithPermissions = $roles->map(function ($role) {
@@ -42,7 +43,7 @@ class RoleController extends Controller
 
     public function create()
     {
-         $permissions = Permission::get();
+         $permissions = Permission::all();
          // Group permissions by prefix
 $groupedPermissions = $permissions->groupBy(function ($permission) {
     // Extract the first prefix
