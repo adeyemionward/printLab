@@ -83,7 +83,7 @@
                                             <div class="row" >
                                                 <div class="col-md-3 col">
                                                     <p style="font-size: 20px">Quantity</p>
-                                                    <span><input type="number" value="{{$val->quantity}}" class="form-control"></span>
+                                                    <span><input readonly value="{{$val->quantity}}" class="form-control"></span>
                                                 </div>
                                                 <div class="col-md-3 col">
                                                     <p style="font-size: 20px">Total</p>
@@ -173,9 +173,14 @@
                                                 </div>
                                             @endif
 
+                                            @if(!is_null($val->thickness))
+                                                <label>Upload a Sample Design</label>
+                                                <span><input type="file"  class="form-control"></span>
+                                            @endif 
+
                                         </div>
                                     </div>
-
+                                    <br>
 
                                 <p class="underline"></p>
                             </div>
@@ -190,7 +195,7 @@
                                 <p >NOTE: You will be contacted on delivery processes as soon as we receive your order. Please check your email for more info.</p>
                                 <p >NOTE: 75% of the total amount must be paid before we can process your order.</p> <br>
                                 <a class="btn" href="{{route('index')}}#buy_products">Continue Shopping</a>
-                                <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Make&nbsp;Order</button>
+                                <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Process&nbsp;Order</button>
                             </div>
                         @endif
                         </div>
