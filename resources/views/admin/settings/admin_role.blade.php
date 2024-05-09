@@ -61,6 +61,23 @@
                                                                                 @enderror
                                                                             </div>
 
+                                                                            {{-- <div class="row">
+                                                                                <input type="checkbox" id="selectAll"><strong> &nbsp;Select All Permissions</strong>  <br>
+                                                                                <label for="permission">Permission Name:</label> <br>
+                                                                                @foreach($permissions as $permission)
+                                                                                    <label>
+                                                                                        <input type="checkbox" name="permission[]" class="checkbox{{ $errors->has('permission') ? ' is-invalid' : '' }}" value="{{ $permission->name }}"
+                                                                                            {{ $existingPermissions->contains('id', $permission->id) ? 'checked' : '' }}>
+                                                                                        {{ $permission->name }}
+                                                                                    </label>
+                                                                                @endforeach
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                @error('permission')
+                                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                            </div> --}}
+
                                                                         </div>
 
                                                                         <button class="btn btn-sm btn-danger" type="submit">
