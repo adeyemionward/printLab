@@ -101,9 +101,9 @@
                         <div class="form-group col-md-12">
 
                             @if ( env('APP_ENV') == 'local')
-                            <a  href="{{asset('storage/pdf/'.@$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i   class="fas fa-file-pdf"   style="color: red; font-size:30px"> </i> Download an Approved PDF Design </a>
+                            <a  href="{{asset(@$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i   class="fas fa-file-pdf"   style="color: red; font-size:30px"> </i> Download an Approved PDF Design </a>
                             @else
-                                <a href="{{asset('public/storage/pdf/'.@$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i  class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i>   Download an Approved PDF Design</a>
+                                <a href="{{asset(@$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> <i  class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i>   Download an Approved PDF Design</a>
                             @endif
                         </div>
                     </li>

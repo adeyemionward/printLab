@@ -175,7 +175,7 @@
 
                                             @if(!is_null($val->thickness))
                                                 <label>Upload a Sample Design</label>
-                                                <span><input type="file" name="design_file"  class="form-control"></span>
+                                                <span><input type="file" name="design_file" accept=".pdf"  class="form-control"></span>
                                             @endif 
 
                                         </div>
