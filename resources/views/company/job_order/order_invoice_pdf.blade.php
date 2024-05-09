@@ -54,8 +54,10 @@
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
                     <td align="right" width="25">{{$val->quantity}}</td>
-                    <td align="right" width="25"> NONE</td>
-                    <td align="right" width="15"> 0</td>
+                    {{-- <td align="right" width="25"> NONE</td>
+                    <td align="right" width="15"> 0</td> --}}
+                    <td align="right" width="25"> {{$val->jobPaymentHistory->payment_type}}</td>
+                    <td align="right" width="15"> #{{$val->jobPaymentHistory->amount}}</td>
                     <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
                 </tr>
             @endforeach
