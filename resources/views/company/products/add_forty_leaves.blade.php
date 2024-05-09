@@ -59,7 +59,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Upload Image
                                                                                 </label>
-                                                                                <input required type="file" name="image" class="form-control"
+                                                                                <input required type="file" name="image" accept="image/png, image/jpeg, image/webp" class="form-control"
                                                                                 id="image">
                                                                         </div>
 

@@ -50,9 +50,9 @@ class FinanceController extends Controller
     {
 
         if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
+            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }else{
-            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->get();
+            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }
 
         return view('company.finance.expenses.all_expenses', compact('expenses'));

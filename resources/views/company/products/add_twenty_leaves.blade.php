@@ -54,7 +54,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Production Time (Days)
-                                                                                </label> <input required type="number" name="production_time" class="form-control"
+                                                                                </label> <input required type="number" name="production_time" accept="image/png, image/jpeg, image/webp" class="form-control"
                                                                                 id="quantity" placeholder="eg: 4">
                                                                         </div>
 
