@@ -45,10 +45,13 @@ class JobOrder extends Model
         return $this->belongsTo(User::class,'updated_by','id');
     }
 
-    public function jobPaymentHistories(){
-        return $this->hasMany(JobPaymentHistory::class,'id','job_order_id');
+    // public function jobPaymentHistories(){
+    //     return $this->hasMany(JobPaymentHistory::class,'id','job_order_id');
+    // }
+    public function jobPaymentHistories()
+    {
+        return $this->hasMany(JobPaymentHistory::class, 'job_order_id', 'id');
     }
-
     public function jobPaymentHistory(){
         return $this->belongsTo(JobPaymentHistory::class,'id','job_order_id');
     }
