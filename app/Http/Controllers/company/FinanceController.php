@@ -32,7 +32,7 @@ class FinanceController extends Controller
 
         $this->middleware('permission:finance-create', ['only' => ['create_expense','store_expense']]);
 
-        $this->middleware('permission:finance-expenses-lst', ['only' => ['all_expenses']]);
+        $this->middleware('permission:finance-expenses-list', ['only' => ['all_expenses']]);
         $this->middleware('permission:finance-expenses', ['only' => ['view_expenses']]);
         $this->middleware('permission:finance-edit', ['only' => ['edit_expense','update_expense']]);
         $this->middleware('permission:finance-delete', ['only' => ['delete_expense']]);
