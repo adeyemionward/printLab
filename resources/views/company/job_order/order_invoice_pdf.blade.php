@@ -44,19 +44,20 @@
             <tr>
                 <td bgcolor="#E3E3E3" height="28" style="padding-left: 20px">Item</td>
                 <td bgcolor="#E3E3E3" height="28" align="right">Quantity</td>
-                <td bgcolor="#E3E3E3" height="28"  align="right">Payment&nbsp;Type</td>
+                {{-- <td bgcolor="#E3E3E3" height="28"  align="right">Payment&nbsp;Type</td> --}}
                 <td bgcolor="#E3E3E3" height="28" align="right">Amount&nbsp;Paid</td>
                 <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
             </tr>
             @php $totalCost =0; $amountPaid = 0; @endphp
             @foreach ($orderDetails as $val)
-                @php  $totalCost +=  $val->total_cost;  $amountPaid  +=$val->jobPaymentHistory->amount @endphp
+            @foreach ($val->jobPaymentHistories as $val1) @endforeach
+                @php  $totalCost +=  $val->total_cost;  $amountPaid  += $val1->amount @endphp
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
                     <td align="right" width="25">{{$val->quantity}}</td>
                     {{-- <td align="right" width="25"> NONE</td>
                     <td align="right" width="15"> 0</td> --}}
-                    {{-- <td align="right" width="25"> {{$val->jobPaymentHistory->payment_type}}</td> --}}
+                    <td align="right" width="25"> {{$val->jobPaymentHistories->payment_type}}</td>
                     <td align="right" width="15"> #{{$amountPaid}}</td>
                     <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
                 </tr>
