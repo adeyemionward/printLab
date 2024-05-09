@@ -50,8 +50,10 @@
             </tr>
             @php $totalCost =0; $amountPaid = 0; @endphp
             @foreach ($orderDetails as $val)
-            @foreach ($val->jobPaymentHistories as $val1) @endforeach
-                @php  $totalCost +=  $val->total_cost;  $amountPaid  += $val1->amount @endphp
+            @foreach ($val->jobPaymentHistories as $val1) 
+                @php $amountPaid  += $val1->amount @endphp
+            @endforeach
+                @php  $totalCost +=  $val->total_cost;   @endphp
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
                     <td align="right" width="25">{{$val->quantity}}</td>
