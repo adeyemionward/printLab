@@ -244,8 +244,9 @@ class JobOrderController extends Controller
         $job_order =  JobOrder::find($id);
 
         $job_pay = new JobPaymentHistory();
+        $job_pay->company_id    = app('company_id');
         $job_pay->job_order_id    = $id;
-        $job_pay->user_id     = $job_order->user_id;
+        $job_pay->user_id         = $job_order->user_id;
         $job_pay->amount          = $amount_paid;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
