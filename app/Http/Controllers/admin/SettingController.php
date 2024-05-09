@@ -56,10 +56,9 @@ class SettingController extends Controller
 
     public function update_theme($id)
     {
-    
         try{
             $theme  = SiteTheme::find($id);
-            $theme->name          = request('name');
+            $theme->name       = request('name');
             $theme->color      = request('color');
 
             $theme->save();
