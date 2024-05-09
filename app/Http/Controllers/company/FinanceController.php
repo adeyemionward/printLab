@@ -97,7 +97,7 @@ class FinanceController extends Controller
             // 'description.required' => 'Please enter Description.',
         ]);
 
-        try{
+       try{
             $expense = new Expense();
             $expense->company_id    = app('company_id');
             $expense->title         = request('title');
@@ -205,6 +205,7 @@ class FinanceController extends Controller
         $job_order =  Expense::find($id);
 
         $job_pay = new ExpensePaymentHistory();
+        $job_pay->company_id    = app('company_id');
         $job_pay->expense_id    = $id;
         $job_pay->amount_paid          = $amount_paid;
         $job_pay->payment_type    = $payment_type;

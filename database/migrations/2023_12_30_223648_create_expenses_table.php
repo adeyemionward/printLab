@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade')->nullable();
-            $table->decimal('total_cost');
+            $table->decimal('total_cost',10,2);
             $table->string('payment_type');
-            $table->decimal('amount_paid');
+            $table->decimal('amount_paid',10,2);
             $table->integer('category_id')->nullable();
             $table->text('description')->nullable();
             $table->string('expense_date');
