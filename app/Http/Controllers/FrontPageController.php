@@ -102,71 +102,7 @@ class FrontPageController extends Controller
         return view('front.cart.index', compact('cartCount','carts','products'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function addCart(Request $request, $title =  null, $id =  null)
-    // {
-    //     try{
-
-    //     $product_id                 =  request()->id;
-    //     $ink                        =  request('ink');
-    //     $paper_type                 =  request('paper_type');
-    //     $thickness                  =  request('thickness');
-    //     $quantity                   =  request('quantity');
-    //     $total_cost                 =  request('total_cost');
-    //     $product_name               =  request('product_name');
-    //     $amount_paid = 0;
-
-    //     if (Auth::check()) {
-    //         //save to job
-    //         $cart = new JobOrder();
-    //         $cart->product_id      = $product_id;
-    //         $cart->job_order_name  = $product_name;
-    //         $cart->ink             = $ink;
-    //         $cart->paper_type      = $paper_type;
-    //         $cart->quantity        = $quantity;
-    //         $cart->thickness       = $thickness;
-    //         $cart->local_id        = $this->localIp;
-    //         $cart->cart_order_status = 1;
-    //         $cart->total_cost      = $total_cost;
-    //         $cart->order_date      = $this->order_date;
-    //         $cart->order_type      = 'external';
-    //         $cart->user_id         = $this->user->id;
-    //         $cart->created_by      = $this->user->id;
-    //         $cart->save();
-
-    //     } else {
-
-    //         //save to job
-    //         $cart = new JobOrder();
-    //         $cart->product_id      = $product_id;
-    //         $cart->job_order_name  = $product_name;
-    //         $cart->ink             = $ink;
-    //         $cart->paper_type      = $paper_type;
-    //         $cart->quantity        = $quantity;
-    //         $cart->thickness       = $thickness;
-    //         $cart->local_id        = $this->localIp;
-    //         $cart->cart_order_status = 1;
-    //         $cart->total_cost      = $total_cost;
-    //         $cart->order_date      = $this->order_date;
-    //         $cart->order_type      = 'external';
-    //         //  $cart->user_id         = '';
-    //         //  $cart->created_by      = '';
-    //         $cart->save();
-    //     }
-
-
-    // }catch(\Exception $th){
-    //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-    // }
-    //     return redirect(route('cart.index'))->with('flash_success','Product added to cart');
-    // }
-
-
+    
     public function addCart(Request $request, $title = null, $id = null)
     {
     try {
@@ -194,7 +130,7 @@ class FrontPageController extends Controller
                 // Update existing cart
                 $existingCart->update([
                     'ink'           => $ink,
-                    'company_id' => app('company_id'),
+                    'company_id'    => app('company_id'),
                     'paper_type'    => $paper_type,
                     'quantity'      => $existingCart->quantity + $quantity, // Update quantity
                     'thickness'     => $thickness,
@@ -210,7 +146,7 @@ class FrontPageController extends Controller
                 $cart->product_id         = $product_id;
                 $cart->job_order_name     = $product_name;
                 $cart->ink                = $ink;
-                $cart->company_id  = app('company_id');
+                $cart->company_id         = app('company_id');
                 $cart->paper_type         = $paper_type;
                 $cart->quantity           = $quantity;
                 $cart->thickness          = $thickness;
@@ -272,22 +208,6 @@ class FrontPageController extends Controller
         return redirect()->back()->with('flash_error', 'An Error Occured: Please try later');
     }
     }
-
-    // public function edit_cart($title =  null, $id = null, $job_id =  null)
-    // {
-    //     $product = Product::where('id', $id)->first();
-    //     $cartCount = $this->countCart();
-    //     $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
-
-    //     // $product_eighty_leaves = Product::where('id', $id)->first();
-    //     $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
-    //     $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
-    //     $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
-
-    //     $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
-
-    //     return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
-    // }
 
 
     public function edit_cart($title =  null, $id = null, $job_id =  null)
@@ -384,22 +304,6 @@ class FrontPageController extends Controller
     public function checkout(){
         return $this->checkoutService->processCheckout();
     }
-
-    // public function product_details($title =  null, $id = null)
-    // {
-    //     $product = Product::where('id', $id)->first();
-    //     $cartCount = $this->countCart();
-    //     $product_costs_higher_education = ProductCost::where('product_name', 'higher_notebook')->get();
-
-    //     // $product_eighty_leaves = Product::where('id', $id)->first();
-    //     $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
-    //     $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
-    //     $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
-
-    //     $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
-
-    //     return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost'));
-    // }
 
     public function product_details($title =  null, $id = null)
     {

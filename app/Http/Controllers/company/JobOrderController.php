@@ -38,9 +38,11 @@ use Mail;
 use App\Models\ErrorLog;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\FilterOrdersByDateTrait;
+use App\Traits\HandleFileUpload;
 class JobOrderController extends Controller
 {
     use FilterOrdersByDateTrait;
+    use HandleFileUpload;
     /**
      * Display a listing of the resource.
      *
@@ -208,8 +210,9 @@ class JobOrderController extends Controller
     public function uploadApprovedDesign(Request $request, $job_title, $id){
         $user = Auth::user();
         if($approved_design_pdf = $request->file('design_file')){
-            $name = $approved_design_pdf->hashName(); // Generate a unique, random name...
-            $path = $approved_design_pdf->store('public/pdf');
+            // $name = $approved_design_pdf->hashName(); // Generate a unique, random name...
+            // $path = $approved_design_pdf->store('public/pdf');
+            $approved_designs = $this->handleFileUploadPDF($request->hasFile('design_file'), $request->file('design_file'), 'approved_designs');
             $approved_design =  OrderApprovedDesign::updateOrCreate(
                 [
                     'company_id'  => app('company_id'),
@@ -217,7 +220,7 @@ class JobOrderController extends Controller
                 ],
                 [
                     'job_order_id'  => $id,
-                    'design_name'   => $name,
+                    'design_name'   => $approved_designs,
                     'created_by'    => $user->id
                 ],
             );

@@ -12,7 +12,7 @@
     {
         public function postCompany($data){
             DB::beginTransaction();
-           // try{
+            try{
                 //save company
                 $company = new Company();
                 $company->name             = request('name');
@@ -55,16 +55,16 @@
 
                 DB::commit();
 
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            // }
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
             return redirect(route('admin.company.list'))->with('flash_success','Company added successfully');
         }
 
         public function updateCompany($data){
             DB::beginTransaction();
-           // try{
+            try{
                 $id = request()->id;
                  $company = Company::find($id);
                 $company->name             = request('name');
@@ -85,10 +85,10 @@
 
                 DB::commit();
 
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            // }
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            }
             return redirect(route('admin.company.list'))->with('flash_success','Company details updated successfully');
         }
 

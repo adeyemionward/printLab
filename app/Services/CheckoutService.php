@@ -8,6 +8,7 @@
     use Illuminate\Support\Facades\Auth;
     use App\Mail\CustomerOrderReceipt;
     use App\Mail\CustomerOrderToAdmin;
+    use App\Traits\HandleFileUpload;
     use Illuminate\Support\Facades\DB;
 
 
@@ -16,6 +17,7 @@
     use Barryvdh\DomPDF\Facade\Pdf;
     class CheckoutService
     {
+        use HandleFileUpload;
         protected $auth;
         protected $jobOrder;
         protected $user;
@@ -31,21 +33,41 @@
         }
 
         protected function updateJobOrders($user, $jobIds,  $order_date, $randomInteger){
-            $this->jobOrder->whereIn('id', $jobIds)->update([
-                'user_id' => $user,
-                'cart_order_status' => 2,
-                'order_no' => $randomInteger,
-            ]);
-
-            foreach ($jobIds as $jobId) {
-                DB::table('job_order_trackings')->insert([
-                    'company_id' => app('company_id'),
-                    'job_order_id' => $jobId,
-                    'pending_status' => 1,
-                    'pending_date' => $order_date
+            DB::beginTransaction();
+            try{
+                $approved_designs = $this->handleFileUploadPDF(request()->file('design_file'), request()->file('design_file'), 'approved_designs');
+                $this->jobOrder->whereIn('id', $jobIds)->update([
+                    'user_id' => $user,
+                    'cart_order_status' => 2,
+                    'order_no' => $randomInteger,
                 ]);
+
+                //save job_order_trackings
+                foreach ($jobIds as $jobId) {
+                    DB::table('job_order_trackings')->insert([
+                        'company_id' => app('company_id'),
+                        'job_order_id' => $jobId,
+                        'pending_status' => 1,
+                        'pending_date' => $order_date
+                    ]);
+                }
+                //save order_approved_designs
+                foreach ($jobIds as $jobId) {
+                    DB::table('order_approved_designs')->insert([
+                        'company_id' => app('company_id'),
+                        'job_order_id' => $jobId,
+                        'design_name' => $approved_designs,
+                        'created_by' => $user,
+                    ]);
+                }
+            DB::commit();
+            }catch(\Exception $th){
+                DB::rollBack();
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
         }
+
+    
 
         protected function sendOrderEmails($user, $jobIds){
             $userDetails = $this->user->find($this->auth::user()->id);

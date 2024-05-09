@@ -66,7 +66,7 @@
                                     $product_name = str_replace(' ','_', $val->job_order_name);
                                     if($product_name == 'Higher_NoteBook') $product_name = 'Higher_Education';
                                 @endphp
-                                <form method="POST">
+                                <form method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" value="{{$val->id}}" name="job_id[]">
                                     <div class="media post_item">
@@ -175,7 +175,7 @@
 
                                             @if(!is_null($val->thickness))
                                                 <label>Upload a Sample Design</label>
-                                                <span><input type="file"  class="form-control"></span>
+                                                <span><input type="file" name="design_file"  class="form-control"></span>
                                             @endif 
 
                                         </div>

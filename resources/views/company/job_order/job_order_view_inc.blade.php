@@ -74,9 +74,9 @@
                                 <input required type="file" name="design_file" class="form-control"
                                 id="design_file" accept="application/pdf"> <br>
                                 @if ( env('APP_ENV') == 'local')
-                                   <i   class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i> <a  href="{{asset('storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download an Existing PDF Design </a>
+                                   <i   class="fas fa-file-pdf"     style="color: red; font-size:30px;"> </i> <a  href="{{asset($approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download an Existing PDF Design </a>
                                 @else
-                                    <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="{{asset('public/storage/pdf/'.$approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download an Existing PDF Design</a>
+                                    <i  class="fas fa-file-pdf"     style="color: red; font-size:30px"> </i>  <a href="{{asset($approved_design->design_name)}}" target="_blank" style="width: 100%; text-decoration:underline; font-weight:bold"> Download an Existing PDF Design</a>
                                 @endif
                             </div>
                         </div>
