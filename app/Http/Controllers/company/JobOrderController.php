@@ -230,7 +230,7 @@ class JobOrderController extends Controller
         $orderDetails =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->get();
         $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
-        $pdf = PDF::loadView('job_order.order_invoice_pdf',compact('orderDetails','order1'));
+        $pdf = PDF::loadView('company.job_order.order_invoice_pdf',compact('orderDetails','order1'));
         return $pdf->stream('order_invoice.pdf');
     }
 
