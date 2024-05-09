@@ -212,6 +212,7 @@ class JobOrderController extends Controller
             $path = $approved_design_pdf->store('public/pdf');
             $approved_design =  OrderApprovedDesign::updateOrCreate(
                 [
+                    'company_id'  => app('company_id'),
                     'job_order_id'  => $id,
                 ],
                 [
