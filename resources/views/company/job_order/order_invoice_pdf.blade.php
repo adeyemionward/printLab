@@ -55,7 +55,6 @@
                     foreach ($val->jobPaymentHistories as $val1) { 
                         $amountPaid += $val1->amount; // Accumulate the amounts paid
                     }
-                    $totalCost = $val->total_cost; // Total cost for the current order
                 @endphp
                 @php  $totalCost +=  $val->total_cost;   @endphp
                 <tr style="border-bottom: 1px solid #ccc;">
