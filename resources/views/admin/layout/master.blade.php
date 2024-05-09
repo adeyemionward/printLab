@@ -192,6 +192,7 @@
 										aria-labelledby="navbarDropdownMenuLink1">
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.create_theme')}}">Add Theme </a></li>
                                         <li><a class="dropdown-item" href="{{route('admin.settings.theme.list_theme')}}">List Theme </a></li>
+                                        <li><a class="dropdown-item" href="{{route('admin.settings.admin_roles.')}}">Company Admin Roles </a></li>
 
 									</ul>
 								</li>
