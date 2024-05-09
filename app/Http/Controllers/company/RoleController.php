@@ -101,9 +101,6 @@ class RoleController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string', // Ensure at least one checkbox is selected
             'permission' => 'required', // Ensure at least one checkbox is selected
-
-
-            // Add more rules as needed
         ], [
             'name.required' => 'Please enter role name.',
             'permission.required' => 'Please select permission.',
