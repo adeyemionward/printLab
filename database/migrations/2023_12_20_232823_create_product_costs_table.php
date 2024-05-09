@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('product_name')->nullable();
             $table->integer('quantity')->nullable();
-            $table->decimal('total_cost', 10, 2)->nullable();
+            // $table->decimal('total_cost', 10, 2)->nullable();
+            $table->bigInteger('total_cost')->nullable();
             $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->timestamps();
         });
