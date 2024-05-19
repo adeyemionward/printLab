@@ -335,7 +335,7 @@ Route::group(['namespace' => 'App\Http\Controllers\admin'],  function () {
                     Route::get('/edit/{id}', 'SettingController@edit_theme')->name('edit_theme');
                     Route::post('/edit/{id}', 'SettingController@update_theme')->name('edit_theme');
                     Route::get('/delete/{id}', 'SettingController@delete_theme')->name('delete_theme');
-                    
+
                     Route::get('/admin_roles', 'SettingController@admin_roles')->name('admin_roles');
                     Route::post('/admin_roles', 'SettingController@update_admin_roles')->name('admin_roles');
                 });

@@ -71,7 +71,7 @@ class FrontPageController extends Controller
         $countCart  = count($cart_func);
         return $countCart;
     }
-
+   
 
     public function index()
     {
@@ -102,7 +102,7 @@ class FrontPageController extends Controller
         return view('front.cart.index', compact('cartCount','carts','products'));
     }
 
-    
+
     public function addCart(Request $request, $title = null, $id = null)
     {
     try {

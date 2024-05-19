@@ -376,7 +376,12 @@ class ProductController extends Controller
         $product =  Product::find($id);
         $customers =  User::where('user_type',2)->get();
         //dd(request()->job_title);
-        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
+        if(!is_null($request->file('image'))){
+            $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
+        }else{
+            $image = $product->image;
+        }
+
         if(request()->job_title == 'eighty_leaves'){
             $user = Auth::user();
 
