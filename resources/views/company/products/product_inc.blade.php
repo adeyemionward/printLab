@@ -31,6 +31,11 @@
                 aria-selected="false">40 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 
+               <a class="nav-link <?php if($page == 'sixty_leaves') echo 'active active_red'  ?>"
+                href="{{route('company.products.add_sixty_leaves')}}"
+                aria-selected="false">60 Leaves Note Book</a>
+               <div class="dropdown-divider"></div>
+
                 <a class="nav-link <?php if($page == 'eighty_leaves') echo 'active active_red'  ?>"
                 href="{{route('company.products.add_eighty_leaves')}}"
                 aria-selected="false">80 Leaves Note Book</a>

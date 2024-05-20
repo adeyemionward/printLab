@@ -209,7 +209,7 @@
                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                         <label for="production_time">Product Name</label>
                                                                         <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select">
-                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Eighty Leaves</option>
+                                                                            <option value="higher_notebook" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Higher NoteBook</option>
                                                                             @error('product_name')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -476,7 +476,141 @@
                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                         <label for="production_time">Product Name</label>
                                                                         <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select">
-                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Forty Leaves</option>
+                                                                            <option value="forty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Forty Leaves</option>
+                                                                            @error('product_name')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <label for="production_time">Production Time (Days)
+                                                                            </label> <input required type="number" value={{$product->production_days}} name="production_time" class="form-control"
+                                                                            id="quantity" placeholder="eg: 4">
+                                                                    </div>
+
+                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <label for="production_time">Upload Image <span class="text-warning">(Only upload new image) </span>
+                                                                        </label>
+                                                                            <input  type="file" name="image" class="form-control"
+                                                                            id="image">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="row">
+
+
+                                                                </div>
+
+                                                                <table id="products" style="margin-top:20px">
+
+                                                                    <a id="add-product" class="btn btn-primary" >Add Variation</a>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Color</th>
+                                                                            <th>Paper</th>
+                                                                            <th>Thickness</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Price</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <!-- Initial row, can be hidden -->
+                                                                        @forelse($product_variations as $val)
+                                                                            <tr class="product-row" style="margin-top:20px">
+                                                                                <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
+                                                                                <td style="width:20%">
+                                                                                    <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
+
+                                                                                        <option value="single" @php if($val->ink == 'single') echo 'selected' @endphp>Single Color</option>
+                                                                                        <option value="full" @php if($val->ink == 'full') echo 'selected' @endphp>Full Color</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td style="width:20%">
+                                                                                    <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
+
+                                                                                        <option value="50g" @php if($val->paper_type == '50g') echo 'selected' @endphp>50g</option>
+                                                                                        <option value="60g" @php if($val->paper_type == '60g') echo 'selected' @endphp>60g</option>
+                                                                                        <option value="70g" @php if($val->paper_type == '70g') echo 'selected' @endphp>70g</option>
+                                                                                        <option value="80g" @php if($val->paper_type == '80g') echo 'selected' @endphp>80g</option>
+                                                                                    </select>
+                                                                                </td>
+
+                                                                                <td style="width:20%">
+                                                                                    <select required class="form-control form-select"  name="thickness[]" id="thickness">
+                                                                                        <option value="199g" @php if($val->thickness == '199g') echo 'selected' @endphp>199g</option>
+                                                                                        <option value="280g" @php if($val->thickness == '280g') echo 'selected' @endphp>280g</option>
+                                                                                        <option value="300g" @php if($val->thickness == '300g') echo 'selected' @endphp>300g</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
+                                                                                <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
+
+
+
+                                                                                <td>
+                                                                                    <a class="remove-product btn btn-danger">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                                                                        </svg>
+                                                                                        </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @empty
+                                                                        @endforelse
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <div class="row">
+                                                                    <div class="form-group mt-3 mb-3 col-md-12">
+                                                                        <label for="address">Product Description
+                                                                            </label>
+                                                                            <textarea name="description" required  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
+                                                                            id="description">{{$product->description}}</textarea>
+                                                                            @error('description')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                    </div>
+
+
+
+                                                                </div>
+
+                                                                <button class="btn btn-sm btn-danger" type="submit">
+                                                                    <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                </button>
+                                                            </form>
+                                                            <hr/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if(request()->job_title == 'sixty_leaves')
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0 text-muted">Edit Product</h5>
+                                            </div>
+                                            <div class="card-body h-100">
+                                                <div class="align-items-start">
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade show active" id="nav-server"
+                                                            role="tabpanel" aria-labelledby="nav-server-tab">
+
+                                                            <form method="POST"  id="add_twenty_leaves" class="add_twenty_leaves" enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('POST')
+                                                                <div class="row">
+                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <label for="production_time">Product Name</label>
+                                                                        <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select">
+                                                                            <option value="sixty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Sixty Leaves</option>
                                                                             @error('product_name')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -610,7 +744,7 @@
                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                         <label for="production_time">Product Name</label>
                                                                         <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select">
-                                                                            <option value="eighty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Twenty Leaves</option>
+                                                                            <option value="twenty_leaves" <?php if ($product->name == request()->job_title) echo 'selected' ?>>Twenty Leaves</option>
                                                                             @error('product_name')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

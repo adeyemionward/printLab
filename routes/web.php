@@ -149,6 +149,10 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/add_forty_leaves', 'ProductController@create_forty_leaves')->name('add_forty_leaves');
                     Route::post('/add_forty_leaves', 'ProductController@store_forty_leaves')->name('add_forty_leaves');
 
+                    Route::get('/add_sixty_leaves', 'ProductController@create_sixty_leaves')->name('add_sixty_leaves');
+                    Route::post('/add_sixty_leaves', 'ProductController@store_sixty_leaves')->name('add_sixty_leaves');
+
+
                     Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
                     Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
 

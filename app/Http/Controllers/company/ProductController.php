@@ -17,8 +17,8 @@ class ProductController extends Controller
         $this->middleware('permission:product-list', ['only' => ['index']]);
         $this->middleware('permission:product-create', ['only' => [
             'add_video_brochure','store_video_brochure','create_higher_education','store_higher_education',
-            'create_eighty_leaves','store_eighty_leaves','create_forty_leaves','store_forty_leaves','create_twenty_leaves',
-            'store_twenty_leaves'
+            'create_eighty_leaves','store_eighty_leaves','create_forty_leaves','store_forty_leaves',
+            'create_sixty_leaves', 'store_sixty_leaves', 'create_twenty_leaves', 'store_twenty_leaves'
             ]]);
 
         $this->middleware('permission:product-view', ['only' => ['view']]);
@@ -292,6 +292,58 @@ class ProductController extends Controller
         }
 
         return redirect(route('company.products.all_products'))->with('flash_success','Forty Leaves Book product saved successfully');
+    }
+
+    public function create_sixty_leaves()
+    {
+        $sub_product  =  $this->subProduct('sixty_leaves');
+        return view('company.products.add_sixty_leaves', compact('sub_product'));
+    }
+
+
+    public function store_sixty_leaves(Request $request)
+    {
+
+        $user = Auth::user();
+        $ink                        =  request('ink');
+        $paper_type                 =  request('paper_type');
+        $production_time            =  request('production_time');
+        $thickness                  =  request('thickness');
+        $quantity                   =  request('quantity');
+        $description                =  request('description');
+        $total_cost                 =  request('total_cost');
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
+        //save to job
+        $product = new Product();
+        $product->name  = 'sixty_leaves';
+        $product->title           = 'Sixty Leaves';
+        $product->company_id             = $user->company_id;
+        // $product->paper_type      = $paper_type;
+        $product->production_days = $production_time;
+        $product->image = $image;
+        // $product->total_cost      = $total_cost;
+        $product->description     = $description;
+        $product->type              = 'notebook';
+        $product->created_by      = $user->id;
+
+       $product->save();
+       //save into product costs
+        for ($count=0; $count < count($quantity); $count++) {
+            $pro_cost =  ProductCost::updateOrCreate(
+                [
+                    'company_id'        => $user->company_id,
+                    'product_id'        => $product->id,
+                    'product_name'      => $product->name,
+                    'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
+                    'total_cost'        => $total_cost[$count],
+                ],
+            );
+        }
+
+        return redirect(route('company.products.all_products'))->with('flash_success','Sixty Leaves Book product saved successfully');
     }
 
 
