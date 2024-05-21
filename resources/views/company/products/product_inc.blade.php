@@ -41,6 +41,21 @@
                 aria-selected="false">80 Leaves Note Book</a>
                <div class="dropdown-divider"></div>
 
+               <a class="nav-link <?php if($page == '2A_notebook') echo 'active active_red'  ?>"
+                href="{{route('company.products.add_2A_notebook')}}"
+                aria-selected="false">2A  Note Book</a>
+               <div class="dropdown-divider"></div>
+
+               <a class="nav-link <?php if($page == '2B_notebook') echo 'active active_red'  ?>"
+                href="{{route('company.products.add_2B_notebook')}}"
+                aria-selected="false">2B  Note Book</a>
+               <div class="dropdown-divider"></div>
+
+               <a class="nav-link <?php if($page == '2D_notebook') echo 'active active_red'  ?>"
+                href="{{route('company.products.add_2D_notebook')}}"
+                aria-selected="false">2D Note Book</a>
+               <div class="dropdown-divider"></div>
+
             </div>
 
         </div>

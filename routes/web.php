@@ -152,6 +152,14 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/add_sixty_leaves', 'ProductController@create_sixty_leaves')->name('add_sixty_leaves');
                     Route::post('/add_sixty_leaves', 'ProductController@store_sixty_leaves')->name('add_sixty_leaves');
 
+                    Route::get('/2A_notebook', 'ProductController@create_2A_notebook')->name('add_2A_notebook');
+                    Route::post('/2A_notebook', 'ProductController@store_2A_notebook')->name('add_2A_notebook');
+
+                    Route::get('/2B_notebook', 'ProductController@create_2B_notebook')->name('add_2B_notebook');
+                    Route::post('/2B_notebook', 'ProductController@store_2B_notebook')->name('add_2B_notebook');
+
+                    Route::get('/2D_notebook', 'ProductController@create_2D_notebook')->name('add_2D_notebook');
+                    Route::post('/2D_notebook', 'ProductController@store_2D_notebook')->name('add_2D_notebook');
 
                     Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
                     Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
