@@ -287,6 +287,186 @@
                 </div>
             @endif
 
+            @if (request()->title == 'sixty_leaves')
+                <div class="features-caption">
+                    <h3>Sixty Leaves</h3>
+                    <input type="hidden" value="Sixty Leaves" id="product_name" name="product_name">
+                    <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
+                    <p><b style="color: white; font-size:24px"> Specifications: </b>
+                        <span>
+                            <ul style="color: #fff;font-size:21px; margin-top:-22px; margin-left:20px">
+                                <li style="list-style-type: square">
+                                    {{ucfirst($product->ink).' Color'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->paper_type.' Paper'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->thickness.' Thickness'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->production_days.' Production Days' }}
+                                </li>
+                            </ul>
+                        </span></p>
+                    <div class="price">
+                        <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                        <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+
+                            <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                @foreach ($product_costs_sixty_leaves as $val)
+                                    <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class=" mt-3 mb-3 col-md-8">
+                            <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            @endif
+
+            @if (request()->title == '2A_notebook')
+                <div class="features-caption">
+                    <h3>2A NoteBook</h3>
+                    <input type="hidden" value="2A NoteBook" id="product_name" name="product_name">
+                    <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
+                    <p><b style="color: white; font-size:24px"> Specifications: </b>
+                        <span>
+                            <ul style="color: #fff;font-size:21px; margin-top:-22px; margin-left:20px">
+                                <li style="list-style-type: square">
+                                    {{ucfirst($product->ink).' Color'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->paper_type.' Paper'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->thickness.' Thickness'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->production_days.' Production Days' }}
+                                </li>
+                            </ul>
+                        </span></p>
+                    <div class="price">
+                        <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                        <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+
+                            <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                @foreach ($product_costs_2a_notebook as $val)
+                                    <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class=" mt-3 mb-3 col-md-8">
+                            <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            @endif
+
+            @if (request()->title == '2B_notebook')
+                <div class="features-caption">
+                    <h3>2B NoteBook</h3>
+                    <input type="hidden" value="2B NoteBook" id="product_name" name="product_name">
+                    <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
+                    <p><b style="color: white; font-size:24px"> Specifications: </b>
+                        <span>
+                            <ul style="color: #fff;font-size:21px; margin-top:-22px; margin-left:20px">
+                                <li style="list-style-type: square">
+                                    {{ucfirst($product->ink).' Color'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->paper_type.' Paper'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->thickness.' Thickness'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->production_days.' Production Days' }}
+                                </li>
+                            </ul>
+                        </span></p>
+                    <div class="price">
+                        <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                        <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+
+                            <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                @foreach ($product_costs_2b_notebook as $val)
+                                    <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class=" mt-3 mb-3 col-md-8">
+                            <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            @endif
+
+             @if (request()->title == '2D_notebook')
+                <div class="features-caption">
+                    <h3>2D NoteBook</h3>
+                    <input type="hidden" value="2D NoteBook" id="product_name" name="product_name">
+                    <p><b style="color: white; font-size:24px"> Description: </b> <span style="font-size:21px">{{$product->description}}</span></p>
+                    <p><b style="color: white; font-size:24px"> Specifications: </b>
+                        <span>
+                            <ul style="color: #fff;font-size:21px; margin-top:-22px; margin-left:20px">
+                                <li style="list-style-type: square">
+                                    {{ucfirst($product->ink).' Color'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->paper_type.' Paper'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->thickness.' Thickness'}}
+                                </li>
+                                <li style="list-style-type: square">
+                                    {{$product->production_days.' Production Days' }}
+                                </li>
+                            </ul>
+                        </span></p>
+                    <div class="price">
+                        <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                        <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group mt-3 mb-3 col-md-4">
+
+                            <select name="quantity"  class="form-control form-select j-btn"  id="quantity">
+                                @foreach ($product_costs_2d_notebook as $val)
+                                    <option value="{{$val->quantity}}">{{$val->quantity}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class=" mt-3 mb-3 col-md-8">
+                            <button href="" type="submit" style="background: black; color:#fff; font-size:20px" class="white-btn">Add&nbsp;to&nbsp;Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            @endif
+
 
             @if (request()->title == 'video_brochure')
                 <div class="features-caption">
@@ -308,12 +488,6 @@
                                 <li style="list-style-type: square">
                                 Resolution:  {{$product->resolution}}
                                 </li>
-                                {{-- <li style="list-style-type: square">
-                                Memory: {{$product->memory}}
-                                </li> --}}
-                                {{-- <li style="list-style-type: square">
-                                    {{$product->production_days.' Production Days' }}
-                                </li> --}}
                             </ul>
                         </span></p>
                         <div class="price">

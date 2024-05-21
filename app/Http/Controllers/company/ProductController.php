@@ -821,6 +821,62 @@ class ProductController extends Controller
             }
 
             return redirect(route('company.products.view',['forty_leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
+        }elseif(request()->job_title == 'sixty_leaves'){
+            
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $quantity                   =  request('quantity');
+            $description                =  request('description');
+            $total_cost                 =  request('total_cost');
+
+            //save to job
+            $product =  Product::find($id);
+            $product->name            = 'sixty_leaves';
+            $product->image           = $image;
+            $product->production_days = $production_time;
+            $product->description     = $description;
+            $product->updated_by      = $user->id;
+
+            $pp =  $product->update();
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
+
+            return redirect(route('company.products.view',['sixty_leaves',$id]))->with('flash_success','Sixty Leaves Book order updated successfully');
+       
+        
         }elseif(request()->job_title == '2A_notebook'){
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
@@ -939,7 +995,6 @@ class ProductController extends Controller
             $quantity                   =  request('quantity');
             $description                =  request('description');
             $total_cost                 =  request('total_cost');
-
 
             //save to job
             $product =  Product::find($id);

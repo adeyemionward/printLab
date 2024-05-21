@@ -223,10 +223,16 @@ class FrontPageController extends Controller
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
         $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
         $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
+        $product_costs_sixty_leaves = ProductCost::where('product_name', 'sixty_leaves')->get();
+        $product_costs_2a_notebook = ProductCost::where('product_name', '2A_notebook')->get();
+        $product_costs_2b_notebook = ProductCost::where('product_name', '2B_notebook')->get();
+        $product_costs_2d_notebook = ProductCost::where('product_name', '2D_notebook')->get();
+
+        
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','video_profiling_memory','video_profiling_quantity'));
+        return view('front.cart.edit', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_costs_sixty_leaves','product_costs_2a_notebook','product_costs_2b_notebook','product_costs_2d_notebook','product_cost','video_profiling_memory','video_profiling_quantity'));
     }
 
 
@@ -319,10 +325,15 @@ class FrontPageController extends Controller
         $product_costs_eighty_leaves = ProductCost::where('product_name', 'eighty_leaves')->get();
         $product_costs_forty_leaves = ProductCost::where('product_name', 'forty_leaves')->get();
         $product_costs_twenty_leaves = ProductCost::where('product_name', 'twenty_leaves')->get();
+        $product_costs_sixty_leaves = ProductCost::where('product_name', 'sixty_leaves')->get();
+        $product_costs_2a_notebook = ProductCost::where('product_name', '2A_notebook')->get();
+        $product_costs_2b_notebook = ProductCost::where('product_name', '2B_notebook')->get();
+        $product_costs_2d_notebook = ProductCost::where('product_name', '2D_notebook')->get();
+
         $product_memory =  Product::where('id',$id)->get();
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
-        return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_cost','product_memory','video_profiling_memory','video_profiling_quantity'));
+        return view('front.product.details', compact('cartCount','product','product_costs_higher_education','product_costs_eighty_leaves','product_costs_forty_leaves','product_costs_twenty_leaves','product_costs_sixty_leaves', 'product_costs_2a_notebook','product_costs_2b_notebook','product_costs_2d_notebook', 'product_cost','product_memory','video_profiling_memory','video_profiling_quantity'));
     }
 
     public function video_brochure(Request $request){
