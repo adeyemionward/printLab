@@ -218,7 +218,7 @@
                             </ul>
                         </span></p>
                     <div class="price">
-                        <input type="text" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
+                        <input type="hidden" value="{{$product_cost->total_cost}}" id="total_cost" name="total_cost">
                         <span id="price-container">&#8358;{{$product_cost->total_cost}}</span>
                     </div>
 
