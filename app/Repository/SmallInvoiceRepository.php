@@ -13,7 +13,7 @@
     {
         public function postSmallInvoiceOrder($data){
             DB::beginTransaction();
-            try{
+           // try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
                 $customer_id                =  request('customer_id');
@@ -40,6 +40,7 @@
                 //save to job
                 $job_order = new JobOrder();
                 $job_order->user_id     = $customer_id;
+                $job_order->company_id     = $user->company_id;
                 $job_order->job_order_name  = 'Small Invoice';
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;
@@ -66,11 +67,11 @@
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
                 JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
                 DB::commit();
-            }catch(\Exception $th){
-                DB::rollBack();
-                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-            }
-            return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+            // }
+            return redirect(route('company.customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 
         public function updateSmallInvoiceOrder($data){
@@ -128,7 +129,7 @@
                 DB::rollBack();
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return redirect(route('job_order.view_order',[request()->job_title,$id]))->with('flash_success', 'Small Invoice order updated successfully');
+            return redirect(route('company.job_order.view_order',[request()->job_title,$id]))->with('flash_success', 'Small Invoice order updated successfully');
             //return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
     }

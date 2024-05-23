@@ -55,7 +55,7 @@
                 DB::rollBack();
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
+            return redirect(route('company.customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 
         public function updateBusinessCard($data){
@@ -83,6 +83,7 @@
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id     = $customer_id;
                 $job_order->company_id     = $user->company_id;
+                $job_order->company_id     = $user->company_id;
                 $job_order->job_order_name  = 'Business Cards';
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;
@@ -102,7 +103,7 @@
                 DB::rollBack();
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
-            return redirect(route('job_order.view_order',[request()->job_title,$id]))->with('flash_success', 'Business Cards order updated successfully');
+            return redirect(route('company.job_order.view_order',[request()->job_title,$id]))->with('flash_success', 'Business Cards order updated successfully');
            
            
         }
