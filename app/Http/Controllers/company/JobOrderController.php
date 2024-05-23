@@ -85,8 +85,8 @@ class JobOrderController extends Controller
 
 
         $this->middleware('permission:job-list', ['only' => ['index']]);
-        $this->middleware('permission:job-create', ['only' => [
-            'forty_leaves','post_forty_leaves','twenty_leaves','post_twenty_leaves','eighty_leaves','post_eighty_leaves',
+        $this->middleware('permission:job-create', ['only' => ['create_2A_notebook','post_2A_notebook', 'create_2B_notebook','post_2B_notebook','create_2D_notebook','post_2D_notebook',
+            'forty_leaves','post_forty_leaves', 'sixty_leaves','post_sixty_leaves', 'twenty_leaves','post_twenty_leaves','eighty_leaves','post_eighty_leaves',
             'service_order','post_service_order','booklets','post_booklets','bronchures','post_bronchures',
             'business_cards','post_business_cards','envelopes','post_envelopes','flyers','post_flyers','notepads',
             'post_notepads','small_invoice','post_small_invoice','stickers','post_stickers','work_order_templates'
@@ -134,7 +134,8 @@ class JobOrderController extends Controller
         if(request()->date_to && request()->date_from){
             $job_orders = $this->filterOrdersByDateInternal();
         }else{
-            $job_orders = $this->JobOrderQuery()->get();
+            // $job_orders = $this->JobOrderQuery()->get();
+            $job_orders =  JobOrder::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }
 
         return view('company.job_order.all_orders', compact('job_orders'));
@@ -306,6 +307,46 @@ class JobOrderController extends Controller
         return $response;
     }
 
+    public function create_2A_notebook(){
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
+        return view('company.job_order.2A_notebook', compact('customers','locations'));
+    }
+
+    public function post_2A_notebook(Request $request)
+    {
+        // Call the function to postnotebook
+        $response = $this->postNoteBook($request);
+        return $response;
+    }
+
+    public function create_2B_notebook(){
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
+        return view('company.job_order.2B_notebook', compact('customers','locations'));
+    }
+
+    public function post_2B_notebook(Request $request)
+    {
+        // Call the function to postnotebook
+        $response = $this->postNoteBook($request);
+        return $response;
+    }
+
+
+    public function create_2D_notebook(){
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
+        return view('company.job_order.2D_notebook', compact('customers','locations'));
+    }
+
+    public function post_2D_notebook(Request $request)
+    {
+        // Call the function to postnotebook
+        $response = $this->postNoteBook($request);
+        return $response;
+    }
+
 
     public function twenty_leaves()
     {
@@ -321,6 +362,7 @@ class JobOrderController extends Controller
         $response = $this->postNoteBook($request);
         return $response;
     }
+    
 
     public function edit_twenty_leaves($job_title, $id){
         $job_order =  JobOrder::find($id);
@@ -336,6 +378,21 @@ class JobOrderController extends Controller
     }
 
     public function post_forty_leaves(Request $request)
+    {
+        // Call the function to postnotebook
+        $response = $this->postNoteBook($request);
+        return $response;
+    }
+
+
+    public function sixty_leaves()
+    {
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
+        return view('company.job_order.60_leaves_book', compact('customers','locations'));
+    }
+
+    public function post_sixty_leaves(Request $request)
     {
         // Call the function to postnotebook
         $response = $this->postNoteBook($request);
@@ -500,7 +557,7 @@ class JobOrderController extends Controller
     public function update_order(Request $request, $job_title, $id){
         $user = Auth::user();
 
-        if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves'){
+        if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves' || request()->job_title == '2A_NoteBook' || request()->job_title == '2B_NoteBook'|| request()->job_title == '2D_NoteBook'){
             $response = $this->noteBookRepository->updateNoteBookOrder($request);
 
         }elseif(request()->job_title == 'Small_Invoice'){

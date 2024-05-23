@@ -346,23 +346,23 @@
                                             </div>
                                         </div>
                                     @endif
-
-
-                                    @if(request()->job_title == 'Twenty_Leaves')
-                                    <div class="card">
-                                        <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Edit 20 Leaves Job Order</h5>
-                                        </div>
-                                        <div class="card-body h-100">
-                                            <div class="align-items-start">
-                                                <div class="tab-content" id="nav-tabContent">
-                                                    <div class="tab-pane fade show active" id="nav-server"
+                                    
+                                    @if(request()->job_title == '2A_NoteBook')
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0 text-muted">Edit 2A NoteBook Job Order</h5>
+                                            </div>
+                                            <div class="card-body h-100">
+                                                <div class="align-items-start">
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade show active" id="nav-server"
                                                             role="tabpanel" aria-labelledby="nav-server-tab">
                                                             <div class="row g-3 mb-3 mt-3">
                                                                 <div class="col-md-12">
-                                                                    <form method="POST"  id="add_twenty_leaves" class="add_twenty_leaves">
+                                                                    <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
                                                                         @csrf
                                                                         @method('POST')
+                                                                        <input type="hidden" name="note_type" value="2A NoteBook">
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
@@ -380,7 +380,7 @@
                                                                             </div>
 
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="ink">Color Type</label>
+                                                                                <label for="ink">Ink</label>
                                                                                 <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
                                                                                     <option value="">--Select Color Type--</option>
                                                                                     <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
@@ -441,18 +441,24 @@
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="amount_paid">Amount Paid</label>
-                                                                                <input type="number"  name="amount_paid" class="form-control" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                            </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="location">Job Location</label>
-                                                                                <select class="form-control form-select" name="location" required>
-                                                                                    <option value="">--Select Job Location--</option>
-                                                                                    @foreach ($locations as $val)
-                                                                                        <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
-                                                                                    @endforeach
-                                                                                </select>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            <div class="row">
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="amount_paid">Amount Paid</label>
+                                                                                    <input type="number"  name="amount_paid" class="form-control" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
+                                                                                </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="location">Job Location</label>
+                                                                                    <select class="form-control form-select" name="location" required>
+                                                                                        <option value="">--Select Job Location--</option>
+                                                                                        @foreach ($locations as $val)
+                                                                                            <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         <button class="btn btn-sm btn-danger" type="submit">
@@ -463,10 +469,388 @@
                                                             </div>
                                                             <hr/>
                                                         </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
+
+
+                                    @if(request()->job_title == '2B_NoteBook')
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0 text-muted">Edit 2B NoteBook Job Order</h5>
+                                            </div>
+                                            <div class="card-body h-100">
+                                                <div class="align-items-start">
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade show active" id="nav-server"
+                                                            role="tabpanel" aria-labelledby="nav-server-tab">
+                                                            <div class="row g-3 mb-3 mt-3">
+                                                                <div class="col-md-12">
+                                                                    <form method="POST"  id="add_2b_notebook" class="add_2b_notebook">
+                                                                        @csrf
+                                                                        @method('POST')
+                                                                        <input type="hidden" name="note_type" value="2A NoteBook">
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="customer_name">Customer Name</label>
+                                                                                <select name="customer_id" required class="form-control form-select" id="customer_name">
+                                                                                    <option value="">--Select Customer--</option>
+                                                                                    @foreach ($customers as $val)
+                                                                                        <option value="{{$val->id}}" <?php if ($job_order->user_id == $val->id) echo 'selected' ?> >{{$val->firstname.' '.$val->lastname}}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="quantity">Quantity</label>
+                                                                                <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="ink">Ink</label>
+                                                                                <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
+                                                                                    <option value="">--Select Color Type--</option>
+                                                                                    <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
+                                                                                    <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="paper_type">Paper Type</label>
+                                                                                <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Paper Type--</option>
+                                                                                    <option value="50g" <?php if ($job_order->paper_type == '50g') echo 'selected' ?>>50g</option>
+                                                                                    <option value="60g" <?php if ($job_order->paper_type == '60g') echo 'selected' ?>>60g</option>
+                                                                                    <option value="70g" <?php if ($job_order->paper_type == '70g') echo 'selected' ?>>70g</option>
+                                                                                    <option value="80g" <?php if ($job_order->paper_type == '80g') echo 'selected' ?>>80g</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="production_time">Production Time (Days)</label>
+                                                                                    <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="backsided">Cover Thickness</label>
+                                                                                <select class="form-control form-select"  name="thickness" id="backsided">
+                                                                                    <option value="">--Select Cover Thickness--</option>
+                                                                                    <option value="199g" <?php if ($job_order->thickness == '199g') echo 'selected' ?>>199g</option>
+                                                                                    <option value="280g" <?php if ($job_order->thickness == '280g') echo 'selected' ?>>280g</option>
+                                                                                    <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Proof Needed</label>
+                                                                                <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
+                                                                                    <option value="">--Select Proof Needed</option>
+                                                                                    <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
+                                                                                    <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="total_cost">Total Cost</label>
+                                                                                <input type="number" required name="total_cost" class="form-control"
+                                                                                    id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Payment Type</label>
+                                                                                <select class="form-control form-select" name="payment_type" required>
+                                                                                    <option value="">--Select Payment Type--</option>
+                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            <div class="row">
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="amount_paid">Amount Paid</label>
+                                                                                    <input type="number"  name="amount_paid" class="form-control" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
+                                                                                </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="location">Job Location</label>
+                                                                                    <select class="form-control form-select" name="location" required>
+                                                                                        <option value="">--Select Job Location--</option>
+                                                                                        @foreach ($locations as $val)
+                                                                                            <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button class="btn btn-sm btn-danger" type="submit">
+                                                                            <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <hr/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if(request()->job_title == '2D_NoteBook')
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0 text-muted">Edit 2D NoteBook Job Order</h5>
+                                            </div>
+                                            <div class="card-body h-100">
+                                                <div class="align-items-start">
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade show active" id="nav-server"
+                                                            role="tabpanel" aria-labelledby="nav-server-tab">
+                                                            <div class="row g-3 mb-3 mt-3">
+                                                                <div class="col-md-12">
+                                                                    <form method="POST"  id="add_2d_notebook" class="add_2d_notebook">
+                                                                        @csrf
+                                                                        @method('POST')
+                                                                        <input type="hidden" name="note_type" value="2D NoteBook">
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="customer_name">Customer Name</label>
+                                                                                <select name="customer_id" required class="form-control form-select" id="customer_name">
+                                                                                    <option value="">--Select Customer--</option>
+                                                                                    @foreach ($customers as $val)
+                                                                                        <option value="{{$val->id}}" <?php if ($job_order->user_id == $val->id) echo 'selected' ?> >{{$val->firstname.' '.$val->lastname}}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="quantity">Quantity</label>
+                                                                                <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="ink">Ink</label>
+                                                                                <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
+                                                                                    <option value="">--Select Color Type--</option>
+                                                                                    <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
+                                                                                    <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="paper_type">Paper Type</label>
+                                                                                <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Paper Type--</option>
+                                                                                    <option value="50g" <?php if ($job_order->paper_type == '50g') echo 'selected' ?>>50g</option>
+                                                                                    <option value="60g" <?php if ($job_order->paper_type == '60g') echo 'selected' ?>>60g</option>
+                                                                                    <option value="70g" <?php if ($job_order->paper_type == '70g') echo 'selected' ?>>70g</option>
+                                                                                    <option value="80g" <?php if ($job_order->paper_type == '80g') echo 'selected' ?>>80g</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="production_time">Production Time (Days)</label>
+                                                                                    <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="backsided">Cover Thickness</label>
+                                                                                <select class="form-control form-select"  name="thickness" id="backsided">
+                                                                                    <option value="">--Select Cover Thickness--</option>
+                                                                                    <option value="199g" <?php if ($job_order->thickness == '199g') echo 'selected' ?>>199g</option>
+                                                                                    <option value="280g" <?php if ($job_order->thickness == '280g') echo 'selected' ?>>280g</option>
+                                                                                    <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Proof Needed</label>
+                                                                                <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
+                                                                                    <option value="">--Select Proof Needed</option>
+                                                                                    <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
+                                                                                    <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="total_cost">Total Cost</label>
+                                                                                <input type="number" required name="total_cost" class="form-control"
+                                                                                    id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Payment Type</label>
+                                                                                <select class="form-control form-select" name="payment_type" required>
+                                                                                    <option value="">--Select Payment Type--</option>
+                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            <div class="row">
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="amount_paid">Amount Paid</label>
+                                                                                    <input type="number"  name="amount_paid" class="form-control" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
+                                                                                </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="location">Job Location</label>
+                                                                                    <select class="form-control form-select" name="location" required>
+                                                                                        <option value="">--Select Job Location--</option>
+                                                                                        @foreach ($locations as $val)
+                                                                                            <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button class="btn btn-sm btn-danger" type="submit">
+                                                                            <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <hr/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if(request()->job_title == 'Twenty_Leaves')
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0 text-muted">Edit 20 Leaves Job Order</h5>
+                                            </div>
+                                            <div class="card-body h-100">
+                                                <div class="align-items-start">
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade show active" id="nav-server"
+                                                                role="tabpanel" aria-labelledby="nav-server-tab">
+                                                                <div class="row g-3 mb-3 mt-3">
+                                                                    <div class="col-md-12">
+                                                                        <form method="POST"  id="add_twenty_leaves" class="add_twenty_leaves">
+                                                                            @csrf
+                                                                            @method('POST')
+                                                                            <div class="row">
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="customer_name">Customer Name</label>
+                                                                                    <select name="customer_id" required class="form-control form-select" id="customer_name">
+                                                                                        <option value="">--Select Customer--</option>
+                                                                                        @foreach ($customers as $val)
+                                                                                            <option value="{{$val->id}}" <?php if ($job_order->user_id == $val->id) echo 'selected' ?> >{{$val->firstname.' '.$val->lastname}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="quantity">Quantity</label>
+                                                                                    <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
+                                                                                </div>
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="ink">Color Type</label>
+                                                                                    <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
+                                                                                        <option value="">--Select Color Type--</option>
+                                                                                        <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
+                                                                                        <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="paper_type">Paper Type</label>
+                                                                                    <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
+                                                                                        <option value="">--Select Paper Type--</option>
+                                                                                        <option value="50g" <?php if ($job_order->paper_type == '50g') echo 'selected' ?>>50g</option>
+                                                                                        <option value="60g" <?php if ($job_order->paper_type == '60g') echo 'selected' ?>>60g</option>
+                                                                                        <option value="70g" <?php if ($job_order->paper_type == '70g') echo 'selected' ?>>70g</option>
+                                                                                        <option value="80g" <?php if ($job_order->paper_type == '80g') echo 'selected' ?>>80g</option>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="production_time">Production Time (Days)</label>
+                                                                                        <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
+                                                                                </div>
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="backsided">Cover Thickness</label>
+                                                                                    <select class="form-control form-select"  name="thickness" id="backsided">
+                                                                                        <option value="">--Select Cover Thickness--</option>
+                                                                                        <option value="199g" <?php if ($job_order->thickness == '199g') echo 'selected' ?>>199g</option>
+                                                                                        <option value="280g" <?php if ($job_order->thickness == '280g') echo 'selected' ?>>280g</option>
+                                                                                        <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="proof_needed">Proof Needed</label>
+                                                                                    <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
+                                                                                        <option value="">--Select Proof Needed</option>
+                                                                                        <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
+                                                                                        <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="total_cost">Total Cost</label>
+                                                                                    <input type="number" required name="total_cost" class="form-control"
+                                                                                        id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
+                                                                                </div>
+
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="proof_needed">Payment Type</label>
+                                                                                    <select class="form-control form-select" name="payment_type" required>
+                                                                                        <option value="">--Select Payment Type--</option>
+                                                                                        <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                        <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="amount_paid">Amount Paid</label>
+                                                                                    <input type="number"  name="amount_paid" class="form-control" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
+                                                                                </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="location">Job Location</label>
+                                                                                    <select class="form-control form-select" name="location" required>
+                                                                                        <option value="">--Select Job Location--</option>
+                                                                                        @foreach ($locations as $val)
+                                                                                            <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                                                <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                                <hr/>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
 
 
@@ -590,7 +974,134 @@
                                     </div>
                                     @endif
 
+                                    @if(request()->job_title == 'Sixty_Leaves')
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0 text-muted">Edit Sixty Leaves Job Order</h5>
+                                            </div>
+                                            <div class="card-body h-100">
+                                                <div class="align-items-start">
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade show active" id="nav-server"
+                                                            role="tabpanel" aria-labelledby="nav-server-tab">
+                                                            <div class="row g-3 mb-3 mt-3">
+                                                                <div class="col-md-12">
+                                                                    <form method="POST"  id="add_sixty_leaves" class="add_sixty_leaves">
+                                                                        @csrf
+                                                                        @method('POST')
+                                                                        <input type="hidden" name="note_type" value="Eighty Leaves">
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="customer_name">Customer Name</label>
+                                                                                <select name="customer_id" required class="form-control form-select" id="customer_name">
+                                                                                    <option value="">--Select Customer--</option>
+                                                                                    @foreach ($customers as $val)
+                                                                                        <option value="{{$val->id}}" <?php if ($job_order->user_id == $val->id) echo 'selected' ?> >{{$val->firstname.' '.$val->lastname}}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
 
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="quantity">Quantity</label>
+                                                                                <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="ink">Ink</label>
+                                                                                <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
+                                                                                    <option value="">--Select Color Type--</option>
+                                                                                    <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
+                                                                                    <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="paper_type">Paper Type</label>
+                                                                                <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Paper Type--</option>
+                                                                                    <option value="50g" <?php if ($job_order->paper_type == '50g') echo 'selected' ?>>50g</option>
+                                                                                    <option value="60g" <?php if ($job_order->paper_type == '60g') echo 'selected' ?>>60g</option>
+                                                                                    <option value="70g" <?php if ($job_order->paper_type == '70g') echo 'selected' ?>>70g</option>
+                                                                                    <option value="80g" <?php if ($job_order->paper_type == '80g') echo 'selected' ?>>80g</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="production_time">Production Time (Days)</label>
+                                                                                    <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="backsided">Cover Thickness</label>
+                                                                                <select class="form-control form-select"  name="thickness" id="backsided">
+                                                                                    <option value="">--Select Cover Thickness--</option>
+                                                                                    <option value="199g" <?php if ($job_order->thickness == '199g') echo 'selected' ?>>199g</option>
+                                                                                    <option value="280g" <?php if ($job_order->thickness == '280g') echo 'selected' ?>>280g</option>
+                                                                                    <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Proof Needed</label>
+                                                                                <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
+                                                                                    <option value="">--Select Proof Needed</option>
+                                                                                    <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
+                                                                                    <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="total_cost">Total Cost</label>
+                                                                                <input type="number" required name="total_cost" class="form-control"
+                                                                                    id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Payment Type</label>
+                                                                                <select class="form-control form-select" name="payment_type" required>
+                                                                                    <option value="">--Select Payment Type--</option>
+                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+
+                                                                            <div class="row">
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="amount_paid">Amount Paid</label>
+                                                                                    <input type="number"  name="amount_paid" class="form-control" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
+                                                                                </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <label for="location">Job Location</label>
+                                                                                    <select class="form-control form-select" name="location" required>
+                                                                                        <option value="">--Select Job Location--</option>
+                                                                                        @foreach ($locations as $val)
+                                                                                            <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button class="btn btn-sm btn-danger" type="submit">
+                                                                            <i class="text-white me-2" data-feather="check-circle"></i>Save
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <hr/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    
                                     @if(request()->job_title == 'Eighty_Leaves')
                                         <div class="card">
                                             <div class="card-header bg-white">

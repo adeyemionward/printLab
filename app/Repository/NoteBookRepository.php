@@ -107,7 +107,7 @@
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
              }
             // return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
-            return redirect(route('job_order.view_order',[request()->job_title,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
+            return redirect(route('company.job_order.view_order',[request()->job_title,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
             // return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 

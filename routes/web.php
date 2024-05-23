@@ -64,12 +64,25 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/edit_order/{job_title}/{id}', 'JobOrderController@edit_order')->name('edit_order');
                     Route::post('/edit_order/{job_title}/{id}', 'JobOrderController@update_order')->name('edit_order');
 
+                    Route::get('/add_2A_notebook', 'JobOrderController@create_2A_notebook')->name('add_2A_notebook');
+                    Route::post('/add_2A_notebook', 'JobOrderController@post_2A_notebook')->name('add_2A_notebook');
+
+                    Route::get('/add_2B_notebook', 'JobOrderController@create_2B_notebook')->name('add_2B_notebook');
+                    Route::post('/add_2B_notebook', 'JobOrderController@post_2B_notebook')->name('add_2B_notebook');
+
+                    Route::get('/add_2D_notebook', 'JobOrderController@create_2D_notebook')->name('add_2D_notebook');
+                    Route::post('/add_2D_notebook', 'JobOrderController@post_2D_notebook')->name('add_2D_notebook');
+
+
+
                     Route::get('/20_leaves_book', 'JobOrderController@twenty_leaves')->name('20_leaves_book');
                     Route::post('/20_leaves_book', 'JobOrderController@post_twenty_leaves')->name('20_leaves_book');
 
 
                     Route::get('/40_leaves_book', 'JobOrderController@forty_leaves')->name('40_leaves_book');
                     Route::post('/40_leaves_book', 'JobOrderController@post_forty_leaves')->name('40_leaves_book');
+                    Route::get('/60_leaves_book', 'JobOrderController@sixty_leaves')->name('60_leaves_book');
+                    Route::post('/60_leaves_book', 'JobOrderController@post_sixty_leaves')->name('60_leaves_book');
                     Route::get('/80_leaves_book', 'JobOrderController@eighty_leaves')->name('80_leaves_book');
                     Route::post('/80_leaves_book', 'JobOrderController@post_eighty_leaves')->name('80_leaves_book');
                     Route::get('/booklets', 'JobOrderController@booklets')->name('booklets');
