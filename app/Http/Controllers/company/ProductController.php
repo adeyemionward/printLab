@@ -15,7 +15,7 @@ class ProductController extends Controller
 
 
         $this->middleware('permission:product-list', ['only' => ['index']]);
-        $this->middleware('permission:product-create', ['only' => ['create_2A_notebook','store_2A_notebook', 'create_2B_notebook','store_2B_notebook', 'create_2D_notebook','store_2D_notebook'
+        $this->middleware('permission:product-create', ['only' => ['create_2A_notebook','store_2A_notebook', 'create_2B_notebook','store_2B_notebook', 'create_2D_notebook','store_2D_notebook',
             'add_video_brochure','store_video_brochure','create_higher_education','store_higher_education',
             'create_eighty_leaves','store_eighty_leaves','create_forty_leaves','store_forty_leaves',
             'create_sixty_leaves', 'store_sixty_leaves', 'create_twenty_leaves', 'store_twenty_leaves'
