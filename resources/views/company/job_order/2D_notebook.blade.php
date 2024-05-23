@@ -38,11 +38,22 @@
 
                                                         <div class="row g-3 mb-3 mt-3">
                                                             <div class="col-md-12">
-                                                                <form method="POST"  id="add_2d_notebook" class="add_2d_notebook">
+                                                                <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
                                                                     @csrf
                                                                     @method('POST')
-                                                                    <input type="hidden" name="note_type" value="2D NoteBook">
+                                                                    <input type="hidden" name="note_type" value="2A NoteBook">
                                                                     <div class="row">
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlSelect1">Leaves
+                                                                                </label>
+                                                                            <select name="leaves" required class="form-control form-select"
+                                                                                id="exampleFormControlSelect1">
+                                                                                <option value="">--Select Leaves--</option>
+                                                                                <option value="40">40 Leaves</option>
+                                                                                <option value="60">60 Leaves</option>
+                                                                            </select>
+                                                                        </div>
+
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="customer_name">Customer Name</label>
                                                                             <select name="customer_id" required class="form-control form-select" id="customer_name">
@@ -58,6 +69,10 @@
                                                                             <input type="number" required name="quantity" class="form-control"
                                                                                 id="quantity">
                                                                         </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Ink
@@ -69,9 +84,7 @@
                                                                                 <option value="full">Full Color</option>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
 
-                                                                    <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="thickness"> Cover Thickness</label>
                                                                             <select class="form-control form-select" required  name="thickness" id="thickness">
@@ -92,12 +105,6 @@
                                                                                     <option value="70g">70g</option>
                                                                                     <option value="80g">80g</option>
                                                                                 </select>
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="production_time">Production Time (Days)
-                                                                                </label> <input required type="number" name="production_time" class="form-control"
-                                                                                id="quantity" placeholder="eg: 4">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -140,6 +147,14 @@
                                                                                     <option value="{{$val->id}}">{{$val->city}}</option>
                                                                                 @endforeach
                                                                             </select>
+                                                                        </div>
+
+                                                                        
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Production Time (Days)
+                                                                                </label> <input required type="number" name="production_time" class="form-control"
+                                                                                id="quantity" placeholder="eg: 4">
                                                                         </div>
                                                                     </div>
 

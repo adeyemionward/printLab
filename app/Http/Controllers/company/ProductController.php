@@ -422,6 +422,7 @@ class ProductController extends Controller
         $ink                        =  request('ink');
         $paper_type                 =  request('paper_type');
         $production_time            =  request('production_time');
+        $leaves                     =  request('leaves');
         $thickness                  =  request('thickness');
         $quantity                   =  request('quantity');
         $description                =  request('description');
@@ -448,6 +449,7 @@ class ProductController extends Controller
                     'company_id'        => $user->company_id,
                     'product_id'        => $product->id,
                     'product_name'      => $product->name,
+                    'leaves'            => $leaves[$count],
                     'quantity'          => $quantity[$count],
                     'thickness'         => $thickness[$count],
                     'paper_type'        => $paper_type[$count],
@@ -474,6 +476,7 @@ class ProductController extends Controller
         $ink                        =  request('ink');
         $paper_type                 =  request('paper_type');
         $production_time            =  request('production_time');
+        $leaves                     =  request('leaves');
         $thickness                  =  request('thickness');
         $quantity                   =  request('quantity');
         $description                =  request('description');
@@ -500,6 +503,7 @@ class ProductController extends Controller
                     'company_id'        => $user->company_id,
                     'product_id'        => $product->id,
                     'product_name'      => $product->name,
+                    'leaves'            => $leaves[$count],
                     'quantity'          => $quantity[$count],
                     'thickness'         => $thickness[$count],
                     'paper_type'        => $paper_type[$count],
@@ -526,6 +530,7 @@ class ProductController extends Controller
         $ink                        =  request('ink');
         $paper_type                 =  request('paper_type');
         $production_time            =  request('production_time');
+        $leaves                     =  request('leaves');
         $thickness                  =  request('thickness');
         $quantity                   =  request('quantity');
         $description                =  request('description');
@@ -552,6 +557,7 @@ class ProductController extends Controller
                     'company_id'        => $user->company_id,
                     'product_id'        => $product->id,
                     'product_name'      => $product->name,
+                    'leaves'            => $leaves[$count],
                     'quantity'          => $quantity[$count],
                     'thickness'         => $thickness[$count],
                     'paper_type'        => $paper_type[$count],
@@ -876,11 +882,11 @@ class ProductController extends Controller
 
             return redirect(route('company.products.view',['sixty_leaves',$id]))->with('flash_success','Sixty Leaves Book order updated successfully');
        
-        
         }elseif(request()->job_title == '2A_notebook'){
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
+            $leaves                     =  request('leaves');
             $thickness                  =  request('thickness');
             $quantity                   =  request('quantity');
             $description                =  request('description');
@@ -890,11 +896,8 @@ class ProductController extends Controller
             //save to job
             $product =  Product::find($id);
             $product->name  = '2A_notebook';
-            //$product->ink             = $ink;
-            //$product->paper_type      = $paper_type;
             $product->production_days = $production_time;
             $product->image       = $image;
-            // $product->total_cost      = $total_cost;
             $product->description     = $description;
             $product->updated_by      = $user->id;
 
@@ -912,6 +915,7 @@ class ProductController extends Controller
                     if ($existingProduct) {
                         // If the product cost already exists, update it
                         $existingProduct->update([
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],
@@ -923,6 +927,7 @@ class ProductController extends Controller
                         ProductCost::create([
                             'product_id'        => $id,
                             'product_name'      => $product->name,
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],
@@ -937,6 +942,7 @@ class ProductController extends Controller
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
+            $leaves                     =  request('leaves');
             $thickness                  =  request('thickness');
             $quantity                   =  request('quantity');
             $description                =  request('description');
@@ -966,6 +972,7 @@ class ProductController extends Controller
                     if ($existingProduct) {
                         // If the product cost already exists, update it
                         $existingProduct->update([
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],
@@ -977,6 +984,7 @@ class ProductController extends Controller
                         ProductCost::create([
                             'product_id'        => $id,
                             'product_name'      => $product->name,
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],
@@ -991,6 +999,7 @@ class ProductController extends Controller
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
+            $leaves                     =  request('leaves');
             $thickness                  =  request('thickness');
             $quantity                   =  request('quantity');
             $description                =  request('description');
@@ -1021,6 +1030,7 @@ class ProductController extends Controller
                     if ($existingProduct) {
                         // If the product cost already exists, update it
                         $existingProduct->update([
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],
@@ -1032,6 +1042,7 @@ class ProductController extends Controller
                         ProductCost::create([
                             'product_id'        => $id,
                             'product_name'      => $product->name,
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],

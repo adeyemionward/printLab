@@ -353,7 +353,6 @@ class JobOrderController extends Controller
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
         return view('company.job_order.20_leaves_book', compact('customers','locations'));
-
     }
 
     public function post_twenty_leaves(Request $request)
@@ -429,7 +428,7 @@ class JobOrderController extends Controller
         if ($result['success']) {
             // creation was successful
             return redirect(route('company.customers.customer_cart', $request->customer_id))->with('flash_success','Product added to Cart');
-        } else {
+        }else{
             // creation failed
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }

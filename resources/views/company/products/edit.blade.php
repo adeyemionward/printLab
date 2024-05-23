@@ -910,6 +910,7 @@
                                                                     <a id="add-product" class="btn btn-primary" >Add Variation</a>
                                                                     <thead>
                                                                         <tr>
+                                                                            <th>Leaves</th>
                                                                             <th>Color</th>
                                                                             <th>Paper</th>
                                                                             <th>Thickness</th>
@@ -923,11 +924,17 @@
                                                                         @forelse($product_variations as $val)
                                                                             <tr class="product-row" style="margin-top:20px">
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
+                                                                                <td style="width:15%">
+                                                                                    <select name="leaves[]" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                       
+                                                                                        <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
+                                                                                        <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
+                                                                                    </select>
+                                                                                </td>
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
-
-                                                                                        <option value="single" @php if($val->ink == 'single') echo 'selected' @endphp>Single Color</option>
-                                                                                        <option value="full" @php if($val->ink == 'full') echo 'selected' @endphp>Full Color</option>
+                                                                                        <option value="single" @php if($val->ink == 'single') echo 'selected'  @endphp>Single Color</option>
+                                                                                        <option value="full"   @php if($val->ink == 'full')   echo 'selected'   @endphp>Full Color</option>
                                                                                     </select>
                                                                                 </td>
                                                                                 <td style="width:20%">
@@ -963,7 +970,6 @@
                                                                             </tr>
                                                                         @empty
                                                                         @endforelse
-
                                                                     </tbody>
                                                                 </table>
 
@@ -977,8 +983,6 @@
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                     </div>
-
-
 
                                                                 </div>
 
@@ -1035,16 +1039,12 @@
                                                                 </div>
 
 
-                                                                <div class="row">
-
-
-                                                                </div>
-
                                                                 <table id="products" style="margin-top:20px">
 
                                                                     <a id="add-product" class="btn btn-primary" >Add Variation</a>
                                                                     <thead>
                                                                         <tr>
+                                                                            <th>Leaves</th>
                                                                             <th>Color</th>
                                                                             <th>Paper</th>
                                                                             <th>Thickness</th>
@@ -1058,6 +1058,13 @@
                                                                         @forelse($product_variations as $val)
                                                                             <tr class="product-row" style="margin-top:20px">
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
+                                                                                <td style="width:15%">
+                                                                                    <select name="leaves" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                       
+                                                                                        <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
+                                                                                        <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
+                                                                                    </select>
+                                                                                </td>
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
 
@@ -1067,7 +1074,6 @@
                                                                                 </td>
                                                                                 <td style="width:20%">
                                                                                     <select name="paper_type[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-
                                                                                         <option value="50g" @php if($val->paper_type == '50g') echo 'selected' @endphp>50g</option>
                                                                                         <option value="60g" @php if($val->paper_type == '60g') echo 'selected' @endphp>60g</option>
                                                                                         <option value="70g" @php if($val->paper_type == '70g') echo 'selected' @endphp>70g</option>
@@ -1075,15 +1081,15 @@
                                                                                     </select>
                                                                                 </td>
 
-                                                                                <td style="width:20%">
+                                                                                <td style="width:18%">
                                                                                     <select required class="form-control form-select"  name="thickness[]" id="thickness">
                                                                                         <option value="199g" @php if($val->thickness == '199g') echo 'selected' @endphp>199g</option>
                                                                                         <option value="280g" @php if($val->thickness == '280g') echo 'selected' @endphp>280g</option>
                                                                                         <option value="300g" @php if($val->thickness == '300g') echo 'selected' @endphp>300g</option>
                                                                                     </select>
                                                                                 </td>
-                                                                                <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
-                                                                                <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
+                                                                                <td style="width:18%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
+                                                                                <td style="width:18%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
 
 
 
@@ -1180,6 +1186,7 @@
                                                                     <a id="add-product" class="btn btn-primary" >Add Variation</a>
                                                                     <thead>
                                                                         <tr>
+                                                                            <th>Leaves</th>
                                                                             <th>Color</th>
                                                                             <th>Paper</th>
                                                                             <th>Thickness</th>
@@ -1193,6 +1200,15 @@
                                                                         @forelse($product_variations as $val)
                                                                             <tr class="product-row" style="margin-top:20px">
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
+                                                                                
+                                                                                <td style="width:15%">
+                                                                                    <select name="leaves" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                       
+                                                                                        <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
+                                                                                        <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
+                                                                                    </select>
+                                                                                </td>
+
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
 
@@ -1210,15 +1226,15 @@
                                                                                     </select>
                                                                                 </td>
 
-                                                                                <td style="width:20%">
+                                                                                <td style="width:18%">
                                                                                     <select required class="form-control form-select"  name="thickness[]" id="thickness">
                                                                                         <option value="199g" @php if($val->thickness == '199g') echo 'selected' @endphp>199g</option>
                                                                                         <option value="280g" @php if($val->thickness == '280g') echo 'selected' @endphp>280g</option>
                                                                                         <option value="300g" @php if($val->thickness == '300g') echo 'selected' @endphp>300g</option>
                                                                                     </select>
                                                                                 </td>
-                                                                                <td style="width:20%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
-                                                                                <td style="width:20%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
+                                                                                <td style="width:18%"><input type="number" required class="form-control quantity" value="{{$val->quantity}}"  name="quantity[]" /></td>
+                                                                                <td style="width:18%"><input type="number" required class="form-control price" value="{{$val->total_cost}}"  name="total_cost[]" /></td>
 
 
 

@@ -15,6 +15,7 @@ class ProductCost extends Model
         'product_name',
         'quantity',
         'total_cost',
+        'leaves',
         'thickness'   ,
         'paper_type' ,
         'ink'   ,

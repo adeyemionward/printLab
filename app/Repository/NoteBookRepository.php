@@ -15,13 +15,14 @@
     {
         public function noteBookOrder($data){
             DB::beginTransaction();
-           try{
+            try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
 
                 $customer_id                =  $data['customer_id'];
                 $quantity                   =  $data['quantity'];
                 $ink                        =  $data['ink'];
+                $leaves                     =  $data['leaves'] ?? null;
                 $paper_type                 =  $data['paper_type'];
                 $production_time            =  $data['production_time'];
                 $thickness                  =  $data['thickness'];
@@ -39,6 +40,7 @@
                 $job_order->job_order_name  = $data['note_type'];
                 $job_order->quantity        = $quantity;
                 $job_order->ink             = $ink;
+                $job_order->leaves          = $leaves;
                 $job_order->paper_type      = $paper_type;
                 $job_order->production_days = $production_time;
                 $job_order->thickness      = $thickness;
@@ -73,6 +75,7 @@
                 $customer_id                =  $data['customer_id'];
                 $quantity                   =  $data['quantity'];
                 $ink                        =  $data['ink'];
+                $leaves                     =  $data['leaves'];
                 $paper_type                 =  $data['paper_type'];
                 $production_time            =  $data['production_time'];
                 $thickness                  =  $data['thickness'];
@@ -87,7 +90,8 @@
                 //save to job
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id     = $customer_id;
-                $job_order->job_order_name  = $data['note_type'];
+                $job_order->job_order_name  = $data['note_type'] ?? null;
+                $job_order->leaves          = $leaves;
                 $job_order->quantity        = $quantity;
                 $job_order->ink             = $ink;
                 $job_order->paper_type      = $paper_type;
@@ -95,7 +99,7 @@
                 $job_order->thickness       = $thickness;
                 $job_order->proof_needed    = $proof_needed;
                 $job_order->total_cost      = $total_cost;
-                $job_order->job_location_id        = $location;
+                $job_order->job_location_id = $location;
                 $job_order->updated_by      = $user->id;
                 $job_order->save();
 

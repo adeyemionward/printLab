@@ -266,7 +266,8 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
                     Route::post('/customer_cart/{id}', 'CustomerController@checkout')->name('customer_cart');
                     Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
-                    Route::get('/delete_customer/{id}', 'CustomerController@destroy')->name('delete_customer');
+                    Route::get('/deactivate_customer/{id}', 'CustomerController@deactivate')->name('deactivate_customer');
+                    Route::get('/delete_customer/{id}', 'CustomerController@delete')->name('delete_customer');
                 });
 
                 Route::group(['prefix' => '/users', 'as' => 'users.'], function () {

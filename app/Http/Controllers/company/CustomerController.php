@@ -11,6 +11,7 @@ use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 class CustomerController extends Controller
@@ -44,6 +45,7 @@ class CustomerController extends Controller
     private function countCart($user_id){
 
         $cart_count = JobOrder::where('cart_order_status', 1)->where('user_id',$user_id)->where('company_id',$this->user->company_id)->get();
+        
         $countCart  = count($cart_count);
         return $countCart;
     }
@@ -54,7 +56,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = User::where('user_type', User::CUSTOMER)->where('company_id',app('company_id'))->get();
+        $customers = User::where('user_type', User::CUSTOMER)->where('status', User::ACTIVE)->where('company_id',app('company_id'))->get();
 
         return view('company.customers.all_customers', compact('customers'));
     }
@@ -214,18 +216,24 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $validatedData = $request->validate([
             'firstname' => 'required|string',
             'lastname'  => 'required|string',
             'phone'     => 'required|string',
             'address'   => 'required|string',
-            'company_school_name'   => 'required|string',
+            'email'     => [
+                'required',
+                'string',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
         ], [
             'firstname.required' => 'Please enter customer firstname.',
             'lastname.required' => 'Please enter customer lastname.',
             'email.required' => 'Please enter customer email address.',
             'email.email' => 'Please enter a valid email address.',
-            'company_school_name.required' => 'Please enter company name/school name.',
+            'email.unique' => 'This email address is already in use.',
             'phone.required' => 'Please enter customer phone number.',
             'address.required' => 'Please enter customer address.',
         ]);
@@ -236,7 +244,7 @@ class CustomerController extends Controller
             $customer->email        = request('email');
             $customer->phone        = request('phone');
             $customer->address      = request('address');
-            $customer->company_name      = request('company_school_name');
+            // $customer->company_name      = request('company_school_name');
 
             $customer->update();
             return back()->with("flash_success","Customer saved successfully");
@@ -253,11 +261,19 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deactivate($id) 
     {
         $customer = User::find($id);
         $customer->status = 'deactivated';
         $customer->save();
         return redirect(route('company.customers.all_customers'))->with('flash_success','Customer has been deactivated');
+    }
+
+    public function delete($id)
+    {
+        $customer = User::find($id);
+        // $customer->status = 'deactivated';
+        $customer->delete();
+        return redirect(route('company.customers.all_customers'))->with('flash_success','Customer has been deleted');
     }
 }

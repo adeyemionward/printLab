@@ -366,6 +366,16 @@
                                                                         <input type="hidden" name="note_type" value="2A NoteBook">
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="exampleFormControlSelect1">Leaves
+                                                                                    </label>
+                                                                                <select name="leaves" required class="form-control form-select"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Leaves--</option>
+                                                                                    <option value="40"  <?php if ($job_order->leaves == 40) echo 'selected' ?>>40 Leaves</option>
+                                                                                    <option value="60"  <?php if ($job_order->leaves == 60) echo 'selected' ?>>60 Leaves</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
                                                                                 <select name="customer_id" required class="form-control form-select" id="customer_name">
                                                                                     <option value="">--Select Customer--</option>
@@ -380,17 +390,18 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
+                                                                            
+                                                                        </div>
+
+                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="ink">Ink</label>
+                                                                                <label for="ink">Color Type</label>
                                                                                 <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
                                                                                     <option value="">--Select Color Type--</option>
                                                                                     <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
                                                                                     <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-
-                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="paper_type">Paper Type</label>
                                                                                 <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
@@ -407,6 +418,9 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
+                                                                            
+                                                                        </div>
+                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="backsided">Cover Thickness</label>
                                                                                 <select class="form-control form-select"  name="thickness" id="backsided">
@@ -416,15 +430,12 @@
                                                                                     <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Proof Needed</label>
                                                                                 <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
                                                                                     <option value="">--Select Proof Needed</option>
                                                                                     <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
-                                                                                    <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                    <option value="no"  <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
                                                                                 </select>
                                                                             </div>
 
@@ -434,17 +445,10 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="proof_needed">Payment Type</label>
-                                                                                <select class="form-control form-select" name="payment_type" required>
-                                                                                    <option value="">--Select Payment Type--</option>
-                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
-                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
-                                                                                </select>
-                                                                            </div>
+                                                                            
                                                                         </div>
 
-                                                                        <div class="row">
+                                                                        
 
                                                                             <div class="row">
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
@@ -460,8 +464,16 @@
                                                                                         @endforeach
                                                                                     </select>
                                                                                 </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Payment Type</label>
+                                                                                <select class="form-control form-select" name="payment_type" required>
+                                                                                    <option value="">--Select Payment Type--</option>
+                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                </select>
                                                                             </div>
-                                                                        </div>
+                                                                            </div>
+                                                                        
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -489,11 +501,21 @@
                                                             role="tabpanel" aria-labelledby="nav-server-tab">
                                                             <div class="row g-3 mb-3 mt-3">
                                                                 <div class="col-md-12">
-                                                                    <form method="POST"  id="add_2b_notebook" class="add_2b_notebook">
+                                                                     <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
                                                                         @csrf
                                                                         @method('POST')
                                                                         <input type="hidden" name="note_type" value="2A NoteBook">
                                                                         <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="exampleFormControlSelect1">Leaves
+                                                                                    </label>
+                                                                                <select name="leaves" required class="form-control form-select"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Leaves--</option>
+                                                                                    <option value="40"  <?php if ($job_order->leaves == 40) echo 'selected' ?>>40 Leaves</option>
+                                                                                    <option value="60"  <?php if ($job_order->leaves == 60) echo 'selected' ?>>60 Leaves</option>
+                                                                                </select>
+                                                                            </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
                                                                                 <select name="customer_id" required class="form-control form-select" id="customer_name">
@@ -509,17 +531,18 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
+                                                                            
+                                                                        </div>
+
+                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="ink">Ink</label>
+                                                                                <label for="ink">Color Type</label>
                                                                                 <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
                                                                                     <option value="">--Select Color Type--</option>
                                                                                     <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
                                                                                     <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-
-                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="paper_type">Paper Type</label>
                                                                                 <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
@@ -536,6 +559,9 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
+                                                                            
+                                                                        </div>
+                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="backsided">Cover Thickness</label>
                                                                                 <select class="form-control form-select"  name="thickness" id="backsided">
@@ -545,15 +571,12 @@
                                                                                     <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Proof Needed</label>
                                                                                 <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
                                                                                     <option value="">--Select Proof Needed</option>
                                                                                     <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
-                                                                                    <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                    <option value="no"  <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
                                                                                 </select>
                                                                             </div>
 
@@ -563,17 +586,10 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="proof_needed">Payment Type</label>
-                                                                                <select class="form-control form-select" name="payment_type" required>
-                                                                                    <option value="">--Select Payment Type--</option>
-                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
-                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
-                                                                                </select>
-                                                                            </div>
+                                                                            
                                                                         </div>
 
-                                                                        <div class="row">
+                                                                        
 
                                                                             <div class="row">
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
@@ -589,8 +605,16 @@
                                                                                         @endforeach
                                                                                     </select>
                                                                                 </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Payment Type</label>
+                                                                                <select class="form-control form-select" name="payment_type" required>
+                                                                                    <option value="">--Select Payment Type--</option>
+                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                </select>
                                                                             </div>
-                                                                        </div>
+                                                                            </div>
+                                                                        
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -617,11 +641,21 @@
                                                             role="tabpanel" aria-labelledby="nav-server-tab">
                                                             <div class="row g-3 mb-3 mt-3">
                                                                 <div class="col-md-12">
-                                                                    <form method="POST"  id="add_2d_notebook" class="add_2d_notebook">
+                                                                     <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="2D NoteBook">
+                                                                        <input type="hidden" name="note_type" value="2A NoteBook">
                                                                         <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="exampleFormControlSelect1">Leaves
+                                                                                    </label>
+                                                                                <select name="leaves" required class="form-control form-select"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Leaves--</option>
+                                                                                    <option value="40"  <?php if ($job_order->leaves == 40) echo 'selected' ?>>40 Leaves</option>
+                                                                                    <option value="60"  <?php if ($job_order->leaves == 60) echo 'selected' ?>>60 Leaves</option>
+                                                                                </select>
+                                                                            </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
                                                                                 <select name="customer_id" required class="form-control form-select" id="customer_name">
@@ -637,17 +671,18 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
+                                                                            
+                                                                        </div>
+
+                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="ink">Ink</label>
+                                                                                <label for="ink">Color Type</label>
                                                                                 <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
                                                                                     <option value="">--Select Color Type--</option>
                                                                                     <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
                                                                                     <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-
-                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="paper_type">Paper Type</label>
                                                                                 <select name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
@@ -664,6 +699,9 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
+                                                                            
+                                                                        </div>
+                                                                        <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="backsided">Cover Thickness</label>
                                                                                 <select class="form-control form-select"  name="thickness" id="backsided">
@@ -673,15 +711,12 @@
                                                                                     <option value="300g"> <?php if ($job_order->thickness == '300g') echo 'selected' ?>300g</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Proof Needed</label>
                                                                                 <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
                                                                                     <option value="">--Select Proof Needed</option>
                                                                                     <option value="yes" <?php if ($job_order->proof_needed == 'yes') echo 'selected' ?>>Yes</option>
-                                                                                    <option value="no" <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
+                                                                                    <option value="no"  <?php if ($job_order->proof_needed == 'no') echo 'selected' ?>>No</option>
                                                                                 </select>
                                                                             </div>
 
@@ -691,17 +726,10 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="proof_needed">Payment Type</label>
-                                                                                <select class="form-control form-select" name="payment_type" required>
-                                                                                    <option value="">--Select Payment Type--</option>
-                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
-                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
-                                                                                </select>
-                                                                            </div>
+                                                                            
                                                                         </div>
 
-                                                                        <div class="row">
+                                                                        
 
                                                                             <div class="row">
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
@@ -717,8 +745,16 @@
                                                                                         @endforeach
                                                                                     </select>
                                                                                 </div>
+                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="proof_needed">Payment Type</label>
+                                                                                <select class="form-control form-select" name="payment_type" required>
+                                                                                    <option value="">--Select Payment Type--</option>
+                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
+                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                </select>
                                                                             </div>
-                                                                        </div>
+                                                                            </div>
+                                                                        
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>

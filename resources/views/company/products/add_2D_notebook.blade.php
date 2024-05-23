@@ -119,6 +119,7 @@
                                                                         <a id="add-product" class="btn btn-primary" >Add Variation</a>
                                                                         <thead>
                                                                             <tr>
+                                                                                <th>Leaves</th>
                                                                                 <th>Color</th>
                                                                                 <th>Paper</th>
                                                                                 <th>Thickness</th>
@@ -128,10 +129,14 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <!-- Initial row, can be hidden -->
-
-
-                                                                            <tr class="product-row" style="margin-top:20px">
+                                                                             <tr class="product-row" style="margin-top:20px">
+                                                                                <td style="width:15%">
+                                                                                    <select name="leaves[]" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                        <option value="">--Select Leaves--</option>
+                                                                                        <option value="40">40 Leaves</option>
+                                                                                        <option value="60">60 Leaves</option>
+                                                                                    </select>
+                                                                                </td>
                                                                                 <td style="width:20%">
                                                                                     <select required name="ink[]" class="form-control form-select" id="exampleFormControlSelect1">
                                                                                         <option value="">--Select Color Type--</option>
@@ -149,7 +154,7 @@
                                                                                     </select>
                                                                                 </td>
 
-                                                                                <td style="width:20%">
+                                                                                <td style="width:18%">
                                                                                     <select required class="form-control form-select"  name="thickness[]" id="thickness">
                                                                                         <option value="">--Select Cover Thickness--</option>
                                                                                         <option value="199g">199g</option>
@@ -157,10 +162,8 @@
                                                                                         <option value="300g">300g</option>
                                                                                     </select>
                                                                                 </td>
-                                                                                <td style="width:20%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
-                                                                                <td style="width:20%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
-
-
+                                                                                <td style="width:18%"><input type="number" required class="form-control quantity"  name="quantity[]" /></td>
+                                                                                <td style="width:18%"><input type="number" required class="form-control price"  name="total_cost[]" /></td>
 
                                                                                 <td>
                                                                                     <a class="remove-product btn btn-danger">

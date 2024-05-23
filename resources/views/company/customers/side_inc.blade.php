@@ -35,11 +35,17 @@
                 aria-selected="false"> Customer Transaction History </a>
                <div class="dropdown-divider"></div>
 
-
-                <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to delete this customer?');"
-                 href="{{route('company.customers.delete_customer', request()->id)}}"
-                 aria-selected="false">Deactivate Customer </a>
-                <div class="dropdown-divider"></div>
+                @if( App\Models\JobOrder::jobOrderCount(request()->id) > 0) 
+                    <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to deactivate this customer?');"
+                    href="{{route('company.customers.deactivate_customer', request()->id)}}"
+                    aria-selected="false">Deactivate Customer </a>
+                    <div class="dropdown-divider"></div>
+                @else
+                    <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to delete this customer?');"
+                    href="{{route('company.customers.delete_customer', request()->id)}}"
+                    aria-selected="false">Delete Customer </a>
+                    <div class="dropdown-divider"></div>
+                @endif
 
             </div>
 

@@ -56,4 +56,8 @@ class JobOrder extends Model
         return $this->belongsTo(JobPaymentHistory::class,'id','job_order_id');
     }
 
+    public static function jobOrderCount($user_id){
+        return $jobOrderCount = JobOrder::where('user_id',$user_id)->count();
+    }
+
 }
