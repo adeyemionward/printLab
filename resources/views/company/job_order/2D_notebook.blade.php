@@ -38,10 +38,10 @@
 
                                                         <div class="row g-3 mb-3 mt-3">
                                                             <div class="col-md-12">
-                                                                <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
+                                                                <form method="POST"  id="add_2d_notebook" class="add_2d_notebook">
                                                                     @csrf
                                                                     @method('POST')
-                                                                    <input type="hidden" name="note_type" value="2A NoteBook">
+                                                                    <input type="hidden" name="note_type" value="2D NoteBook">
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Leaves
@@ -50,7 +50,7 @@
                                                                                 id="exampleFormControlSelect1">
                                                                                 <option value="">--Select Leaves--</option>
                                                                                 <option value="40">40 Leaves</option>
-                                                                                <option value="60">60 Leaves</option>
+                                                                                <option value="20">20 Leaves</option>
                                                                             </select>
                                                                         </div>
 

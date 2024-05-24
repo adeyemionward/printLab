@@ -372,7 +372,7 @@
                                                                                     id="exampleFormControlSelect1">
                                                                                     <option value="">--Select Leaves--</option>
                                                                                     <option value="40"  <?php if ($job_order->leaves == 40) echo 'selected' ?>>40 Leaves</option>
-                                                                                    <option value="60"  <?php if ($job_order->leaves == 60) echo 'selected' ?>>60 Leaves</option>
+                                                                                    <option value="20"  <?php if ($job_order->leaves == 20) echo 'selected' ?>>20 Leaves</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -501,10 +501,10 @@
                                                             role="tabpanel" aria-labelledby="nav-server-tab">
                                                             <div class="row g-3 mb-3 mt-3">
                                                                 <div class="col-md-12">
-                                                                     <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
+                                                                     <form method="POST"  id="add_2b_notebook" class="add_2b_notebook">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="2A NoteBook">
+                                                                        <input type="hidden" name="note_type" value="2B NoteBook">
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlSelect1">Leaves
@@ -513,7 +513,7 @@
                                                                                     id="exampleFormControlSelect1">
                                                                                     <option value="">--Select Leaves--</option>
                                                                                     <option value="40"  <?php if ($job_order->leaves == 40) echo 'selected' ?>>40 Leaves</option>
-                                                                                    <option value="60"  <?php if ($job_order->leaves == 60) echo 'selected' ?>>60 Leaves</option>
+                                                                                    <option value="20"  <?php if ($job_order->leaves == 20) echo 'selected' ?>>20 Leaves</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -641,10 +641,10 @@
                                                             role="tabpanel" aria-labelledby="nav-server-tab">
                                                             <div class="row g-3 mb-3 mt-3">
                                                                 <div class="col-md-12">
-                                                                     <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
+                                                                     <form method="POST"  id="add_2d_notebook" class="add_2d_notebook">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="2A NoteBook">
+                                                                        <input type="hidden" name="note_type" value="2D NoteBook">
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlSelect1">Leaves
@@ -653,7 +653,7 @@
                                                                                     id="exampleFormControlSelect1">
                                                                                     <option value="">--Select Leaves--</option>
                                                                                     <option value="40"  <?php if ($job_order->leaves == 40) echo 'selected' ?>>40 Leaves</option>
-                                                                                    <option value="60"  <?php if ($job_order->leaves == 60) echo 'selected' ?>>60 Leaves</option>
+                                                                                    <option value="20"  <?php if ($job_order->leaves == 20) echo 'selected' ?>>20 Leaves</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">

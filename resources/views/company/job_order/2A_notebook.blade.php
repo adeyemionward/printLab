@@ -50,7 +50,7 @@
                                                                                 id="exampleFormControlSelect1">
                                                                                 <option value="">--Select Leaves--</option>
                                                                                 <option value="40">40 Leaves</option>
-                                                                                <option value="60">60 Leaves</option>
+                                                                                <option value="20">20 Leaves</option>
                                                                             </select>
                                                                         </div>
 
