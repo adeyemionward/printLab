@@ -20,7 +20,7 @@
 
                 <div class="form-group mt-3 mb-3 col-md-4">
                     <label for=""> Filter </label> <br>
-                    <button class="btn btn-sm btn-danger" type="submit" style="width: 200px">
+                    <button class="btn btn-sm btn-success" type="submit" style="width: 200px">
                         <i class="text-white me-2" data-feather="check-circle"></i>Execute
                     </button>
                 </div>

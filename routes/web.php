@@ -136,6 +136,8 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/edit_order/{id}', 'ExternalJobOrderController@edit_order')->name('edit_order');
                     Route::post('/edit_order/{id}', 'ExternalJobOrderController@update_order')->name('edit_order');
                     Route::get('/delete_order/{id}', 'ExternalJobOrderController@delete_job_order')->name('delete_order');
+                    Route::get('/delete_all_external_order', 'ExternalJobOrderController@delete_all_external_order')->name('delete_all_external_order');
+                    
                     Route::get('/track_order/{id}', 'ExternalJobOrderController@track_job_order')->name('track_order');
                     Route::get('/transaction_history/{id}', 'ExternalJobOrderController@transaction_history')->name('transaction_history');
                     Route::post('/transaction_history/{id}', 'ExternalJobOrderController@updateJobPayment')->name('transaction_history');

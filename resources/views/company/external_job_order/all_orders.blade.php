@@ -18,10 +18,17 @@
 
             <div class="card">
                 <div class="content" id="tableContent">
-
+                <a href="{{route('company.external_job_order.delete_all_external_order')}}"   onclick="return confirm('Are you sure you want to delete all the external_job_orders?');">
+                    <button class="btn btn-sm btn-danger" style="width: 300px">
+                        <i class="text-white me-2" data-feather="trash"></i>Delete all External Orders
+                    </button>
+                </a>
                     <div class="canvas-wrapper">
                         @include('company.includes.date_range')
-
+                        <div class="form-group mt-3 mb-3 col-md-4">
+                    <br>
+                   
+                </div>
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>

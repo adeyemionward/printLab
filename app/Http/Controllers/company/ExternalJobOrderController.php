@@ -187,7 +187,13 @@ class ExternalJobOrderController extends Controller
         $job_orders =  JobOrder::where('company_id',app('company_id'))->get();
         $job_order =  JobOrder::find($id);
         $job_order->delete();
-        return redirect(route('company.job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
+        return redirect(route('company.external_job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
+    }
+
+    public function delete_all_external_order(Request $request){
+        $job_orders =  JobOrder::where('order_type','external')->where('company_id',app('company_id'))->delete();
+
+        return redirect(route('company.external_job_order.all_orders'))->with('flash_success','All External Job Orders deleted successfully');
     }
 
     public function track_job_order($id){
