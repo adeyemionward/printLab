@@ -35,8 +35,8 @@
 
                 //save to job
                 $job_order = new JobOrder();
-                $job_order->user_id     = $customer_id;
-                $job_order->company_id     = $user->company_id;
+                $job_order->user_id         = $customer_id;
+                $job_order->company_id      = $user->company_id;
                 $job_order->job_order_name  = $data['note_type'];
                 $job_order->quantity        = $quantity;
                 $job_order->ink             = $ink;
@@ -86,7 +86,7 @@
                 $payment_type               =  $data['payment_type'];
                 $location                   =  $data['location'];
 
-
+                $trimmedNoteType = str_replace(' ', '_', request('note_type'));
                 //save to job
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id     = $customer_id;
@@ -111,7 +111,7 @@
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
              }
             // return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
-            return redirect(route('company.job_order.view_order',[request()->job_title,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
+            return redirect(route('company.job_order.view_order',[$trimmedNoteType,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
             // return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 

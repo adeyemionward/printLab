@@ -363,9 +363,22 @@
                                                                     <form method="POST"  id="add_2a_notebook" class="add_2a_notebook">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="2A NoteBook">
+                                                                        {{-- <input type="hidden" name="note_type" value="2A NoteBook"> --}}
                                                                         <div class="row">
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
+                                                                                <label for="exampleFormControlSelect1">Note Type
+                                                                                    </label>
+                                                                                <select name="note_type" required class="form-control form-select"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Note Type--</option>
+                                                                                    <option value="2A NoteBook"  <?php if ($job_order->job_order_name == '2A NoteBook') echo 'selected' ?>>2A NoteBook</option>
+                                                                                    <option value="2B NoteBook"  <?php if ($job_order->job_order_name == '2B NoteBook') echo 'selected' ?>>2B NoteBook</option>
+                                                                                    <option value="2D NoteBook"  <?php if ($job_order->job_order_name == '2D NoteBook') echo 'selected' ?>>2D NoteBook</option>
+                                                                                   
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="exampleFormControlSelect1">Leaves
                                                                                     </label>
                                                                                 <select name="leaves" required class="form-control form-select"
@@ -375,7 +388,7 @@
                                                                                     <option value="20"  <?php if ($job_order->leaves == 20) echo 'selected' ?>>20 Leaves</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="customer_name">Customer Name</label>
                                                                                 <select name="customer_id" required class="form-control form-select" id="customer_name">
                                                                                     <option value="">--Select Customer--</option>
@@ -385,7 +398,7 @@
                                                                                 </select>
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="quantity">Quantity</label>
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
@@ -504,9 +517,22 @@
                                                                      <form method="POST"  id="add_2b_notebook" class="add_2b_notebook">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="2B NoteBook">
+                                                                        {{-- <input type="hidden" name="note_type" value="2B NoteBook"> --}}
                                                                         <div class="row">
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
+                                                                                <label for="exampleFormControlSelect1">Note Type
+                                                                                    </label>
+                                                                                <select name="note_type" required class="form-control form-select"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Note Type--</option>
+                                                                                    <option value="2A NoteBook"  <?php if ($job_order->job_order_name == '2A NoteBook') echo 'selected' ?>>2A NoteBook</option>
+                                                                                    <option value="2B NoteBook"  <?php if ($job_order->job_order_name == '2B NoteBook') echo 'selected' ?>>2B NoteBook</option>
+                                                                                    <option value="2D NoteBook"  <?php if ($job_order->job_order_name == '2D NoteBook') echo 'selected' ?>>2D NoteBook</option>
+                                                                                   
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="exampleFormControlSelect1">Leaves
                                                                                     </label>
                                                                                 <select name="leaves" required class="form-control form-select"
@@ -516,7 +542,7 @@
                                                                                     <option value="20"  <?php if ($job_order->leaves == 20) echo 'selected' ?>>20 Leaves</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="customer_name">Customer Name</label>
                                                                                 <select name="customer_id" required class="form-control form-select" id="customer_name">
                                                                                     <option value="">--Select Customer--</option>
@@ -526,7 +552,7 @@
                                                                                 </select>
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
                                                                                 <label for="quantity">Quantity</label>
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
@@ -644,8 +670,20 @@
                                                                      <form method="POST"  id="add_2d_notebook" class="add_2d_notebook">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="2D NoteBook">
+                                                                        {{-- <input type="hidden" name="note_type" value="2D NoteBook"> --}}
                                                                         <div class="row">
+                                                                            <div class="form-group mt-3 mb-3 col-md-3">
+                                                                                <label for="exampleFormControlSelect1">Note Type
+                                                                                    </label>
+                                                                                <select name="note_type" required class="form-control form-select"
+                                                                                    id="exampleFormControlSelect1">
+                                                                                    <option value="">--Select Note Type--</option>
+                                                                                    <option value="2A NoteBook"  <?php if ($job_order->job_order_name == '2A NoteBook') echo 'selected' ?>>2A NoteBook</option>
+                                                                                    <option value="2B NoteBook"  <?php if ($job_order->job_order_name == '2B NoteBook') echo 'selected' ?>>2B NoteBook</option>
+                                                                                    <option value="2D NoteBook"  <?php if ($job_order->job_order_name == '2D NoteBook') echo 'selected' ?>>2D NoteBook</option>
+                                                                                   
+                                                                                </select>
+                                                                            </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlSelect1">Leaves
                                                                                     </label>
