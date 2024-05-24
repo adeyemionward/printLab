@@ -555,34 +555,41 @@ class JobOrderController extends Controller
 
     public function update_order(Request $request, $job_title, $id){
         $user = Auth::user();
+        DB::beginTransaction();
+        try{
 
-        if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves' || request()->job_title == '2A_NoteBook' || request()->job_title == '2B_NoteBook'|| request()->job_title == '2D_NoteBook'){
-            $response = $this->noteBookRepository->updateNoteBookOrder($request);
+            if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves'|| request()->job_title == 'Sixty_Leaves' || request()->job_title == '2A_NoteBook' || request()->job_title == '2B_NoteBook'|| request()->job_title == '2D_NoteBook'){
+                $response = $this->noteBookRepository->updateNoteBookOrder($request);
 
-        }elseif(request()->job_title == 'Small_Invoice'){
+            }elseif(request()->job_title == 'Small_Invoice'){
 
-            $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
+                $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
 
-        }elseif(request()->job_title == 'Brochures'){
-            $response = $this->brochureRepository->updateBrochure($request);
+            }elseif(request()->job_title == 'Brochures'){
+                $response = $this->brochureRepository->updateBrochure($request);
 
-        }elseif(request()->job_title == 'Flyer'){
-            $response = $this->flyerRepository->updateFlyer($request);
+            }elseif(request()->job_title == 'Flyer'){
+                $response = $this->flyerRepository->updateFlyer($request);
 
-        }elseif(request()->job_title == 'Business_Cards'){
+            }elseif(request()->job_title == 'Business_Cards'){
 
-            $response = $this->businessCardRepository->updateBusinessCard($request);
+                $response = $this->businessCardRepository->updateBusinessCard($request);
 
-        }elseif(request()->job_title == 'Envelopes'){
-            $response = $this->envelopeRepository->updateEnvelope($request);
+            }elseif(request()->job_title == 'Envelopes'){
+                $response = $this->envelopeRepository->updateEnvelope($request);
 
-        }elseif(request()->job_title == 'Notepads'){
+            }elseif(request()->job_title == 'Notepads'){
 
-            $response = $this->notePadRepository->updateNotePadOrder($request);
+                $response = $this->notePadRepository->updateNotePadOrder($request);
 
-        }elseif(request()->job_title == 'Stickers'){
+            }elseif(request()->job_title == 'Stickers'){
 
-            $response = $this->stickersRepository->updateStickersOrder($request);
+                $response = $this->stickersRepository->updateStickersOrder($request);
+            }
+            DB::commit();
+        }catch(\Exception $th){
+            DB::rollBack();
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
         return $response;
     }

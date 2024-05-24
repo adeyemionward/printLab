@@ -1066,7 +1066,7 @@
                                                                     <form method="POST"  id="add_sixty_leaves" class="add_sixty_leaves">
                                                                         @csrf
                                                                         @method('POST')
-                                                                        <input type="hidden" name="note_type" value="Eighty Leaves">
+                                                                        <input type="hidden" name="note_type" value="Sixty Leaves">
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
