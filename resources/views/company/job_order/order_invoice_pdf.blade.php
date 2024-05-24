@@ -60,11 +60,8 @@
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
                     <td align="right" width="25">{{$val->quantity}}</td>
-                    {{-- <td align="right" width="25"> NONE</td>
-                    <td align="right" width="15"> 0</td> --}}
-                    {{-- <td align="right" width="25"> {{$val->jobPaymentHistories->payment_type}}</td> --}}
-                    <td align="right" width="15"> #{{$amountPaid}}</td>
-                    <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
+                    <td align="right" width="15"> ₦{{$amountPaid}}</td>
+                    <td align="right" width="15" style="padding-right: 20px">₦{{$val->total_cost}}</td>
                 </tr>
             @endforeach
 
@@ -79,7 +76,7 @@
 
           <tr>
             <td width="70" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
-            <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> #{{$totalCost}} </td>
+            <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> ₦{{$totalCost}} </td>
           </tr>
         </table></td>
       </tr>
