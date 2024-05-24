@@ -1,5 +1,5 @@
 
-@extends('layout.master')
+@extends('company.layout.master')
 @section('content')
 @section('title', 'Dashboard')
 @php $page = 'view_order' @endphp
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('external_job_order.job_order_view_inc')
+                                @include('company.external_job_order.job_order_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
@@ -77,7 +77,7 @@
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Customer Name :</td>
-                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
+                                                                       <td> <a style="text-decoration:underline; color:blue" href="{{route('company.customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Job Order Type :</td>

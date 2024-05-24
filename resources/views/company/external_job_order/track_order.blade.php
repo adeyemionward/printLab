@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('external_job_order.job_order_view_inc')
+                                @include('company.external_job_order.job_order_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
