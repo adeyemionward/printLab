@@ -85,7 +85,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Paper Type
                                                                                 </label>
-                                                                                <select name="paper_type form-select" required class="form-control form-select"  id="exampleFormControlSelect1">
+                                                                                <select name="paper_type" required class="form-control form-select"  id="exampleFormControlSelect1">
                                                                                     <option value="">--Select Paper Type--</option>
                                                                                     <option value="50g">50g</option>
                                                                                     <option value="60g">60g</option>
