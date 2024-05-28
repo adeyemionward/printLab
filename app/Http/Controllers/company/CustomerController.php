@@ -56,7 +56,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = User::where('user_type', User::CUSTOMER)->where('status', User::ACTIVE)->where('company_id',app('company_id'))->get();
+        $customers = User::where('user_type', User::CUSTOMER)->where('company_id',app('company_id'))->get();
 
         return view('company.customers.all_customers', compact('customers'));
     }

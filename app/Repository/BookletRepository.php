@@ -30,9 +30,8 @@
                 $shrink_wrap                =  request('shrink_wrap');
                 $numbering_needed           =  request('numbering_needed');
                 $start_number               =  request('start_number');
-                $total_cost                 =  request('total_cost');
-
-                $amount_paid                =  request('amount_paid');
+                $total_cost                 =  str_replace(',', '',request('total_cost'));
+                $amount_paid                =  str_replace(',', '',request('amount_paid'));
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 
@@ -97,9 +96,8 @@
                 $shrink_wrap                =  request('shrink_wrap');
                 $numbering_needed           =  request('numbering_needed');
                 $start_number               =  request('start_number');
-                $total_cost                 =  request('total_cost');
-
-                $amount_paid                =  request('amount_paid');
+                $total_cost                 =  str_replace(',', '',request('total_cost'));
+                $amount_paid                =  str_replace(',', '',request('amount_paid'));
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 

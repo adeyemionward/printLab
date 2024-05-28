@@ -23,8 +23,8 @@
                 $paper_type                 =  request('paper_type');
                 $production_time            =  request('production_time');
                 $proof_needed               =  request('proof_needed');
-                $total_cost                 =  request('total_cost');
-                $amount_paid                =  request('amount_paid');
+                $total_cost                 =  str_replace(',', '',request('total_cost'));
+                $amount_paid                =  str_replace(',', '',request('amount_paid'));
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 
@@ -71,8 +71,8 @@
                 $paper_type                 =  request('paper_type');
                 $production_time            =  request('production_time');
                 $proof_needed               =  request('proof_needed');
-                $total_cost                 =  request('total_cost');
-                $amount_paid                =  request('amount_paid');
+                $total_cost                 =  str_replace(',', '',request('total_cost'));
+                $amount_paid                =  str_replace(',', '',request('amount_paid'));
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 

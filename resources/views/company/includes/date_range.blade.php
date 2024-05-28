@@ -8,7 +8,7 @@
                     @error('date_from')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> 
 
                 <div class="form-group mt-3 mb-3 col-md-4">
                     <label for="exampleFormControlInput1"> Date To: </label>

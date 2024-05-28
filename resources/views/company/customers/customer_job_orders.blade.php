@@ -33,8 +33,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th>S/N</th>
-                                                            <th>Customer&nbsp;Name</th>
+                                                            {{-- <th>Customer&nbsp;Name</th> --}}
                                                             <th>Job&nbsp;Type</th>
+                                                            {{-- <th>Cart&nbsp;Status</th> --}}
                                                             <th>Quantity</th>
                                                             <th>Ink</th>
                                                             <th>Paper&nbsp;Type</th>
@@ -49,8 +50,16 @@
                                                         @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp
                                                             <tr>
                                                                 <td>{{$index+1}}</td>
-                                                                <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
+                                                                {{-- <td>{{$val->user->firstname.' '. $val->user->lastname}}</td> --}}
                                                                 <td>{{$val->job_order_name}}</td>
+                                                                {{-- <td>
+                                                                    @if($val->cart_order_status == 1)
+                                                                    <span style="color:blue; ">In cart </span>
+                                                                    @elseif($val->cart_order_status ==2)
+                                                                    <span style="color:green;">Completed </span>
+                                                                    @endif
+                                                               
+                                                                </td> --}}
                                                                 <td>{{$val->quantity}}</td>
                                                                 <td>{{$val->ink}}</td>
                                                                 <td>{{$val->paper_type}}</td>

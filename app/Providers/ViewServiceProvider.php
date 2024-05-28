@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\Company;
 use App\Models\User;
 use App\Models\SiteSetting;
+use App\Models\JobLocation;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,11 +76,12 @@ class ViewServiceProvider extends ServiceProvider
                 $view->with('current_role', $current_role);
             }
 
-
+            $locations =   JobLocation::select('id','city')->where('company_id',app('company_id'))->get();
 
             // Pass the  variables to all views
 
             $view->with('roles', $roles);
+            $view->with('locations', $locations);
 
         });
     }

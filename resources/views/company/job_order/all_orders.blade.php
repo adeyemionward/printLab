@@ -23,13 +23,15 @@
 
                     <div class="canvas-wrapper">
 
-                        @include('company.includes.date_range')
+                        @include('company.includes.order_date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>S/N</th>
                                     <th>Customer Name</th>
                                     <th>Job Type</th>
+                                    <th>Cart Status</th>
+                                    <th>Location</th>
                                     <th>Quantity</th>
                                     <th>Ink</th>
                                     <th>Paper Type</th>
@@ -46,6 +48,15 @@
                                         <td>{{$index+1}}</td>
                                         <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
                                         <td>{{$val->job_order_name}}</td>
+                                         <td>
+                                                                    @if($val->cart_order_status == 1)
+                                                                    <span style="color:blue; ">In cart </span>
+                                                                    @elseif($val->cart_order_status ==2)
+                                                                    <span style="color:green;">Completed </span>
+                                                                    @endif
+                                                               
+                                                                </td>
+                                        <td>{{@$val->location->city}}</td>
                                         <td>{{$val->quantity}}</td>
                                         <td>{{$val->ink}}</td>
                                         <td>{{$val->paper_type}}</td>

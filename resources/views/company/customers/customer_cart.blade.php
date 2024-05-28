@@ -33,7 +33,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>S/N</th>
-                                                            <th>Customer&nbsp;Name</th>
+                                                            {{-- <th>Customer&nbsp;Name</th> --}}
                                                             <th>Job&nbsp;Type</th>
                                                             <th>Quantity</th>
                                                             <th>Ink</th>
@@ -52,7 +52,7 @@
                                                             <input type="hidden" value="{{$val->id}}" name="job_id[]">
                                                             <tr>
                                                                 <td>{{$index+1}}</td>
-                                                                <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
+                                                                {{-- <td>{{$val->user->firstname.' '. $val->user->lastname}}</td> --}}
                                                                 <td>{{$val->job_order_name}}</td>
                                                                 <td>{{$val->quantity}}</td>
                                                                 <td>{{$val->ink}}</td>

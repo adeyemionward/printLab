@@ -209,7 +209,7 @@
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="total_cost">Total Cost</label>
-                                                                                        <input type="number" required name="total_cost" class="form-control"
+                                                                                        <input type="text" required name="total_cost" class="form-control numberFormat"
                                                                                             id="total_cost" placeholder="eg: 24000">
                                                                                     </div>
 
@@ -224,7 +224,7 @@
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="amount_paid">Amount Paid</label>
-                                                                                        <input type="number" required name="amount_paid" class="form-control"
+                                                                                        <input type="text" required name="amount_paid" class="form-control numberFormat"
                                                                                             id="amount_paid" placeholder="eg: 10000">
                                                                                     </div>
 

@@ -107,11 +107,11 @@ class JobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-        return $jobQuery =  JobOrder::where('order_type','internal')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'))->orderBy('id','DESC');
+        return $jobQuery =  JobOrder::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC');
     }
 
     private function filterOrdersByDateInternal(){
-        return $this->filterOrdersByDate()->where('order_type','internal')->where('company_id',app('company_id'));
+        return $this->filterOrdersByDate()->where('order_type','internal')->where('company_id',app('company_id'))->get();
     }
 
     private function postNoteBook(Request $request){
@@ -131,14 +131,14 @@ class JobOrderController extends Controller
 
     public function index()
     {
-        if(request()->date_to && request()->date_from){
+        $locations =  JobLocation::getLocations();
+        if(request()->location){
             $job_orders = $this->filterOrdersByDateInternal();
         }else{
-            // $job_orders = $this->JobOrderQuery()->get();
             $job_orders =  JobOrder::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }
 
-        return view('company.job_order.all_orders', compact('job_orders'));
+        return view('company.job_order.all_orders', compact('job_orders','locations'));
     }
 
     public function changeJobStatus(Request $request, $job_title, $id){
@@ -595,8 +595,9 @@ class JobOrderController extends Controller
     }
 
     public function pending (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDateInternal()->where('status','Pending')->get();
+        
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Pending');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Pending')->get();
         }
@@ -607,8 +608,8 @@ class JobOrderController extends Controller
 
     public function designed (){
 
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDateInternal()->where('status','Designed')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Designed');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Designed')->get();
         }
@@ -616,8 +617,8 @@ class JobOrderController extends Controller
     }
 
     public function prepressed (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Prepressed')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Prepressed');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Prepressed')->get();
         }
@@ -625,8 +626,8 @@ class JobOrderController extends Controller
     }
 
     public function proof_read (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Proof Read')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Proof Read');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Proof Read')->get();
         }
@@ -634,8 +635,8 @@ class JobOrderController extends Controller
     }
 
     public function approved (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Customer Approved')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Customer Approved');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Customer Approved')->get();
         }
@@ -643,8 +644,8 @@ class JobOrderController extends Controller
     }
 
     public function printed (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Printed')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Printed');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Printed')->get();
         }
@@ -653,8 +654,8 @@ class JobOrderController extends Controller
     }
 
     public function binded (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Binded')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Binded');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Binded')->get();
         }
@@ -663,8 +664,8 @@ class JobOrderController extends Controller
     }
 
     public function completed (){
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Completed')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Completed');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Completed')->get();
         }
@@ -673,8 +674,8 @@ class JobOrderController extends Controller
 
     public function delivered (){
 
-        if(request()->date_to && request()->date_from){
-            $job_orders = $this->filterOrdersByDate()->where('status','Delivered')->get();
+        if(request()->location){
+            $job_orders = $this->filterOrdersByDateInternal()->where('status','Delivered');
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Delivered')->get();
         }

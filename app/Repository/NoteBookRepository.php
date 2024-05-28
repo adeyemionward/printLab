@@ -15,7 +15,7 @@
     {
         public function noteBookOrder($data){
             DB::beginTransaction();
-            try{
+            //  try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
 
@@ -27,9 +27,8 @@
                 $production_time            =  $data['production_time'];
                 $thickness                  =  $data['thickness'];
                 $proof_needed               =  $data['proof_needed'];
-                $total_cost                 =  $data['total_cost'];
-
-                $amount_paid                =  $data['amount_paid'];
+                $total_cost                 =  str_replace(',', '',$data['total_cost']);
+                $amount_paid                =  str_replace(',', '', $data['amount_paid']);
                 $payment_type               =  $data['payment_type'];
                 $location                   =  $data['location'];
 
@@ -43,7 +42,7 @@
                 $job_order->leaves          = $leaves;
                 $job_order->paper_type      = $paper_type;
                 $job_order->production_days = $production_time;
-                $job_order->thickness      = $thickness;
+                $job_order->thickness       = $thickness;
                 $job_order->proof_needed    = $proof_needed;
                 $job_order->total_cost      = $total_cost;
                 $job_order->order_date     = $order_date;
@@ -57,10 +56,10 @@
                 JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
-            }catch(\Exception $th){
-                DB::rollBack();
-                return ['success' => false, 'error' => $th->getMessage()];
-            }
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return ['success' => false, 'error' => $th->getMessage()];
+            // }
             return ['success' => true, 'job_order' => $job_order];
         }
 
@@ -80,9 +79,8 @@
                 $production_time            =  $data['production_time'];
                 $thickness                  =  $data['thickness'];
                 $proof_needed               =  $data['proof_needed'];
-                $total_cost                 =  $data['total_cost'];
-
-                $amount_paid                =  $data['amount_paid'];
+                $total_cost                 =  str_replace(',', '',$data['total_cost']);
+                $amount_paid                =  str_replace(',', '', $data['amount_paid']);
                 $payment_type               =  $data['payment_type'];
                 $location                   =  $data['location'];
 

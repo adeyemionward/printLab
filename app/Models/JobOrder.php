@@ -10,6 +10,7 @@ class JobOrder extends Model
     use HasFactory;
 
     const job_cart_status = 1;
+    const job_ordered_status = 1;
     const ORDER_COMPLETED = 2;
 
     protected $fillable = [

@@ -764,6 +764,22 @@
     } );
 } );
 	</script>
+	<script>
+        $(document).ready(function() {
+            function formatNumberWithCommas(number) {
+                // Remove any existing commas
+                number = number.replace(/,/g, '');
+                // Add commas as thousand separators
+                return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            $('.numberFormat').on('input', function() {
+                var inputVal = $(this).val();
+                var formattedVal = formatNumberWithCommas(inputVal);
+                $(this).val(formattedVal);
+            });
+        });
+    </script>
     @if(Session::has("flash_success"))
         <script>
             toastr.success("{!! Session::get('flash_success') !!}");

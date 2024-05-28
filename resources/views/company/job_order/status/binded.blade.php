@@ -21,8 +21,7 @@
 
                     <div class="canvas-wrapper">
 
-                        @include('company.includes.date_range')
-
+                        @include('company.includes.order_date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>

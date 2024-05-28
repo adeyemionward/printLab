@@ -40,7 +40,7 @@ class ExternalJobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-      return $jobQuery =  JobOrder::where('order_type','external')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'));
+      return $jobQuery =  JobOrder::where('order_type','external')->where('company_id',app('company_id'));
     }
 
     private function filterOrdersByDateExternal(){
