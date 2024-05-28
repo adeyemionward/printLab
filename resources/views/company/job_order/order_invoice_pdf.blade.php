@@ -60,7 +60,7 @@
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
                     <td align="right" width="25">{{$val->quantity}}</td>
-                    <td align="right" width="15"> {#{$amountPaid}}</td>
+                    <td align="right" width="15"> #{{$amountPaid}}</td>
                     <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
                 </tr>
             @endforeach
