@@ -71,11 +71,11 @@
                                     <input type="hidden" value="{{$val->id}}" name="job_id[]">
                                     <div class="media post_item">
                                         {{-- <img src="assets/img/post/post_1.jpg" alt="post" style="width: 120px"> --}}
-                                        @if ( env('APP_ENV') == 'local')
+                                        {{-- @if ( env('APP_ENV') == 'local')
                                             <img src="{{asset($val->productName->image)}}" alt="product_image" style="width: 125px; height:150px">
                                         @else
                                             <img src="{{asset($val->productName->image)}}"  alt="product_image" style="width: 125px; height:150px">
-                                        @endif
+                                        @endif --}}
                                         <div class="media-body" style="padding-left: 20px">
                                             <a >
                                                 <h3 style="color: #2d2d2d;">{{str_replace('_',' ',ucwords($product_name))}}</h3>

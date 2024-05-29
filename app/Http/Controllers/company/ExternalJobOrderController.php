@@ -49,12 +49,13 @@ class ExternalJobOrderController extends Controller
 
     public function index()
     {
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders = $this->filterOrdersByDateExternal()->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->get();
         }
         return view('company.external_job_order.all_orders', compact('job_orders'));
+        
     }
 
     public function view_order($id){
@@ -86,92 +87,115 @@ class ExternalJobOrderController extends Controller
         return back()->with("flash_success","Design Uploaded successfully");
     }
 
+    public function assignLocationToOrder(Request $request, $id){
+        try{
+
+            $user = Auth::user();
+            $job_order =  JobOrder::where('id',$id)->where('company_id',app('company_id'))->first();
+            $job_order->job_location_id   = request('job_location_id');
+            $job_order->update();
+            
+            return back()->with("flash_success","Location Assigned successfully");
+
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+    }
 
     public function changeJobStatus(Request $request,  $id){
-        $job_order =  JobOrder::find($id);
-        $job_order->status =  request('order_status');
-       // $job_order->updated_by =  2;
-        $order_date = date('Y-m-d');
 
-        if(request('order_status') == 'Designed'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->designed_status   = 1;
-            $job_tracking->designed_date     = $order_date;
-            $job_tracking->update();
+        try{
+            $job_order =  JobOrder::find($id);
+            $job_order->status =  request('order_status');
+
+            $order_date = date('Y-m-d');
+
+            if(request('order_status') == 'Designed'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->designed_status   = 1;
+                $job_tracking->designed_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Proof Read'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->proof_read_status   = 1;
+                $job_tracking->proof_read_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Customer Approved'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->customer_approved_status   = 1;
+                $job_tracking->customer_approved_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Prepressed'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->prepressed_status   = 1;
+                $job_tracking->prepressed_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Printed'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->printed_status   = 1;
+                $job_tracking->printed_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Binded'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->binded_status   = 1;
+                $job_tracking->binded_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Completed'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->completed_status   = 1;
+                $job_tracking->completed_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            if(request('order_status') == 'Delivered'){
+                $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
+                $job_tracking->delivered_status   = 1;
+                $job_tracking->delivered_date     = $order_date;
+                $job_tracking->update();
+            }
+
+            $job_order->update();
+            return back()->with("flash_success","Order status changed successfully");
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
-
-        if(request('order_status') == 'Proof Read'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->proof_read_status   = 1;
-            $job_tracking->proof_read_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        if(request('order_status') == 'Customer Approved'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->customer_approved_status   = 1;
-            $job_tracking->customer_approved_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        if(request('order_status') == 'Prepressed'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->prepressed_status   = 1;
-            $job_tracking->prepressed_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        if(request('order_status') == 'Printed'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->printed_status   = 1;
-            $job_tracking->printed_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        if(request('order_status') == 'Binded'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->binded_status   = 1;
-            $job_tracking->binded_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        if(request('order_status') == 'Completed'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->completed_status   = 1;
-            $job_tracking->completed_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        if(request('order_status') == 'Delivered'){
-            $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-            $job_tracking->delivered_status   = 1;
-            $job_tracking->delivered_date     = $order_date;
-            $job_tracking->update();
-        }
-
-        $job_order->update();
-        return back()->with("flash_success","Order status changed successfully");
     }
 
     public function updateJobPayment(Request $request,$id){
-        $user = Auth::user();
-        $order_date = date('Y-m-d');
-        $amount_paid                =  request('amount_paid');
-        $payment_type               =  request('payment_type');
+        try{
+            $user = Auth::user();
+            $order_date = date('Y-m-d');
+            $amount_paid                =  request('amount_paid');
+            $payment_type               =  request('payment_type');
 
-        $job_order =  JobOrder::find($id);
+            $job_order =  JobOrder::find($id);
 
-        $job_pay = new JobPaymentHistory();
-        $job_pay->job_order_id    = $id;
-        $job_pay->user_id     = $job_order->user_id;
-        $job_pay->company_id     = app('company_id');
-        $job_pay->amount          = $amount_paid;
-        $job_pay->payment_type    = $payment_type;
-        $job_pay->payment_date    = $order_date;
-        $job_pay->created_by      = $user->id;
-        $job_pay->save();
+            $job_pay = new JobPaymentHistory();
+            $job_pay->job_order_id    = $id;
+            $job_pay->user_id     = $job_order->user_id;
+            $job_pay->company_id     = app('company_id');
+            $job_pay->amount          = $amount_paid;
+            $job_pay->payment_type    = $payment_type;
+            $job_pay->payment_date    = $order_date;
+            $job_pay->created_by      = $user->id;
+            $job_pay->save();
 
-        return back()->with("flash_success","Order Payment updated successfully");
+            return back()->with("flash_success","Order Payment updated successfully");
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
     }
 
     public function orderInvoicePdf($order_no){
@@ -571,7 +595,7 @@ class ExternalJobOrderController extends Controller
 
     public function pending (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Pending')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Pending')->get();
@@ -582,7 +606,7 @@ class ExternalJobOrderController extends Controller
 
     public function designed (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Designed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Designed')->get();
@@ -592,7 +616,7 @@ class ExternalJobOrderController extends Controller
 
     public function prepressed (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Prepressed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Prepressed')->get();
@@ -602,7 +626,7 @@ class ExternalJobOrderController extends Controller
 
     public function proof_read (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Proof Read')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Proof Read')->get();
@@ -613,7 +637,7 @@ class ExternalJobOrderController extends Controller
 
     public function approved (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Customer Approved')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Customer Approved')->get();
@@ -624,7 +648,7 @@ class ExternalJobOrderController extends Controller
 
     public function printed (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Printed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Printed')->get();
@@ -636,7 +660,7 @@ class ExternalJobOrderController extends Controller
     public function binded (){
 
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Binded')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Binded')->get();
@@ -646,7 +670,7 @@ class ExternalJobOrderController extends Controller
 
     public function completed (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Completed')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Completed')->get();
@@ -657,7 +681,7 @@ class ExternalJobOrderController extends Controller
 
     public function delivered (){
 
-        if(request()->date_to && request()->date_from){
+        if(request()->has('location')) {
             $job_orders =   $this->filterOrdersByDateExternal()->where('status','Delivered')->get();
         }else{
             $job_orders =   $this->JobOrderQuery()->where('status','Delivered')->get();

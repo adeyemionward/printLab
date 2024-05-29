@@ -24,7 +24,7 @@
                     </button>
                 </a>
                     <div class="canvas-wrapper">
-                        @include('company.includes.date_range')
+                        @include('company.includes.order_date_range')
                         <div class="form-group mt-3 mb-3 col-md-4">
                     <br>
                    

@@ -20,14 +20,15 @@
                         <label for="backsided">Select a Status</label>
                         <select required class="form-control form-select"  name="order_status" id="order_status">
                             <option >--select a status--</option>
-                            <option value="Designed">Designed</option>
-                            <option value="Proof Read">Proof Read</option>
-                            <option value="Customer Approved">Customer Approved</option>
-                            <option value="Prepressed">Prepressed</option>
-                            <option value="Printed">Printed</option>
-                            <option value="Binded">Binded</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Delivered">Delivered</option>
+                            <option value="Pending" @if($job_order->status == 'Pending') selected @endif>Pending</option>
+                            <option value="Designed" @if($job_order->status == 'Designed') selected @endif>Designed</option>
+                            <option value="Proof Read" @if($job_order->status == 'Proof Read') selected @endif>Proof Read</option>
+                            <option value="Customer Approved" @if($job_order->status == 'Customer Approved') selected @endif>Customer Approved</option>
+                            <option value="Prepressed" @if($job_order->status == 'Prepressed') selected @endif>Prepressed</option>
+                            <option value="Printed" @if($job_order->status == 'Printed') selected @endif>Printed</option>
+                            <option value="Binded" @if($job_order->status == 'Binded') selected @endif>Binded</option>
+                            <option value="Completed" @if($job_order->status == 'Completed') selected @endif>Completed</option>
+                            <option value="Delivered" @if($job_order->status == 'Delivered') selected @endif>Delivered</option>
                         </select>
                     </div>
                 </div>
@@ -95,6 +96,49 @@
 </form>
 {{-- end approved design --}}
 
+
+{{-- assign location  --}}
+
+    <form method="POST"  action="{{route('company.external_job_order.assign_location',request()->id)}}" class="location">
+    @csrf
+    @method('POST')
+    <div class="modal fade" id="exampleModal_location" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Location to Job Order</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                        <label for="proof_needed">Select Location</label>
+                        <select class="form-control" name="job_location_id" required>
+                            <option value="">--Select Location--</option>
+                            @forelse($locations as $row)
+                                <option value="{{$row->id}}" @if ($row->id == $job_order->job_location_id) selected  @endif>{{$row->city}}</option>
+                            @empty
+                                
+                            @endforelse
+                           
+                        </select> 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-danger" type="submit" name="pay">
+                        <i class="text-white me-2" data-feather="check-circle"></i>Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{{-- end assign location --}}
+
 {{-- add pay --}}
 <form method="POST"  action="{{route('company.external_job_order.transaction_history',request()->id)}}" class="order_status">
     @csrf
@@ -144,11 +188,12 @@
                  href="{{route('company.external_job_order.view_order',request()->id)}}"
                  aria-selected="false">View Details</a>
                 <div class="dropdown-divider"></div>
-{{--
-                <a  class="nav-link  <?php if($page == 'edit_order') echo 'active active_red'  ?>"
-                 href="{{route('company.external_job_order.edit_order',request()->id)}}"
-                 aria-selected="false">Edit Order</a>
-                <div class="dropdown-divider"></div> --}}
+
+                <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal_location" class="nav-link <?php if($page == 'status_order') echo 'active active_red'  ?>"
+
+                aria-selected="false">Assign Location to Order</a>
+
+               <div class="dropdown-divider"></div>
 
 
 
@@ -161,14 +206,9 @@
 
                <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal_design" class="nav-link <?php if($page == 'status_order') echo 'active active_red'  ?>"
 
-                aria-selected="false">Approved Design</a>
+                aria-selected="false">Upload Approved Design</a>
 
                 <div class="dropdown-divider"></div>
-
-                {{-- <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"
-                    href="{{route('company.external_job_order.order_invoice_pdf',[$job_order->order_no])}}"
-                    aria-selected="false">Download Invoice</a>
-                   <div class="dropdown-divider"></div> --}}
 
                 @if ($job_order->order_no != '')
                     <a  class="nav-link  <?php if($page == 'invoice_order') echo 'active active_red'  ?>"

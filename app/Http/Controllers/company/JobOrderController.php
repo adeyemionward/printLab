@@ -229,6 +229,8 @@ class JobOrderController extends Controller
         return back()->with("flash_success","Design Uploaded successfully");
     }
 
+   
+
     public function orderInvoicePdf($order_no){
 
         $orderDetails =  JobOrder::with('jobPaymentHistories')->where('order_no', $order_no)->where('company_id',app('company_id'))->get();

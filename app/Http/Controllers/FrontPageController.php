@@ -56,9 +56,9 @@ class FrontPageController extends Controller
                 ->where(function ($query) {
                     $query->where('user_id', $this->user->id)
                         ->orWhere('local_id', $this->localIp);
-                })->where('company_id',app('company_id'))->get();
+                })->where('company_id',app('company_id'))->where('order_type','external')->get();
         } else {
-            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)->where('local_id', $this->localIp)->where('company_id',app('company_id'))->get();
+            $cart_func = JobOrder::where('cart_order_status', JobOrder::job_cart_status)->where('local_id', $this->localIp)->where('company_id',app('company_id'))->where('order_type','external')->get();
         }
 
         return $cart_func;
@@ -157,7 +157,7 @@ class FrontPageController extends Controller
                 $cart->cover_paper        = $cover_paper;
                 $cart->order_date         = $this->order_date;
                 $cart->order_type         = 'external';
-                $cart->user_id          = $this->user->id;
+                $cart->user_id            = $this->user->id;
                 $cart->created_by         = $user_id;
                 $cart->save();
             }
@@ -185,7 +185,7 @@ class FrontPageController extends Controller
                 $cart = new JobOrder();
                 $cart->product_id      = $product_id;
                 $cart->job_order_name  = $product_name;
-                $cart->company_id  = app('company_id');
+                $cart->company_id      = app('company_id');
                 $cart->ink             = $ink;
                 $cart->paper_type      = $paper_type;
                 $cart->quantity        = $quantity;
