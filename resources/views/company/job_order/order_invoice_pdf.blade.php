@@ -45,40 +45,49 @@
                 <td bgcolor="#E3E3E3" height="28" style="padding-left: 20px">Item</td>
                 <td bgcolor="#E3E3E3" height="28" align="right">Quantity</td>
                 {{-- <td bgcolor="#E3E3E3" height="28"  align="right">Payment&nbsp;Type</td> --}}
-                <td bgcolor="#E3E3E3" height="28" align="right">Amount&nbsp;Paid</td>
+                <td bgcolor="#E3E3E3" height="28" align="right">Cost/Unit</td>
                 <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
             </tr>
-            @php $totalCost =0; @endphp
+            @php $totalCost =0; $amountPaid = 0; $totalAmountPaid = 0;  @endphp
             @foreach ($orderDetails as $val)
-              @php 
-                    $amountPaid = 0; // Initialize amount paid for each order
+                @php 
+                    // Initialize amount paid for each order
                     foreach ($val->jobPaymentHistories as $val1) { 
-                        $amountPaid += $val1->amount; // Accumulate the amounts paid
+                        $amountPaid = $val1->amount; // Accumulate the amounts paid
+                        $totalAmountPaid += $val1->amount;
                     }
                 @endphp
                 @php  $totalCost +=  $val->total_cost;   @endphp
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
                     <td align="right" width="25">{{$val->quantity}}</td>
-                    <td align="right" width="15"> #{{$amountPaid}}</td>
-                    <td align="right" width="15" style="padding-right: 20px">#{{$val->total_cost}}</td>
+                    <td align="right" width="15"> {{ App\Functions\Functions::formatCurrency($val->total_cost/$val->quantity) }}</td>
+                    <td align="right" width="15" style="padding-right: 20px"> {{ App\Functions\Functions::formatCurrency($val->total_cost) }}</td>
                 </tr>
             @endforeach
 
         </table>
     </td>
       </tr>
-      <tr>
-        <td>&nbsp;</td>
-      </tr>
+    
       <tr>
         <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
 
           <tr>
-            <td width="70" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
-            <td width="30" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span> #{{$totalCost}} </td>
+            <td width="30" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
+            <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span>  {{ App\Functions\Functions::formatCurrency($totalCost) }}</td>
           </tr>
-        </table></td>
+        </table>
+      </tr>
+
+      <tr>
+        <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
+
+          <tr>
+            <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Amount Paid:</span>  {{ App\Functions\Functions::formatCurrency($totalAmountPaid) }}</td>
+            <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Balance:</span>  {{ App\Functions\Functions::formatCurrency($totalCost - $totalAmountPaid) }}</td>
+          </tr>
+        </table>
       </tr>
 
       </tr>
