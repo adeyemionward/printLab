@@ -64,7 +64,6 @@ class FrontPageController extends Controller
         return $cart_func;
     }
 
-
     private function countCart(){
 
         $cart_func = $this->cartFunc();
