@@ -60,15 +60,15 @@
                                                     <div class="tab-pane fade show active" id="nav-server"
                                                         role="tabpanel" aria-labelledby="nav-server-tab">
 
-                                                        
+
                                                                 <form method="POST"  id="colorPickerForm" class="logo_color" enctype="multipart/form-data">
                                                                     @csrf
                                                                     @method('POST')
                                                                         <div class="form-group mt-3 mb-3 row">
                                                                             <label for="secondary_color" class="col-md-12">Select Theme </label>
                                                                             <div class="col-md-4">
-                                                                                @foreach ($themes as $theme) 
-                                                                                
+                                                                                @foreach ($themes as $theme)
+
                                                                                 <div class="row row align-items-center">
                                                                                     <div class="col-md-8">
                                                                                         <input type="radio" style="display: inline-block; width: 24px; height: 24px;" required name="theme_id" class="{{ $errors->has('theme_id') ? ' is-invalid' : '' }}" {{@$theme->id == @$site_theme->site_theme_id ? 'checked' : ''}} value="{{$theme->id}}">
