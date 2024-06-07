@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('site_themes', function (Blueprint $table) {
-            $table->foreignId('company_id')->nullable()->constrained('companies')->after('id');
+            $table->foreignId('company_id')->nullable()->after('name')->constrained('companies');
         });
     }
 
