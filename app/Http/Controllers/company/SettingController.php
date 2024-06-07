@@ -120,7 +120,7 @@ class SettingController extends Controller
     }
 
     public function theme(){
-        $themes = SiteTheme::where('company_id', app('company_id'))->get();
+        $themes = SiteTheme::all();
         $site_theme = $this->siteDetails();
         return view('company.settings.site.theme', compact('themes','site_theme'));
     }
