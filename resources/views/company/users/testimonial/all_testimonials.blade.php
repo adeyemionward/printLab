@@ -41,8 +41,8 @@
                                                                     <thead>
                                                                         <tr>
                                                                             <th>S/N</th>
-                                                                            <th>City</th>
                                                                             <th>Name</th>
+                                                                            <th>Content</th>
                                                                             <th>Action</th>
                                                                         </tr>
                                                                     </thead>

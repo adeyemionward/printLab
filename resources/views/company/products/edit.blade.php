@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Edit Product</h4>
+                    <h4 class="m-0 text-dark text-muted">Edit Product</h4> 
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
@@ -926,7 +926,7 @@
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                                 <td style="width:15%">
                                                                                     <select name="leaves[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                       
+
                                                                                         <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
                                                                                         <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
                                                                                     </select>
@@ -1060,7 +1060,7 @@
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
                                                                                 <td style="width:15%">
                                                                                     <select name="leaves" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                       
+
                                                                                         <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
                                                                                         <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
                                                                                     </select>
@@ -1200,10 +1200,10 @@
                                                                         @forelse($product_variations as $val)
                                                                             <tr class="product-row" style="margin-top:20px">
                                                                                 <input type="text" name="product_cost_id[]" value="{{$val->id}}" style="display:none">
-                                                                                
+
                                                                                 <td style="width:15%">
                                                                                     <select name="leaves" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                       
+
                                                                                         <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
                                                                                         <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
                                                                                     </select>

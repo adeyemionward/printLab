@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Dashboard</h4>
+                    <h4 class="m-0 text-dark text-muted">Customers</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Customers</li>
                     </ol>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                                         <td>{{$val->email}}</td>
                                         <td>{{$val->phone}}</td>
                                         <td>{{$val->address}}</td>
-                                        <td><a href="{{route('company.customers.edit_customer',$val->id)}}"><span><i class="fa fa-edit"></i></span></a></td>
+                                        <td><a href="{{route('company.customers.edit_customer',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
 

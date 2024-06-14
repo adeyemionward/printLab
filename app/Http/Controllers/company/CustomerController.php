@@ -45,7 +45,7 @@ class CustomerController extends Controller
     private function countCart($user_id){
 
         $cart_count = JobOrder::where('cart_order_status', 1)->where('user_id',$user_id)->where('company_id',$this->user->company_id)->get();
-        
+
         $countCart  = count($cart_count);
         return $countCart;
     }
@@ -56,7 +56,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = User::where('user_type', User::CUSTOMER)->where('company_id',app('company_id'))->get();
+        $customers = User::where('user_type', User::CUSTOMER)->where('status','active')->where('company_id',app('company_id'))->get();
 
         return view('company.customers.all_customers', compact('customers'));
     }
@@ -261,7 +261,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deactivate($id) 
+    public function deactivate($id)
     {
         $customer = User::find($id);
         $customer->status = 'deactivated';
