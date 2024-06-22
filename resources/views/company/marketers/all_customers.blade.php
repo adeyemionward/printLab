@@ -37,19 +37,19 @@
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>Phone</th>
-                                                        <th>Address</th>
-                                                        {{-- <th>Action</th> --}}
+                                                        {{-- <th>Address</th> --}}
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($all_customers as $index => $val)
                                                         <tr>
                                                             <td>{{$index+1}}</td>
-                                                            <a href="#"> <td>{{$val->firstname. ' '. $val->lastname}}</td> </a> 
+                                                            <td>{{$val->firstname. ' '. $val->lastname}}</td>  
                                                             <td>{{$val->email}}</td>
                                                             <td>{{$val->phone}}</td>
-                                                            <td>{{$val->address}}</td>
-                                                            {{-- <td><a href="{{route('company.marketers.edit_marketer',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td> --}}
+                                                            {{-- <td>{{$val->address}}</td> --}}
+                                                            <td><a href="{{route('company.customers.view_customer',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td>
                                                         </tr>
                                                     @endforeach
 

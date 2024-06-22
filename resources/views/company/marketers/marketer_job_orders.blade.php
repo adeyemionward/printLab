@@ -1,34 +1,36 @@
 
 @extends('company.layout.master')
 @section('content')
-@section('title', 'Customer Job Orders')
+@section('title', 'View Customer')
 @php $page = 'orders'; @endphp
+
+
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Job Orders for {{$customer->firstname.' '.$customer->lastname}} </h4>
+                    <h4 class="m-0 text-dark text-muted">Marketer</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Customer Job Order</a></li>
-                        <li class="breadcrumb-item active">All Orders</li>
+                        <li class="breadcrumb-item"><a href="#"> Home</a></li>
+                        <li class="breadcrumb-item active">All Customers</li>
                     </ol>
                 </div>
             </div>
-
             <div class="content">
                 <div class="canvas-wrapper">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('company.customers.side_inc')
+                                @include('company.marketers.side_inc')
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
-                                        <div class="content" id="tableContent">
+                                    <div class="content" id="tableContent">
 
-                                            <div class="canvas-wrapper">
+                                        <div class="canvas-wrapper">
 
+                                          
                                                 <table id="example" class="table no-margin" style="width:100%">
                                                     <thead>
                                                         <tr>
@@ -72,24 +74,17 @@
 
 
                                                 </table>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
-
-                <!-- 							Canvas Wrapper End -->
-
             </div>
         </div>
-
     </div>
 @endsection
+
 

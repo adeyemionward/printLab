@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Marketer;
 use App\Models\User;
 use App\Models\ErrorLog;
+use App\Models\JobOrder;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
@@ -55,13 +56,13 @@ class MarketerController extends Controller
         return view('company.marketers.all_customers', compact('all_customers'));
     }
 
-    public function customer_job_orders($id)
+    public function marketer_job_orders($id)
     {
 
         $customer = $this->find_marketer($id);
-        $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
+        $job_orders =  JobOrder::where('marketer_id', $id)->where('company_id',app('company_id'))->get();
 
-        return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
+        return view('company.marketers.marketer_job_orders', compact('customer','job_orders'));
     }
 
     public function transaction_history($id){
@@ -210,17 +211,17 @@ class MarketerController extends Controller
      */
     public function deactivate($id)
     {
-        $customer = User::find($id);
-        $customer->status = 'deactivated';
-        $customer->save();
-        return redirect(route('company.customers.all_customers'))->with('flash_success','Customer has been deactivated');
+        $marketer = User::find($id);
+        $marketer->status = 'deactivated';
+        $marketer->save();
+        return redirect(route('company.marketers.all_marketers'))->with('flash_success','Marketer has been deactivated');
     }
 
     public function delete($id)
     {
-        $customer = User::find($id);
+        $marketer = User::find($id);
         // $customer->status = 'deactivated';
-        $customer->delete();
-        return redirect(route('company.customers.all_customers'))->with('flash_success','Customer has been deleted');
+        $marketer->delete();
+        return redirect(route('company.marketers.all_marketers'))->with('flash_success','Marketer has been deleted');
     }
 }

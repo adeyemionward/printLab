@@ -26,7 +26,7 @@
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'orders') echo 'active active_red'  ?>" id="nav-database-tab"
-                href=""
+                href="{{route('company.marketers.marketer_job_orders', request()->id)}}"
                 aria-selected="false"> Marketer Job Orders </a>
                <div class="dropdown-divider"></div>
 
@@ -35,17 +35,17 @@
                 aria-selected="false"> Marketer Transaction History </a>
                <div class="dropdown-divider"></div>
 
-                @if( App\Models\JobOrder::jobOrderCount(request()->id) > 0) 
+                {{-- @if( App\Models\JobOrder::jobOrderCount(request()->id) > 0)  --}}
                     <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to deactivate this customer?');"
-                    href=""
+                    href="{{route('company.marketers.deactivate_marketer', request()->id)}}"
                     aria-selected="false">Deactivate Marketer </a>
                     <div class="dropdown-divider"></div>
-                @else
+                {{-- @else --}}
                     <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to delete this customer?');"
-                    href=""
+                    href="{{route('company.marketers.delete_marketer', request()->id)}}"
                     aria-selected="false">Delete Marketer </a>
                     <div class="dropdown-divider"></div>
-                @endif
+                {{-- @endif --}}
 
             </div>
 

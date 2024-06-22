@@ -282,10 +282,10 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/edit_marketer/{id}', 'MarketerController@edit')->name('edit_marketer');
                     Route::post('/edit_marketer/{id}', 'MarketerController@update')->name('edit_marketer');
                     Route::get('/view_marketer/{id}', 'MarketerController@show')->name('view_marketer');
-                   
+                    Route::get('/marketer_job_orders/{id}', 'MarketerController@marketer_job_orders')->name('marketer_job_orders');
                     Route::get('/transaction_history/{id}', 'MarketerController@transaction_history')->name('transaction_history');
-                    Route::get('/deactivate_customer/{id}', 'MarketerController@deactivate')->name('deactivate_customer');
-                    Route::get('/delete_customer/{id}', 'MarketerController@delete')->name('delete_customer');
+                    Route::get('/deactivate_marketer/{id}', 'MarketerController@deactivate')->name('deactivate_marketer');
+                    Route::get('/delete_marketer/{id}', 'MarketerController@delete')->name('delete_marketer');
                 });
 
                 Route::group(['prefix' => '/users', 'as' => 'users.'], function () {
