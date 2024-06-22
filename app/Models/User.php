@@ -16,6 +16,7 @@ class User extends Authenticatable
     CONST ADMIN = 1;
     CONST CUSTOMER = 2;
     CONST COMPANY = 3;
+    CONST MARKETER = 4;
 
     CONST ACTIVE = 'active';
     CONST INACTIVE = 'deactivated';

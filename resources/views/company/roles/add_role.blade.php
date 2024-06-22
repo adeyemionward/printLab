@@ -26,7 +26,7 @@
                                             <div class="card-header bg-white">
                                                 <h5 class="card-title mb-0 text-muted">Create User Role </h5>
                                             </div>
-                                            <div class="card-body h-100">
+                                            <div class="card-body h-100"> 
                                                 <div class="align-items-start">
                                                     <div class="tab-content" id="nav-tabContent">
                                                         <div class="tab-pane fade show active" id="nav-server" role="tabpanel" aria-labelledby="nav-server-tab">
@@ -48,8 +48,8 @@
                                                                             <div class="form-group mt-3 mb-3 row">
                                                                                 <div class="col-md-12">
                                                                                     <input type="checkbox" id="selectAll"><strong> &nbsp;Select All Permissions</strong>  <br>
-                                                                                   
-                                                                            
+
+
                                                                                     <div class="row">
                                                                                         @foreach ($groupedPermissions as $prefix => $permissions)
                                                                                             <div class="col-md-4">
@@ -65,13 +65,13 @@
                                                                                             </div>
                                                                                         @endforeach
                                                                                     </div>
-                                                                            
+
                                                                                     @error('permission')
                                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                                     @enderror
                                                                                 </div>
                                                                             </div>
-                                                                            
+
 
                                                                         </div>
 

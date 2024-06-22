@@ -77,11 +77,14 @@ class ViewServiceProvider extends ServiceProvider
             }
 
             $locations =   JobLocation::select('id','city')->where('company_id',app('company_id'))->get();
+            $marketers = User::where('user_type',User::MARKETER)->where('status','active')->where('company_id', app('company_id'))->get();
 
             // Pass the  variables to all views
 
             $view->with('roles', $roles);
             $view->with('locations', $locations);
+            $view->with('marketers', $marketers);
+            
 
         });
     }

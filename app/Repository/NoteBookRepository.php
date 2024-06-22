@@ -9,6 +9,7 @@
     use App\Models\EightyLeavesBook;
     use App\Models\FortyLeavesBook;
     use App\Models\TwentyLeavesBook;
+    use App\Models\User;
     use Illuminate\Support\Facades\Auth;
 
     class NoteBookRepository
@@ -32,9 +33,12 @@
                 $payment_type               =  $data['payment_type'];
                 $location                   =  $data['location'];
 
+                $marketerId = User::find($customer_id)->marketer_id;
+
                 //save to job
                 $job_order = new JobOrder();
                 $job_order->user_id         = $customer_id;
+                $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->company_id      = $user->company_id;
                 $job_order->job_order_name  = $data['note_type'];
                 $job_order->quantity        = $quantity;
@@ -84,10 +88,13 @@
                 $payment_type               =  $data['payment_type'];
                 $location                   =  $data['location'];
 
+                $marketerId = User::find($customer_id)->marketer_id;
+
                 $trimmedNoteType = str_replace(' ', '_', request('note_type'));
                 //save to job
                 $job_order =  JobOrder::find($id);
-                $job_order->user_id     = $customer_id;
+                $job_order->user_id         = $customer_id;
+                $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = $data['note_type'] ?? null;
                 $job_order->leaves          = $leaves;
                 $job_order->quantity        = $quantity;

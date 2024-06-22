@@ -59,6 +59,16 @@
                                     <span class="data-feather theme-item"> View Customers</span>
                                 </a>
 
+                                <a href="{{route('company.marketers.add_marketer')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item">Add Marketer</span>
+                                </a>
+
+                                <a href="{{route('company.marketers.all_marketers')}}" class="text-center">
+                                    <i class="data-feather theme-item" ></i>
+                                    <span class="data-feather theme-item"> View Marketers</span>
+                                </a>
+
                                 <a href="{{route('company.users.add_user')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
                                     <span class="data-feather theme-item">Add User</span>
@@ -304,6 +314,9 @@
 										aria-labelledby="navbarDropdownMenuLink1">
 										<li><a class="dropdown-item" href="{{route('company.customers.add_customer')}}">Add Customer</a></li>
 										<li><a class="dropdown-item" href="{{route('company.customers.all_customers')}}"> View Customers</a></li>
+
+										 <li><a class="dropdown-item" href="{{route('company.marketers.add_marketer')}}">Add Marketer</a></li>
+										<li><a class="dropdown-item" href="{{route('company.marketers.all_marketers')}}"> View Marketers</a></li>
 
                                         <li><a class="dropdown-item" href="{{route('company.users.add_user')}}">Add User</a></li>
 										<li><a class="dropdown-item" href="{{route('company.users.all_users')}}"> View Users</a></li>

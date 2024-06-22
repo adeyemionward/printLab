@@ -26,6 +26,7 @@
                         'address_3' => request('address_3'),
                     ],
                 );
+                
                 DB::commit();
 
             }catch(\Exception $th){

@@ -138,7 +138,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::post('/edit_order/{id}', 'ExternalJobOrderController@update_order')->name('edit_order');
                     Route::get('/delete_order/{id}', 'ExternalJobOrderController@delete_job_order')->name('delete_order');
                     Route::get('/delete_all_external_order', 'ExternalJobOrderController@delete_all_external_order')->name('delete_all_external_order');
-                    
+
                     Route::get('/track_order/{id}', 'ExternalJobOrderController@track_job_order')->name('track_order');
                     Route::get('/transaction_history/{id}', 'ExternalJobOrderController@transaction_history')->name('transaction_history');
                     Route::post('/transaction_history/{id}', 'ExternalJobOrderController@updateJobPayment')->name('transaction_history');
@@ -271,6 +271,21 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
                     Route::get('/deactivate_customer/{id}', 'CustomerController@deactivate')->name('deactivate_customer');
                     Route::get('/delete_customer/{id}', 'CustomerController@delete')->name('delete_customer');
+                });
+
+
+                Route::group(['prefix' => '/marketers', 'as' => 'marketers.'], function () {
+                    Route::get('/add_marketer', 'MarketerController@create')->name('add_marketer');
+                    Route::post('/add_marketer', 'MarketerController@store')->name('add_marketer');
+                    Route::get('/all_marketers', 'MarketerController@index')->name('all_marketers');
+                    Route::get('/all_customers/{id}', 'MarketerController@all_customers')->name('all_customers');
+                    Route::get('/edit_marketer/{id}', 'MarketerController@edit')->name('edit_marketer');
+                    Route::post('/edit_marketer/{id}', 'MarketerController@update')->name('edit_marketer');
+                    Route::get('/view_marketer/{id}', 'MarketerController@show')->name('view_marketer');
+                   
+                    Route::get('/transaction_history/{id}', 'MarketerController@transaction_history')->name('transaction_history');
+                    Route::get('/deactivate_customer/{id}', 'MarketerController@deactivate')->name('deactivate_customer');
+                    Route::get('/delete_customer/{id}', 'MarketerController@delete')->name('delete_customer');
                 });
 
                 Route::group(['prefix' => '/users', 'as' => 'users.'], function () {

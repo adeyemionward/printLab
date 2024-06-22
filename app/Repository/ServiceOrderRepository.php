@@ -5,7 +5,7 @@ use App\Models\JobOrderTracking;
 use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 class ServiceOrderRepository
 {
     public function serviceOrder($data)
@@ -23,9 +23,11 @@ class ServiceOrderRepository
             $payment_type               =  $data['payment_type'];
             $location                   =  $data['location'];
 
+            $marketerId = User::find($customer_id)->marketer_id;
             //save to job
             $job_order = new JobOrder();
             $job_order->user_id         = $customer_id;
+            $job_order->marketer_id     = $marketerId ?? null;
             $job_order->company_id      = $user->company_id;
             $job_order->job_order_name  = 'Service';
             $job_order->quantity        = $quantity;
@@ -68,9 +70,11 @@ class ServiceOrderRepository
             $payment_type               =  $data['payment_type'];
             $location                   =  $data['location'];
 
+            $marketerId = User::find($customer_id)->marketer_id;
             //save to job
             $job_order =  JobOrder::find($id);
-            $job_order->user_id     = $customer_id;
+            $job_order->user_id         = $customer_id;
+            $job_order->marketer_id     = $marketerId ?? null;
             $job_order->job_order_name  = 'Service';
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;

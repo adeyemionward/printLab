@@ -1,19 +1,19 @@
 
 @extends('company.layout.master')
 @section('content')
-@section('title', 'Add Customer')
+@section('title', 'Add Marketer')
 
 
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Customer</h4>
+                    <h4 class="m-0 text-dark text-muted">Marketer</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Customer</li>
+                        <li class="breadcrumb-item active">Marketer</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                                 <div class="col-md-12 col-xl-12">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Create Customer Details</h5>
+                                            <h5 class="card-title mb-0 text-muted">Create Marketer Details</h5>
                                         </div>
                                         <div class="card-body h-100">
                                             <div class="align-items-start">
@@ -38,7 +38,7 @@
                                                                     @csrf
                                                                     @method('POST')
                                                                     <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        <div class="form-group mt-3 mb-3 col-md-6">
                                                                             <label for="firstname">Firstname:</label>
                                                                             <input type="text" name="firstname" id="firstname" class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" value="{{ old('firstname') }}">
                                                                             @error('firstname')
@@ -46,7 +46,7 @@
                                                                             @enderror
                                                                         </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        <div class="form-group mt-3 mb-3 col-md-6">
                                                                             <label for="lastname">Lastname:</label>
                                                                             <input type="text" name="lastname" id="lastname" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" value="{{ old('lastname') }}">
                                                                             @error('lastname')
@@ -56,7 +56,7 @@
 
 
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        <div class="form-group mt-3 mb-3 col-md-6">
                                                                             <label for="email">Email:</label>
                                                                             <input type="text" name="email" id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}">
                                                                             @error('email')
@@ -64,7 +64,7 @@
                                                                             @enderror
                                                                         </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        <div class="form-group mt-3 mb-3 col-md-6">
                                                                             <label for="phone">Phone:</label>
                                                                             <input type="text" name="phone" id="phone" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}">
                                                                             @error('phone')
@@ -73,29 +73,7 @@
                                                                         </div>
                                                                     </div>
 
-
-
                                                                     <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-6">
-                                                                            <label for="company_school_name">Company/School Name
-                                                                                </label>
-                                                                                <input name="company_school_name"  class="form-control{{ $errors->has('company_school_name') ? ' is-invalid' : '' }}" value="{{ old('company_school_name') }}"
-                                                                                id="company_school_name">
-                                                                                @error('company_school_name')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-6">
-                                                                            <label for="marketer_id">Marketer</label>
-                                                                            <select class="form-control{{ $errors->has('marketer_id') ? ' is-invalid' : '' }} form-select" name="marketer_id" value="{{ old('marketer_id') }}">
-                                                                                <option value="">--Select Marketer--</option>
-                                                                                @foreach ($marketers as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-
                                                                         <div class="form-group mt-3 mb-3 col-md-12">
                                                                             <label for="address">Address
                                                                                 </label>
@@ -106,6 +84,9 @@
                                                                                 @enderror
                                                                         </div>
                                                                     </div>
+
+
+
                                                                     <button class="btn btn-sm btn-danger" type="submit">
                                                                         <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                     </button>

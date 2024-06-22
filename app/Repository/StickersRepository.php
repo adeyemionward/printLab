@@ -8,7 +8,7 @@
     use App\Models\Sticker;
 
     use Illuminate\Support\Facades\Auth;
-
+    use App\Models\User;
     class StickersRepository
     {
         public function postStickersOrder($data){
@@ -28,9 +28,11 @@
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 
+                $marketerId = User::find($customer_id)->marketer_id;
                 //save to job
                 $job_order = new JobOrder();
                 $job_order->user_id         = $customer_id;
+                $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->company_id      = $user->company_id;
                 $job_order->job_order_name  = 'Stickers';
                 $job_order->quantity        = $quantity;
@@ -76,9 +78,11 @@
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 
+                $marketerId = User::find($customer_id)->marketer_id;
                 //save to job
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id         = $customer_id;
+                $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = 'Stickers';
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;

@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Customer;
+use App\Models\Marketer;
 use App\Models\User;
 use App\Models\ErrorLog;
-use App\Models\JobOrder;
-use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
 use Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
-class CustomerController extends Controller
+class MarketerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,91 +27,45 @@ class CustomerController extends Controller
 
         $this->middleware('auth');
 
-        $this->middleware('permission:customer-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:marketer-create', ['only' => ['create','store']]);
 
-        $this->middleware('permission:customer-list', ['only' => ['index']]);
-        $this->middleware('permission:customer-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
-
-        $this->middleware('permission:customer-cart', ['only' => ['customer_cart']]);
-        $this->middleware('permission:customer-checkout', ['only' => ['checkout']]);
-        $this->middleware('permission:customer-job-orders', ['only' => ['customer_job_orders']]);
-        $this->middleware('permission:customer-transaction-history', ['only' => ['transaction_history']]);
+        // $this->middleware('permission:marketer-list', ['only' => ['index']]);
+        // $this->middleware('permission:marketer-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:marketer-delete', ['only' => ['destroy']]);
+        // $this->middleware('permission:marketer-transaction-history', ['only' => ['transaction_history']]);
 
     }
 
-    private function countCart($user_id){
-
-        $cart_count = JobOrder::where('cart_order_status', 1)->where('user_id',$user_id)->where('company_id',$this->user->company_id)->get();
-
-        $countCart  = count($cart_count);
-        return $countCart;
-    }
-
-    private function find_customer ($user_id){
+    
+    private function find_marketer ($user_id){
        return $customer = User::find($user_id);
     }
 
     public function index()
     {
-        $customers = User::where('user_type', User::CUSTOMER)->where('status','active')->where('company_id',app('company_id'))->get();
+        $marketers = User::where('user_type', User::MARKETER)->where('status','active')->where('company_id',app('company_id'))->get();
 
-        return view('company.customers.all_customers', compact('customers'));
+        return view('company.marketers.all_marketers', compact('marketers'));
     }
 
-    public function customer_cart($id)
+    public function all_customers($id)
     {
-        $customer = $this->find_customer($id);
-        $cartCount = $this->countCart($id);
-        $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',1)->get();
-
-        return view('company.customers.customer_cart', compact('customer','job_orders','cartCount'));
-    }
-
-    public function checkout($id)
-    {
-        $customer = $this->find_customer($id);
-        $job_id  = request('job_id');
-        $randomInteger = random_int(100000, 999999);
-
-        $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
-            [
-                'cart_order_status' =>  2,
-                'order_no' =>  $randomInteger,
-            ]
-        );
-
-        $userDetails    = User::find($id);
-        $userEmail  =  $userDetails->email;
-        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
-
-        $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
-        $payment_type =  0;
-        $amount_paid = 0;
-        $data = [
-            'payment_type' =>'',
-            'amount_paid' => '',
-            'userDetails' =>$userDetails,
-            'orderDetails' => $orderDetails, // Collection of orders, for example
-        ];
-        $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
-        $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
-        return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
+        $all_customers = User::where('user_type', User::CUSTOMER)
+        ->where('marketer_id', $id)->where('company_id',app('company_id'))->get();
+        return view('company.marketers.all_customers', compact('all_customers'));
     }
 
     public function customer_job_orders($id)
     {
 
-        $customer = $this->find_customer($id);
-        $cartCount = $this->countCart($id);
+        $customer = $this->find_marketer($id);
         $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
 
         return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }
 
     public function transaction_history($id){
-        $customer = $this->find_customer($id);
-        $cartCount = $this->countCart($id);
+        $customer = $this->find_marketer($id);
 
         $job_pay_history =  JobPaymentHistory::where('user_id',$id)->where('company_id',app('company_id'))->get();
         return view('company.customers.transaction_history', compact('customer','job_pay_history','cartCount'));
@@ -127,8 +79,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $marketers = User::where('user_type',User::MARKETER)->where('status','active')->where('company_id', app('company_id'))->get();
-        return view('company.customers.add_customer', compact('marketers'));
+        return view('company.marketers.add_marketer');
     }
 
     /**
@@ -145,15 +96,12 @@ class CustomerController extends Controller
             'phone'     => 'required|string',
             'email'     => 'email|string|unique:users,email',
             'address'   => 'required|string',
-            'company_school_name'   => 'required|string',
-            'marketer_id' => 'nullable',
         ], [
             'firstname.required' => 'Please enter customer firstname.',
             'lastname.required' => 'Please enter customer lastname.',
             'email.required' => 'Please enter customer email address.',
             'email.email' => 'Please enter a valid email address.',
             'email.unique' => 'This email has been taken.',
-            'company_school_name.required' => 'Please enter company name/school name.',
             'phone.required' => 'Please enter customer phone number.',
             'address.required' => 'Please enter customer address.',
         ]);
@@ -168,16 +116,14 @@ class CustomerController extends Controller
             $user->gender       = request('gender');;
             $user->address      = request('address');
             $user->status       = 'active';
-            $user->user_type    = User::CUSTOMER;
+            $user->user_type    = User::MARKETER;
             $user->password     = bcrypt(request('firstname'));
-            $user->company_name      = request('company_school_name');
-            $user->marketer_id      = request('marketer_id');
             $user->save();
 
-            return back()->with("flash_success","Customer saved successfully");
+            return back()->with("flash_success","Marketer saved successfully");
 
         }catch (\Throwable $th){
-            ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error
+            ErrorLog::log('marketer', '__METHOD__', $th->getMessage()); //log error
             return back()->with("flash_error","There is an error processing this request");
         }
 
@@ -192,9 +138,8 @@ class CustomerController extends Controller
     public function show($id)
     {
 
-        $customer = $this->find_customer($id);
-        $cartCount = $this->countCart($id);
-        return view('company.customers.view_customer', compact('customer','cartCount'));
+        $marketer = $this->find_marketer($id);
+        return view('company.marketers.view_marketer', compact('marketer'));
     }
 
     /**
@@ -205,9 +150,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = $this->find_customer($id);
-        $cartCount = $this->countCart($id);
-        return view('company.customers.edit_customer', compact('customer','cartCount'));
+        $customer = $this->find_marketer($id);
+        return view('company.marketers.edit_marketer', compact('customer'));
     }
 
     /**
@@ -250,7 +194,7 @@ class CustomerController extends Controller
             // $customer->company_name      = request('company_school_name');
 
             $customer->update();
-            return back()->with("flash_success","Customer updated successfully");
+            return back()->with("flash_success","Marketer updated successfully");
 
         }catch (\Throwable $th){
             ErrorLog::log('customer', '__METHOD__', $th->getMessage()); //log error

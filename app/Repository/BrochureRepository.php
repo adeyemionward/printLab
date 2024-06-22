@@ -6,7 +6,7 @@
     use App\Models\JobPaymentHistory;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
-
+    use App\Models\User;
     class BrochureRepository
     {
         public function postBrochure($data){
@@ -28,10 +28,13 @@
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
 
+                $marketerId = User::find($customer_id)->marketer_id;
+
                 //save to job
                 $job_order = new JobOrder();
                 $job_order->user_id     = $customer_id;
-                $job_order->company_id     = $user->company_id;
+                $job_order->marketer_id     = $marketerId ?? null;
+                $job_order->company_id      = $user->company_id;
                 $job_order->job_order_name  = 'Brochures';
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;
@@ -78,10 +81,11 @@
                 $amount_paid                =  str_replace(',', '',request('amount_paid'));
                 $payment_type               =  request('payment_type');
                 $location                   =  request('location');
-
+                $marketerId = User::find($customer_id)->marketer_id;
                 //save to job
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id             = $customer_id;
+                $job_order->marketer_id     = $marketerId??null;
                 $job_order->company_id     = $user->company_id;
                 $job_order->job_order_name      = 'Brochures';
                 $job_order->quantity            = $quantity;

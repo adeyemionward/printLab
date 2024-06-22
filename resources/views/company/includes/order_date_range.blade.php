@@ -18,7 +18,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group mt-3 mb-3 col-md-3">
+                <div class="form-group mt-3 mb-3 col-md-2">
                     <label for="exampleFormControlInput1"> Location </label>
                     <select class="form-control form-select" name="location">
                             <option value="">All Location</option>
@@ -31,7 +31,20 @@
                     @enderror
                 </div>
 
-                <div class="form-group mt-3 mb-3 col-md-3">
+                 <div class="form-group mt-3 mb-3 col-md-2">
+                    <label for="exampleFormControlInput1"> Marketers </label>
+                    <select class="form-control form-select" name="marketer">
+                            <option value="">All Marketers</option>
+                            @foreach($marketers as $marketer)
+                                <option value="{{$marketer->id}}" @if(isset(request()->marketer) && $marketer->id == request()->marketer) selected @endif>{{$marketer->firstname. ' '. $marketer->lastname}}</option>
+                            @endforeach
+                    </select>
+                    @error('location')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mt-3 mb-3 col-md-2">
                     <label for=""> Filter </label> <br>
                     <button class="btn btn-sm btn-success" type="submit" style="width: 200px">
                         <i class="text-white me-2" data-feather="check-circle"></i>Execute

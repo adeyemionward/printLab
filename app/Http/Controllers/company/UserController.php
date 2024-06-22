@@ -243,8 +243,6 @@ class UserController extends Controller
 
     }
 
-
-
     public function create_testimonial()
     {
         $customers =  User::where('user_type',User::CUSTOMER)->where('company_id', app('company_id'))->get();

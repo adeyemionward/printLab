@@ -10,6 +10,7 @@ trait FilterOrdersByDateTrait
         $startDate  = request('date_from');
         $endDate    = request('date_to');
         $location   = request('location');
+        $marketer   = request('marketer');
 
         //Start building the query
         $query = JobOrder::query();
@@ -24,8 +25,15 @@ trait FilterOrdersByDateTrait
             $query->where('job_location_id', $location);
         }
 
+        // Apply location filter if provided
+        if (!empty($marketer)) {
+            $query->where('marketer_id', $marketer);
+        }
+
         // Execute the query and get the results
         $data = $query;
+        // $data = $query->get();
+        // dd( $data);
         return $data;
     }
 }

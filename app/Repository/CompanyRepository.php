@@ -8,6 +8,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
     use Spatie\Permission\Models\Role;
+    use App\Models\User;
     class CompanyRepository
     {
         public function postCompany($data){
