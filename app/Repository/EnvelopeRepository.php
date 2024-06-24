@@ -96,6 +96,7 @@
                 $job_order->total_cost      = $total_cost;
                 $job_order->updated_by      = $user->id;
                 $job_order->job_location_id        = $location;
+                $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $job_order->save();
 
                 JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);

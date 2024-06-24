@@ -47,6 +47,7 @@
                 $job_order->cart_order_status      = 1;
                 $job_order->created_by      = $user->id;
                 $job_order->job_location_id        = $location;
+                $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $job_order->save();
 
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);

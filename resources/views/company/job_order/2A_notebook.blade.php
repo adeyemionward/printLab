@@ -126,11 +126,17 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
-                                                                            <select class="form-control form-select" name="payment_type" required>
+                                                                            <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                 <option value="">--Select Payment Type--</option>
                                                                                 <option value="Full Payment">Full Payment</option>
                                                                                 <option value="Part Payment">Part Payment</option>
+                                                                                <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
+                                                                        </div>
+
+                                                                        <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
+                                                                            <label for="cheque_number">Posted Cheque Due Date</label>
+                                                                            <input type="date" class="form-control " name="posted_cheque_date" id="posted_cheque_date">
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">

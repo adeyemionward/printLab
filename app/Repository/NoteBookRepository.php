@@ -16,7 +16,7 @@
     {
         public function noteBookOrder($data){
             DB::beginTransaction();
-            //  try{
+             try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
 
@@ -32,6 +32,8 @@
                 $amount_paid                =  str_replace(',', '', $data['amount_paid']);
                 $payment_type               =  $data['payment_type'];
                 $location                   =  $data['location'];
+                $posted_cheque_due_date     =  $data['posted_cheque_date'];
+               
 
                 $marketerId = User::find($customer_id)->marketer_id;
 
@@ -54,16 +56,17 @@
                 $job_order->cart_order_status      = 1;
                 $job_order->job_location_id        = $location;
                 $job_order->created_by      = $user->id;
+                $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $job_order->save();
 
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
                 JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
-            // }catch(\Exception $th){
-            //     DB::rollBack();
-            //     return ['success' => false, 'error' => $th->getMessage()];
-            // }
+            }catch(\Exception $th){
+                DB::rollBack();
+                return ['success' => false, 'error' => $th->getMessage()];
+            }
             return ['success' => true, 'job_order' => $job_order];
         }
 

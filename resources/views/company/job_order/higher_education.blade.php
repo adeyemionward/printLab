@@ -123,7 +123,13 @@
                                                                                 <option value="">--Select Payment Type--</option>
                                                                                 <option value="Full Payment">Full Payment</option>
                                                                                 <option value="Part Payment">Part Payment</option>
+                                                                                <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
+                                                                        </div>
+
+                                                                        <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
+                                                                            <label for="cheque_number">Posted Cheque Due Date</label>
+                                                                            <input type="date" class="form-control " name="posted_cheque_date" id="posted_cheque_date">
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">

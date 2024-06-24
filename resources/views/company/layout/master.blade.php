@@ -805,6 +805,22 @@
         </script>
     @endif
 
+	<script>
+	$(document).ready(function() {
+		document.querySelector('select[name="payment_type"]').addEventListener('change', function() {
+		
+			var chequeDetails = document.querySelector('.posted_cheque_date');
+			if (this.value === 'Posted Cheque') {
+				chequeDetails.style.display = 'block';
+				document.getElementById('posted_cheque_date').setAttribute('required', 'required');
+			} else {
+				chequeDetails.style.display = 'none';
+				document.getElementById('posted_cheque_date').removeAttribute('required');
+			}
+		});
+	});
+</script>
+
     @yield('scripts')
 </body>
 
