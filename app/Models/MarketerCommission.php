@@ -19,4 +19,6 @@ class MarketerCommission extends Model
     public function jobDetails(){
         return $this->belongsTo(JobOrder::class,'job_order_id','id');
     }
+
+    
 }

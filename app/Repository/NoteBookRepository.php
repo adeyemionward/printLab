@@ -91,7 +91,7 @@
 
         public function updateNoteBookOrder($data){
             DB::beginTransaction();
-             try{
+            try{
                 $id = request()->id;
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
@@ -127,7 +127,40 @@
                 $job_order->total_cost      = $total_cost;
                 $job_order->job_location_id = $location;
                 $job_order->updated_by      = $user->id;
-                $job_order->save();
+                $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
+                $pp = $job_order->save();
+
+                $marketer_commission_id = $data['marketer_commission_id'];
+                $marketerId = $data['marketer_id'];
+                $percentage = $data['percentage'];
+
+
+                // $marketer_id = $request->marketer_id ?? [];
+                //$marketerId = $data['marketer_id'];
+              //  dd($marketerId);
+                $comm_id = MarketerCommission::where('job_order_id', request()->id);
+                $comm_id->delete();
+              //  dd($comm_id);
+                if ($pp) {
+                    
+                    if (!empty($marketerId) && !empty($percentage)) {
+                        for ($count = 0; $count < count($marketerId); $count++) {
+                            if (!empty($marketerId[$count]) && !empty($percentage[$count])) {
+                                MarketerCommission::updateOrCreate(
+                                    [
+                                        'job_order_id' => $job_order->id,
+                                        'company_id'   => $user->company_id,
+                                        'marketer_id'  => $marketerId[$count],
+                                    ],
+                                    [
+                                        'percentage'   => $percentage[$count],
+                                    ]
+                                );
+                            }
+                        }
+                    } 
+                    
+                }
 
                 JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 

@@ -39,6 +39,7 @@ use App\Models\ErrorLog;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\FilterOrdersByDateTrait;
 use App\Traits\HandleFileUpload;
+use App\Models\MarketerCommission;
 class JobOrderController extends Controller
 {
     use FilterOrdersByDateTrait;
@@ -552,7 +553,9 @@ class JobOrderController extends Controller
         $job_order =  JobOrder::find($id);
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
-        return view('company.job_order.edit_order', compact('job_order','customers','locations','approved_design'));
+
+        $job_marketers_commission = MarketerCommission::where('job_order_id', $id)->get(); 
+        return view('company.job_order.edit_order', compact('job_order','customers','locations','approved_design','job_marketers_commission'));
     }
 
     public function update_order(Request $request, $job_title, $id){

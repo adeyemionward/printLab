@@ -262,7 +262,7 @@ class ProductController extends Controller
 
         //save to job
         $product = new Product();
-        $product->name  = 'forty_leaves';
+        $product->name           = 'forty_leaves';
         $product->title           = 'Forty Leaves';
         $product->company_id             = $user->company_id;
         // $product->paper_type      = $paper_type;
