@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
                         <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                        <li class="breadcrumb-item active">Customer</li>
+                        <li class="breadcrumb-item active">Marketer</li>
                     </ol>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">View Customer Details</h5>
+                                            <h5 class="card-title mb-0 text-muted">View Marketer Details</h5>
                                         </div>
                                         <div class="card-body h-100">
                                             <div class="align-items-start">

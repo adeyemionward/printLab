@@ -187,12 +187,22 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                 Route::group(['prefix' => '/finance', 'as' => 'finance.'], function () {
 
+                 
+
                     Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
                         Route::get('/add_requisition', 'RequisitionController@create')->name('add_requisition');
                         Route::post('/add_requisition', 'RequisitionController@store')->name('add_requisition');
                         Route::get('/all_requisition', 'RequisitionController@index')->name('all_requisitions');
                         Route::get('/edit_requisition/{id}', 'RequisitionController@edit')->name('edit_requisition');
                         Route::post('/edit_requisition/{id}', 'RequisitionController@update')->name('edit_requisition');
+                    });
+
+                    Route::group(['prefix' => '/commissions', 'as' => 'commissions.'], function () {
+                        Route::get('/add_commission', 'FinanceController@add_commission')->name('add_commission');
+                        Route::post('/add_commission', 'FinanceController@store_commission')->name('add_commission');
+                        Route::get('/all_commission', 'FinanceController@all_commission')->name('all_commission');
+                        Route::get('/edit_commission/{id}', 'FinanceController@edit')->name('edit_commission');
+                        Route::post('/edit_commission/{id}', 'FinanceController@update')->name('edit_commission');
                     });
 
                     Route::group(['prefix' => '/expenses', 'as' => 'expenses.'], function () {

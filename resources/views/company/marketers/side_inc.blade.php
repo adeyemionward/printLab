@@ -20,10 +20,10 @@
                 aria-selected="false">Edit Marketer </a>
                <div class="dropdown-divider"></div>
 
-               <a class="nav-link <?php if($page == 'customers') echo 'active active_red'  ?>" id="nav-database-tab"
+               {{-- <a class="nav-link <?php if($page == 'customers') echo 'active active_red'  ?>" id="nav-database-tab"
                 href="{{route('company.marketers.all_customers', request()->id)}}"
                 aria-selected="false"> All Customers   </a>
-               <div class="dropdown-divider"></div>
+               <div class="dropdown-divider"></div> --}}
 
                <a class="nav-link <?php if($page == 'orders') echo 'active active_red'  ?>" id="nav-database-tab"
                 href="{{route('company.marketers.marketer_job_orders', request()->id)}}"

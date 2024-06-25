@@ -25,7 +25,7 @@
                                 <tr>
                                     <th>S/N</th>
                                     <th>Expense Title</th>
-                                    <th>Beneficiary</th>
+                                    <th>Supplier</th>
                                     <th>Category</th>
                                     <th>Total Cost</th>
                                     <th>Payment Type</th>
@@ -39,15 +39,8 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->title}}</td>
-                                        <td>{{@$val->supplierCompany->company_name ?? @$val->marketerName->firstname}}</td>
-                                        <td>
-                                        @if($val->title == 'Commission')
-                                            Commission
-                                        @else
-                                                 {{$val->categoryName->category_name}}
-                                        @endif
-                                           
-                                        </td>
+                                        <td>{{$val->supplierCompany->company_name}}</td>
+                                        <td>{{$val->categoryName->category_name}}</td>
                                         <td>&#8358;{{$val->total_cost}}</td>
 
                                         <td>{{$val->payment_type}}</td>

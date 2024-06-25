@@ -32,7 +32,7 @@
                                                 <div class="tab-content" id="nav-tabContent">
                                                     <div class="tab-pane fade show active" id="nav-server"
                                                         role="tabpanel" aria-labelledby="nav-server-tab">
-                                                        <div class="row g-3 mb-3 mt-3">
+                                                        <div class="row g-3 mb-3">
                                                             <div class="col-md-12">
                                                                 <form method="POST"  id="add_customer" class="add_customer">
                                                                     @csrf

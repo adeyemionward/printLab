@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('expense_payment_histories', function (Blueprint $table) {
+        Schema::create('marketer_commissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('expense_id')->constrained('expenses')->onDelete('cascade');
-            $table->string('payment_type'); 
-            // $table->decimal('amount_paid');
-            $table->bigInteger('amount_paid')->nullable();
-            $table->string('expense_date');
             $table->foreignId('company_id')->constrained('companies')->nullable();
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('job_order_id')->constrained('job_orders')->onDelete('cascade');
+            $table->foreignId('marketer_id')->constrained('users')->onDelete('cascade');
+            $table->decimal('percentage', 10, 2); 
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expense_payment_histories');
+        Schema::dropIfExists('marketer_commissions');
     }
 };

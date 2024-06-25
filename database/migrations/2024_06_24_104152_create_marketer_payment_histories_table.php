@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('expense_payment_histories', function (Blueprint $table) {
+        Schema::create('marketer_payment_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('expense_id')->constrained('expenses')->onDelete('cascade');
-            $table->string('payment_type'); 
-            // $table->decimal('amount_paid');
-            $table->bigInteger('amount_paid')->nullable();
-            $table->string('expense_date');
             $table->foreignId('company_id')->constrained('companies')->nullable();
+            $table->foreignId('marketer_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('expense_id')->constrained('expenses');
+            $table->string('payment_type');
+            $table->bigInteger('amount_paid')->nullable();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expense_payment_histories');
+        Schema::dropIfExists('marketer_payment_histories');
     }
 };

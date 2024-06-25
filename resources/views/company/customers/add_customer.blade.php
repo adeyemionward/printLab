@@ -79,24 +79,15 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-6">
                                                                             <label for="company_school_name">Company/School Name
                                                                                 </label>
-                                                                                <input name="company_school_name"  class="form-control{{ $errors->has('company_school_name') ? ' is-invalid' : '' }}" value="{{ old('company_school_name') }}"
-                                                                                id="company_school_name">
+
+                                                                                <textarea name="company_school_name"  class="form-control{{ $errors->has('company_school_name') ? ' is-invalid' : '' }}" value="{{ old('company_school_name') }}"
+                                                                                id="company_school_name"> </textarea>
                                                                                 @error('company_school_name')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                                 @enderror
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-6">
-                                                                            <label for="marketer_id">Marketer</label>
-                                                                            <select class="form-control{{ $errors->has('marketer_id') ? ' is-invalid' : '' }} form-select" name="marketer_id" value="{{ old('marketer_id') }}">
-                                                                                <option value="">--Select Marketer--</option>
-                                                                                @foreach ($marketers as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-12">
                                                                             <label for="address">Address
                                                                                 </label>
                                                                                 <textarea name="address"  class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" value="{{ old('address') }}"

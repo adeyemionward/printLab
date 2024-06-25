@@ -7,6 +7,7 @@
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
     use App\Models\User;
+    use App\Models\MarketerCommission;
     class EnvelopeRepository
     {
         public function postenvelope($data){
@@ -31,7 +32,7 @@
                 $job_order = new JobOrder();
                 $job_order->user_id     = $customer_id;
                 $job_order->company_id     = $user->company_id;
-                $job_order->marketer_id     = $marketerId ?? null;
+                // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = 'Envelopes';
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;
@@ -83,7 +84,7 @@
                 //save to job
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id     = $customer_id;
-                $job_order->marketer_id     = $marketerId ?? null;
+                // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->company_id     = $user->company_id;
                 $job_order->job_order_name  = 'Envelopes';
                 $job_order->quantity        = $quantity;
@@ -98,6 +99,20 @@
                 $job_order->job_location_id        = $location;
                 $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $job_order->save();
+
+                $marketerId = $data['marketer_id'];
+                $percentage = $data['percentage'];
+
+                for ($count=0; $count < count($marketerId); $count++) {
+                    $marketer_comm =  MarketerCommission::updateOrCreate(
+                        [
+                            'job_order_id'      => $job_order->id,
+                            'company_id'        => $user->company_id,
+                            'marketer_id'       => $marketerId[$count],
+                            'percentage'        => $percentage[$count],
+                        ],
+                    );
+                }
 
                 JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 

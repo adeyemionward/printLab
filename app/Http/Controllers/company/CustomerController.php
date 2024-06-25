@@ -171,7 +171,7 @@ class CustomerController extends Controller
             $user->user_type    = User::CUSTOMER;
             $user->password     = bcrypt(request('firstname'));
             $user->company_name      = request('company_school_name');
-            $user->marketer_id      = request('marketer_id');
+            // $user->marketer_id      = request('marketer_id');
             $user->save();
 
             return back()->with("flash_success","Customer saved successfully");

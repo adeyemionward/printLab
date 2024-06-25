@@ -10,13 +10,14 @@
     use App\Models\FortyLeavesBook;
     use App\Models\TwentyLeavesBook;
     use App\Models\User;
+    use App\Models\MarketerCommission;
     use Illuminate\Support\Facades\Auth;
 
     class NoteBookRepository
     {
         public function noteBookOrder($data){
             DB::beginTransaction();
-             try{
+            try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
 
@@ -35,12 +36,13 @@
                 $posted_cheque_due_date     =  $data['posted_cheque_date'];
                
 
-                $marketerId = User::find($customer_id)->marketer_id;
-
+               // $marketerId = User::find($customer_id)->marketer_id;
+               $marketerId = $data['marketer_id'];
+               $percentage = $data['percentage'];
                 //save to job
                 $job_order = new JobOrder();
                 $job_order->user_id         = $customer_id;
-                $job_order->marketer_id     = $marketerId ?? null;
+               // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->company_id      = $user->company_id;
                 $job_order->job_order_name  = $data['note_type'];
                 $job_order->quantity        = $quantity;
@@ -59,8 +61,24 @@
                 $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $job_order->save();
 
+                $marketerId = $data['marketer_id'];
+                $percentage = $data['percentage'];
+
+                for ($count=0; $count < count($marketerId); $count++) {
+                    $marketer_comm =  MarketerCommission::updateOrCreate(
+                        [
+                            'job_order_id'      => $job_order->id,
+                            'company_id'        => $user->company_id,
+                            'marketer_id'       => $marketerId[$count],
+                            'percentage'        => $percentage[$count],
+                        ],
+                    );
+                }
+
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
                 JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+                //upate marketer wallet
+                //JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
             }catch(\Exception $th){
@@ -97,7 +115,7 @@
                 //save to job
                 $job_order =  JobOrder::find($id);
                 $job_order->user_id         = $customer_id;
-                $job_order->marketer_id     = $marketerId ?? null;
+                // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = $data['note_type'] ?? null;
                 $job_order->leaves          = $leaves;
                 $job_order->quantity        = $quantity;

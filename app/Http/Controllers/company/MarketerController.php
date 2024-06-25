@@ -13,6 +13,8 @@ use Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\MarketerCommission;
+use App\Models\MarketerPaymentHistory;
 class MarketerController extends Controller
 {
     /**
@@ -60,7 +62,9 @@ class MarketerController extends Controller
     {
 
         $customer = $this->find_marketer($id);
-        $job_orders =  JobOrder::where('marketer_id', $id)->where('company_id',app('company_id'))->get();
+        // $job_orders =  JobOrder::where('marketer_id', $id)->where('company_id',app('company_id'))->get();
+
+        $job_orders =  MarketerCommission::where('marketer_id', $id)->where('company_id',app('company_id'))->get();
 
         return view('company.marketers.marketer_job_orders', compact('customer','job_orders'));
     }
@@ -68,8 +72,10 @@ class MarketerController extends Controller
     public function transaction_history($id){
         $customer = $this->find_marketer($id);
 
-        $job_pay_history =  JobPaymentHistory::where('user_id',$id)->where('company_id',app('company_id'))->get();
-        return view('company.customers.transaction_history', compact('customer','job_pay_history','cartCount'));
+        $job_pay_history =  MarketerPaymentHistory::where('marketer_id',$id)->where('company_id',app('company_id'))->get();
+        $job_orders =  MarketerCommission::where('marketer_id', $id)->where('company_id',app('company_id'))->get();
+       
+        return view('company.marketers.transaction_history', compact('customer','job_pay_history','job_orders'));
     }
 
 

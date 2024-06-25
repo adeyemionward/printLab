@@ -7,6 +7,7 @@
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
     use App\Models\User;
+    use App\Models\MarketerCommission;
     class BrochureRepository
     {
         public function postBrochure($data){
@@ -52,6 +53,20 @@
                 $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $job_order->created_by      = $user->id;
                 $job_order->save();
+
+                $marketerId = $data['marketer_id'];
+                $percentage = $data['percentage'];
+
+                for ($count=0; $count < count($marketerId); $count++) {
+                    $marketer_comm =  MarketerCommission::updateOrCreate(
+                        [
+                            'job_order_id'      => $job_order->id,
+                            'company_id'        => $user->company_id,
+                            'marketer_id'       => $marketerId[$count],
+                            'percentage'        => $percentage[$count],
+                        ],
+                    );
+                }
 
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
                 JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
