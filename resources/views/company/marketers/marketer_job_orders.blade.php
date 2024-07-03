@@ -30,7 +30,7 @@
 
                                         <div class="canvas-wrapper">
 
-                                          
+
                                                 <table id="example" class="table no-margin" style="width:100%">
                                                     <thead>
                                                         <tr>
@@ -50,7 +50,7 @@
                                                     <tbody>
                                                     @php $total_commission = 0; @endphp
                                                         @foreach ($job_orders as $index => $val)
-                                                        @php $job_title = str_replace(' ','_', $val->job_order_name);$total_commission += ($val->percentage/100)*$val->jobDetails->total_cost   @endphp
+                                                        @php $job_title = str_replace(' ','_', $val->jobDetails->job_order_name); $total_commission += ($val->percentage/100)*$val->jobDetails->total_cost   @endphp
                                                             <tr>
                                                                 <td>{{$index+1}}</td>
                                                                 {{-- <td>{{$val->user->firstname.' '. $val->user->lastname}}</td> --}}
@@ -61,7 +61,7 @@
                                                                     @elseif($val->cart_order_status ==2)
                                                                     <span style="color:green;">Completed </span>
                                                                     @endif
-                                                               
+
                                                                 </td> --}}
                                                                 <td>{{$val->jobDetails->quantity}}</td>
                                                                 {{-- <td>{{$val->jobDetails->ink}}</td>
@@ -70,12 +70,12 @@
                                                                 <td>{{'₦'.$val->jobDetails->total_cost}} </td>
                                                                 <td>{{$val->percentage}}</td>
                                                                 <td>
-                                                                {{'₦'.($val->percentage/100)*$val->jobDetails->total_cost}} 
+                                                                {{'₦'.($val->percentage/100)*$val->jobDetails->total_cost}}
                                                                 </td>
                                                                 <td>{{$val->jobDetails->status}}</td>
                                                                 <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                                             </tr>
-                                                           
+
                                                         @endforeach
                                                          <tfoot>
                                                                 <tr>
