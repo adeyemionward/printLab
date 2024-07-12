@@ -350,6 +350,20 @@ class JobOrderController extends Controller
         return $response;
     }
 
+    public function create_drawing_book(){
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
+        return view('company.job_order.drawing_book', compact('customers','locations'));
+    }
+
+    public function post_drawing_book(Request $request)
+    {
+        // Call the function to postnotebook
+        $response = $this->postNoteBook($request);
+        return $response;
+    }
+
+
 
     public function twenty_leaves()
     {
@@ -563,7 +577,7 @@ class JobOrderController extends Controller
         DB::beginTransaction();
         try{
 
-            if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves'|| request()->job_title == 'Sixty_Leaves' || request()->job_title == '2A_NoteBook' || request()->job_title == '2B_NoteBook'|| request()->job_title == '2D_NoteBook'){
+            if(request()->job_title == 'Eighty_Leaves' || request()->job_title == 'Higher_NoteBook' || request()->job_title == 'Twenty_Leaves'|| request()->job_title == 'Forty_Leaves'|| request()->job_title == 'Sixty_Leaves' || request()->job_title == '2A_NoteBook' || request()->job_title == '2B_NoteBook'|| request()->job_title == '2D_NoteBook' || request()->job_title == 'Drawing_Book'){
                 $response = $this->noteBookRepository->updateNoteBookOrder($request);
 
             }elseif(request()->job_title == 'Small_Invoice'){

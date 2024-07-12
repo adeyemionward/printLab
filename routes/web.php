@@ -74,6 +74,10 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::post('/add_2D_notebook', 'JobOrderController@post_2D_notebook')->name('add_2D_notebook');
 
 
+                    Route::get('/add_drawing_book', 'JobOrderController@create_drawing_book')->name('add_drawing_book');
+                    Route::post('/add_drawing_book', 'JobOrderController@post_drawing_book')->name('add_drawing_book');
+
+
 
                     Route::get('/20_leaves_book', 'JobOrderController@twenty_leaves')->name('20_leaves_book');
                     Route::post('/20_leaves_book', 'JobOrderController@post_twenty_leaves')->name('20_leaves_book');

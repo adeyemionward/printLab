@@ -1112,6 +1112,7 @@ class ProductController extends Controller
 
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
+            $leaves                     =  request('leaves');
             $production_time            =  request('production_time');
             $thickness                  =  request('thickness');
             $quantity                   =  request('quantity');
@@ -1140,6 +1141,7 @@ class ProductController extends Controller
                     if ($existingProduct) {
                         // If the product cost already exists, update it
                         $existingProduct->update([
+                            'leaves'            => $leaves[$count],
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],
                             'thickness'         => $thickness[$count],
@@ -1150,6 +1152,7 @@ class ProductController extends Controller
                         // If the product cost doesn't exist, create a new one
                         ProductCost::create([
                             'product_id'        => $id,
+                            'leaves'            => $leaves[$count],
                             'product_name'      => $product->name,
                             'quantity'          => $quantity[$count],
                             'paper_type'        => $paper_type[$count],

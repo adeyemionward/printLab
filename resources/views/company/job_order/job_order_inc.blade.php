@@ -30,10 +30,17 @@
                 aria-selected="false">2D Note Book</a>
                <div class="dropdown-divider"></div>
 
+               
+               <a class="nav-link <?php if($page == 'drawing_book') echo 'active active_red'  ?>"
+                href="{{route('company.job_order.add_drawing_book')}}"
+                aria-selected="false">Drawing Book </a>
+               <div class="dropdown-divider"></div>
+
                 <a class="nav-link <?php if($page == 'twenty_leaves') echo 'active active_red'  ?>"
                  href="{{route('company.job_order.20_leaves_book')}}"
                  aria-selected="false">20 Leaves Note Book </a>
                 <div class="dropdown-divider"></div>
+
 
 
 

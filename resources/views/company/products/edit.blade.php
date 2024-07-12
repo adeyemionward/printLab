@@ -1347,8 +1347,9 @@
                                                                             <td style="width:15%">
                                                                                 <select name="leaves[]" required class="form-control form-select"  id="exampleFormControlSelect1">
 
+                                                                                    <option value="10" @php if($val->leaves == '10') echo 'selected' @endphp>10 Leaves</option>
+                                                                                    <option value="20" @php if($val->leaves == '20') echo 'selected' @endphp>20 Leaves</option>
                                                                                     <option value="40" @php if($val->leaves == '40') echo 'selected' @endphp>40 Leaves</option>
-                                                                                    <option value="60" @php if($val->leaves == '60') echo 'selected' @endphp>60 Leaves</option>
                                                                                 </select>
                                                                             </td>
                                                                             <td style="width:20%">

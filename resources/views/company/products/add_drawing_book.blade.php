@@ -132,9 +132,10 @@
                                                                              <tr class="product-row" style="margin-top:20px">
                                                                                 <td style="width:15%">
                                                                                     <select name="leaves[]" required class="form-control form-select"  id="exampleFormControlSelect1">
-                                                                                        <option value="">--Select Leaves--</option>
+                                                                                        <option value="">--Select Leaves--</option>                                   
+                                                                                        <option value="10">10 Leaves</option>
+                                                                                        <option value="20">20 Leaves</option>
                                                                                         <option value="40">40 Leaves</option>
-                                                                                        <option value="60">60 Leaves</option>
                                                                                     </select>
                                                                                 </td>
                                                                                 <td style="width:20%">

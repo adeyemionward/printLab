@@ -20,7 +20,8 @@ class JobOrder extends Model
         'thickness',
         'total_cost',
         'memory',
-        'cover_paper'
+        'cover_paper',
+        'proof_needed'
     ];
 
     public function user(){
