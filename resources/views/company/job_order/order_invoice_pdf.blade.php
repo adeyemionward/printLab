@@ -49,27 +49,17 @@
                 <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
             </tr>
             @php $totalCost =0; $amountPaid = 0; $totalAmountPaid = 0;  @endphp
-            @foreach ($orderDetails as $val)
-                @php 
-                    // Initialize amount paid for each order
-                    foreach ($val->jobPaymentHistories as $val1) { 
-                        $amountPaid = $val1->amount; // Accumulate the amounts paid
-                        $totalAmountPaid += $val1->amount;
-                    }
-                @endphp
-                @php  $totalCost +=  $val->total_cost;   @endphp
-                <tr style="border-bottom: 1px solid #ccc;">
-                    <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
-                    <td align="right" width="25">{{$val->quantity}}</td>
-                    <td align="right" width="15"> {{ App\Functions\Functions::formatCurrency($val->total_cost/$val->quantity) }}</td>
-                    <td align="right" width="15" style="padding-right: 20px"> {{ App\Functions\Functions::formatCurrency($val->total_cost) }}</td>
-                </tr>
-            @endforeach
+            <tr style="border-bottom: 1px solid #ccc;">
+                <td align="left" width="20" style="padding-left: 20px">book</td>
+                <td align="right" width="25">200</td>
+                <td align="right" width="15"> {{ App\Functions\Functions::formatCurrency($val->total_cost/$val->quantity) }}</td>
+                <td align="right" width="15" style="padding-right: 20px"> {{ App\Functions\Functions::formatCurrency($val->total_cost) }}</td>
+            </tr>
 
         </table>
     </td>
       </tr>
-    
+
       <tr>
         <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
 

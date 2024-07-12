@@ -570,6 +570,60 @@ class ProductController extends Controller
         return redirect(route('company.products.all_products'))->with('flash_success','2D Note Book product saved successfully');
     }
 
+    public function create_drawing_book()
+    {
+        $sub_product  =  $this->subProduct('drawing_book');
+        return view('company.products.add_drawing_book', compact('sub_product'));
+    }
+
+
+    public function store_drawing_book(Request $request)
+    {
+
+        $user = Auth::user();
+        $ink                        =  request('ink');
+        $paper_type                 =  request('paper_type');
+        $production_time            =  request('production_time');
+        $leaves                     =  request('leaves');
+        $thickness                  =  request('thickness');
+        $quantity                   =  request('quantity');
+        $description                =  request('description');
+        $total_cost                 =  request('total_cost');
+        $image = $this->handleFileUpload($request->hasFile('image'), $request->file('image'), 'products');
+        //save to job
+        $product = new Product();
+        $product->name  = 'drawing_book';
+        $product->title           = 'Drawing Book';
+        $product->company_id             = $user->company_id;
+        // $product->paper_type      = $paper_type;
+        $product->production_days = $production_time;
+        $product->image = $image;
+        // $product->total_cost      = $total_cost;
+        $product->description     = $description;
+        $product->type              = 'notebook';
+        $product->created_by      = $user->id;
+
+       $product->save();
+       //save into product costs
+        for ($count=0; $count < count($quantity); $count++) {
+            $pro_cost =  ProductCost::updateOrCreate(
+                [
+                    'company_id'        => $user->company_id,
+                    'product_id'        => $product->id,
+                    'product_name'      => $product->name,
+                    'leaves'            => $leaves[$count],
+                    'quantity'          => $quantity[$count],
+                    'thickness'         => $thickness[$count],
+                    'paper_type'        => $paper_type[$count],
+                    'ink'               => $ink[$count],
+                    'total_cost'        => $total_cost[$count],
+                ],
+            );
+        }
+
+        return redirect(route('company.products.all_products'))->with('flash_success','2A Note Book product saved successfully');
+    }
+
 
     public function show($job_title, $id)
     {
@@ -774,7 +828,7 @@ class ProductController extends Controller
             }
             return redirect(route('company.products.view',['twenty_leaves',$id]))->with('flash_success','Twenty Leaves Book order updated successfully');
         }elseif(request()->job_title == 'forty_leaves'){
-            
+
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
@@ -828,7 +882,7 @@ class ProductController extends Controller
 
             return redirect(route('company.products.view',['forty_leaves',$id]))->with('flash_success','Forty Leaves Book order updated successfully');
         }elseif(request()->job_title == 'sixty_leaves'){
-            
+
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
             $production_time            =  request('production_time');
@@ -881,7 +935,7 @@ class ProductController extends Controller
             }
 
             return redirect(route('company.products.view',['sixty_leaves',$id]))->with('flash_success','Sixty Leaves Book order updated successfully');
-       
+
         }elseif(request()->job_title == '2A_notebook'){
             $ink                        =  request('ink');
             $paper_type                 =  request('paper_type');
@@ -1053,7 +1107,61 @@ class ProductController extends Controller
                 }
             }
             return redirect(route('company.products.view',['2D_notebook',$id]))->with('flash_success','2D Note Book order updated successfully');
-        
+
+        }elseif(request()->job_title == 'drawing_book'){
+
+            $ink                        =  request('ink');
+            $paper_type                 =  request('paper_type');
+            $production_time            =  request('production_time');
+            $thickness                  =  request('thickness');
+            $quantity                   =  request('quantity');
+            $description                =  request('description');
+            $total_cost                 =  request('total_cost');
+
+            //save to job
+            $product =  Product::find($id);
+            $product->name  = 'Drawing Book';
+            $product->image       = $image;
+            $product->production_days = $production_time;
+            $product->description     = $description;
+            $product->updated_by      = $user->id;
+
+            $pp =  $product->update();
+            $product_cost_id = $request->product_cost_id ?? [];
+            if ($pp) {
+                for ($count = 0; $count < count($quantity); $count++) {
+                    // Check if the product cost ID exists in the request and if it's not empty
+                    if (isset($product_cost_id[$count]) && !empty($product_cost_id[$count])) {
+                        $existingProduct = ProductCost::find($product_cost_id[$count]);
+                    } else {
+                        $existingProduct = null;
+                    }
+
+                    if ($existingProduct) {
+                        // If the product cost already exists, update it
+                        $existingProduct->update([
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    } else {
+                        // If the product cost doesn't exist, create a new one
+                        ProductCost::create([
+                            'product_id'        => $id,
+                            'product_name'      => $product->name,
+                            'quantity'          => $quantity[$count],
+                            'paper_type'        => $paper_type[$count],
+                            'thickness'         => $thickness[$count],
+                            'ink'               => $ink[$count],
+                            'total_cost'        => $total_cost[$count],
+                        ]);
+                    }
+                }
+            }
+
+            return redirect(route('company.products.view',['drawing_book',$id]))->with('flash_success','Drawing Book order updated successfully');
         }elseif(request()->job_title == 'video_brochure'){
             $name                       =  request('product_name');
             $title                      =  request('title');

@@ -177,6 +177,9 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/2D_notebook', 'ProductController@create_2D_notebook')->name('add_2D_notebook');
                     Route::post('/2D_notebook', 'ProductController@store_2D_notebook')->name('add_2D_notebook');
 
+                    Route::get('/add_drawing_book', 'ProductController@create_drawing_book')->name('add_drawing_book');
+                    Route::post('/add_drawing_book', 'ProductController@store_drawing_book')->name('add_drawing_book');
+
                     Route::get('/add_twenty_leaves', 'ProductController@create_twenty_leaves')->name('add_twenty_leaves');
                     Route::post('/add_twenty_leaves', 'ProductController@store_twenty_leaves')->name('add_twenty_leaves');
 
@@ -187,7 +190,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                 Route::group(['prefix' => '/finance', 'as' => 'finance.'], function () {
 
-                 
+
 
                     Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
                         Route::get('/add_requisition', 'RequisitionController@create')->name('add_requisition');
