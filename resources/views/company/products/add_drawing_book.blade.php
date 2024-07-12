@@ -45,7 +45,7 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Product Name</label>
                                                                             <select name="product_name" required class="form-control{{ $errors->has('product_name') ? ' is-invalid' : '' }} form-select" value="{{ old('product_name') }}">
-                                                                                <option value="2D_notebook">2D NoteBook</option>
+                                                                                <option value="drawing_book">Drawing Book</option>
                                                                                 @error('product_name')
                                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                                 @enderror
