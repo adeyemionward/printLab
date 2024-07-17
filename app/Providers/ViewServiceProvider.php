@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\User;
 use App\Models\SiteSetting;
 use App\Models\JobLocation;
+use App\Models\ExpenseCategory;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,16 +77,18 @@ class ViewServiceProvider extends ServiceProvider
                 $view->with('current_role', $current_role);
             }
 
-            $locations = JobLocation::select('id','city')->where('company_id',app('company_id'))->get();
-            $marketers = User::where('user_type',User::MARKETER)->where('company_id', app('company_id'))->get();
-            $customers = User::where('user_type',User::CUSTOMER)->where('company_id', app('company_id'))->get();
+            $locations  = JobLocation::select('id','city')->where('company_id',app('company_id'))->get();
+            $marketers  = User::where('user_type',User::MARKETER)->where('company_id', app('company_id'))->get();
+            $customers  = User::where('user_type',User::CUSTOMER)->where('company_id', app('company_id'))->get();
+            $categories = ExpenseCategory::where('company_id', app('company_id'))->get();
 
             // Pass the  variables to all views
 
             $view->with('roles', $roles);
-            $view->with('locations', $locations);
-            $view->with('marketers', $marketers);
-            $view->with('customers', $customers);
+            $view->with('locations',  $locations);
+            $view->with('marketers',  $marketers);
+            $view->with('customers',  $customers);
+            $view->with('categories', $categories);
 
 
         });

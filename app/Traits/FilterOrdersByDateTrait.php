@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 
 trait FilterOrdersByDateTrait
@@ -12,6 +13,7 @@ trait FilterOrdersByDateTrait
         $endDate    = request('date_to');
         $location   = request('location');
         $marketer   = request('marketer');
+        $customer   = request('customer');
 
         //Start building the query
         $query = JobOrder::query();
@@ -29,6 +31,11 @@ trait FilterOrdersByDateTrait
         // Apply location filter if provided
         if (!empty($marketer)) {
             $query->where('marketer_id', $marketer);
+        }
+
+        // Apply customer filter if provided
+        if (!empty($customer)) {
+            $query->where('user_id', $customer);
         }
 
         // Execute the query and get the results
@@ -52,7 +59,7 @@ trait FilterOrdersByDateTrait
         }
 
 
-        // Apply location filter if provided
+        // Apply customer filter if provided
         if (!empty($customer)) {
             $query->where('user_id', $customer);
         }
@@ -76,9 +83,35 @@ trait FilterOrdersByDateTrait
         }
 
 
-        // Apply location filter if provided
+        // Apply customer filter if provided
         if (!empty($customer)) {
             $query->where('user_id', $customer);
+        }
+
+        // Execute the query and get the results
+        $data = $query;
+        // $data = $query->get();
+        // dd( $data);
+        return $data;
+    }
+
+    public function filterExpenseByDate(){
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+        $category   = request('category');
+
+        //Start building the query
+        $query = Expense::query();
+
+        // Apply date range filter if both dates are provided
+        if (!empty($startDate) && !empty($endDate)) {
+            $query->whereBetween('expense_date', [$startDate, $endDate]);
+        }
+
+
+        // Apply category filter if provided
+        if (!empty($category)) {
+            $query->where('category_id', $category);
         }
 
         // Execute the query and get the results

@@ -52,8 +52,8 @@ class FinanceController extends Controller
     public function all_expenses(Request $request =  null)
     {
 
-        if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+        if(request()->has('category')) {
+            $expenses = $this->filterExpenseByDate()->with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }else{
             $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }

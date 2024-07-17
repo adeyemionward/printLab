@@ -19,7 +19,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('company.includes.date_range')
+                        @include('company.includes.expense_date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
@@ -46,7 +46,7 @@
                                         @else
                                                  {{$val->categoryName->category_name}}
                                         @endif
-                                           
+
                                         </td>
                                         <td>&#8358;{{$val->total_cost}}</td>
 
