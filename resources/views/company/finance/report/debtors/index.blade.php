@@ -20,28 +20,31 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('company.includes.date_range')
+                        @include('company.includes.finance_date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>S/N</th>
-                                    <th>Customer Name</th>
-                                    <th>Job Type</th>
+                                    <th>Customer&nbsp;Name</th>
+                                    <th>Job&nbsp;Type</th>
                                     <th>Quantity</th>
                                     <th>Ink</th>
-                                    <th>Paper Type</th>
-                                    <th>Production Days</th>
+                                    <th>Paper&nbsp;Type</th>
+                                    <th>Production&nbsp;Days</th>
                                     <th>Cost</th>
-                                    <th>Amount Paid</th>
-                                    <th>Amount Remaining</th>
+                                    <th>Amount&nbsp;Paid</th>
+                                    <th>Outstanding</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $totalDebt = 0; @endphp
                                 @foreach ($job_pay  as $val)
                                 @php
-                                if ($val->total_cost == $val->jobPaymentHistories->sum('amount')) continue;  @endphp
+                                    if ($val->total_cost == $val->jobPaymentHistories->sum('amount')) continue;
+                                    $totalDebt += $val->total_cost - $val->jobPaymentHistories->sum('amount')
+                                @endphp
                                 @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
@@ -51,14 +54,29 @@
                                         <td>{{$val->ink}}</td>
                                         <td>{{$val->paper_type}}</td>
                                         <td>{{$val->production_days}}</td>
-                                        <td>{{'₦'.$val->total_cost}} </td>
-                                        <td>{{'₦'.$val->jobPaymentHistories->sum('amount')}}</td>
-                                        <td>{{'₦'.$val->total_cost - $val->jobPaymentHistories->sum('amount')}}</td>
-
+                                        <td>{{'₦'.number_format($val->total_cost)}} </td>
+                                        <td>{{'₦'.number_format($val->jobPaymentHistories->sum('amount'))}}</td>
+                                        <td>{{'₦'.number_format($val->total_cost - $val->jobPaymentHistories->sum('amount'))}}</td>
                                         <td>{{$val->status}}</td>
                                         <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
+                                <tfoot>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>Total Outstanding</td>
+                                        <td><b>{{'₦'.number_format($totalDebt)}}</b></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
 
 
                         </table>

@@ -12,10 +12,12 @@ use App\Models\JobPaymentHistory;
 use App\Models\MarketerPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ErrorLog;
+use App\Traits\FilterOrdersByDateTrait;
 use Illuminate\Support\Facades\DB;
 
 class FinanceController extends Controller
 {
+    use FilterOrdersByDateTrait;
     /**
      * Display a listing of the resource.
      *
@@ -237,12 +239,13 @@ class FinanceController extends Controller
     {
         $startDate  = request('date_from');
         $endDate    = request('date_to');
-
-        if(request()->date_to && request()->date_from){
-            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->whereBetween('order_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
+        $customer   = request('customer');
+      //  dd(app('company_id'));
+      if(request()->has('customer')) {
+            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)
+                ->where('company_id',app('company_id'))->get();
         }else{
             $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
-
         }
 
         return view('company.finance.report.debtors.index', compact('job_pay'));
@@ -306,7 +309,7 @@ class FinanceController extends Controller
             'amount_paid' => 'required',
 
         ], [
-            
+
             'marketer_id.required' => 'Please select marketer.',
             // 'payment_type.required' => 'Please select payment type.',
             'amount_paid.required' => 'Please enter ampunt paid.',

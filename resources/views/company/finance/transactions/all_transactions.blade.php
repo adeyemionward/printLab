@@ -20,7 +20,7 @@
                 <div class="content" id="tableContent">
 
                     <div class="canvas-wrapper">
-                        @include('company.includes.date_range')
+                        @include('company.includes.finance_date_range')
                         <table id="example" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
@@ -31,16 +31,27 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $totalAmount = 0; @endphp
                                 @foreach ($job_order_pay as $index => $val)
+                                @php
+                                    $totalAmount += $val->amount;
+                                @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->payment_type}}</td>
-                                        <td>&#8358;{{$val->amount}}</td>
+                                        <td>&#8358;{{number_format($val->amount)}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->payment_date))}}</td>
                                     </tr>
                                 @endforeach
 
-
+                                <tfoot>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>Total Amount: &nbsp;&nbsp;&nbsp;<b>{{'₦'.number_format($totalAmount)}}</b></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
                         </table>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use App\Models\JobOrder;
+use App\Models\JobPaymentHistory;
 use Illuminate\Http\Request;
 
 trait FilterOrdersByDateTrait
@@ -28,6 +29,56 @@ trait FilterOrdersByDateTrait
         // Apply location filter if provided
         if (!empty($marketer)) {
             $query->where('marketer_id', $marketer);
+        }
+
+        // Execute the query and get the results
+        $data = $query;
+        // $data = $query->get();
+        // dd( $data);
+        return $data;
+    }
+
+    public function filterFinanceByDate(Request $request = null){
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+        $customer   = request('customer');
+
+        //Start building the query
+        $query = JobOrder::query();
+
+        // Apply date range filter if both dates are provided
+        if (!empty($startDate) && !empty($endDate)) {
+            $query->whereBetween('order_date', [$startDate, $endDate]);
+        }
+
+
+        // Apply location filter if provided
+        if (!empty($customer)) {
+            $query->where('user_id', $customer);
+        }
+
+        // Execute the query and get the results
+        $data = $query;
+        return $data;
+    }
+
+    public function filterJobPaymentHistoryByDate(){
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+        $customer   = request('customer');
+
+        //Start building the query
+        $query = JobPaymentHistory::query();
+
+        // Apply date range filter if both dates are provided
+        if (!empty($startDate) && !empty($endDate)) {
+            $query->whereBetween('payment_date', [$startDate, $endDate]);
+        }
+
+
+        // Apply location filter if provided
+        if (!empty($customer)) {
+            $query->where('user_id', $customer);
         }
 
         // Execute the query and get the results
