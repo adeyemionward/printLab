@@ -20,7 +20,7 @@
 
                 <div class="form-group mt-3 mb-3 col-md-3">
                     <label for="exampleFormControlInput1"> Companies </label>
-                    <select class="form-control form-select" name="customer">
+                    <select class="form-control form-select"  name="customer">
                             <option value="">Select a Company</option>
                             @foreach($customers as $customer)
                                 <option value="{{$customer->id}}" @if(isset(request()->customer) && $customer->id == request()->customer) selected @endif>{{$customer->company_name}}</option>

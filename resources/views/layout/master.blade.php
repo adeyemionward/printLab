@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+     <!-- SELECT 2 CSS -->
+     <link href="{!! asset('assets/select2/dist/css/select2.css') !!}" rel="stylesheet">
 </head>
 <style>
     .nav-item.nav-link.dropdown-toggle.text-secondary{
@@ -693,6 +695,12 @@
 
 
 
+<style>
+    .select2-container .select2-selection--single{
+        height: 37px;
+        border: 1px solid #ced4da;
+    }
+</style>
 
 
 
@@ -706,6 +714,7 @@
 	<script src="	https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 	<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{!! asset('assets/select2/dist/js/select2.min.js') !!}"></script>
 
 
 	<script src="{{asset('js/jspdf.min.js')}}"></script>
@@ -735,9 +744,13 @@
 		}
 	</script>
 
+
+
 	<script type="text/javascript">
 
-
+    $('select').select2({
+        'width' : '100%'
+    });
 
 	$(document).ready(function() {
     $('#example').DataTable( {
