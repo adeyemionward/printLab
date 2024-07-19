@@ -43,8 +43,8 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->title}}</td>
-                                        <td>{{$val->supplierCompany->company_name}}</td>
-                                        <td>{{$val->categoryName->category_name}}</td>
+                                        <td>{{@$val->supplierCompany->company_name}}</td>
+                                        <td>{{@$val->categoryName->category_name}}</td>
                                         <td>{{$val->payment_type}}</td>
                                         <td>&#8358;{{$val->total_cost}}</td>
                                         <td>{{'₦'.$val->expenseHistories->sum('amount_paid')}}</td>
