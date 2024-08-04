@@ -14,6 +14,7 @@ use Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
 class CustomerController extends Controller
 {
     /**
@@ -102,7 +103,7 @@ class CustomerController extends Controller
             $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
         } catch (\Exception $e) {
             // Log the error for debugging
-            \log::error('Failed to send order emails: ' . $e->getMessage());
+            Log::error('Failed to send order emails: ' . $e->getMessage());
 
             // Optionally, you can set a flash message to notify the user of the issue
             return redirect(route('company.customers.customer_job_orders', $id))->with('flash_warning', 'Product Order Successful but failed to send email.');
