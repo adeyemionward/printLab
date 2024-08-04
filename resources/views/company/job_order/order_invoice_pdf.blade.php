@@ -53,7 +53,7 @@
             $totalAmountPaid = 0;
             foreach ($orderDetails as $val) {
                 $totalCost += $val->total_cost;
-                $totalAmountPaid += $val->amount_paid; //
+                $totalAmountPaid += $val->jobPaymentHistory->amount; //
             }
         @endphp
             @foreach ($orderDetails as $val)
@@ -73,7 +73,7 @@
 
       <tr>
         <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
-            
+
           <tr>
             <td width="30" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
             <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span>  {{ App\Functions\Functions::formatCurrency($totalCost) }}</td>
