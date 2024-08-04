@@ -106,7 +106,7 @@ class CustomerController extends Controller
             Log::error('Failed to send order emails: ' . $e->getMessage());
 
             // Optionally, you can set a flash message to notify the user of the issue
-            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_warning', 'Product Order Successful but failed to send email.');
+            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success', 'Product Order Successful but failed to send email.');
         }
         return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
     }

@@ -106,7 +106,7 @@
                 \log::error('Failed to send order emails: ' . $e->getMessage());
 
                 // Optionally, you can set a flash message to notify the user of the issue
-                return redirect(route('track_orders.index'))->with('flash_warning', 'Product Order Successful but failed to send email.');
+                return redirect(route('track_orders.index'))->with('flash_success', 'Product Order Successful but failed to send email.');
             }
 
 
