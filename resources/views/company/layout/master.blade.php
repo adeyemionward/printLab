@@ -847,9 +847,9 @@ $(document).ready(function() {
         $(this).closest('tr').remove();
     });
 
-    $('select').select2({
-        'width' : '100%'
-    });
+    $('select').not('.dont').select2({
+    'width': '100%'
+});
 });
 </script>
 

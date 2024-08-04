@@ -48,13 +48,24 @@
                 <td bgcolor="#E3E3E3" height="28" align="right">Cost/Unit</td>
                 <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
             </tr>
-            @php $totalCost =0; $amountPaid = 0; $totalAmountPaid = 0;  @endphp
-            <tr style="border-bottom: 1px solid #ccc;">
-                <td align="left" width="20" style="padding-left: 20px">book</td>
-                <td align="right" width="25">200</td>
-                <td align="right" width="15"> {{ App\Functions\Functions::formatCurrency($val->total_cost/$val->quantity) }}</td>
-                <td align="right" width="15" style="padding-right: 20px"> {{ App\Functions\Functions::formatCurrency($val->total_cost) }}</td>
-            </tr>
+           @php
+            $totalCost = 0;
+            $totalAmountPaid = 0;
+            foreach ($orderDetails as $val) {
+                $totalCost += $val->total_cost;
+                $totalAmountPaid += $val->amount_paid; //
+            }
+        @endphp
+            @foreach ($orderDetails as $val)
+
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td align="left" width="20" style="padding-left: 20px">{{$val->job_order_name}}</td>
+                    <td align="right" width="25">{{$val->quantity}}</td>
+                    <td align="right" width="15"> {{ App\Functions\Functions::formatCurrency($val->total_cost/$val->quantity) }}</td>
+                    <td align="right" width="15" style="padding-right: 20px"> {{ App\Functions\Functions::formatCurrency($val->total_cost) }}</td>
+                </tr>
+            @endforeach
+
 
         </table>
     </td>
@@ -62,7 +73,7 @@
 
       <tr>
         <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
-
+            
           <tr>
             <td width="30" height="29" bgcolor="#E3E3E3" style="padding-left: 20px; padding-top:10px"><span style="font-weight: bold">PAYMENT&nbsp;DETAILS</span> <br><br> Bank : ECOBANK <br> Acc/No: NAIRA ACCOUNT: 4933060877 <br>Account Name: PRINTLABS LTD</td>
             <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Total Amount:</span>  {{ App\Functions\Functions::formatCurrency($totalCost) }}</td>

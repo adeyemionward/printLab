@@ -230,11 +230,12 @@ class JobOrderController extends Controller
         return back()->with("flash_success","Design Uploaded successfully");
     }
 
-   
+
 
     public function orderInvoicePdf($order_no){
 
         $orderDetails =  JobOrder::with('jobPaymentHistories')->where('order_no', $order_no)->where('company_id',app('company_id'))->get();
+
         $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
         $pdf = PDF::loadView('company.job_order.order_invoice_pdf',compact('orderDetails','order1'));
@@ -378,7 +379,7 @@ class JobOrderController extends Controller
         $response = $this->postNoteBook($request);
         return $response;
     }
-    
+
 
     public function edit_twenty_leaves($job_title, $id){
         $job_order =  JobOrder::find($id);
@@ -568,7 +569,7 @@ class JobOrderController extends Controller
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
 
-        $job_marketers_commission = MarketerCommission::where('job_order_id', $id)->get(); 
+        $job_marketers_commission = MarketerCommission::where('job_order_id', $id)->get();
         return view('company.job_order.edit_order', compact('job_order','customers','locations','approved_design','job_marketers_commission'));
     }
 
@@ -614,7 +615,7 @@ class JobOrderController extends Controller
     }
 
     public function pending (){
-        
+
         if(request()->has('location')) {
             $job_orders = $this->filterOrdersByDateInternal()->where('status','Pending');
         }else{

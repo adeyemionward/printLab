@@ -94,7 +94,7 @@
                                                                         <td bgcolor="#E3E3E3" height="28" align="right">Amount&nbsp;Paid</td>
                                                                         <td bgcolor="#E3E3E3" height="28" align="right" style="padding-right: 20px">Total&nbsp;Amount</td>
                                                                     </tr>
-
+ 
                                                                     <tr>
                                                                         <td align="left" width="20" style="padding-left: 20px">{{$orderDetails->job_order_name}}</td>
                                                                         <td align="right" width="25">{{$orderDetails->quantity}}</td>

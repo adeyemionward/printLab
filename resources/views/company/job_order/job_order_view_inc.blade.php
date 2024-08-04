@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     <div class="form-group col-md-12">
                         <label for="backsided">Select a Status</label>
-                        <select required class="form-control form-select"  name="order_status" id="order_status">
+                        <select required class="form-control form-select dont"  name="order_status" id="order_status">
                             <option >--select a status--</option>
                             <option value="Designed">Designed</option>
                             <option value="Proof Read">Proof Read</option>
