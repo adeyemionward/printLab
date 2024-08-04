@@ -67,7 +67,7 @@
             }
         }
 
-    
+
 
         protected function sendOrderEmails($user, $jobIds){
             $userDetails = $this->user->find($this->auth::user()->id);
@@ -97,7 +97,18 @@
             $randomInteger = random_int(100000, 999999);
 
             $this->updateJobOrders($user->id, $jobIds, $this->order_date, $randomInteger);
-            $this->sendOrderEmails($user->id, $jobIds);
+
+            // Send order emails
+            try {
+                $this->sendOrderEmails($user->id, $jobIds);
+            } catch (\Exception $e) {
+                // Log the error for debugging
+                \log::error('Failed to send order emails: ' . $e->getMessage());
+
+                // Optionally, you can set a flash message to notify the user of the issue
+                return redirect(route('track_orders.index'))->with('flash_warning', 'Product Order Successful but failed to send email.');
+            }
+
 
             return redirect(route('track_orders.index'))->with('flash_success', 'Product Order Successful');
         }
