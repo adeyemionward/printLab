@@ -53,7 +53,10 @@
             $totalAmountPaid = 0;
             foreach ($orderDetails as $val) {
                 $totalCost += $val->total_cost;
-                $totalAmountPaid += $val->jobPaymentHistory->amount; //
+
+                foreach ($val->jobPaymentHistories as $paymentHistory) { //amounts that have been paid for this job
+                    $totalAmountPaid += $paymentHistory->amount;
+                }
             }
         @endphp
             @foreach ($orderDetails as $val)
@@ -83,7 +86,6 @@
 
       <tr>
         <td height="69"><table width="500" border="1"  cellpadding="0" cellspacing="0">
-
           <tr>
             <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Amount Paid:</span>  {{ App\Functions\Functions::formatCurrency($totalAmountPaid) }}</td>
             <td width="70" align="right">&nbsp;<span style="font-size:20px; padding-right:10px"><span style="font-weight:bold; ">Balance:</span>  {{ App\Functions\Functions::formatCurrency($totalCost - $totalAmountPaid) }}</td>
