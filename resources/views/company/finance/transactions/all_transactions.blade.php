@@ -10,8 +10,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <li class="breadcrumb-item"><a href="#"> Customer Payments</a></li>
-                        <li class="breadcrumb-item active">Customer Payments</li>
+                        <a href="{{route('company.finance.transactions.add_transaction')}}"><li class="active btn btn-primary" style="">Add Customer Payment </li></a>
                     </ol>
                 </div>
             </div>

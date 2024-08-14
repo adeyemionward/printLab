@@ -227,6 +227,8 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                     Route::group(['prefix' => '/transactions', 'as' => 'transactions.'], function () {
                         Route::get('/all_transactions', 'TransactionController@index')->name('all_transactions');
+                        Route::get('/add_transaction', 'TransactionController@addCustomerJobPayment')->name('add_transaction');
+                        Route::post('/add_transaction', 'TransactionController@storeCustomerJobPayment')->name('add_transaction');
                     });
 
                     Route::group(['prefix' => '/report', 'as' => 'report.'], function () {

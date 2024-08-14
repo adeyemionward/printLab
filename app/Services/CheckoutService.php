@@ -12,9 +12,11 @@
     use Illuminate\Support\Facades\DB;
 
 
+    //  use Illuminate\Support\Facades\Mail;
     use Mail;
     use Illuminate\Support\Facades\Validator;
     use Barryvdh\DomPDF\Facade\Pdf;
+
     class CheckoutService
     {
         use HandleFileUpload;
