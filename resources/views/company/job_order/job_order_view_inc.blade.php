@@ -112,7 +112,7 @@
                 <div class="modal-body">
                     <div class="form-group col-md-12">
                         <label for="proof_needed">Select Payment Type</label>
-                        <select class="form-control" name="payment_type" required>
+                        <select class="form-control dont" name="payment_type" required>
                             <option value="">--Select Payment Type--</option>
                             <option value="Full Payment">Full Payment</option>
                             <option value="Part Payment">Part Payment</option>
