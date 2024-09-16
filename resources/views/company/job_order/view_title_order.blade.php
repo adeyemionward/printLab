@@ -1,8 +1,8 @@
 
 @extends('company.layout.master')
 @section('content')
-@section('title', 'Track Order')
-@php $page = 'track_order' @endphp
+@section('title', 'Job Order')
+@php $page = 'view_order' @endphp
 <style>
     .question{
         color:red;
@@ -10,20 +10,8 @@
         width: 20% !important;
     }
     th, td {
-        padding: 5px;
-    }
-
-    .track_title{
-        color: green;
-        font-size:16px;
-        font-weight:bold
-    }
-    .track_title_no{
-        color: gray;
-        font-size:16px;
-        font-weight:bold
-    }
-
+  padding: 5px;
+}
 </style>
     <div class="content">
         <div class="container-fluid">
@@ -44,108 +32,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('company.job_order.job_order_view_inc')
+                                @include('company.job_order.job_order_title_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Track Job Order</h5>
+                                            <h5 class="card-title mb-0 text-muted">View Job Order</h5>
                                         </div>
-                                        <div class="card-body h-100">
-                                            <div class="align-items-start">
-                                                <div class="row">
-
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->pending_status != null)
-                                                            <span class="track_title">Created</span>
-                                                            <p>{{$job_order_track->pending_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Created</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->designed_status != null)
-                                                            <span class="track_title"> Designed</span>
-                                                            <p>{{$job_order_track->designed_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Designed</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->proof_read_status != null)
-                                                            <span class="track_title">Proof Read</span>
-                                                            <p>{{$job_order_track->proof_read_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Proof Read</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->customer_approved_status != null)
-                                                            <span class="track_title">Customer Approved</span>
-                                                            <p>{{$job_order_track->customer_approved_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Customer Approved</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->prepressed_status != null)
-                                                            <span class="track_title">Prepressed</span>
-                                                            <p>{{$job_order_track->prepressed_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Prepressed</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->printed_status != null)
-                                                            <span class="track_title">Printed</span>
-                                                            <p>{{$job_order_track->printed_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Printed</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->binded_status != null)
-                                                            <span class="track_title">Binded</span>
-                                                            <p>{{$job_order_track->binded_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Binded</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->completed_status != null)
-                                                            <span class="track_title">Completed</span>
-                                                            <p>{{$job_order_track->completed_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Completed</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @if ($job_order_track->delivered_status != null)
-                                                        <span class="track_title">Delivered</span>
-                                                        <p>{{$job_order_track->delivered_date}}</p>
-                                                        @else
-                                                            <span class="track_title_no">Delivered</span>
-                                                            <p>None</p>
-                                                        @endif
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="card-body h-100">
                                             <div class="align-items-start">
                                                 <div class="tab-content" id="nav-tabContent">
@@ -159,6 +52,10 @@
                                                                       <td width="10%" class="question">Job Id :</td>
                                                                       <td>{{$job_order->id ?? 'N/A'}}</td>
                                                                     </tr>
+                                                                    <tr class="det">
+                                                                        <td width="10%" class="question">Order No :</td>
+                                                                        <td><a style="text-decoration:underline; color:blue" href="{{route('company.job_order.view_order',$job_order->job_order_unique_id)}}">#{{$job_order->order_no ?? 'N/A'}}</a></td>
+                                                                      </tr>
                                                                     <tr>
                                                                         <td width="10%" class="question">Created By :</td>
                                                                         <td>{{@$job_order->createdBy->firstname.' '.@$job_order->createdBy->lastname ?? 'N/A'}}</td>
@@ -198,11 +95,11 @@
                                                                         <td width="10%" class="question">Total Cost :</td>
                                                                         <td>&#8358;{{number_format($job_order->total_cost) ?? 'N/A'}}</td>
                                                                     </tr>
-                                                                    <tr class="det">
+                                                                    {{-- <tr class="det">
                                                                         <td width="10%" class="question">Current Amount Paid:</td>
                                                                         <td>&#8358;{{number_format($job_order_pay->amount) ?? 'N/A'}}</td>
-                                                                    </tr>
-                                                                    <tr class="det">
+                                                                    </tr> --}}
+                                                                    {{-- <tr class="det">
                                                                         <td width="10%" class="question">Transaction Status:</td>
                                                                         <td>
                                                                             @if($job_order_pay->amount < $job_order->total_cost)
@@ -214,7 +111,7 @@
                                                                             @endif
                                                                                 <small style="text-decoration: underline; color:blue"><a href="{{route('company.job_order.transaction_history',[request()->id])}}">See History</a></small>
                                                                         </td>
-                                                                    </tr>
+                                                                    </tr> --}}
 
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Production Days :</td>
@@ -305,6 +202,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -312,6 +210,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
 
         </div>

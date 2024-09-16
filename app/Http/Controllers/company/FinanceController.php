@@ -12,6 +12,8 @@ use App\Models\JobPaymentHistory;
 use App\Models\MarketerPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ErrorLog;
+use App\Models\JobOrderUnique;
+use App\Models\JobPaymentNewHistory;
 use App\Traits\FilterOrdersByDateTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -242,10 +244,10 @@ class FinanceController extends Controller
         $customer   = request('customer');
       //  dd(app('company_id'));
       if(request()->has('customer')) {
-            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)
+            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)
                 ->where('company_id',app('company_id'))->get();
         }else{
-            $job_pay = JobOrder::with('jobPaymentHistories')->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
+            $job_pay = JobOrderUnique::with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
         }
 
         return view('company.finance.report.debtors.index', compact('job_pay'));
@@ -271,11 +273,12 @@ class FinanceController extends Controller
         //     ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
         //     ->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('job_orders.company_id',app('company_id'))
         //     ->groupBy('job_orders.job_order_name');
-        $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, job_orders.company_id, SUM(amount) as total_pay')
-    ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
-    ->where('cart_order_status', JobOrder::ORDER_COMPLETED)
-    ->where('job_orders.company_id', app('company_id'))
-    ->groupBy('job_orders.job_order_name', 'job_orders.company_id');
+        $ordersPayHistory1 = JobPaymentNewHistory::selectRaw('job_order_uniques.order_no, job_order_uniques.company_id, SUM(amount) as total_pay')
+        ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
+        ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+        ->where('job_order_uniques.company_id', app('company_id'))
+        ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id');
+        //dd($ordersPayHistory1);
 
         $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_payment_histories.company_id, expense_categories.category_name, SUM(expense_payment_histories.amount_paid) as total_pay')
             ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
@@ -284,7 +287,7 @@ class FinanceController extends Controller
 
 
         if(request()->date_to && request()->date_from){
-            $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_histories.payment_date', [$this->startDate, $this->endDate])->get();
+            $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_new_histories.payment_date', [$this->startDate, $this->endDate])->get();
             $expensesPayHistory     = $expensesPayHistory1->whereBetween('expense_payment_histories.expense_date', [$this->startDate, $this->endDate])->get();
 
         }else{

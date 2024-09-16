@@ -830,6 +830,29 @@
 	});
 </script>
 <script>
+    // customer payments --add transaction
+    $(document).ready(function() {
+        $('select[name="customer_id"]').on('change', function() {
+            var customerId = $(this).val();
+            if(customerId) {
+                $.ajax({
+                    url: '/company/finance/transactions/get-job-orders/' + customerId,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="order_id"]').empty();
+                        $('select[name="order_id"]').append('<option value="">--Select Job Order--</option>');
+                    
+                        $.each(data, function(key, value) {
+                            $('select[name="order_id"]').append('<option value="' + value + '">#' + value + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
 $(document).ready(function() {
     $('#add-product').on('click', function() {
         if ($('#products').is(':hidden')) {
@@ -848,8 +871,8 @@ $(document).ready(function() {
     });
 
     $('select').not('.dont').select2({
-    'width': '100%'
-});
+        'width': '100%'
+    });
 });
 </script>
 

@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                @include('company.job_order.job_order_view_inc')
+                                @include('company.job_order.job_order_title_view_inc')
 
                                 <div class="col-md-9 col-xl-9">
                                     @if(request()->job_title == 'Higher_NoteBook')
@@ -113,16 +113,8 @@
                                                                                 <input type="text" required name="total_cost" class="form-control numberFormat" id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="proof_needed">Payment Type</label>
-                                                                                <select class="form-control form-select" id="payment_type" name="payment_type" required>
-                                                                                    <option value="">--Select Payment Type--</option>
-                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
-                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
-                                                                                    <option value="Posted Cheque" {{ $job_order->jobPaymentHistory->payment_type == 'Posted Cheque' ? 'selected' : '' }}>Posted Cheque</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
+                                                                            
+                                                                            {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
                                                                                 <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
@@ -132,7 +124,16 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="location">Job Location</label>
+                                                                                <select class="form-control form-select" name="location" required>
+                                                                                    <option value="">--Select Job Location--</option>
+                                                                                    @foreach ($locations as $val)
+                                                                                        <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -194,19 +195,11 @@
                                                                             
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                            </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="location">Job Location</label>
-                                                                                <select class="form-control form-select" name="location" required>
-                                                                                    <option value="">--Select Job Location--</option>
-                                                                                    @foreach ($locations as $val)
-                                                                                        <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
+                                                                            </div> --}}
+                                                                            
                                                                         </div>
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
@@ -379,8 +372,17 @@
                                                                                 <label for="total_cost">Total Cost</label>
                                                                                 <input type="text" name="total_cost" class="form-control numberFormat"  id="total_cost" placeholder="eg:24000" value="{{$job_order->total_cost}}">
                                                                             </div>
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="location">Job Location</label>
+                                                                                <select class="form-control form-select" name="location" required>
+                                                                                    <option value="">--Select Job Location--</option>
+                                                                                    @foreach ($locations as $val)
+                                                                                        <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
 
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -399,7 +401,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -459,20 +461,12 @@
                                                                                 </tbody>
                                                                             </table>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat"
                                                                                     id="amount_paid" placeholder="eg: 10000" required>
-                                                                            </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="location">Job Location</label>
-                                                                                <select class="form-control form-select" name="location" required>
-                                                                                    <option value="">--Select Job Location--</option>
-                                                                                    @foreach ($locations as $val)
-                                                                                        <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
+                                                                            </div> --}}
+                                                                           
                                                                         </div>
 
                                                                         <button class="btn btn-sm btn-danger" type="submit">
@@ -594,7 +588,7 @@
                                                                             </div>
 
                                                                             
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -602,8 +596,8 @@
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
                                                                                     <option value="Posted Cheque" {{ $job_order->jobPaymentHistory->payment_type == 'Posted Cheque' ? 'selected' : '' }}>Posted Cheque</option>
                                                                                 </select>
-                                                                            </div>
-                                                                            @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
+                                                                            </div> --}}
+                                                                            {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
                                                                                 <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
@@ -613,7 +607,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -674,10 +668,10 @@
                                                                             </table>
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                            </div>
+                                                                            </div> --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="location">Job Location</label>
                                                                                 <select class="form-control form-select" name="location" required>
@@ -816,7 +810,7 @@
                                                                                 </select>
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -824,9 +818,9 @@
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
                                                                                     <option value="Posted Cheque" {{ $job_order->jobPaymentHistory->payment_type == 'Posted Cheque' ? 'selected' : '' }}>Posted Cheque</option>
                                                                                 </select>
-                                                                            </div>
+                                                                            </div> --}}
 
-                                                                            @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
+                                                                            {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
                                                                                 <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
@@ -836,7 +830,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -897,10 +891,10 @@
                                                                             </table>
                                                                         </div>
                                                                         <div class="row">
-                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="amount_paid">Amount Paid</label>
                                                                                     <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                                </div>
+                                                                                </div> --}}
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="location">Job Location</label>
                                                                                     <select class="form-control form-select" name="location" required>
@@ -1038,7 +1032,7 @@
                                                                             
                              
 
-                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                 {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -1046,8 +1040,8 @@
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
                                                                                     <option value="Posted Cheque" {{ $job_order->jobPaymentHistory->payment_type == 'Posted Cheque' ? 'selected' : '' }}>Posted Cheque</option>
                                                                                 </select>
-                                                                            </div>
-                                                                            @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
+                                                                            </div> --}}
+                                                                            {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
                                                                                 <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
@@ -1057,7 +1051,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -1122,10 +1116,10 @@
                                                                         
 
                                                                             <div class="row">
-                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="amount_paid">Amount Paid</label>
                                                                                     <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                                </div>
+                                                                                </div> --}}
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="location">Job Location</label>
                                                                                     <select class="form-control form-select" name="location" required>
@@ -1252,7 +1246,7 @@
                                                                             </div>
 
                                                                             
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -1260,8 +1254,8 @@
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
                                                                                     <option value="Posted Cheque" {{ $job_order->jobPaymentHistory->payment_type == 'Posted Cheque' ? 'selected' : '' }}>Posted Cheque</option>
                                                                                 </select>
-                                                                            </div>
-                                                                            @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
+                                                                            </div> --}}
+                                                                            {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
                                                                                 <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
@@ -1272,7 +1266,7 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif
-                                                                            
+                                                                             --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
                                                                             </div>
@@ -1332,10 +1326,10 @@
                                                                             </table>
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                            </div>
+                                                                            </div> --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="location">Job Location</label>
                                                                                 <select class="form-control form-select" name="location" required>
@@ -1455,7 +1449,7 @@
                                                                                         id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                                 </div>
 
-                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                 {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -1474,7 +1468,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -1533,10 +1527,10 @@
                                                                                     @endif
                                                                                 </tbody>
                                                                             </table>
-                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="amount_paid">Amount Paid</label>
                                                                                     <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                                </div>
+                                                                                </div> --}}
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="location">Job Location</label>
                                                                                     <select class="form-control form-select" name="location" required>
@@ -1647,7 +1641,7 @@
                                                                                 <input type="text" required name="total_cost" class="form-control numberFormat" id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -1666,7 +1660,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -1725,10 +1719,10 @@
                                                                                     @endif
                                                                                 </tbody>
                                                                             </table>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                            </div>
+                                                                            </div> --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="location">Job Location</label>
                                                                                 <select class="form-control form-select" name="location" required>
@@ -1842,7 +1836,7 @@
                                                                             
 
 
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -1861,7 +1855,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -1925,10 +1919,10 @@
                                                                         <div class="row">
 
                                                                             <div class="row">
-                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="amount_paid">Amount Paid</label>
                                                                                     <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                                </div>
+                                                                                </div> --}}
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="location">Job Location</label>
                                                                                     <select class="form-control form-select" name="location" required>
@@ -2042,7 +2036,7 @@
 
                                                                             
 
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
+                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -2061,7 +2055,7 @@
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                             
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
@@ -2125,10 +2119,10 @@
                                                                         <div class="row">
 
                                                                             <div class="row">
-                                                                                <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="amount_paid">Amount Paid</label>
                                                                                     <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                                </div>
+                                                                                </div> --}}
                                                                                 <div class="form-group mt-3 mb-3 col-md-4">
                                                                                     <label for="location">Job Location</label>
                                                                                     <select class="form-control form-select" name="location" required>
@@ -2795,18 +2789,19 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
                                                                                 </select>
-                                                                            </div>
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            </div> --}}
+
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
-                                                                            </div>
+                                                                            </div> --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="location">Job Location</label>
                                                                                 <select class="form-control form-select" name="location" required>

@@ -26,11 +26,7 @@
                                 <tr>
                                     <th>S/N</th>
                                     <th>Customer&nbsp;Name</th>
-                                    <th>Job&nbsp;Type</th>
-                                    <th>Quantity</th>
-                                    <th>Ink</th>
-                                    <th>Paper&nbsp;Type</th>
-                                    <th>Production&nbsp;Days</th>
+                                    <th>Company Name</th>
                                     <th>Cost</th>
                                     <th>Amount&nbsp;Paid</th>
                                     <th>Outstanding</th>
@@ -49,11 +45,7 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
-                                        <td>{{$val->job_order_name}}</td>
-                                        <td>{{$val->quantity}}</td>
-                                        <td>{{$val->ink}}</td>
-                                        <td>{{$val->paper_type}}</td>
-                                        <td>{{$val->production_days}}</td>
+                                        <td>{{$val->user->company_name}}</td>
                                         <td>{{'₦'.number_format($val->total_cost)}} </td>
                                         <td>{{'₦'.number_format($val->jobPaymentHistories->sum('amount'))}}</td>
                                         <td>{{'₦'.number_format($val->total_cost - $val->jobPaymentHistories->sum('amount'))}}</td>
@@ -63,15 +55,12 @@
                                 @endforeach
                                 <tfoot>
                                     <tr>
+
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>Total Outstanding</td>
+                                        <td><b>Total Outstanding</b></td>
                                         <td><b>{{'₦'.number_format($totalDebt)}}</b></td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>

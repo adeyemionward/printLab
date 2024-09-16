@@ -20,7 +20,7 @@ class Expense extends Model
     public function marketerName(){
         return $this->belongsTo(User::class,'marketer_id','id');
     }
-    
+
     public function supplierCompany(){
         return $this->belongsTo(Supplier::class,'supplier_id','id');
     }

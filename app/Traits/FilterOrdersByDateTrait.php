@@ -2,8 +2,9 @@
 namespace App\Traits;
 
 use App\Models\JobOrder;
-use App\Models\JobPaymentHistory;
+use App\Models\JobPaymentNewHistory;
 use App\Models\Expense;
+use App\Models\JobOrderUnique;
 use Illuminate\Http\Request;
 
 trait FilterOrdersByDateTrait
@@ -16,7 +17,7 @@ trait FilterOrdersByDateTrait
         $customer   = request('customer');
 
         //Start building the query
-        $query = JobOrder::query();
+        $query = JobOrderUnique::query();
 
         // Apply date range filter if both dates are provided
         if (!empty($startDate) && !empty($endDate)) {
@@ -51,7 +52,7 @@ trait FilterOrdersByDateTrait
         $customer   = request('customer');
 
         //Start building the query
-        $query = JobOrder::query();
+        $query = JobOrderUnique::query();
 
         // Apply date range filter if both dates are provided
         if (!empty($startDate) && !empty($endDate)) {
@@ -75,7 +76,7 @@ trait FilterOrdersByDateTrait
         $customer   = request('customer');
 
         //Start building the query
-        $query = JobPaymentHistory::query();
+        $query = JobPaymentNewHistory::query();
 
         // Apply date range filter if both dates are provided
         if (!empty($startDate) && !empty($endDate)) {

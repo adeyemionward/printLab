@@ -10,6 +10,7 @@ use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
+use App\Models\JobPaymentNewHistory;
 use Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
 class CustomerController extends Controller
@@ -102,7 +103,7 @@ class CustomerController extends Controller
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
 
-        $job_pay_history =  JobPaymentHistory::where('user_id',$id)->get();
+        $job_pay_history =  JobPaymentNewHistory::where('user_id',$id)->get();
         return view('customers.transaction_history', compact('customer','job_pay_history','cartCount'));
     }
 

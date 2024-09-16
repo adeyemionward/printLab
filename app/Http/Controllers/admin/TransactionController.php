@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\JobPaymentHistory;
+use App\Models\JobPaymentNewHistory;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -18,9 +19,9 @@ class TransactionController extends Controller
         $endDate    = request('date_to');
 
         if(request()->date_to && request()->date_from){
-            $job_order_pay  = JobPaymentHistory::whereBetween('payment_date', [$startDate, $endDate])->get();
+            $job_order_pay  = JobPaymentNewHistory::whereBetween('payment_date', [$startDate, $endDate])->get();
         }else{
-            $job_order_pay  = JobPaymentHistory::all();
+            $job_order_pay  = JobPaymentNewHistory::all();
 
         }
 

@@ -40,18 +40,22 @@
                                                                     @csrf
                                                                     @method('POST')
                                                                     <div class="row">
-
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="size">Job Order  </label>
-                                                                            <select name="order_id" required class="form-control {{ $errors->has('category_id') ? ' is-invalid' : '' }} form-select"  id="exampleFormControlSelect1">
-                                                                                <option value="">--Select Job Order--</option>
-                                                                                @foreach ($job_orders as $row)
-                                                                                    <option value="{{$row->id}}">{{$row->job_order_name.'(#'.$row->order_no.')'}}</option>
+                                                                            <label for="size">Select Company</label>
+                                                                            <select name="customer_id" required class="form-control form-select">
+                                                                                <option value="">--Select Company--</option>
+                                                                                @foreach ($customers as $customer)
+                                                                                    <option value="{{ $customer->id }}">{{ $customer->company_name }}</option>
                                                                                 @endforeach
                                                                             </select>
-                                                                            @error('category_id')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="size">Job Order</label>
+                                                                            <select name="order_id" required class="form-control form-select">
+                                                                                <option value="">--Select Job Order--</option>
+                                                                                {{-- Options will be populated by AJAX --}}
+                                                                            </select>
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
@@ -68,7 +72,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlInput1"> Amount Paid </label>
-                                                                            <input type="number" required name="amount_paid" class="form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }}" value="{{ old('amount_paid') }}"  id="amount_paid">
+                                                                            <input type="number" required name="amount_paid" class="form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }} " value="{{ old('amount_paid') }}"  id="amount_paid">
                                                                             @error('amount_paid')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -100,4 +104,6 @@
         </div>
 
     </div>
+    {{-- @section('scripts') --}}
+
 @endsection

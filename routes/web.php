@@ -47,13 +47,15 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     });
 
                     Route::get('/all_orders', 'JobOrderController@index')->name('all_orders');
-                    Route::get('/view_order/{job_title}/{id}', 'JobOrderController@view_order')->name('view_order');
-                    Route::post('/view_order/{job_title}/{id}', 'JobOrderController@changeJobStatus')->name('view_order');
+                    Route::get('/view_order/{id}', 'JobOrderController@view_order')->name('view_order');
+                    Route::post('/view_order/{id}', 'JobOrderController@changeJobStatus')->name('view_order');
                     Route::post('/approved_design/{job_title}/{id}', 'JobOrderController@uploadApprovedDesign')->name('approved_design');
                     Route::get('/delete_order/{id}', 'JobOrderController@delete_job_order')->name('delete_order');
-                    Route::get('/track_order/{job_title}/{id}', 'JobOrderController@track_job_order')->name('track_order');
-                    Route::get('/transaction_history/{job_title}/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
-                    Route::post('/transaction_history/{job_title}/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
+                    Route::get('/track_order/{id}', 'JobOrderController@track_job_order')->name('track_order');
+                    Route::get('/transaction_history/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
+                    Route::post('/transaction_history/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
+
+                    Route::get('/view_title_order/{job_title}/{id}', 'JobOrderController@view_title_order')->name('view_title_order');
 
                     // Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
                     Route::get('/order_invoice_pdf/{order_no?}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
@@ -136,7 +138,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/all_orders', 'ExternalJobOrderController@index')->name('all_orders');
                     Route::get('/view_order/{id}', 'ExternalJobOrderController@view_order')->name('view_order');
                     Route::post('/view_order/{id}', 'ExternalJobOrderController@changeJobStatus')->name('view_order');
-                    Route::post('/approved_design/{id}', 'ExternalJobOrderController@uploadApprovedDesign')->name('approved_design');
+                    Route::post('/approved_design/{job_title}/{id}', 'ExternalJobOrderController@uploadApprovedDesign')->name('approved_design');
                     Route::post('/assign_location/{id}', 'ExternalJobOrderController@assignLocationToOrder')->name('assign_location');
                     Route::get('/edit_order/{id}', 'ExternalJobOrderController@edit_order')->name('edit_order');
                     Route::post('/edit_order/{id}', 'ExternalJobOrderController@update_order')->name('edit_order');
@@ -229,6 +231,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                         Route::get('/all_transactions', 'TransactionController@index')->name('all_transactions');
                         Route::get('/add_transaction', 'TransactionController@addCustomerJobPayment')->name('add_transaction');
                         Route::post('/add_transaction', 'TransactionController@storeCustomerJobPayment')->name('add_transaction');
+                        Route::get('/get-job-orders/{customerId}', 'TransactionController@getJobOrders')->name('getJobOrders');
                     });
 
                     Route::group(['prefix' => '/report', 'as' => 'report.'], function () {

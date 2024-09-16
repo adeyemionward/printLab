@@ -54,7 +54,7 @@
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td>{{$val->payment_type}}</td>
-                                                                <td>&#8358;{{$val->amount}}</td>
+                                                                <td>&#8358;{{number_format($val->amount)}}</td>
                                                                 <td>{{date('D M d, Y', strtotime($val->payment_date))}}</td>
                                                             </tr>
                                                         @endforeach

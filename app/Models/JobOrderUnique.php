@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JobOrder extends Model
+class JobOrderUnique extends Model
 {
     use HasFactory;
 
@@ -72,5 +72,4 @@ class JobOrder extends Model
     {
         return $this->belongsTo(JobOrderUnique::class, 'job_order_unique_id');
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
@@ -11,6 +11,7 @@ use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ErrorLog;
+use App\Models\JobPaymentNewHistory;
 use Illuminate\Support\Facades\DB;
 
 class FinanceController extends Controller
@@ -242,8 +243,8 @@ class FinanceController extends Controller
 
     public function all_profit_loss(Request $request)
     {
-        $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
-            ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+        $ordersPayHistory1 = JobPaymentNewHistory::selectRaw('job_order_name, SUM(amount) as total_pay')
+            ->join('job_orders', 'job_orders.id', '=', 'job_payment_new_histories.job_order_unique_id')
             ->where('cart_order_status',JobOrder::ORDER_COMPLETED)
             ->groupBy('job_orders.job_order_name');
 
@@ -252,18 +253,14 @@ class FinanceController extends Controller
             ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
             ->groupBy('expense_categories.id', 'expense_categories.category_name');
 
-
         if(request()->date_to && request()->date_from){
-            $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_histories.payment_date', [$this->startDate, $this->endDate])->get();
+            $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_new_histories.payment_date', [$this->startDate, $this->endDate])->get();
             $expensesPayHistory     = $expensesPayHistory1->whereBetween('expense_payment_histories.expense_date', [$this->startDate, $this->endDate])->get();
 
         }else{
             $ordersPayHistory       = $ordersPayHistory1->get();
             $expensesPayHistory     = $expensesPayHistory1->get();
-
         }
-
-
 
         return view('finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
     }

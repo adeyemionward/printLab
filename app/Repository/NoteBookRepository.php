@@ -8,7 +8,8 @@
     use App\Models\HigherNoteBook;;
     use App\Models\EightyLeavesBook;
     use App\Models\FortyLeavesBook;
-    use App\Models\TwentyLeavesBook;
+use App\Models\JobOrderUnique;
+use App\Models\TwentyLeavesBook;
     use App\Models\User;
     use App\Models\MarketerCommission;
     use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@
     {
         public function noteBookOrder($data){
             DB::beginTransaction();
-            try{
+            // try{
                 $user = Auth::user();
                 $order_date = date('Y-m-d');
 
@@ -30,19 +31,31 @@
                 $thickness                  =  $data['thickness'];
                 $proof_needed               =  $data['proof_needed'];
                 $total_cost                 =  str_replace(',', '',$data['total_cost']);
-                $amount_paid                =  str_replace(',', '', $data['amount_paid']);
-                $payment_type               =  $data['payment_type'];
+                $amount_paid                =  '';
+                $payment_type               =  '';
                 $location                   =  $data['location'];
                 $posted_cheque_due_date     =  $data['posted_cheque_date'];
-               
+
 
                // $marketerId = User::find($customer_id)->marketer_id;
-               $marketerId = $data['marketer_id'];
-               $percentage = $data['percentage'];
+                $marketerId = $data['marketer_id'];
+                $percentage = $data['percentage'];
+
+
+                //save to job_order_unique
+                // $job_order_unique = new JobOrderUnique();
+                // $job_order_unique->user_id         = $customer_id;
+                // $job_order_unique->company_id      = $user->company_id;
+                // $job_order_unique->order_date      = $order_date;
+                // $job_order_unique->created_by      = $user->id;
+                // $job_order_unique->save();
+
+
                 //save to job
                 $job_order = new JobOrder();
+                
                 $job_order->user_id         = $customer_id;
-               // $job_order->marketer_id     = $marketerId ?? null;
+                // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->company_id      = $user->company_id;
                 $job_order->job_order_name  = $data['note_type'];
                 $job_order->quantity        = $quantity;
@@ -53,7 +66,7 @@
                 $job_order->thickness       = $thickness;
                 $job_order->proof_needed    = $proof_needed;
                 $job_order->total_cost      = $total_cost;
-                $job_order->order_date     = $order_date;
+                $job_order->order_date      = $order_date;
                 $job_order->order_type      = 'internal';
                 $job_order->cart_order_status      = 1;
                 $job_order->job_location_id        = $location;
@@ -76,15 +89,15 @@
                 }
 
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
-                JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+                // JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
                 //upate marketer wallet
                 //JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
-            }catch(\Exception $th){
-                DB::rollBack();
-                return ['success' => false, 'error' => $th->getMessage()];
-            }
+            // }catch(\Exception $th){
+            //     DB::rollBack();
+            //     return ['success' => false, 'error' => $th->getMessage()];
+            // }
             return ['success' => true, 'job_order' => $job_order];
         }
 
@@ -142,7 +155,7 @@
                 $comm_id->delete();
               //  dd($comm_id);
                 if ($pp) {
-                    
+
                     if (!empty($marketerId) && !empty($percentage)) {
                         for ($count = 0; $count < count($marketerId); $count++) {
                             if (!empty($marketerId[$count]) && !empty($percentage[$count])) {
@@ -158,11 +171,11 @@
                                 );
                             }
                         }
-                    } 
-                    
+                    }
+
                 }
 
-                JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+                // JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
              }catch(\Exception $th){
@@ -170,7 +183,7 @@
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
              }
             // return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
-            return redirect(route('company.job_order.view_order',[$trimmedNoteType,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
+            return redirect(route('company.job_order.view_title_order',[$trimmedNoteType,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
             // return redirect(route('customers.customer_cart', $customer_id))->with('flash_success','Product added to Cart');
         }
 

@@ -210,25 +210,25 @@ class JobOrderController extends Controller
         return $pdf->stream('order_invoice.pdf');
     }
 
-    public function updateJobPayment(Request $request, $job_title, $id){
-        $user = Auth::user();
-        $order_date = date('Y-m-d');
-        $amount_paid                =  request('amount_paid');
-        $payment_type               =  request('payment_type');
+    // public function updateJobPayment(Request $request, $job_title, $id){
+    //     $user = Auth::user();
+    //     $order_date = date('Y-m-d');
+    //     $amount_paid                =  request('amount_paid');
+    //     $payment_type               =  request('payment_type');
 
-        $job_order =  JobOrder::find($id);
+    //     $job_order =  JobOrder::find($id);
 
-        $job_pay = new JobPaymentHistory();
-        $job_pay->job_order_id    = $id;
-        $job_pay->user_id     = $job_order->user_id;
-        $job_pay->amount          = $amount_paid;
-        $job_pay->payment_type    = $payment_type;
-        $job_pay->payment_date    = $order_date;
-        $job_pay->created_by      = $user->id;
-        $job_pay->save();
+    //     $job_pay = new JobPaymentHistory();
+    //     $job_pay->job_order_id    = $id;
+    //     $job_pay->user_id     = $job_order->user_id;
+    //     $job_pay->amount          = $amount_paid;
+    //     $job_pay->payment_type    = $payment_type;
+    //     $job_pay->payment_date    = $order_date;
+    //     $job_pay->created_by      = $user->id;
+    //     $job_pay->save();
 
-        return back()->with("flash_success","Order Payment updated successfully");
-    }
+    //     return back()->with("flash_success","Order Payment updated successfully");
+    // }
 
     public function delete_job_order(Request $request, $id){
         $job_orders =  JobOrder::all();
@@ -237,31 +237,31 @@ class JobOrderController extends Controller
         return redirect(route('job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
     }
 
-    public function view_order($job_title, $id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
-        $job_order =  JobOrder::find($id);
-        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-            ->where('job_order_id',$id)
-            ->first();
-        return view('job_order.view_order', compact('job_order','job_order_pay','approved_design'));
-    }
+    // public function view_order($job_title, $id){
+    //     $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+    //     $job_order =  JobOrder::find($id);
+    //     $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+    //         ->where('job_order_id',$id)
+    //         ->first();
+    //     return view('job_order.view_order', compact('job_order','job_order_pay','approved_design'));
+    // }
 
-    public function track_job_order($job_title,$id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
-        $job_order =  JobOrder::find($id);
-        $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
-            ->where('job_order_id',$id)
-            ->first();
-        $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
-        return view('job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
-    }
+    // public function track_job_order($job_title,$id){
+    //     $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+    //     $job_order =  JobOrder::find($id);
+    //     $job_order_pay  = JobPaymentHistory::select(DB::raw('SUM(amount) as amount'))
+    //         ->where('job_order_id',$id)
+    //         ->first();
+    //     $job_order_track =  JobOrderTracking::where('job_order_id',$id)->first();
+    //     return view('job_order.track_order', compact('job_order','job_order_track','job_order_pay','approved_design'));
+    // }
 
-    public function transaction_history($job_title,$id){
-        $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
-        $job_order =  JobOrder::find($id);
-        $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
-        return view('job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
-    }
+    // public function transaction_history($job_title,$id){
+    //     $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
+    //     $job_order =  JobOrder::find($id);
+    //     $job_pay_history =  JobPaymentHistory::where('job_order_id',$id)->get();
+    //     return view('job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
+    // }
 
     public function higher_education()
     {
@@ -477,27 +477,27 @@ class JobOrderController extends Controller
         }elseif(request()->job_title == 'Small_Invoice'){
 
             $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
-           
+
         }elseif(request()->job_title == 'Brochures'){
             $response = $this->brochureRepository->updateBrochure($request);
-            
+
         }elseif(request()->job_title == 'Flyer'){
             $response = $this->flyerRepository->updateFlyer($request);
 
         }elseif(request()->job_title == 'Business_Cards'){
 
             $response = $this->businessCardRepository->updateBusinessCard($request);
-       
+
         }elseif(request()->job_title == 'Envelopes'){
             $response = $this->envelopeRepository->updateEnvelope($request);
 
         }elseif(request()->job_title == 'Notepads'){
 
-            $response = $this->notePadRepository->updateNotePadOrder($request); 
+            $response = $this->notePadRepository->updateNotePadOrder($request);
 
         }elseif(request()->job_title == 'Stickers'){
 
-            $response = $this->stickersRepository->updateStickersOrder($request);  
+            $response = $this->stickersRepository->updateStickersOrder($request);
         }
         return $response;
     }

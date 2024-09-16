@@ -24,6 +24,7 @@
                             <thead>
                                 <tr>
                                     <th>S/N</th>
+                                    <th>Company Name</th>
                                     <th>Payment Type</th>
                                     <th>Amount</th>
                                     <th>Payment Date</th>
@@ -37,6 +38,7 @@
                                 @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
+                                        <td>{{$val->user->company_name}}</td>
                                         <td>{{$val->payment_type}}</td>
                                         <td>&#8358;{{number_format($val->amount)}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->payment_date))}}</td>

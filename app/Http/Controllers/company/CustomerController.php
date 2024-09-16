@@ -10,10 +10,13 @@ use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
+use App\Models\JobOrderUnique;
+use App\Models\JobPaymentNewHistory;
 use Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 class CustomerController extends Controller
 {
@@ -22,6 +25,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -73,35 +77,59 @@ class CustomerController extends Controller
 
     public function checkout($id)
     {
+        DB::beginTransaction();
+      try {
+        $user = Auth::user();
         $customer = $this->find_customer($id);
+        $order_date = date('Y-m-d');
         $job_id  = request('job_id');
         $randomInteger = random_int(100000, 999999);
+        $userDetails    = User::find($id);
+
+        // Calculate the sum of total_cost
+        $totalCostSum = JobOrder::whereIn('id', $job_id)
+        ->where('company_id', app('company_id'))->sum('total_cost'); //get the som total of the order
+
+         //save to job_order_unique
+        $job_order_unique = new JobOrderUnique();
+        $job_order_unique->user_id         = $id;
+        $job_order_unique->company_id      = $user->company_id;
+        $job_order_unique->order_no        = $randomInteger;
+        $job_order_unique->order_date      = $order_date;
+        $job_order_unique->total_cost      = $totalCostSum;
+        $job_order_unique->cart_order_status      = 2; //completed
+        $job_order_unique->order_type      = 'internal'; //completed
+        $job_order_unique->created_by      = $user->id;
+        $job_order_unique->save();
 
         $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
             [
                 'cart_order_status' =>  2,
+                'job_order_unique_id' =>  $job_order_unique->id,
                 'order_no' =>  $randomInteger,
             ]
         );
 
-        $userDetails    = User::find($id);
         $userEmail  =  $userDetails->email;
         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
         $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
+
         $payment_type =  0;
         $amount_paid = 0;
         $data = [
             'payment_type' =>'',
-            'amount_paid' => '',
-            'userDetails' =>$userDetails,
+            'amount_paid'  => '',
+            'userDetails'  => $userDetails,
             'orderDetails' => $orderDetails, // Collection of orders, for example
         ];
         $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
 
-        try {
+
             $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             // Log the error for debugging
             Log::error('Failed to send order emails: ' . $e->getMessage());
 
@@ -116,7 +144,7 @@ class CustomerController extends Controller
 
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
-        $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
+        $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
 
         return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }
@@ -125,7 +153,7 @@ class CustomerController extends Controller
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
 
-        $job_pay_history =  JobPaymentHistory::where('user_id',$id)->where('company_id',app('company_id'))->get();
+        $job_pay_history =  JobPaymentNewHistory::where('user_id',$id)->where('company_id',app('company_id'))->get();
         return view('company.customers.transaction_history', compact('customer','job_pay_history','cartCount'));
     }
 

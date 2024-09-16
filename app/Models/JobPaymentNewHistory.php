@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-class JobPaymentHistory extends Model
+
+class JobPaymentNewHistory extends Model
 {
     use HasFactory;
-    // protected $table = 'job_payment_new_histories';
-
     public function jobOrder()
     {
         return $this->belongsTo(JobOrder::class, 'job_order_id');
@@ -40,5 +39,9 @@ class JobPaymentHistory extends Model
         $job_pay->payment_date    = $order_date;
         $job_pay->updated_by      = $user_id;
         return $job_pay->save();
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

@@ -23,7 +23,7 @@
                         <table id="example1" class="table no-margin" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th style="width: 70%;">Income</th>
+                                    <th style="width: 70%;">Job Order</th>
                                     <th style="width: 30%;">Amount</th>
                                 </tr>
                             </thead>
@@ -34,7 +34,7 @@
 
                                     @php $total_income += $order_val->total_pay @endphp
                                     <tr>
-                                        <td style="width: 70%;">{{$order_val->job_order_name}}</td>
+                                        <td style="width: 70%;">#{{$order_val->order_no}}</td>
                                         <td style="width: 30%;">&#8358;{{number_format($order_val->total_pay,2)}}</td>
                                     </tr>
                                 @endforeach
