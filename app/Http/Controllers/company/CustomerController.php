@@ -10,6 +10,7 @@ use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
+use App\Models\JobOrderTracking;
 use App\Models\JobOrderUnique;
 use App\Models\JobPaymentNewHistory;
 use Mail;
@@ -101,6 +102,8 @@ class CustomerController extends Controller
         $job_order_unique->order_type      = 'internal'; //completed
         $job_order_unique->created_by      = $user->id;
         $job_order_unique->save();
+
+        // JobOrderTracking::saveJobOrderTracking($job_order_unique->id, $order_date);
 
         $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
             [

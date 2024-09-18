@@ -53,7 +53,7 @@ use App\Models\TwentyLeavesBook;
 
                 //save to job
                 $job_order = new JobOrder();
-                
+
                 $job_order->user_id         = $customer_id;
                 // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->company_id      = $user->company_id;
@@ -88,7 +88,6 @@ use App\Models\TwentyLeavesBook;
                     );
                 }
 
-                JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
                 // JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
                 //upate marketer wallet
                 //JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
