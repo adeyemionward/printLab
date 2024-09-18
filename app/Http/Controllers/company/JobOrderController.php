@@ -246,14 +246,15 @@ class JobOrderController extends Controller
 
 
     public function orderInvoicePdf($order_no){
-
+        $totalAmountPaid = 0 ;
         $orderDetails =  JobOrder::with('jobPaymentHistories')->where('order_no', $order_no)->where('company_id',app('company_id'))->get();
-        // $orderDetails1 = JobPaymentNewHistory::where('order_no',$order_no)->get();
-        // dd($orderDetails);
+         $orderDetails1 = JobPaymentNewHistory::where('order_no',$order_no)->get();
+         $totalAmountPaid = $orderDetails1->sum('amount');
+        //  dd($totalAmountPaid);
 
         $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
-        $pdf = PDF::loadView('company.job_order.order_invoice_pdf',compact('orderDetails','order1'));
+        $pdf = PDF::loadView('company.job_order.order_invoice_pdf',compact('orderDetails','order1','totalAmountPaid'));
         return $pdf->stream('order_invoice.pdf');
     }
 
