@@ -53,10 +53,11 @@ class JobOrder extends Model
     // }
     public function jobPaymentHistories()
     {
-        return $this->hasMany(JobPaymentNewHistory::class, 'job_order_unique_id', 'id');
+        return $this->hasMany(JobPaymentNewHistory::class, 'job_order_unique_id', 'job_order_unique_id');
     }
+
     public function jobPaymentHistory(){
-        return $this->belongsTo(JobPaymentNewHistory::class,'id','job_order_unique_id');
+        return $this->belongsTo(JobPaymentNewHistory::class,'job_order_unique_id','job_order_unique_id');
     }
 
     public function jobMarketertHistory(){

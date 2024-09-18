@@ -248,6 +248,8 @@ class JobOrderController extends Controller
     public function orderInvoicePdf($order_no){
 
         $orderDetails =  JobOrder::with('jobPaymentHistories')->where('order_no', $order_no)->where('company_id',app('company_id'))->get();
+        // $orderDetails1 = JobPaymentNewHistory::where('order_no',$order_no)->get();
+        // dd($orderDetails);
 
         $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
