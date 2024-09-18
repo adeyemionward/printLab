@@ -109,7 +109,7 @@ class JobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-        return $jobQuery =  JobOrder::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC');
+        return $jobQuery =  JobOrderUnique::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC');
     }
 
     private function filterOrdersByDateInternal(){
@@ -144,8 +144,11 @@ class JobOrderController extends Controller
     }
 
     public function changeJobStatus(Request $request, $id){
-        $job_order =  JobOrder::where('job_order_unique_id',$id)->first();
-        $job_order->status =  request('order_status');
+        $job_order =  JobOrder::where('job_order_unique_id',$id)->get();
+        $job_order_unique =  JobOrderUnique::where('id',$id)->first();
+        $job_order_unique->status   = request('order_status');
+        //dd($job_order);
+
         $job_order->updated_by =  Auth::user()->id;
         $order_date = date('Y-m-d');
 
@@ -205,7 +208,16 @@ class JobOrderController extends Controller
             $job_tracking->update();
         }
 
-        $job_order->update();
+        $job_order_unique->update();
+        if ($job_order->isNotEmpty()) {
+           // dd('ok');
+            foreach ($job_order as $job_order1) {
+                $job_order1->update([
+                    // Add the columns you want to update here, e.g.:
+                    'status' => request('order_status'),
+                ]);
+            }
+        }
         return back()->with("flash_success","Order status changed successfully");
     }
 

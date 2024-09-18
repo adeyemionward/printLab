@@ -88,8 +88,8 @@
                                                                         <td>{{$job_order->location->city ?? 'N/A'}}</td>
                                                                     </tr> --}}
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Quantity :</td>
-                                                                        <td>{{ $job_order->jobOrders->sum('quantity') }}</td>
+                                                                        {{-- <td width="10%" class="question">Quantity :</td> --}}
+                                                                        {{-- <td>{{ $job_order->jobOrders->sum('quantity') }}</td> --}}
                                                                     </tr>
 
                                                                     <tr class="det">

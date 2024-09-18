@@ -33,7 +33,7 @@
                                     <th>Customer Name</th>
                                     <th>Job Type</th>
                                     <th>Cart Status</th>
-                                    <th>Quantity</th>
+                                    {{-- <th>Quantity</th> --}}
                                     <th>Total Cost</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -55,7 +55,7 @@
                                             <span style="color:green;">Completed </span>
                                             @endif
                                         </td>
-                                        <td>{{ $val->jobOrders->sum('quantity') }}</td>
+                                        {{-- <td>{{ $val->jobOrders->sum('quantity') }}</td> --}}
                                         {{-- <td>{{$val->production_days}}</td> --}}
                                         <td>{{'₦'.$val->total_cost}} </td>
                                         <td>{{$val->status}}</td>

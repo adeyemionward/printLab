@@ -20,6 +20,7 @@ class JobOrder extends Model
         'thickness',
         'total_cost',
         'memory',
+        'status',
         'cover_paper',
         'proof_needed'
     ];
