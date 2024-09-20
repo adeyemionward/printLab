@@ -141,7 +141,7 @@ class CustomerController extends Controller
             // Try sending the email and handle failure gracefully
             $emailSent = true;
             try {
-                Mail::to('joufert@printlabs.com.ng')->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
+                Mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
             } catch (\Exception $e) {
                 Log::error('Failed to send email: ' . $e->getMessage());
                 $emailSent = false; // Mark email as not sent
