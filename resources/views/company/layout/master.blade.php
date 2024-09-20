@@ -808,6 +808,12 @@
         </script>
     @endif
 
+    @if(Session::has('flash_warning'))
+        <script>
+            toastr.warning("{!! Session::get('flash_warning') !!}");
+        </script>
+    @endif
+
     @if(Session::has("flash_error"))
         <script>
             toastr.error("{!! Session::get('flash_error') !!}");

@@ -128,26 +128,42 @@ class CustomerController extends Controller
             ];
             $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
   
-            try {
-                Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
-            } catch (\Exception $emailException) {
-                // Handle the email exception separately
-                Log::error('Failed to send order email: ' . $emailException->getMessage());
+            // try {
+            //     Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+            // } catch (\Exception $emailException) {
+            //     // Handle the email exception separately
+            //     Log::error('Failed to send order email: ' . $emailException->getMessage());
         
-                // Optionally inform the user
-                return redirect(route('company.customers.customer_job_orders', $id))
-                    ->with('flash_error', 'Order processed but email sending failed.');
+            //     // Optionally inform the user
+            //     return redirect(route('company.customers.customer_job_orders', $id))
+            //         ->with('flash_error', 'Order processed but email sending failed.');
+            // }
+            // Try sending the email and handle failure gracefully
+            $emailSent = true;
+            try {
+                Mail::to('joufert@printlabs.com.ng')->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
+            } catch (\Exception $e) {
+                Log::error('Failed to send email: ' . $e->getMessage());
+                $emailSent = false; // Mark email as not sent
             }
+
             DB::commit();
+
+            // Redirect with success and email status
+            if ($emailSent) {
+                return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success', 'Order processed successfully, and email sent!');
+            } else {
+                return redirect(route('company.customers.customer_job_orders', $id))->with('flash_warning', 'Order processed successfully, but email failed to send.');
+            }
         } catch (\Exception $e) {
             DB::rollBack();
             // Log the error for debugging
             Log::error('Failed to send order: ' . $e->getMessage());
 
             // Optionally, you can set a flash message to notify the user of the issue
-            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_error', 'There is an error processing this order');
+            return redirect()->back()->with('flash_error', 'There is an error processing this order');
         }
-        return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
+        // return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
     }
 
     public function customer_job_orders($id)
