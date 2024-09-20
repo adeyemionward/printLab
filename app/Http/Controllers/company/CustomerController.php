@@ -142,7 +142,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             // Log the error for debugging
-            Log::error('Failed to send order emails: ' . $e->getMessage());
+            Log::error('Failed to send order: ' . $e->getMessage());
 
             // Optionally, you can set a flash message to notify the user of the issue
             return redirect(route('company.customers.customer_job_orders', $id))->with('flash_error', 'There is an error processing this order');
