@@ -79,57 +79,65 @@ class CustomerController extends Controller
     public function checkout($id)
     {
         DB::beginTransaction();
-      try {
-        $user = Auth::user();
-        $customer = $this->find_customer($id);
-        $order_date = date('Y-m-d');
-        $job_id  = request('job_id');
-        $randomInteger = random_int(100000, 999999);
-        $userDetails    = User::find($id);
+        try {
+            $user = Auth::user();
+            $customer = $this->find_customer($id);
+            $order_date = date('Y-m-d');
+            $job_id  = request('job_id');
+            $randomInteger = random_int(100000, 999999);
+            $userDetails    = User::find($id);
 
-        // Calculate the sum of total_cost
-        $totalCostSum = JobOrder::whereIn('id', $job_id)
-        ->where('company_id', app('company_id'))->sum('total_cost'); //get the som total of the order
+            // Calculate the sum of total_cost
+            $totalCostSum = JobOrder::whereIn('id', $job_id)
+            ->where('company_id', app('company_id'))->sum('total_cost'); //get the som total of the order
 
-         //save to job_order_unique
-        $job_order_unique = new JobOrderUnique();
-        $job_order_unique->user_id         = $id;
-        $job_order_unique->company_id      = $user->company_id;
-        $job_order_unique->order_no        = $randomInteger;
-        $job_order_unique->order_date      = $order_date;
-        $job_order_unique->total_cost      = $totalCostSum;
-        $job_order_unique->cart_order_status      = 2; //completed
-        $job_order_unique->order_type      = 'internal'; //completed
-        $job_order_unique->created_by      = $user->id;
-        $job_order_unique->save();
+            //save to job_order_unique
+            $job_order_unique = new JobOrderUnique();
+            $job_order_unique->user_id         = $id;
+            $job_order_unique->company_id      = $user->company_id;
+            $job_order_unique->order_no        = $randomInteger;
+            $job_order_unique->order_date      = $order_date;
+            $job_order_unique->total_cost      = $totalCostSum;
+            $job_order_unique->cart_order_status      = 2; //completed
+            $job_order_unique->order_type      = 'internal'; //completed
+            $job_order_unique->created_by      = $user->id;
+            $job_order_unique->save();
 
-        // JobOrderTracking::saveJobOrderTracking($job_order_unique->id, $order_date);
+            // JobOrderTracking::saveJobOrderTracking($job_order_unique->id, $order_date);
 
-        $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
-            [
-                'cart_order_status' =>  2,
-                'job_order_unique_id' =>  $job_order_unique->id,
-                'order_no' =>  $randomInteger,
-            ]
-        );
+            $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
+                [
+                    'cart_order_status' =>  2,
+                    'job_order_unique_id' =>  $job_order_unique->id,
+                    'order_no' =>  $randomInteger,
+                ]
+            );
 
-        $userEmail  =  $userDetails->email;
-        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+            $userEmail  =  $userDetails->email;
+            $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
 
-        $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
+            $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
 
-        $payment_type =  0;
-        $amount_paid = 0;
-        $data = [
-            'payment_type' =>'',
-            'amount_paid'  => '',
-            'userDetails'  => $userDetails,
-            'orderDetails' => $orderDetails, // Collection of orders, for example
-        ];
-        $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
-
-
-            $sendOrderEmail =   Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+            $payment_type =  0;
+            $amount_paid = 0;
+            $data = [
+                'payment_type' =>'',
+                'amount_paid'  => '',
+                'userDetails'  => $userDetails,
+                'orderDetails' => $orderDetails, // Collection of orders, for example
+            ];
+            $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
+  
+            try {
+                Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
+            } catch (\Exception $emailException) {
+                // Handle the email exception separately
+                Log::error('Failed to send order email: ' . $emailException->getMessage());
+        
+                // Optionally inform the user
+                return redirect(route('company.customers.customer_job_orders', $id))
+                    ->with('flash_error', 'Order processed but email sending failed.');
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -137,7 +145,7 @@ class CustomerController extends Controller
             Log::error('Failed to send order emails: ' . $e->getMessage());
 
             // Optionally, you can set a flash message to notify the user of the issue
-            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success', 'Product Order Successful but failed to send email.');
+            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_error', 'There is an error processing this order');
         }
         return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
     }
