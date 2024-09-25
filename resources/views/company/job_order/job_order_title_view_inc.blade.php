@@ -66,7 +66,7 @@
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
                 <a class="nav-link <?php if($page == 'view_order') echo 'active active_red'  ?>"
-                 href="{{route('company.job_order.view_order',request()->id)}}"
+                 href="{{route('company.job_order.view_title_order',[request()->job_title, request()->id])}}"
                  aria-selected="false">View Details</a>
                 <div class="dropdown-divider"></div>
 
@@ -77,7 +77,7 @@
 
 
 
-           
+
 
                 <a style="cursor: pointer" id="myBtn1" data-bs-toggle="modal" data-bs-target="#exampleModal_design" class="nav-link <?php if($page == 'status_order') echo 'active active_red'  ?>"
 
@@ -97,7 +97,7 @@
 
                <div class="dropdown-divider"></div>
 
-           
+
                 <a class="nav-link <?php if($page == 'delete_order') echo 'active active_red'  ?>"
                     onclick="return confirm('Are you sure you want to delete this job order?');"  href="{{route('company.job_order.delete_order',[ request()->id])}}"
                 aria-selected="false">Delete Order</a>
