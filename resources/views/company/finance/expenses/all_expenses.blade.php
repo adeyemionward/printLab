@@ -35,7 +35,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $totalCost = 0 ; $totalAmountPaid = 0 @endphp
                                 @foreach ($expenses as $val)
+                                    @php
+                                        $totalCost += $val->total_cost;
+                                        $totalAmountPaid += $val->expenseHistories->sum('amount_paid');
+                                    @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->title}}</td>
@@ -48,14 +53,27 @@
                                         @endif
 
                                         </td>
-                                        <td>&#8358;{{$val->total_cost}}</td>
+                                        <td>&#8358;{{number_format($val->total_cost)}}</td>
 
                                         <td>{{$val->payment_type}}</td>
-                                        <td>&#8358;{{$val->expenseHistories->sum('amount_paid')}}</td>
+                                        <td>&#8358;{{number_format($val->expenseHistories->sum('amount_paid'))}}</td>
                                         <td>{{date('D M d, Y', strtotime($val->expense_date))}}</td>
                                         <td><a href="{{route('company.finance.expenses.view_expense',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
+                                <tfoot>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td><b>Total Cost:</b></td>
+                                        <td><b> &#8358;{{number_format($totalCost)}}</b></td>
+                                        <td><b>Total Amount Paid:</b></td>
+                                        <td><b> &#8358;{{number_format($totalAmountPaid)}}</b></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
 
 
                         </table>

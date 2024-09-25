@@ -303,6 +303,7 @@ class JobOrderController extends Controller
         $approved_design  = OrderApprovedDesign::where('job_order_id',$id)->first();
         $job_order  =  JobOrder::find($id);
         $job_orders =  JobOrder::where('job_order_unique_id',$id)->get();
+        // $job_order_unique =  JobOrderUnique::where('job_order_unique_id',$id)->get();
 
         $job_order_pay  = JobPaymentNewHistory::select(DB::raw('SUM(amount) as amount'))
         ->where('job_order_unique_id',$id)->where('company_id',app('company_id'))->first();

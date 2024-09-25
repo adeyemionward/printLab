@@ -65,6 +65,11 @@
 
             <div class="nav nav-pills flex-column bg-white"
                 id="nav-tab" role="tablist">
+                <a class="nav-link"
+                    href="{{route('company.job_order.view_order',[$job_order->job_order_unique_id])}}"
+                    aria-selected="false">Parent Job Order</a>
+                   <div class="dropdown-divider"></div>
+
                 <a class="nav-link <?php if($page == 'view_order') echo 'active active_red'  ?>"
                  href="{{route('company.job_order.view_title_order',[request()->job_title, request()->id])}}"
                  aria-selected="false">View Details</a>
