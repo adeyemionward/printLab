@@ -50,7 +50,7 @@
                                         <td>{{'₦'.number_format($val->jobPaymentHistories->sum('amount'))}}</td>
                                         <td>{{'₦'.number_format($val->total_cost - $val->jobPaymentHistories->sum('amount'))}}</td>
                                         <td>{{$val->status}}</td>
-                                        <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td><a href="{{route('company.job_order.view_order',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
                                 <tfoot>

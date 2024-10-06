@@ -242,13 +242,13 @@ class FinanceController extends Controller
         $startDate  = request('date_from');
         $endDate    = request('date_to');
         $customer   = request('customer');
-      //  dd(app('company_id'));
-      if(request()->has('customer')) {
-            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)
-                ->where('company_id',app('company_id'))->get();
+        //  dd(app('company_id'));
+        if(request()->has('customer')) {
+            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
         }else{
             $job_pay = JobOrderUnique::with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
         }
+        //dd($job_pay);
 
         return view('company.finance.report.debtors.index', compact('job_pay'));
     }
