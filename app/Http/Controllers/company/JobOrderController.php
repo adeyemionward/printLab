@@ -261,9 +261,9 @@ class JobOrderController extends Controller
     //remember do  perm here
     public function updateJobPayment(Request $request, $id){
         $user = Auth::user();
-        $order_date = date('Y-m-d');
-        $amount_paid                =  request('amount_paid');
-        $payment_type               =  request('payment_type');
+        $order_date     =   date('Y-m-d');
+        $amount_paid    =   request('amount_paid');
+        $payment_type   =   request('payment_type');
 
         $job_order =  JobOrder::where('job_order_unique_id',$id)->first();
         //dd($job_order);

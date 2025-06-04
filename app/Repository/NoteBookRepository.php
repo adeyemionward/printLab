@@ -50,7 +50,6 @@ use App\Models\TwentyLeavesBook;
                 // $job_order_unique->created_by      = $user->id;
                 // $job_order_unique->save();
 
-
                 //save to job
                 $job_order = new JobOrder();
 

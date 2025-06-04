@@ -24,8 +24,6 @@ Route::get('/invoice', function () {
 });
 
 
-
-
 Route::group(['middleware' => 'checkSubdomain'], function () {
     Route::group(['namespace' => 'App\Http\Controllers\company'],  function () {
         Route::group(['prefix' => '/company', 'as' => 'company.'], function () {

@@ -145,7 +145,7 @@
                  href="{{route('company.job_order.view_order',request()->id)}}"
                  aria-selected="false">View Details</a>
                 <div class="dropdown-divider"></div>
-{{-- 
+{{--
                 <a  class="nav-link  <?php if($page == 'edit_order') echo 'active active_red'  ?>"
                  href="{{route('company.job_order.edit_order',request()->id)}}"
                  aria-selected="false">Edit Order</a>

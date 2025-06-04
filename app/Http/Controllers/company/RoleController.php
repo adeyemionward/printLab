@@ -92,6 +92,7 @@ class RoleController extends Controller
         // Retrieve permissions associated with each role
         $existingPermissions = $role->permissions;
         $permissions = Permission::all();
+        
 
         return view('company.roles.edit_role', compact('role', 'permissions','existingPermissions'));
     }

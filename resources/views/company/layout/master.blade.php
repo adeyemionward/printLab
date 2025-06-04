@@ -7,8 +7,8 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/printlab.PNG">
-    <title>@yield('title') | PrintLab Web Solution</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/logo.png">
+    <title>@yield('title') | Viryem Web Solution</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}" />
     <link rel="stylesheet" href="{{asset('css/main.css')}}" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -32,7 +32,7 @@
 
 				<div class="sidebar-header text-center">
 
-					<h4 class="sidebar-title theme-item"><img src="{{asset('img/printlab.PNG')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
+					<h4 class="sidebar-title theme-item"><img src="{{asset('assets/img/logo/logo.png')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
 				</div>
 
 				<ul class="list-unstyled components text-secondary" >
@@ -283,7 +283,7 @@
 							class="btn btn-light py-0">
 							<i data-feather="menu"></i> <span></span>
 						</button>
-						<img src="{{asset('img/printlab.PNG')}}" alt="logo"
+						<img src="{{asset('assets/img/logo/logo.png')}}" alt="logo"
 							class="app-logo theme-item mx-2 navbrandarea1" style="width: 160px; height: 50px;">
 						<!-- <h4 class="sidebar-title theme-item mt-2 navbrandarea2">PRINTLAB</h4> -->
 						<button class="navbar-toggler py-0" type="button"
@@ -363,9 +363,8 @@
 										class="data-feather theme-item" data-feather="chevron-down"></i></a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
-										{{-- <li><a class="dropdown-item" href="#"></a></li>
-										<li><a class="dropdown-item" href="#"></a></li> --}}
-										<li class="dropdown-submenu">
+
+										{{-- <li class="dropdown-submenu">
                                             <a class="dropdown-item mr-3" href="#">External Orders <i class="data-feather" data-feather="chevron-right"></i></a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
                                                 <li><a class="dropdown-item" href="{{route('company.external_job_order.all_orders')}}">All Orders</a></li>
@@ -379,7 +378,7 @@
                                                 <li><a class="dropdown-item" href="{{route('company.external_job_order.status.completed')}}">Completed</a></li>
                                                 <li><a class="dropdown-item" href="{{route('company.external_job_order.status.delivered')}}">Delivered</a></li>
                                             </ul>
-                                        </li>
+                                        </li> --}}
 
                                         <li class="dropdown-submenu">
                                             <a class="dropdown-item mr-3" href="#">Internal Orders <i class="data-feather" data-feather="chevron-right"></i></a>
@@ -401,7 +400,7 @@
 									</ul>
 								</li>
 
-                                <li class="nav-item dropdown nav-dropdown"><a
+                                {{-- <li class="nav-item dropdown nav-dropdown"><a
 									class="nav-item nav-link dropdown-toggle text-secondary py-0"
 									href="#" id="navbarDropdownMenuLink1" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false"><i
@@ -414,7 +413,7 @@
 										<li><a class="dropdown-item" href="{{route('company.products.all_products')}}">All Products</a></li>
 
 									</ul>
-								</li>
+								</li> --}}
 
 
                                 <li class="nav-item dropdown nav-dropdown"><a
@@ -441,14 +440,14 @@
 
 							<div class="usermenu">
 								<div class="nav-dropdown py-0">
-                                        <span class="theme-item" style="padding-left:20px">Account Expired in:
+                                        {{-- <span class="theme-item" style="padding-left:20px">Account Expired in:
                                             @if ($remaining_days > 10)
                                                 <span style="font-weight:bolder">{{$remaining_days}}</span>
                                             @else
                                                 <span style="color: red">{{$remaining_days}}</span>
                                             @endif
 
-                                        </span> Days</span>
+                                        </span> Days</span> --}}
 									<a href="#"
 										class="nav-item nav-link dropdown-toggle text-secondary py-0"
 										id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
@@ -848,7 +847,7 @@
                     success:function(data) {
                         $('select[name="order_id"]').empty();
                         $('select[name="order_id"]').append('<option value="">--Select Job Order--</option>');
-                    
+
                         $.each(data, function(key, value) {
                             $('select[name="order_id"]').append('<option value="' + value + '">#' + value + '</option>');
                         });
