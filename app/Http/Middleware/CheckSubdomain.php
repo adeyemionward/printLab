@@ -16,6 +16,6 @@ class CheckSubdomain
         if (is_null($query) && $subdomain != 'localhost' && $subdomain != 'www' && $subdomain != '127') {
             return response('Subdomain not found', 404);
         }
-        return $next($request); 
+        return $next($request);
     }
 }

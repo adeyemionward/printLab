@@ -1,6 +1,16 @@
 
 @extends('company.layout.master')
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+   
+
+    canvas {
+      max-width: 800px;
+      width: 100%;
+      height: 400px;
+    }
+  </style>
 @section('title', 'Dashboard')
     {{-- MAIN BODY CONTENT --}}
     <div class="content">
@@ -184,6 +194,14 @@
                                     </div>
                                 </div>
                             </div>
+
+                             <div class="card">
+                                <div class="content">
+                                    <div class="canvas-wrapper">
+                                        <canvas id="topCompaniesChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-6">
@@ -249,10 +267,23 @@
 
                                             </tbody>
                                         </table>
+
+
+                                        
                                     </div>
+                                    
                                     <div class="ui hidden divider"></div>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="content">
+                                    <div class="canvas-wrapper">
+                                        <canvas id="marketerChart" style="width:100px; height:100px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                           
                         </div>
                     </div>
                 </div>
@@ -260,5 +291,121 @@
         </div>
 
     </div>
+
+<script>
+function generateColors(count) {
+    const bgColors = [];
+    const borderColors = [];
+
+    for (let i = 0; i < count; i++) {
+        const r = Math.floor(Math.random() * 156 + 100); // Brighter color
+        const g = Math.floor(Math.random() * 156 + 100);
+        const b = Math.floor(Math.random() * 156 + 100);
+
+        bgColors.push(`rgba(${r}, ${g}, ${b}, 0.7)`);
+        borderColors.push(`rgba(${r}, ${g}, ${b}, 1)`);
+    }
+
+    return { bgColors, borderColors };
+}
+
+// ========== MARKETER CHART ==========
+const marketers = [
+    @foreach ($commissions as $item)
+        {
+            name: '{{ $item->firstname . ' ' . $item->lastname }}',
+            total_sales: {{ round($item->total_commission, 2) }}
+        }{{ !$loop->last ? ',' : '' }}
+    @endforeach
+];
+
+const marketerLabels = marketers.map(item => item.name);
+const marketerDataValues = marketers.map(item => item.total_sales);
+const marketerColors = generateColors(marketers.length);
+
+const marketerData = {
+    labels: marketerLabels,
+    datasets: [{
+        label: 'Total Sales (₦)',
+        data: marketerDataValues,
+        backgroundColor: marketerColors.bgColors,
+        borderColor: marketerColors.borderColors,
+        borderWidth: 1
+    }]
+};
+
+const marketerConfig = {
+    type: 'pie',
+    data: marketerData,
+    options: {
+        responsive: true,
+         aspectRatio: 1.8, // Try 0.8, 1, 1.2, etc. to adjust size
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Best Performing Marketers'
+            }
+        }
+    }
+};
+
+const marketerCtx = document.getElementById('marketerChart').getContext('2d');
+new Chart(marketerCtx, marketerConfig);
+
+
+// ========== COMPANY CHART ==========
+const topCompanies = [
+    @foreach ($topCompanies as $item)
+        {
+            name: '{{ $item->firstname . ' ' . $item->lastname }}',
+            total_sales: {{ round($item->total_spent, 2) }}
+        }{{ !$loop->last ? ',' : '' }}
+    @endforeach
+];
+
+const companyLabels = topCompanies.map(item => item.name);
+const companyDataValues = topCompanies.map(item => item.total_sales);
+const companyColors = generateColors(topCompanies.length);
+
+const companyData = {
+    labels: companyLabels,
+    datasets: [{
+        label: 'Total Sales (₦)',
+        data: companyDataValues,
+        backgroundColor: companyColors.bgColors,
+        borderColor: companyColors.borderColors,
+        borderWidth: 1
+    }]
+};
+
+const companyConfig = {
+    type: 'bar',
+    data: companyData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Best Performing Companies'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: value => '₦' + value.toLocaleString()
+                }
+            }
+        }
+    }
+};
+
+const companyCtx = document.getElementById('topCompaniesChart').getContext('2d');
+new Chart(companyCtx, companyConfig);
+
+</script>
+
 @endsection
 

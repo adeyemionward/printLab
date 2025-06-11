@@ -53,7 +53,35 @@ class DashboardController extends Controller
         ->get();
 
        // return $today = Carbon::parse(Carbon::today()->toDateString());
+      
 
-        return view('company.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders'));
+        $commissions = DB::table('marketer_commissions as mc')
+            ->join('users as u', 'mc.marketer_id', '=', 'u.id')
+            ->join('job_orders as jo', 'mc.job_order_id', '=', 'jo.id')
+            ->select(
+                'mc.marketer_id',
+                'u.firstname',
+                'u.lastname',
+                DB::raw('SUM((mc.percentage / 100) * jo.total_cost) as total_commission')
+            )
+            ->groupBy('mc.marketer_id', 'u.firstname', 'u.lastname')
+            ->orderByDesc('total_commission') // Optional: sort by highest performing
+            ->where('mc.company_id', app('company_id'))
+            ->get();
+
+            $topCompanies = DB::table('job_order_uniques as jou')
+            ->join('users as u', 'jou.user_id', '=', 'u.id')
+            ->select(
+                'u.firstname',
+                'u.lastname',
+                DB::raw('SUM(jou.total_cost) as total_spent')
+            )
+            ->groupBy('jou.user_id', 'u.firstname', 'u.lastname')
+            ->orderByDesc('total_spent')
+            ->limit(5)
+            ->get();
+          
+
+        return view('company.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders','commissions','topCompanies'));
     }
 }

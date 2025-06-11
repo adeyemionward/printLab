@@ -45,7 +45,7 @@
                                                     <tbody>
                                                         @php $payout_commission = 0;   @endphp
                                                         @foreach ($job_pay_history as $index => $val)
-                                                        @php $payout_commission += ($val->amount_paid)@endphp
+                                                            @php $payout_commission += ($val->amount_paid)@endphp
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td>{{$val->payment_type}}</td>

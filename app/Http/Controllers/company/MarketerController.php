@@ -72,8 +72,8 @@ class MarketerController extends Controller
     public function transaction_history($id){
         $customer = $this->find_marketer($id);
 
-        $job_pay_history =  MarketerPaymentHistory::where('marketer_id',$id)->where('company_id',app('company_id'))->get();
-        $job_orders =  MarketerCommission::where('marketer_id', $id)->where('company_id',app('company_id'))->get();
+        $job_pay_history =  MarketerPaymentHistory::where('company_id',app('company_id'))->get();
+        $job_orders =  MarketerCommission::where('company_id',app('company_id'))->get();
        
         return view('company.marketers.transaction_history', compact('customer','job_pay_history','job_orders'));
     }
