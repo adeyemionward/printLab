@@ -348,7 +348,7 @@ const companyConfig = {
             legend: { display: false },
             title: {
                 display: true,
-                text: 'Best Performing Companies'
+                text: 'Best Performing Customers'
             }
         },
         scales: {
