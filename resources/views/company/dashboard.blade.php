@@ -3,7 +3,7 @@
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-   
+
 
     canvas {
       max-width: 800px;
@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="icon-big text-center">
-                                        <i class="teal data-feather-big" stroke-width="3"
+                                        <i class="teal data-feather-big" stroke-width="2"
                                             data-feather="shopping-cart" style="color: #df4226;"></i>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="card">
+                            {{-- <div class="card">
                                 <div class="content">
                                     <div class="head">
                                         <h5 class="mb-0">Top Job Orders</h5>
@@ -193,7 +193,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                              <div class="card">
                                 <div class="content">
@@ -205,6 +205,16 @@
                         </div>
 
                         <div class="col-md-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="canvas-wrapper">
+                                        <canvas id="marketerChart" style="width:100px; height:100px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <div class="card">
                                 <div class="content">
                                     <div class="head">
@@ -269,21 +279,14 @@
                                         </table>
 
 
-                                        
+
                                     </div>
-                                    
+
                                     <div class="ui hidden divider"></div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="content">
-                                    <div class="canvas-wrapper">
-                                        <canvas id="marketerChart" style="width:100px; height:100px;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
 
-                           
+
                         </div>
                     </div>
                 </div>
@@ -339,7 +342,7 @@ const marketerConfig = {
     data: marketerData,
     options: {
         responsive: true,
-         aspectRatio: 1.8, // Try 0.8, 1, 1.2, etc. to adjust size
+        aspectRatio: 3.2, // Try 0.8, 1, 1.2, etc. to adjust size
         plugins: {
             legend: { display: false },
             title: {
@@ -384,6 +387,7 @@ const companyConfig = {
     data: companyData,
     options: {
         responsive: true,
+        // aspectRatio: 3.2,
         plugins: {
             legend: { display: false },
             title: {

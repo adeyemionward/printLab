@@ -19,8 +19,16 @@
     <link href="{!! asset('assets/select2/dist/css/select2.css') !!}" rel="stylesheet">
 </head>
 <style>
-    .nav-item.nav-link.dropdown-toggle.text-secondary{
+    .nav-item.nav-link.dropdown-toggle.text-secondary,
+    nav ul li a .data-feather.theme-item,
+    .sidenaviconopen,
+    nav ul li a span.theme-item
+    {
         color: #fff !important;
+    }
+
+    nav ul li a span.data-feather.theme-item{
+        color: #000 !important;
     }
 </style>
 <body class="d-flex flex-column h-100">
@@ -28,17 +36,20 @@
 
 		<div class="wrapper">
 
-			<nav id="sidebar" class="active" >
+			<nav id="sidebar" class="active" style="background: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); color:#fff">
 
-				<div class="sidebar-header text-center">
+				<div class="sidebar-header text-center" style="background: #fff">
 
 					<h4 class="sidebar-title theme-item"><img src="{{asset('assets/img/logo/logo.png')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
 				</div>
 
-				<ul class="list-unstyled components text-secondary" >
-					<li><a href="{{route('company.dashboard')}}"><i
-							class="data-feather theme-item" data-feather="home"></i> <span
-							class="theme-item"> Dashboard</span></a></li>
+				<ul class="list-unstyled components text-secondary">
+					<li>
+                        <a href="{{route('company.dashboard')}}"><i
+							class="data-feather theme-item" data-feather="home"></i> 
+                            <span class="theme-item"> Dashboard</span>
+                        </a>
+                    </li>
 
 
 					<li>
@@ -46,13 +57,15 @@
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
 								class="data-feather theme-item" data-feather="user"></i> <span
-								class="theme-item"> Parties</span><i
-								class="sidenaviconopen float-end" id="sidenavicon"
-								data-feather="chevron-up"></i></a>
+								class="theme-item"> Parties</span>
+                                <i class="sidenaviconopen float-end" id="sidenavicon"
+                                    data-feather="chevron-up">
+                                </i>
+                            </a>
 
 							<div class="dropdown-container">
 								<a href="{{route('company.customers.add_customer')}}" class="text-center">
-                                    <i class="data-feather theme-item" ></i>
+                                    <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Add Customer</span>
                                 </a>
 
