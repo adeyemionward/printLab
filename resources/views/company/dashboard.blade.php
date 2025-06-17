@@ -168,10 +168,9 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-                            <div class="card">
+                        </div>
+                    </div>
+                     <div class="card">
                                 <div class="content">
                                     <div class="head">
                                         <h5 class="mb-0">Top Orders By Date</h5>
@@ -241,10 +240,6 @@
                                     <div class="ui hidden divider"></div>
                                 </div>
                             </div>
-
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -298,7 +293,7 @@ const marketerConfig = {
     data: marketerData,
     options: {
         responsive: true,
-        aspectRatio: 3.2, // Try 0.8, 1, 1.2, etc. to adjust size
+        aspectRatio: 2.0, // Try 0.8, 1, 1.2, etc. to adjust size
         plugins: {
             legend: { display: false },
             title: {
