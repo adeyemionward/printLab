@@ -40,13 +40,13 @@
 
 				<div class="sidebar-header text-center" style="background: #fff">
 
-					<h4 class="sidebar-title theme-item"><img src="{{asset('assets/img/logo/logo.png')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
+					<h4 class="sidebar-title theme-item"><img src="{{asset('img/printlab.PNG')}}" alt="logo" class="app-logo" style="width: 160px; height: 50px;"></h4>
 				</div>
 
 				<ul class="list-unstyled components text-secondary">
 					<li>
                         <a href="{{route('company.dashboard')}}"><i
-							class="data-feather theme-item" data-feather="home"></i> 
+							class="data-feather theme-item" data-feather="home"></i>
                             <span class="theme-item"> Dashboard</span>
                         </a>
                     </li>
@@ -129,6 +129,10 @@
                                     <span class="data-feather theme-item">Requisitions</span>
                                 </a> --}}
 
+                                <a href="{{route('company.finance.commissions.add_commission')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Commissions</span>
+                                </a>
                                 <a href="{{route('company.finance.expenses.all_expenses')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Expenses</span>
@@ -220,7 +224,7 @@
 					</li>
 
 
-                    <li>
+                    {{-- <li>
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
@@ -247,7 +251,7 @@
 
 							</div>
 						</div>
-					</li>
+					</li> --}}
 
                     <li>
 						<div class="sidebardropdown">
@@ -272,7 +276,7 @@
 
                                 <a href="{{route('company.roles.add_role')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
-                                    <span class="data-feather theme-item"> Users Roles & Permission</span>
+                                    <span class="data-feather theme-item">Roles & Permission</span>
                                 </a>
 
                                 <a href="{{route('company.settings.site.color_logo')}}" class="text-center">
@@ -296,7 +300,7 @@
 							class="btn btn-light py-0">
 							<i data-feather="menu"></i> <span></span>
 						</button>
-						<img src="{{asset('assets/img/logo/logo.png')}}" alt="logo"
+						<img src="{{asset('img/printlab.PNG')}}" alt="logo"
 							class="app-logo theme-item mx-2 navbrandarea1" style="width: 160px; height: 50px;">
 						<!-- <h4 class="sidebar-title theme-item mt-2 navbrandarea2">PRINTLAB</h4> -->
 						<button class="navbar-toggler py-0" type="button"

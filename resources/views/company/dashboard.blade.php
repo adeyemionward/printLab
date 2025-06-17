@@ -46,18 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="footer">
-                                <hr />
-                                <div class="d-flex justify-content-between box-font-small">
-                                    <div class="col-md-6 stats">
-                                        <i data-feather="calendar"></i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('company.job_order.all_orders')}}"><i
-                                            class="blue" data-feather="chevrons-right"></i>See Details</a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -67,7 +56,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="icon-big text-center">
-                                        <i class="teal data-feather-big" stroke-width="3"
+                                        <i class="teal data-feather-big" stroke-width="2"
                                             data-feather="shopping-cart" style="color:rgb(31, 121, 31);"></i>
                                     </div>
                                 </div>
@@ -78,18 +67,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="footer">
-                                <hr />
-                                <div class="d-flex justify-content-between box-font-small">
-                                    <div class="col-md-6 stats">
-                                        <i data-feather="calendar"></i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('company.job_order.status.pending')}}"><i
-                                            class="blue" data-feather="chevrons-right"></i>See Details</a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -101,7 +79,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="icon-big text-center">
-                                        <i class="orange data-feather-big" stroke-width="3"
+                                        <i class="orange data-feather-big" stroke-width="2"
                                             data-feather="shopping-cart"></i>
                                     </div>
                                 </div>
@@ -112,18 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="footer">
-                                <hr />
-                                <div class="d-flex justify-content-between box-font-small">
-                                    <div class="col-md-6 stats">
-                                        <i data-feather="mail"></i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a class="text-primary float-end" href="{{route('company.job_order.status.delivered')}}"><i
-                                            class="blue" data-feather="chevrons-right"></i>See Details</a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -133,7 +100,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="icon-big text-center">
-                                        <i class="olive data-feather-big" stroke-width="3"
+                                        <i class="olive data-feather-big" stroke-width="2"
                                             data-feather="dollar-sign"></i>
                                     </div>
                                 </div>
@@ -144,18 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="footer">
-                                <hr />
-                                <div class="d-flex justify-content-between box-font-small">
-                                    <div class="col-md-6 stats">
-                                        <i data-feather="calendar"></i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a class="text-primary float-end" href="#"><i
-                                            class="blue" data-feather="chevrons-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
