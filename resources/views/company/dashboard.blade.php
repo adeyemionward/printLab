@@ -10,6 +10,12 @@
       width: 100%;
       height: 400px;
     }
+
+    #marketerChart {
+  max-width: 100%;
+  width: 100px;
+  height: 100px;
+}
   </style>
 @section('title', 'Dashboard')
     {{-- MAIN BODY CONTENT --}}
@@ -164,7 +170,7 @@
                             <div class="card">
                                 <div class="content">
                                     <div class="canvas-wrapper">
-                                        <canvas id="marketerChart" style="width:100px; height:100px;"></canvas>
+                                        <canvas id="marketerChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -293,7 +299,14 @@ const marketerConfig = {
     data: marketerData,
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         aspectRatio: 2.0, // Try 0.8, 1, 1.2, etc. to adjust size
+        animation: {
+            duration: 0
+        },
+        hover: {
+            animationDuration: 0
+        },
         plugins: {
             legend: { display: false },
             title: {
@@ -303,6 +316,8 @@ const marketerConfig = {
         }
     }
 };
+
+
 
 const marketerCtx = document.getElementById('marketerChart').getContext('2d');
 new Chart(marketerCtx, marketerConfig);
@@ -338,7 +353,14 @@ const companyConfig = {
     data: companyData,
     options: {
         responsive: true,
-        // aspectRatio: 3.2,
+        maintainAspectRatio: false,
+        // aspectRatio: 3.0, // Try 0.8, 1, 1.2, etc. to adjust size
+        animation: {
+            duration: 0
+        },
+        hover: {
+            animationDuration: 0
+        },
         plugins: {
             legend: { display: false },
             title: {
