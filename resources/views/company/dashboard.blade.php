@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="detail">
-                                        <p class="detail-subtitle">Revenue</p>
+                                        <p class="detail-subtitle" style="font-size: 18px">Current Year Revenue</p>
                                         <span class="number">₦{{number_format($total_cost)}}</span>
                                     </div>
                                 </div>

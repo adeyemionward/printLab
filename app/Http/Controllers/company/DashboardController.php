@@ -20,12 +20,14 @@ class DashboardController extends Controller
         $all_orders         =   JobOrder::where('company_id', app('company_id'))->count();
         $pending_orders     =   JobOrder::where('status','Pending')->where('company_id', app('company_id'))->count();
         $delivered_orders   =   JobOrder::where('status','Delivered')->where('company_id', app('company_id'))->count();
-        $total_cost         =   JobOrder::where('company_id', app('company_id'))->sum('total_cost');
+        $total_cost         =   JobOrder::where('company_id', app('company_id'))->whereYear('created_at', Carbon::now()->year)->sum('total_cost');
         $top_job_orders     =   JobOrder::select('job_order_name', DB::raw('SUM(quantity) as total_orders'))
                                 ->groupBy('job_order_name')
                                 ->orderByDesc('total_orders')
                                 ->where('company_id', app('company_id'))
                                 ->get();
+
+
 
 
 

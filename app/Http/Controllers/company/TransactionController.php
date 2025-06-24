@@ -7,6 +7,7 @@ use App\Models\JobPaymentNewHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\FilterOrdersByDateTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -23,16 +24,7 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
 
-        // $startDate  = request('date_from');
-        // $endDate    = request('date_to');
-
-        // if(request()->date_to && request()->date_from){
-        //     $job_order_pay  = JobPaymentHistory::whereBetween('payment_date', [$startDate, $endDate])->where('company_id', app('company_id'))->get();
-        // }else{
-        //     $job_order_pay  = JobPaymentHistory::where('company_id', app('company_id'))->get();
-
-        // }
-
+        
         $startDate  = request('date_from');
         $endDate    = request('date_to');
         $customer   = request('customer');
@@ -40,7 +32,7 @@ class TransactionController extends Controller
         if(request()->has('customer')) {
             $job_order_pay = $this->filterJobPaymentHistoryByDate()->where('company_id', app('company_id'))->get();
         }else{
-            $job_order_pay  = JobPaymentNewHistory::where('company_id', app('company_id'))->get();
+            $job_order_pay  = JobPaymentNewHistory::where('company_id', app('company_id'))->whereYear('created_at', Carbon::now()->year)->get();
         }
 
         return view('company.finance.transactions.all_transactions', compact('job_order_pay'));
@@ -84,7 +76,7 @@ class TransactionController extends Controller
             $job_pay->job_order_unique_id    = $job_order->job_order_unique_id;
             $job_pay->order_no        = $order_id;
             $job_pay->user_id         = $job_order->user_id;
-            $job_pay->amount          = $amount_paid;
+            $job_pay->amount          = str_replace(',', '',$amount_paid);
             $job_pay->payment_type    = $payment_type;
             $job_pay->payment_date    = $order_date;
             $job_pay->created_by      = $user->id;

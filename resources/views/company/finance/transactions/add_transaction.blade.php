@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('company.finance.expenses.all_expenses')}}"><li class="active btn btn-primary" style="">Customer Payments List</li></a>
+                        <a href="{{route('company.finance.transactions.all_transactions')}}"><li class="active btn btn-primary" style="">Customer Payments List</li></a>
                     </ol>
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlInput1"> Amount Paid </label>
-                                                                            <input type="number" required name="amount_paid" class="form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }} " value="{{ old('amount_paid') }}"  id="amount_paid">
+                                                                            <input type="text" required name="amount_paid"  class="form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }} numberFormat" value="{{ old('amount_paid') }}"  id="amount_paid">
                                                                             @error('amount_paid')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

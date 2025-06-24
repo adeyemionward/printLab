@@ -35,7 +35,7 @@
                                 @foreach ($job_order_pay as $index => $val)
                                 @php
                                     $totalAmount += $val->amount;
-                                @endphp
+                                @endphp 
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->user->company_name}}</td>

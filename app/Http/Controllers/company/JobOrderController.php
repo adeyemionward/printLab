@@ -273,7 +273,7 @@ class JobOrderController extends Controller
         $job_pay->job_order_unique_id    = $id;
         $job_pay->order_no        = $job_order->order_no;
         $job_pay->user_id         = $job_order->user_id;
-        $job_pay->amount          = $amount_paid;
+        $job_pay->amount          = str_replace(',', '',$amount_paid);
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
         $job_pay->created_by      = $user->id;

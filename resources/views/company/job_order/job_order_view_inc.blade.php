@@ -98,7 +98,7 @@
 
 {{-- add pay --}}
 <form method="POST"  action="{{route('company.job_order.transaction_history',request()->id)}}" class="order_status">
-    @csrf
+    @csrf 
     @method('POST')
     <div class="modal fade" id="exampleModal2" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -119,7 +119,7 @@
                         </select> <br>
 
                         <label for="amount_paid">Amount Paid</label>
-                        <input type="number"  name="amount_paid" class="form-control"
+                        <input type="text"  name="amount_paid" class="form-control numberFormat"
                         id="amount_paid" placeholder="eg: 10000" required>
                     </div>
                 </div>

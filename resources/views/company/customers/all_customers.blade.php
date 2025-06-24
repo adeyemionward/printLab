@@ -27,6 +27,7 @@
                                     <th>S/N</th>
                                     <th>Firstname</th>
                                     <th>Lastname</th>
+                                    <th>Company</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
@@ -39,6 +40,7 @@
                                         <td>{{$index+1}}</td>
                                         <td>{{$val->firstname}}</td>
                                         <td>{{$val->lastname}}</td>
+                                        <td>{{$val->company_name}}</td>
                                         <td>{{$val->email}}</td>
                                         <td>{{$val->phone}}</td>
                                         <td>{{$val->address}}</td>

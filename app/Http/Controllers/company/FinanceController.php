@@ -15,6 +15,7 @@ use App\Models\ErrorLog;
 use App\Models\JobOrderUnique;
 use App\Models\JobPaymentNewHistory;
 use App\Traits\FilterOrdersByDateTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class FinanceController extends Controller
@@ -49,7 +50,7 @@ class FinanceController extends Controller
         $this->middleware('permission:finance-expense-update', ['only' => ['update_expense_payment']]);
 
         $this->startDate  = request('date_from');
-        $this->endDate    = request('date_to');
+        $this->endDate    = request('date_to'); 
     }
     public function all_expenses(Request $request =  null)
     {
@@ -57,7 +58,7 @@ class FinanceController extends Controller
         if(request()->has('category')) {
             $expenses = $this->filterExpenseByDate()->with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
         }else{
-            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))->whereYear('created_at', Carbon::now()->year)->orderBy('id','DESC')->get();
         }
 
         return view('company.finance.expenses.all_expenses', compact('expenses'));
@@ -86,8 +87,8 @@ class FinanceController extends Controller
             'category_id' => 'required|integer',
             'supplier_id' => 'required|integer',
             'payment_type' => 'required',
-            'total_cost' => 'required|integer',
-            'amount_paid' => 'required|integer',
+            'total_cost' => 'required',
+            'amount_paid' => 'required',
             'expense_date' => 'required|string',
             // 'description' => 'required|string',
 
@@ -109,8 +110,8 @@ class FinanceController extends Controller
             $expense->category_id   = request('category_id');
             $expense->supplier_id   = request('supplier_id');
             $expense->payment_type  = request('payment_type');
-            $expense->total_cost    = request('total_cost');
-            $expense->amount_paid   = request('amount_paid');
+            $expense->total_cost    = str_replace(',', '',request('total_cost'));
+            $expense->amount_paid   = str_replace(',', '',request('amount_paid'));
             $expense->expense_date  = request('expense_date');
             $expense->description   = request('description');
             $expense->created_by    = $user->id;
@@ -120,8 +121,8 @@ class FinanceController extends Controller
             $expense_history = new ExpensePaymentHistory();
             $expense_history->expense_id    = $expense->id;
             $expense_history->company_id    = app('company_id');
-            $expense_history->amount_paid   = request('amount_paid');
-            $expense_history->payment_type  = request('payment_type');
+            $expense_history->amount_paid   = str_replace(',', '',request('total_cost'));
+            $expense_history->payment_type  = str_replace(',', '',request('amount_paid'));
             $expense_history->expense_date  = request('expense_date');
             $expense_history->created_by    = $user->id;
             $expense_history->save();
@@ -170,8 +171,8 @@ class FinanceController extends Controller
             $expense->category_id   = request('category_id');
             $expense->supplier_id   = request('supplier_id');
             $expense->payment_type  = request('payment_type');
-            $expense->total_cost    = request('total_cost');
-            $expense->amount_paid   = request('amount_paid');
+            $expense->total_cost    = str_replace(',', '',request('total_cost'));
+            $expense->amount_paid   = str_replace(',', '',request('amount_paid'));
             $expense->expense_date  = request('expense_date');
             $expense->description   = request('description');
             $expense->created_by    = $user->id;
@@ -179,7 +180,7 @@ class FinanceController extends Controller
 
             //save into expense payment history
             $expense_history =  ExpensePaymentHistory::where('expense_id', $id)->first();
-            $expense_history->amount_paid   = request('amount_paid');
+            $expense_history->amount_paid   = str_replace(',', '',request('amount_paid'));
             $expense_history->payment_type  = request('payment_type');
             $expense_history->expense_date  = request('expense_date');
             // $expense_history->updated_by    = $user->id;
@@ -204,7 +205,7 @@ class FinanceController extends Controller
 
     public function update_expense_payment(Request $request, $id){
         $user = Auth::user();
-        $amount_paid                =  request('amount_paid');
+        $amount_paid                =  rstr_replace(',', '',request('amount_paid'));
         $payment_type               =  request('payment_type');
         $order_date = date('Y-m-d');
         $job_order =  Expense::find($id);
