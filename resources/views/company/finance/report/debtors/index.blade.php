@@ -30,18 +30,18 @@
                                     <th>Cost</th>
                                     <th>Amount&nbsp;Paid</th>
                                     <th>Outstanding</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            @if (request()->has('customer'))
+                                <tbody>
                                 @php $totalDebt = 0; @endphp
                                 @foreach ($job_pay  as $val)
-                                @php
-                                    if ($val->total_cost == $val->jobPaymentHistories->sum('amount')) continue;
-                                    $totalDebt += $val->total_cost - $val->jobPaymentHistories->sum('amount')
-                                @endphp
-                                @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
+                                    @php
+                                        // if ($val->total_cost == $val->jobPaymentHistories->sum('amount')) continue;
+                                        $totalDebt += $val->total_cost - $val->jobPaymentHistories->sum('amount')
+                                    @endphp
+                                    @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
@@ -49,7 +49,7 @@
                                         <td>{{'₦'.number_format($val->total_cost)}} </td>
                                         <td>{{'₦'.number_format($val->jobPaymentHistories->sum('amount'))}}</td>
                                         <td>{{'₦'.number_format($val->total_cost - $val->jobPaymentHistories->sum('amount'))}}</td>
-                                        <td>{{$val->status}}</td>
+                                        {{-- <td>{{$val->status}}</td> --}}
                                         <td><a href="{{route('company.job_order.view_order',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>
                                 @endforeach
@@ -63,12 +63,75 @@
                                         <td><b>Total Outstanding</b></td>
                                         <td><b>{{'₦'.number_format($totalDebt)}}</b></td>
                                         <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
                                     </tr>
                                 </tfoot>
 
+                            @endif
+                            @if (!request()->has('customer'))
+                                <tbody>
+                                    @php $totalOutstandingDebt = 0; $currentYearDebt = 0; @endphp
+                                    @foreach ($previousYearOrders1 as $val)
+                                        @php
+                                            $paid = $val->jobPaymentHistories->sum('amount');
+                                            $balance = $val->total_cost - $paid;
+                                            if ($balance <= 0) continue;
+                                            $totalOutstandingDebt += $balance;
+                                        @endphp
+                                    @endforeach
 
+                                    @foreach ($customerDebts as $entry)
+                                        @php
+                                            $currentYearDebt += $entry['balance'];
+                                            // $previous_years  += $entry['previous_years'];
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $entry['name'] }}</td>
+                                            <td>{{ $entry['company'] }}</td>
+                                            <td>₦{{ number_format($entry['total_cost']) }}</td>
+                                            <td>₦{{ number_format($entry['total_paid']) }}</td>
+                                            <td>₦{{ number_format($entry['balance']) }}</td>
+                                            <td><a href="{{ route('company.customers.customer_job_orders',[$entry['user_id']])}}"><i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                    <tfoot>
+                                        <tr>
+
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td><b>Current Year Outstanding</b></td>
+                                            <td><b>{{'₦'.number_format($currentYearDebt)}}</b></td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td><b>Previous Year Outstanding</b></td>
+                                            <td><b>{{'₦'.number_format(($totalOutstandingDebt + $currentYearDebt) - $currentYearDebt)}}</b></td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td><b>Total Outstanding</b></td>
+                                            <td><b>{{'₦'.number_format($totalOutstandingDebt + $currentYearDebt)}}</b></td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tfoot>
+
+                                </tbody>
+                            @endif
                         </table>
+
                     </div>
                 </div>
             </div>

@@ -17,14 +17,15 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-        $all_orders         =   JobOrder::where('company_id', app('company_id'))->count();
-        $pending_orders     =   JobOrder::where('status','Pending')->where('company_id', app('company_id'))->count();
-        $delivered_orders   =   JobOrder::where('status','Delivered')->where('company_id', app('company_id'))->count();
+        $all_orders         =   JobOrder::where('company_id', app('company_id'))->whereYear('created_at', Carbon::now()->year)->count();
+        $pending_orders     =   JobOrder::where('status','Pending')->where('company_id', app('company_id'))->whereYear('created_at', Carbon::now()->year)->count();
+        $delivered_orders   =   JobOrder::where('status','Delivered')->where('company_id', app('company_id'))->whereYear('created_at', Carbon::now()->year)->count();
         $total_cost         =   JobOrder::where('company_id', app('company_id'))->whereYear('created_at', Carbon::now()->year)->sum('total_cost');
         $top_job_orders     =   JobOrder::select('job_order_name', DB::raw('SUM(quantity) as total_orders'))
                                 ->groupBy('job_order_name')
                                 ->orderByDesc('total_orders')
                                 ->where('company_id', app('company_id'))
+                                ->whereYear('created_at', Carbon::now()->year)
                                 ->get();
 
 
@@ -55,7 +56,7 @@ class DashboardController extends Controller
         ->get();
 
        // return $today = Carbon::parse(Carbon::today()->toDateString());
-      
+
 
         $commissions = DB::table('marketer_commissions as mc')
             ->join('users as u', 'mc.marketer_id', '=', 'u.id')
@@ -82,7 +83,7 @@ class DashboardController extends Controller
             ->orderByDesc('total_spent')
             ->limit(5)
             ->get();
-          
+
 
         return view('company.dashboard', compact('all_orders','pending_orders','delivered_orders','total_cost','top_job_orders','today_orders','previous_orders','commissions','topCompanies'));
     }

@@ -47,9 +47,7 @@ class JobOrderUnique extends Model
         return $this->belongsTo(User::class,'updated_by','id');
     }
 
-    // public function jobPaymentHistories(){
-    //     return $this->hasMany(JobPaymentHistory::class,'id','job_order_id');
-    // }
+
     public function jobPaymentHistories()
     {
         return $this->hasMany(JobPaymentNewHistory::class, 'job_order_unique_id', 'id');

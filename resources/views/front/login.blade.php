@@ -308,13 +308,13 @@ form .btn input[type="submit"] {
                     toastr.success("Login Successful");
                     setInterval(function(){
                         window.location.replace('{{route("admin.dashboard")}}');
-                    },2000)
+                    },1000)
 
                 }else if(data == 3){
                     toastr.success("Login Successful");
                     setInterval(function(){
                         window.location.replace('{{route("company.dashboard")}}');
-                    },2000)
+                    },1000)
 
                 }else if(data == 9){
                     toastr.error("Error occured: Account Inactive");
@@ -332,7 +332,7 @@ form .btn input[type="submit"] {
                     toastr.success("Login Successful");
                     setInterval(function(){ //customer dashboard login
                         window.location.href = document.referrer;
-                    },2000)
+                    },1000)
 
                 }else if(data == 11){
                     toastr.error("Invalid Access: Please login at printsoft.printlabs.com.ng");
@@ -344,7 +344,7 @@ form .btn input[type="submit"] {
                     toastr.success("Login Successful");
                     setInterval(function(){
                         window.location.replace('{{route("track_orders.index")}}');
-                    },2000)
+                    },1000)
 
                 }else if(data == 7){
                     toastr.error("Error occured: Incorrect Email/Password");

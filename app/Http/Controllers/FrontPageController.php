@@ -70,7 +70,7 @@ class FrontPageController extends Controller
         $countCart  = count($cart_func);
         return $countCart;
     }
-   
+
 
     public function index()
     {
@@ -227,7 +227,7 @@ class FrontPageController extends Controller
         $product_costs_2b_notebook = ProductCost::where('product_name', '2B_notebook')->get();
         $product_costs_2d_notebook = ProductCost::where('product_name', '2D_notebook')->get();
 
-        
+
 
         $product_cost = ProductCost::where('product_id', $id)->first(); //initial pro cost
 
@@ -442,7 +442,7 @@ class FrontPageController extends Controller
 
     public function orderInvoicePdf($order_no){
         $cartCount = $this->countCart();
-        $user   = Auth::user();
+        $user   = Auth::user(); 
         $job    =  JobOrder::where('user_id',$user->id)->where('order_no', $order_no);
         $orderDetails   =  $job->get();
         $order1         =  $job->first();

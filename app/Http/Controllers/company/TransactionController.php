@@ -24,7 +24,7 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
 
-        
+
         $startDate  = request('date_from');
         $endDate    = request('date_to');
         $customer   = request('customer');
@@ -62,7 +62,7 @@ class TransactionController extends Controller
     }
 
     public function storeCustomerJobPayment(Request $request){
-        // try{
+        try{
             $user = Auth::user();
             $order_date = date('Y-m-d');
             $order_id                   =  request('order_id');
@@ -70,7 +70,7 @@ class TransactionController extends Controller
             $payment_type               =  request('payment_type');
 
             $job_order =  JobOrder::where('order_no',$order_id)->first();
-            //dd($job_order);
+            // dd($job_order);
             $job_pay = new JobPaymentNewHistory();
             $job_pay->company_id      = app('company_id');
             $job_pay->job_order_unique_id    = $job_order->job_order_unique_id;
@@ -81,9 +81,9 @@ class TransactionController extends Controller
             $job_pay->payment_date    = $order_date;
             $job_pay->created_by      = $user->id;
             $job_pay->save();
-        // }catch(\Exception $th){
-        //     return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-        // }
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
 
 
         return back()->with("flash_success","Order Payment updated successfully");

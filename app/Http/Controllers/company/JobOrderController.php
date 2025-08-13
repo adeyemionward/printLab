@@ -109,7 +109,7 @@ class JobOrderController extends Controller
     }
 
     private function JobOrderQuery (){
-        return $jobQuery =  JobOrderUnique::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC');
+        return $jobQuery =  JobOrderUnique::where('order_type','internal')->where('company_id',app('company_id'))->whereYear('created_at', Carbon::now()->year)->orderBy('id','DESC');
     }
 
     private function filterOrdersByDateInternal(){
@@ -137,7 +137,7 @@ class JobOrderController extends Controller
         if(request()->has('location')) {
             $job_orders = $this->filterOrdersByDateInternal();
         }else{
-            $job_orders =  JobOrderUnique::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+            $job_orders =  JobOrderUnique::where('order_type','internal')->where('company_id',app('company_id'))->orderBy('id','DESC')->whereYear('created_at', Carbon::now()->year)->get();
         }
 
         return view('company.job_order.all_orders', compact('job_orders','locations'));
@@ -152,61 +152,6 @@ class JobOrderController extends Controller
         $job_order->updated_by =  Auth::user()->id;
         $order_date = date('Y-m-d');
 
-        // if(request('order_status') == 'Designed'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->designed_status   = 1;
-        //     $job_tracking->designed_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Proof Read'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->proof_read_status   = 1;
-        //     $job_tracking->proof_read_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Customer Approved'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->customer_approved_status   = 1;
-        //     $job_tracking->customer_approved_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Prepressed'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->prepressed_status   = 1;
-        //     $job_tracking->prepressed_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Printed'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->printed_status   = 1;
-        //     $job_tracking->printed_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Binded'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->binded_status   = 1;
-        //     $job_tracking->binded_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Completed'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->completed_status   = 1;
-        //     $job_tracking->completed_date     = $order_date;
-        //     $job_tracking->update();
-        // }
-
-        // if(request('order_status') == 'Delivered'){
-        //     $job_tracking =  JobOrderTracking::where('job_order_id',$id)->first();
-        //     $job_tracking->delivered_status   = 1;
-        //     $job_tracking->delivered_date     = $order_date;
-        //     $job_tracking->update();
-        // }
 
         $job_order_unique->update();
         if ($job_order->isNotEmpty()) {
