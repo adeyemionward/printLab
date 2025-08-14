@@ -35,7 +35,7 @@
                                 @foreach ($job_order_pay as $index => $val)
                                 @php
                                     $totalAmount += $val->amount;
-                                @endphp 
+                                @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$val->user->company_name}}</td>
@@ -49,7 +49,8 @@
                                     <tr>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
-                                        <td>Total Amount: &nbsp;&nbsp;&nbsp;<b>{{'₦'.number_format($totalAmount)}}</b></td>
+                                        <td><b>Total: </b> </td>
+                                        <td><b>{{'₦'.number_format($totalAmount)}}</b></td>
                                         <td>&nbsp;</td>
                                     </tr>
                                 </tfoot>

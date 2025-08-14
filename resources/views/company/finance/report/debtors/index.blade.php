@@ -69,7 +69,7 @@
                             @endif
                             @if (!request()->has('customer'))
                                 <tbody>
-                                    @php $totalOutstandingDebt = 0; $currentYearDebt = 0; @endphp
+                                    @php $totalOutstandingDebt = 0; $totalCost = 0; $amountPaid = 0; $currentYearDebt = 0; @endphp
                                     @foreach ($previousYearOrders1 as $val)
                                         @php
                                             $paid = $val->jobPaymentHistories->sum('amount');
@@ -81,6 +81,8 @@
 
                                     @foreach ($customerDebts as $entry)
                                         @php
+                                            $totalCost += $entry['total_cost'];
+                                            $amountPaid += $entry['total_paid'];
                                             $currentYearDebt += $entry['balance'];
                                             // $previous_years  += $entry['previous_years'];
                                         @endphp
@@ -100,9 +102,19 @@
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td><b>Current Year Outstanding</b></td>
+                                            <td><b>{{'₦'.number_format($totalCost)}}</b></td>
+                                            <td><b>{{'₦'.number_format($amountPaid)}}</b></td>
                                             <td><b>{{'₦'.number_format($currentYearDebt)}}</b></td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                         </tr>
                                         <tr>
@@ -115,9 +127,7 @@
                                             <td><b>{{'₦'.number_format(($totalOutstandingDebt + $currentYearDebt) - $currentYearDebt)}}</b></td>
                                             <td>&nbsp;</td>
                                         </tr>
-
                                         <tr>
-
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
