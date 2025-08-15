@@ -156,28 +156,28 @@ class CustomerController extends Controller
 
             }elseif($job_order->job_order_name == 'Small Invoice'){
 
-                $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
+                $response = $this->smallInvoiceRepository->updateCartSmallInvoiceOrder($request);
 
             }elseif($job_order->job_order_name == 'Brochures'){
-                $response = $this->brochureRepository->updateBrochure($request);
+                $response = $this->brochureRepository->updateCartBrochure($request);
 
             }elseif($job_order->job_order_name == 'Flyer'){
-                $response = $this->flyerRepository->updateFlyer($request);
+                $response = $this->flyerRepository->updateCartFlyer($request);
 
             }elseif($job_order->job_order_name == 'Business Cards'){
 
-                $response = $this->businessCardRepository->updateBusinessCard($request);
+                $response = $this->businessCardRepository->updateCartBusinessCard($request);
 
             }elseif($job_order->job_order_name == 'Envelopes'){
-                $response = $this->envelopeRepository->updateEnvelope($request);
+                $response = $this->envelopeRepository->updateCartEnvelope($request);
 
             }elseif($job_order->job_order_name == 'Notepads'){
 
-                $response = $this->notePadRepository->updateNotePadOrder($request);
+                $response = $this->notePadRepository->updateCartNotePadOrder($request);
 
             }elseif($job_order->job_order_name == 'Stickers'){
 
-                $response = $this->stickersRepository->updateStickersOrder($request);
+                $response = $this->stickersRepository->updateCartStickersOrder($request);
             }
             DB::commit();
         }catch(\Exception $th){

@@ -1243,27 +1243,6 @@
                                                                             </div>
 
                                                                             
-                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="proof_needed">Payment Type</label>
-                                                                                <select class="form-control form-select" id="payment_type" name="payment_type" required>
-                                                                                    <option value="">--Select Payment Type--</option>
-                                                                                    <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
-                                                                                    <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
-                                                                                    <option value="Posted Cheque" {{ $job_order->jobPaymentHistory->payment_type == 'Posted Cheque' ? 'selected' : '' }}>Posted Cheque</option>
-                                                                                </select>
-                                                                            </div> --}}
-                                                                            {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
-                                                                                <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
-                                                                                    <label for="cheque_number">Posted Cheque Due Date</label>
-                                                                                    <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
-                                                                                </div>
-                                                                            @else
-                                                                                     <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
-                                                                                    <label for="cheque_number">Posted Cheque Due Date</label>
-                                                                                    <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
-                                                                                </div>
-                                                                            @endif
-                                                                             --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
                                                                                 <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
                                                                             </div>
@@ -1744,7 +1723,7 @@
                                     </div>
                                     @endif
 
-                                    @if($job_order->job_order_name == 'Sixty_Leaves')
+                                    @if($job_order->job_order_name == 'Sixty Leaves')
                                         <div class="card">
                                             <div class="card-header bg-white">
                                                 <h5 class="card-title mb-0 text-muted">Edit Sixty Leaves Job Order</h5>
@@ -1945,7 +1924,7 @@
                                         </div>
                                     @endif
                                     
-                                    @if($job_order->job_order_name == 'Eighty_Leaves')
+                                    @if($job_order->job_order_name == 'Eighty Leaves')
                                         <div class="card">
                                             <div class="card-header bg-white">
                                                 <h5 class="card-title mb-0 text-muted">Edit Eighty Leaves Job Order</h5>
@@ -2479,7 +2458,7 @@
                                         </div>
                                     @endif
 
-                                    @if($job_order->job_order_name == 'Business_Cards')
+                                    @if($job_order->job_order_name == 'Business Cards')
                                         <div class="card">
                                             <div class="card-header bg-white">
                                                 <h5 class="card-title mb-0 text-muted">Edit Business Cards Job Order</h5>
