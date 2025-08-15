@@ -19,6 +19,13 @@
                 href="{{route('company.customers.edit_customer', request()->id)}}"
                 aria-selected="false">Edit Customer </a>
                <div class="dropdown-divider"></div>
+                @if(!is_null(request()->job_id))
+                        
+                    <a class="nav-link <?php if($page == 'edit_cart') echo 'active active_red'  ?>" id="nav-database-tab"
+                        href="{{route('company.customers.edit_cart_order', [request()->id, request()->job_id])}}"
+                        aria-selected="false">Edit Cart Order </a>
+                    <div class="dropdown-divider"></div>
+                @endif
 
                <a class="nav-link <?php if($page == 'cart') echo 'active active_red'  ?>" id="nav-database-tab"
                 href="{{route('company.customers.customer_cart', request()->id)}}"

@@ -60,7 +60,11 @@
                                                                 <td>{{$val->production_days}}</td>
                                                                 <td>{{'₦'.$val->total_cost}} </td>
                                                                 <td>{{$val->status}}</td>
-                                                                <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                <td>
+                                                                    <a href="{{route('company.customers.edit_cart_order',[$val->user_id, $val->id])}}"><span><i class="fa fa-pen"></i></span></a>
+                                                                    <a href="{{route('company.customers.view_cart_order',[$val->user_id, $val->id])}}" ><span><i class="fa fa-eye"></i></span></a>
+                                                                    <a href="{{route('company.customers.delete_cart_order',[$val->id])}}"onClick="alert('Delete order details!');"><span><i class="fa fa-trash"></i></span></a>
+                                                                </td>
                                                             </tr>
                                                         @endforeach
 

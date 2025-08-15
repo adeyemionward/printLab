@@ -288,6 +288,13 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/customer_job_orders/{id}', 'CustomerController@customer_job_orders')->name('customer_job_orders');
                     Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
                     Route::post('/customer_cart/{id}', 'CustomerController@checkout')->name('customer_cart');
+
+                    Route::get('/view_cart_order/{id}/{job_id}', 'CustomerController@view_cart_order')->name('view_cart_order');//view single job that has not been fully processed
+                     Route::get('/delete_cart_order/{job_id}', 'CustomerController@delete_cart_order')->name('delete_cart_order');//delete single job that has not been fully processed
+
+                    Route::get('/edit_cart_order/{id}/{job_id}', 'CustomerController@edit_cart_order')->name('edit_cart_order');//view single job that has not been fully processed
+                    Route::post('/edit_cart_order/{id}/{job_id}', 'CustomerController@update_cart_order')->name('edit_cart_order');
+                    
                     Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
                     Route::get('/deactivate_customer/{id}', 'CustomerController@deactivate')->name('deactivate_customer');
                     Route::get('/delete_customer/{id}', 'CustomerController@delete')->name('delete_customer');

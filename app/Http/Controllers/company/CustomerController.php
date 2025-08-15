@@ -10,15 +10,26 @@ use App\Models\JobOrder;
 use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\CustomerOrderReceipt;
+use App\Models\JobLocation;
 use App\Models\JobOrderTracking;
 use App\Models\JobOrderUnique;
 use App\Models\JobPaymentNewHistory;
+use App\Models\MarketerCommission;
 use Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Repository\SmallInvoiceRepository;
+use App\Repository\StickersRepository;
+use App\Repository\NoteBookRepository;
+use App\Repository\NotePadRepository;
+use App\Repository\BookletRepository;
+use App\Repository\FlyerRepository;
+use App\Repository\BrochureRepository;
+use App\Repository\BusinessCardRepository;
+use App\Repository\EnvelopeRepository;
 class CustomerController extends Controller
 {
     /**
@@ -27,8 +38,39 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
+      private $noteBookRepository;
+    private $smallInvoiceRepository;
+    private $stickersRepository;
+    private $notePadRepository;
+    private $bookletRepository;
+    private $flyerRepository;
+    private $brochureRepository;
+    private $businessCardRepository;
+    private $envelopeRepository;
+
+    public function __construct(
+         NoteBookRepository $noteBookRepository,
+        SmallInvoiceRepository $smallInvoiceRepository,
+        StickersRepository $stickersRepository,
+        NotePadRepository $notePadRepository,
+        BookletRepository $bookletRepository,
+        FlyerRepository $flyerRepository,
+        BrochureRepository $brochureRepository,
+        BusinessCardRepository $businessCardRepository,
+        EnvelopeRepository $envelopeRepository
+    )
     {
+        
+        $this->noteBookRepository = $noteBookRepository;
+        $this->smallInvoiceRepository = $smallInvoiceRepository;
+        $this->stickersRepository = $stickersRepository;
+        $this->notePadRepository = $notePadRepository;
+        $this->bookletRepository = $bookletRepository;
+        $this->flyerRepository = $flyerRepository;
+        $this->brochureRepository = $brochureRepository;
+        $this->businessCardRepository = $businessCardRepository;
+        $this->envelopeRepository = $envelopeRepository;
+        
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user(); return $next($request);
         });
@@ -74,6 +116,84 @@ class CustomerController extends Controller
         $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',1)->get();
 
         return view('company.customers.customer_cart', compact('customer','job_orders','cartCount'));
+    } 
+
+    public function view_cart_order($id, $job_id)
+    {
+        $job_order = JobOrder::where('id', $job_id)->where('company_id',app('company_id'))->first();
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+        // $job_orders =  JobOrder::where('id', $id)->where('company_id',app('company_id'))->first();
+
+        return view('company.customers.view_cart_order', compact('customer','job_order','cartCount'));
+    }
+
+     public function edit_cart_order($id, $job_id)
+    {
+        $job_order = JobOrder::where('id', $job_id)->where('company_id',app('company_id'))->first();
+        // dd($job_order->job_order_name);
+        $customer = $this->find_customer($id);
+        $cartCount = $this->countCart($id);
+
+        $customers =  User::getCustomers();
+        $locations =  JobLocation::getLocations();
+        
+        $job_marketers_commission = MarketerCommission::where('job_order_id', $job_id)->get();
+        // $job_orders =  JobOrder::where('id', $id)->where('company_id',app('company_id'))->first();
+
+        return view('company.customers.edit_cart_order', compact('customer','customers', 'locations', 'job_marketers_commission', 'job_order','cartCount'));
+    }
+
+     public function update_cart_order(Request $request, $id, $job_id){
+        $user = Auth::user();
+        DB::beginTransaction();
+        try{
+            $job_order = JobOrder::where('id', $id)->where('company_id',app('company_id'))->first();
+          
+
+            if($job_order->job_order_name == 'Eighty Leaves' || $job_order->job_order_name == 'Higher NoteBook' || $job_order->job_order_name == 'Twenty Leaves'|| $job_order->job_order_name == 'Forty Leaves'|| $job_order->job_order_name == 'Sixty Leaves' || $job_order->job_order_name == '2A NoteBook' || $job_order->job_order_name == '2B NoteBook'|| $job_order->job_order_name == '2D NoteBook' || $job_order->job_order_name == 'Drawing Book'){
+                $response = $this->noteBookRepository->updateCartNoteBookOrder($request);
+
+            }elseif($job_order->job_order_name == 'Small Invoice'){
+
+                $response = $this->smallInvoiceRepository->updateSmallInvoiceOrder($request);
+
+            }elseif($job_order->job_order_name == 'Brochures'){
+                $response = $this->brochureRepository->updateBrochure($request);
+
+            }elseif($job_order->job_order_name == 'Flyer'){
+                $response = $this->flyerRepository->updateFlyer($request);
+
+            }elseif($job_order->job_order_name == 'Business Cards'){
+
+                $response = $this->businessCardRepository->updateBusinessCard($request);
+
+            }elseif($job_order->job_order_name == 'Envelopes'){
+                $response = $this->envelopeRepository->updateEnvelope($request);
+
+            }elseif($job_order->job_order_name == 'Notepads'){
+
+                $response = $this->notePadRepository->updateNotePadOrder($request);
+
+            }elseif($job_order->job_order_name == 'Stickers'){
+
+                $response = $this->stickersRepository->updateStickersOrder($request);
+            }
+            DB::commit();
+        }catch(\Exception $th){
+            DB::rollBack();
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+        return $response;
+    }
+
+    public function delete_cart_order()
+    {
+
+        $cartjob = JobOrder::find(request()->job_id);
+        // $customer->status = 'deactivated';
+        $cartjob->delete();
+          return redirect()->back()->with('flash_success','Cart order has been deleted');
     }
 
     public function checkout($id)
