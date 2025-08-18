@@ -310,7 +310,6 @@ class CustomerController extends Controller
 
 
 
-
     public function transaction_history($id){
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
