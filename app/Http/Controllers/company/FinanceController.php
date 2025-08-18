@@ -324,117 +324,209 @@ class FinanceController extends Controller
         return view('company.finance.report.creditors.index',compact('expenses'));
     }
 
-    public function all_profit_loss(Request $request)
-    {
-        // $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, job_orders.company_id, SUM(amount) as total_pay')
-        //     ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
-        //     ->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('job_orders.company_id',app('company_id'))
-        //     ->groupBy('job_orders.job_order_name');
-        $ordersPayHistory1 = JobPaymentNewHistory::selectRaw('job_order_uniques.order_no, job_order_uniques.company_id, job_order_uniques.created_at, SUM(amount) as total_pay')
-        ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
-        ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-        ->where('job_order_uniques.company_id', app('company_id'))
-        ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id', 'job_order_uniques.created_at');
-        //dd($ordersPayHistory1);
+    // public function all_profit_loss(Request $request)
+    // {
+    //     // $ordersPayHistory1 = JobPaymentHistory::selectRaw('job_order_name, job_orders.company_id, SUM(amount) as total_pay')
+    //     //     ->join('job_orders', 'job_orders.id', '=', 'job_payment_histories.job_order_id')
+    //     //     ->where('cart_order_status',JobOrder::ORDER_COMPLETED)->where('job_orders.company_id',app('company_id'))
+    //     //     ->groupBy('job_orders.job_order_name');
+    //     $ordersPayHistory1 = JobPaymentNewHistory::selectRaw('job_order_uniques.order_no, job_order_uniques.company_id, job_order_uniques.created_at, SUM(amount) as total_pay')
+    //     ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
+    //     ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+    //     ->where('job_order_uniques.company_id', app('company_id'))
+    //     ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id', 'job_order_uniques.created_at');
+    //     //dd($ordersPayHistory1);
 
-        $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_payment_histories.company_id, expense_categories.category_name, expense_payment_histories.created_at, SUM(expense_payment_histories.amount_paid) as total_pay')
+    //     $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('expense_categories.id, expense_payment_histories.company_id, expense_categories.category_name, expense_payment_histories.created_at, SUM(expense_payment_histories.amount_paid) as total_pay')
+    //         ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
+    //         ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')->where('expense_payment_histories.company_id',app('company_id'))
+    //         ->groupBy('expense_categories.id', 'expense_categories.category_name','expense_payment_histories.company_id');
+
+    //     //         $expensesPayHistory1 = ExpensePaymentHistory::selectRaw('
+    //     //     expense_categories.id,
+    //     //     expense_categories.category_name,
+    //     //     expense_payment_histories.company_id,
+    //     //     SUM(expense_payment_histories.amount_paid) as total_pay
+    //     // ')
+    //     // ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
+    //     // ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
+    //     // ->where('expense_payment_histories.company_id', app('company_id'))
+    //     // ->groupBy(
+    //     //     'expense_categories.id',
+    //     //     'expense_categories.category_name',
+    //     //     'expense_payment_histories.company_id'
+    //     // );
+
+    //     if(request()->date_to && request()->date_from){
+    //         $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_new_histories.payment_date', [$this->startDate, $this->endDate])->get();
+    //         // $expensesPayHistory     = $expensesPayHistory1->whereBetween('expense_payment_histories.expense_date', [$this->startDate, $this->endDate])->get();
+    //          $expensesPayHistory = $expensesPayHistory1->whereBetween('expense_payment_histories.created_at', [$this->startDate, $this->endDate]);
+    //     }else{
+    //         $ordersPayHistory       = $ordersPayHistory1->whereYear('job_payment_new_histories.created_at', Carbon::now()->year)->get();
+    //         // $expensesPayHistory     = $expensesPayHistory1->whereYear('expense_payment_histories.created_at', Carbon::now()->year)->get();
+    //          $expensesPayHistory = $expensesPayHistory1->whereYear('expense_payment_histories.created_at', Carbon::now()->year);
+    //     }
+
+    //     // if (request()->date_to && request()->date_from) {
+    //     // Make sure $this->startDate and $this->endDate are defined
+    //     // The query will filter for payments within this date range FIRST
+    //     //     $expensesPayHistory->whereBetween('expense_payment_histories.created_at', [$this->startDate, $this->endDate]);
+    //     // } else {
+    //     //     // The query will filter for payments in the current year FIRST
+    //     //     $expensesPayHistory->whereYear('expense_payment_histories.created_at', Carbon::now()->year);
+    //     // }
+
+    //     return view('company.finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
+    // }
+
+public function all_profit_loss(Request $request)
+    {
+        // 1. Build the base query for total income from completed orders
+        // I've removed `created_at` from `groupBy` to correctly sum up each order.
+        $ordersQuery = JobPaymentNewHistory::selectRaw('
+                job_order_uniques.order_no,
+                job_order_uniques.company_id,
+                SUM(job_payment_new_histories.amount) as total_pay
+            ')
+            ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
+            ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            ->where('job_order_uniques.company_id', app('company_id'))
+            ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id');
+
+    //         $ordersQuery = JobPaymentNewHistory::selectRaw('
+    //     job_orders.job_order_name,
+    //     job_order_uniques.company_id,
+    //     SUM(job_payment_new_histories.amount) as total_pay
+    // ')
+    // // First join to get the unique order details
+    // ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
+    // // Now, join job_orders to get the name
+    // ->join('job_orders', 'job_orders.job_order_unique_id', '=', 'job_order_uniques.id')
+    // ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+    // ->where('job_order_uniques.company_id', app('company_id'))
+    // // Group by the name instead of the order number
+    // ->groupBy('job_orders.job_order_name', 'job_order_uniques.company_id');
+
+        // 2. Build the base query for total expenses, grouped by category
+        // This query is already correctly structured from our previous discussion.
+        $expensesQuery = ExpensePaymentHistory::selectRaw('
+                expense_categories.id,
+                expense_categories.category_name,
+                expense_payment_histories.company_id,
+                SUM(expense_payment_histories.amount_paid) as total_pay
+            ')
             ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
-            ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')->where('expense_payment_histories.company_id',app('company_id'))
-            ->groupBy('expense_categories.id', 'expense_categories.category_name','expense_payment_histories.company_id','expense_payment_histories.created_at');
+            ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
+            ->where('expense_payment_histories.company_id', app('company_id'))
+            ->groupBy(
+                'expense_categories.id',
+                'expense_categories.category_name',
+                'expense_payment_histories.company_id'
+            );
 
+        // 3. Conditionally apply the date filters to BOTH queries
+        if ($request->filled('date_to') && $request->filled('date_from')) {
+            $startDate = $request->date_from;
+            $endDate = $request->date_to;
 
-        if(request()->date_to && request()->date_from){
-            $ordersPayHistory       = $ordersPayHistory1->whereBetween('job_payment_new_histories.payment_date', [$this->startDate, $this->endDate])->get();
-            $expensesPayHistory     = $expensesPayHistory1->whereBetween('expense_payment_histories.expense_date', [$this->startDate, $this->endDate])->get();
-
-        }else{
-            $ordersPayHistory       = $ordersPayHistory1->whereYear('job_payment_new_histories.created_at', Carbon::now()->year)->get();
-            $expensesPayHistory     = $expensesPayHistory1->whereYear('expense_payment_histories.created_at', Carbon::now()->year)->get();
-
+            $ordersQuery->whereBetween('job_payment_new_histories.payment_date', [$startDate, $endDate]);
+            $expensesQuery->whereBetween('expense_payment_histories.expense_date', [$startDate, $endDate]);
+        } else {
+            // Default to the current year if no date range is provided
+            $currentYear = Carbon::now()->year;
+            $ordersQuery->whereYear('job_payment_new_histories.created_at', $currentYear);
+            $expensesQuery->whereYear('expense_payment_histories.created_at', $currentYear);
         }
-        return view('company.finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
+
+        // 4. Execute the queries AFTER filters are applied to get the final results
+        $ordersPayHistory = $ordersQuery->get();
+        $expensesPayHistory = $expensesQuery->get();
+
+        // 5. Pass the final data (which are now both Collections) to the view
+        return view('company.finance.report.profit_loss.index', compact('ordersPayHistory', 'expensesPayHistory'));
     }
 
-    public function add_commission(){
-        return view('company.finance.commissions.add_commission');
-    }
+//     public function add_commission(){
+//         return view('company.finance.commissions.add_commission');
+//     }
 
-    public function store_commission(Request $request)
-    {
-        DB::beginTransaction();
-        $user = Auth::user();
-        $validatedData = $request->validate([
-            'marketer_id' => 'required|integer',
-            // 'payment_type' => 'required',
-            'amount_paid' => 'required',
+//     public function store_commission(Request $request)
+//     {
+//         DB::beginTransaction();
+//         $user = Auth::user();
+//         $validatedData = $request->validate([
+//             'marketer_id' => 'required|integer',
+//             // 'payment_type' => 'required',
+//             'amount_paid' => 'required',
 
-        ], [
+//         ], [
 
-            'marketer_id.required' => 'Please select marketer.',
-            // 'payment_type.required' => 'Please select payment type.',
-            'amount_paid.required' => 'Please enter ampunt paid.',
-        ]);
+//             'marketer_id.required' => 'Please select marketer.',
+//             // 'payment_type.required' => 'Please select payment type.',
+//             'amount_paid.required' => 'Please enter ampunt paid.',
+//         ]);
 
-       try{
-            $expense = new Expense();
-            $expense->company_id    = app('company_id');
-            $expense->title         = 'Commission';
-            $expense->marketer_id   = request('marketer_id');
-            $expense->payment_type  = 'Commission Payment';
-            $expense->total_cost    = str_replace(',', '',  request('amount_paid'));
-            $expense->amount_paid   = str_replace(',', '',  request('amount_paid'));
-            $expense->expense_date  = date('Y-m-d');
-            $expense->description   = request('description');
-            $expense->created_by    = $user->id;
-            $expense->save();
+//        try{
+//             $expense = new Expense();
+//             $expense->company_id    = app('company_id');
+//             $expense->title         = 'Commission';
+//             $expense->marketer_id   = request('marketer_id');
+//             $expense->payment_type  = 'Commission Payment';
+//             $expense->total_cost    = str_replace(',', '',  request('amount_paid'));
+//             $expense->amount_paid   = str_replace(',', '',  request('amount_paid'));
+//             $expense->expense_date  = date('Y-m-d');
+//             $expense->description   = request('description');
+//             $expense->created_by    = $user->id;
+//             $expense->save();
 
-            //save into expense payment history
-            $expense_history = new ExpensePaymentHistory();
-            $expense_history->expense_id    = $expense->id;
-            $expense_history->company_id    = app('company_id');
-            $expense_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
-            $expense_history->payment_type  = 'Commission Payment';
-            $expense_history->expense_date  = date('Y-m-d');
-            $expense_history->created_by    = $user->id;
-            $expense_history->save();
+//             //save into expense payment history
+//             $expense_history = new ExpensePaymentHistory();
+//             $expense_history->expense_id    = $expense->id;
+//             $expense_history->company_id    = app('company_id');
+//             $expense_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
+//             $expense_history->payment_type  = 'Commission Payment';
+//             $expense_history->expense_date  = date('Y-m-d');
+//             $expense_history->created_by    = $user->id;
+//             $expense_history->save();
 
-            //save into expense payment history
-            $marketer_history = new MarketerPaymentHistory();
-            $marketer_history->expense_id    = $expense->id;
-            $marketer_history->marketer_id   = request('marketer_id');
-            $marketer_history->company_id    = app('company_id');
-            $marketer_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
-            $marketer_history->payment_type  = 'Commission Payment';
-            $marketer_history->created_by    = $user->id;
-            $marketer_history->save();
+//             //save into expense payment history
+//             $marketer_history = new MarketerPaymentHistory();
+//             $marketer_history->expense_id    = $expense->id;
+//             $marketer_history->marketer_id   = request('marketer_id');
+//             $marketer_history->company_id    = app('company_id');
+//             $marketer_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
+//             $marketer_history->payment_type  = 'Commission Payment';
+//             $marketer_history->created_by    = $user->id;
+//             $marketer_history->save();
 
-            DB::commit();
-            return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense saved successfully');
+//             DB::commit();
+//             return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense saved successfully');
 
-        }catch (\Throwable $th){
-            DB::rollBack();
-            ErrorLog::log('expenses', '__METHOD__', $th->getMessage()); //log error
-            return back()->with("flash_error","There is an error processing this request");
-        }
-    }
+//         }catch (\Throwable $th){
+//             DB::rollBack();
+//             ErrorLog::log('expenses', '__METHOD__', $th->getMessage()); //log error
+//             return back()->with("flash_error","There is an error processing this request");
+//         }
+//     }
 
-    public function all_commission(){
-        if(request()->date_to && request()->date_from){
-            $commissions = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
-        }else{
-            $commissions = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
-        }
-        return view('company.finance.commissions.all_commissions', compact('commissions'));
-    }
+//     public function all_commission(){
+//         if(request()->date_to && request()->date_from){
+//             $commissions = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+//         }else{
+//             $commissions = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+//         }
+//         return view('company.finance.commissions.all_commissions', compact('commissions'));
+//     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+//     /**
+//      * Remove the specified resource from storage.
+//      *
+//      * @param  int  $id
+//      * @return \Illuminate\Http\Response
+//      */
+//     public function destroy($id)
+//     {
+//         //
+//     }
+// }
 }
