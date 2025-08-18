@@ -283,7 +283,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::post('/add_customer', 'CustomerController@store')->name('add_customer');
                     Route::get('/all_customers', 'CustomerController@index')->name('all_customers');
                     Route::get('/edit_customer/{id}', 'CustomerController@edit')->name('edit_customer');
-                    Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer');
+                    Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer'); 
                     Route::get('/view_customer/{id}', 'CustomerController@show')->name('view_customer');
                     Route::get('/customer_job_orders/{id}', 'CustomerController@customer_job_orders')->name('customer_job_orders');
                     Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
@@ -294,7 +294,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                     Route::get('/edit_cart_order/{id}/{job_id}', 'CustomerController@edit_cart_order')->name('edit_cart_order');//view single job that has not been fully processed
                     Route::post('/edit_cart_order/{id}/{job_id}', 'CustomerController@update_cart_order')->name('edit_cart_order');
-                    
+
                     Route::get('/transaction_history/{id}', 'CustomerController@transaction_history')->name('transaction_history');
                     Route::get('/deactivate_customer/{id}', 'CustomerController@deactivate')->name('deactivate_customer');
                     Route::get('/delete_customer/{id}', 'CustomerController@delete')->name('delete_customer');

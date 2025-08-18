@@ -30,6 +30,8 @@ use App\Repository\FlyerRepository;
 use App\Repository\BrochureRepository;
 use App\Repository\BusinessCardRepository;
 use App\Repository\EnvelopeRepository;
+use Carbon\Carbon;
+
 class CustomerController extends Controller
 {
     /**
@@ -60,7 +62,7 @@ class CustomerController extends Controller
         EnvelopeRepository $envelopeRepository
     )
     {
-        
+
         $this->noteBookRepository = $noteBookRepository;
         $this->smallInvoiceRepository = $smallInvoiceRepository;
         $this->stickersRepository = $stickersRepository;
@@ -70,7 +72,7 @@ class CustomerController extends Controller
         $this->brochureRepository = $brochureRepository;
         $this->businessCardRepository = $businessCardRepository;
         $this->envelopeRepository = $envelopeRepository;
-        
+
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user(); return $next($request);
         });
@@ -116,7 +118,7 @@ class CustomerController extends Controller
         $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',1)->get();
 
         return view('company.customers.customer_cart', compact('customer','job_orders','cartCount'));
-    } 
+    }
 
     public function view_cart_order($id, $job_id)
     {
@@ -137,7 +139,7 @@ class CustomerController extends Controller
 
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
-        
+
         $job_marketers_commission = MarketerCommission::where('job_order_id', $job_id)->get();
         // $job_orders =  JobOrder::where('id', $id)->where('company_id',app('company_id'))->first();
 
@@ -149,7 +151,7 @@ class CustomerController extends Controller
         DB::beginTransaction();
         try{
             $job_order = JobOrder::where('id', $id)->where('company_id',app('company_id'))->first();
-          
+
 
             if($job_order->job_order_name == 'Eighty Leaves' || $job_order->job_order_name == 'Higher NoteBook' || $job_order->job_order_name == 'Twenty Leaves'|| $job_order->job_order_name == 'Forty Leaves'|| $job_order->job_order_name == 'Sixty Leaves' || $job_order->job_order_name == '2A NoteBook' || $job_order->job_order_name == '2B NoteBook'|| $job_order->job_order_name == '2D NoteBook' || $job_order->job_order_name == 'Drawing Book'){
                 $response = $this->noteBookRepository->updateCartNoteBookOrder($request);
@@ -247,13 +249,13 @@ class CustomerController extends Controller
                 'orderDetails' => $orderDetails, // Collection of orders, for example
             ];
             $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
-  
+
             // try {
             //     Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
             // } catch (\Exception $emailException) {
             //     // Handle the email exception separately
             //     Log::error('Failed to send order email: ' . $emailException->getMessage());
-        
+
             //     // Optionally inform the user
             //     return redirect(route('company.customers.customer_job_orders', $id))
             //         ->with('flash_error', 'Order processed but email sending failed.');
@@ -291,10 +293,23 @@ class CustomerController extends Controller
 
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
-        $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
+        // $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
+         $startDate  = request('date_from');
+        $endDate    = request('date_to');
+        // $locations =  JobLocation::getLocations();
+        if(request()->has('date_from') || request()->has('date_to')) {
+            $job_orders = JobOrderUnique::whereBetween('order_date', [$startDate, $endDate])->where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->get();
+        }else{
+            $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->whereYear('created_at', Carbon::now()->year)->get();
+        }
+
 
         return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }
+
+
+
+
 
     public function transaction_history($id){
         $customer = $this->find_customer($id);
