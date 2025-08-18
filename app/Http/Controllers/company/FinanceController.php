@@ -383,29 +383,15 @@ public function all_profit_loss(Request $request)
     {
         // 1. Build the base query for total income from completed orders
         // I've removed `created_at` from `groupBy` to correctly sum up each order.
-        // $ordersQuery = JobPaymentNewHistory::selectRaw('
-        //         job_order_uniques.order_no,
-        //         job_order_uniques.company_id,
-        //         SUM(job_payment_new_histories.amount) as total_pay
-        //     ')
-        //     ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
-        //     ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-        //     ->where('job_order_uniques.company_id', app('company_id'))
-        //     ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id');
-
         $ordersQuery = JobPaymentNewHistory::selectRaw('
-        job_orders.job_order_name,
-        job_order_uniques.company_id,
-        SUM(job_payment_new_histories.amount) as total_pay
-    ')
-    // First join to get the unique order details
-    ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
-    // Now, join job_orders to get the name
-    ->join('job_orders', 'job_orders.job_order_unique_id', '=', 'job_order_uniques.id')
-    ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    ->where('job_order_uniques.company_id', app('company_id'))
-    // Group by the name instead of the order number
-    ->groupBy('job_orders.job_order_name', 'job_order_uniques.company_id');
+                job_order_uniques.order_no,
+                job_order_uniques.company_id,
+                SUM(job_payment_new_histories.amount) as total_pay
+            ')
+            ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
+            ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            ->where('job_order_uniques.company_id', app('company_id'))
+            ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id');
 
         // 2. Build the base query for total expenses, grouped by category
         // This query is already correctly structured from our previous discussion.
