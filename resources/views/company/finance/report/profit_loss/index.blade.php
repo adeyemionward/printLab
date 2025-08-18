@@ -35,6 +35,7 @@
                                     @php $total_income += $order_val->total_pay @endphp
                                     <tr>
                                         <td style="width: 70%;">#{{$order_val->order_no}}</td>
+                                        {{-- <td style="width: 70%;">{{ $order_val->job_order_name }}</td> --}}
                                         <td style="width: 30%;">&#8358;{{number_format($order_val->total_pay,2)}}</td>
                                     </tr>
                                 @endforeach
