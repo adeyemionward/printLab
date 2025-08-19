@@ -379,72 +379,54 @@ class FinanceController extends Controller
     //     return view('company.finance.report.profit_loss.index',compact('ordersPayHistory','expensesPayHistory'));
     // }
 
-public function all_profit_loss(Request $request)
-    {
-        // 1. Build the base query for total income from completed orders
-        // I've removed `created_at` from `groupBy` to correctly sum up each order.
-        $ordersQuery = JobPaymentNewHistory::selectRaw('
-                job_order_uniques.order_no,
-                job_order_uniques.company_id,
-                SUM(job_payment_new_histories.amount) as total_pay
-            ')
-            ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
-            ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-            ->where('job_order_uniques.company_id', app('company_id'))
-            ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id');
+public function all_profit_loss(Request $request){
+    $ordersQuery = JobPaymentNewHistory::selectRaw('
+    job_order_uniques.order_no,
+    job_payment_new_histories.job_order_unique_id,
+    job_order_uniques.company_id,
+    SUM(job_payment_new_histories.amount) as total_pay
+    ')
+    ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
+    ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+    ->where('job_order_uniques.company_id', app('company_id'))
+    ->groupBy('job_order_uniques.order_no', 'job_order_uniques.company_id', 'job_payment_new_histories.job_order_unique_id');
 
-    //         $ordersQuery = JobPaymentNewHistory::selectRaw('
-    //     job_orders.job_order_name,
-    //     job_order_uniques.company_id,
-    //     SUM(job_payment_new_histories.amount) as total_pay
-    // ')
-    // // First join to get the unique order details
-    // ->join('job_order_uniques', 'job_order_uniques.id', '=', 'job_payment_new_histories.job_order_unique_id')
-    // // Now, join job_orders to get the name
-    // ->join('job_orders', 'job_orders.job_order_unique_id', '=', 'job_order_uniques.id')
-    // ->where('job_order_uniques.cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    // ->where('job_order_uniques.company_id', app('company_id'))
-    // // Group by the name instead of the order number
-    // ->groupBy('job_orders.job_order_name', 'job_order_uniques.company_id');
+    $expensesQuery = ExpensePaymentHistory::selectRaw('
+        expense_categories.id,
+        expense_categories.category_name,
+        expense_payment_histories.company_id,
+        SUM(expense_payment_histories.amount_paid) as total_pay
+    ')
+    ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
+    ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
+    ->where('expense_payment_histories.company_id', app('company_id'))
+    ->groupBy(
+        'expense_categories.id',
+        'expense_categories.category_name',
+        'expense_payment_histories.company_id',
+    );
 
-        // 2. Build the base query for total expenses, grouped by category
-        // This query is already correctly structured from our previous discussion.
-        $expensesQuery = ExpensePaymentHistory::selectRaw('
-                expense_categories.id,
-                expense_categories.category_name,
-                expense_payment_histories.company_id,
-                SUM(expense_payment_histories.amount_paid) as total_pay
-            ')
-            ->join('expenses', 'expenses.id', '=', 'expense_payment_histories.expense_id')
-            ->join('expense_categories', 'expense_categories.id', '=', 'expenses.category_id')
-            ->where('expense_payment_histories.company_id', app('company_id'))
-            ->groupBy(
-                'expense_categories.id',
-                'expense_categories.category_name',
-                'expense_payment_histories.company_id'
-            );
+    // 3. Conditionally apply the date filters to BOTH queries
+    if ($request->filled('date_to') && $request->filled('date_from')) {
+        $startDate = $request->date_from;
+        $endDate = $request->date_to;
 
-        // 3. Conditionally apply the date filters to BOTH queries
-        if ($request->filled('date_to') && $request->filled('date_from')) {
-            $startDate = $request->date_from;
-            $endDate = $request->date_to;
-
-            $ordersQuery->whereBetween('job_payment_new_histories.payment_date', [$startDate, $endDate]);
-            $expensesQuery->whereBetween('expense_payment_histories.expense_date', [$startDate, $endDate]);
-        } else {
-            // Default to the current year if no date range is provided
-            $currentYear = Carbon::now()->year;
-            $ordersQuery->whereYear('job_payment_new_histories.created_at', $currentYear);
-            $expensesQuery->whereYear('expense_payment_histories.created_at', $currentYear);
-        }
-
-        // 4. Execute the queries AFTER filters are applied to get the final results
-        $ordersPayHistory = $ordersQuery->get();
-        $expensesPayHistory = $expensesQuery->get();
-
-        // 5. Pass the final data (which are now both Collections) to the view
-        return view('company.finance.report.profit_loss.index', compact('ordersPayHistory', 'expensesPayHistory'));
+        $ordersQuery->whereBetween('job_payment_new_histories.payment_date', [$startDate, $endDate]);
+        $expensesQuery->whereBetween('expense_payment_histories.expense_date', [$startDate, $endDate]);
+    } else {
+        // Default to the current year if no date range is provided
+        $currentYear = Carbon::now()->year;
+        $ordersQuery->whereYear('job_payment_new_histories.created_at', $currentYear);
+        $expensesQuery->whereYear('expense_payment_histories.created_at', $currentYear);
     }
+
+    // 4. Execute the queries AFTER filters are applied to get the final results
+    $ordersPayHistory = $ordersQuery->get();
+    $expensesPayHistory = $expensesQuery->get();
+
+    // 5. Pass the final data (which are now both Collections) to the view
+    return view('company.finance.report.profit_loss.index', compact('ordersPayHistory', 'expensesPayHistory'));
+}
 
 //     public function add_commission(){
 //         return view('company.finance.commissions.add_commission');

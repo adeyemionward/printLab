@@ -28,15 +28,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $total_income = 0; @endphp
+                                @php
+                                    // Group the collection by the job order name.
+                                    // This creates a new collection where each item is a group of orders.
+                                    $groupedOrders = $ordersPayHistory->groupBy(function($item) {
+                                        return $item->jobOrder->job_order_name;
+                                    });
 
-                                @foreach ($ordersPayHistory as $order_val)
+                                    $total_income = 0; // Initialize grand total
+                                @endphp
 
-                                    @php $total_income += $order_val->total_pay @endphp
+                                @foreach ($groupedOrders as $jobName => $ordersInGroup)
+                                    @php
+                                        // Sum the total_pay for all items within this group
+                                        $groupTotal = $ordersInGroup->sum('total_pay');
+                                        $total_income += $groupTotal; // Add this group's total to the grand total
+                                    @endphp
                                     <tr>
-                                        <td style="width: 70%;">#{{$order_val->order_no}}</td>
-                                        {{-- <td style="width: 70%;">{{ $order_val->job_order_name }}</td> --}}
-                                        <td style="width: 30%;">&#8358;{{number_format($order_val->total_pay,2)}}</td>
+                                        <td style="width: 70%;">{{ $jobName }}</td>
+                                        <td style="width: 30%;">&#8358;{{ number_format($groupTotal, 2) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

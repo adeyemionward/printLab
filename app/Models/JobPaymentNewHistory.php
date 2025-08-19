@@ -9,9 +9,21 @@ use Illuminate\Support\Facades\Auth;
 class JobPaymentNewHistory extends Model
 {
     use HasFactory;
-    public function jobOrder()
+    public function jobOrder1()
     {
         return $this->belongsTo(JobOrder::class, 'job_order_id');
+    }
+
+    public function jobOrder()
+    {
+        return $this->hasOneThrough(
+            JobOrder::class,          // The final model we want to access
+            JobOrderUnique::class,    // The intermediate model
+            'id',                     // Foreign key on JobOrderUnique table...
+            'job_order_unique_id',    // Foreign key on JobOrder table...
+            'job_order_unique_id',    // Local key on JobPaymentNewHistory table...
+            'id'                      // Local key on JobOrderUnique table.
+        );
     }
 
     public static function saveJobPaymentHistory($job_order_id, $customer_id, $company_id, $amount_paid, $payment_type, $order_date, $user_id)
