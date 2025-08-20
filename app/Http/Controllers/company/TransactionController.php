@@ -75,7 +75,7 @@ class TransactionController extends Controller
     $job_orders = JobOrder::where('cart_order_status', 2)
         ->where('user_id', $customerId)
         ->where('company_id', app('company_id'))
-        ->get(['id', 'order_no', 'total_cost']);
+        ->get(['id', 'order_no', 'total_cost','job_order_name']);
 
     // Step 2: Use the 'map' function to transform each job order object.
     $job_orders_with_status = $job_orders->map(function ($job_order) {
@@ -97,7 +97,7 @@ class TransactionController extends Controller
 
         // Step 5: Create the formatted string for the dropdown display.
         $formattedBalance = number_format($balance, 2);
-        $displayText = "#{$job_order->order_no} (Balance: {$formattedBalance} - {$status})";
+        $displayText = "#{$job_order->order_no} - {$job_order->job_order_name} (Balance: {$formattedBalance} - {$status})";
 
         // Step 6: Return a new object with the ID and the new display text.
         return [
