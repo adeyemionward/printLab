@@ -1,7 +1,7 @@
 
 @extends('company.layout.master')
 @section('content')
-@section('title', 'Add Expense')
+@section('title', 'Add Payment')
 
     <div class="content">
         <div class="container-fluid">
@@ -36,53 +36,68 @@
 
                                                         <div class="row g-3 mb-3 mt-3">
                                                             <div class="col-md-12">
-                                                                <form method="POST"  id="add_twenty_leaves" class="add_twenty_leaves">
-                                                                    @csrf
-                                                                    @method('POST')
-                                                                    <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="size">Select Company</label>
-                                                                            <select name="customer_id" required class="form-control form-select">
-                                                                                <option value="">--Select Company--</option>
-                                                                                @foreach ($customers as $customer)
-                                                                                    <option value="{{ $customer->id }}">{{ $customer->company_name }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
+                                                                <form method="POST" >
+    @csrf
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="size">Job Order</label>
-                                                                            <select name="order_id" required class="form-control form-select">
-                                                                                <option value="">--Select Job Order--</option>
-                                                                                {{-- Options will be populated by AJAX --}}
-                                                                            </select>
-                                                                        </div>
+    <div class="row">
+        <div class="form-group mt-3 mb-3 col-md-12">
+            <label for="customer_id">Select Company</label>
+            <select name="customer_id" id="customer_select" required class="form-control form-select">
+                <option value="">-- Select Company --</option>
+                @foreach ($customers as $customer)
+                    <option value="{{ $customer->id }}">{{ $customer->company_name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="proof_needed">Payment Type</label>
-                                                                            <select class="form-control {{ $errors->has('payment_type') ? ' is-invalid' : '' }} form-select" name="payment_type" value="{{ old('payment_type') }}" required>
-                                                                                <option value="">--Select Payment Type--</option>
-                                                                                <option value="Full Payment">Full Payment</option>
-                                                                                <option value="Part Payment">Part Payment</option>
-                                                                            </select>
-                                                                            @error('payment_type')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
+    <hr>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="exampleFormControlInput1"> Amount Paid </label>
-                                                                            <input type="text" required name="amount_paid"  class="form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }} numberFormat" value="{{ old('amount_paid') }}"  id="amount_paid">
-                                                                            @error('amount_paid')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
+    <div id="payment_repeater">
+        <div id="payment_rows_container">
+            <div class="row payment-row align-items-end">
 
-                                                                    <button class="btn btn-sm btn-danger" type="submit">
-                                                                        <i class="text-white me-2" data-feather="check-circle"></i>Save
-                                                                    </button>
-                                                                </form>
+                <div class="form-group mt-3 mb-3 col-md-4">
+                    <label>Job Order</label>
+                    <select name="order_id[]" required class="form-control form-select job-order-select">
+                        <option value="">-- Select a Company First --</option>
+                    </select>
+                </div>
+
+               
+
+                <div class="form-group mt-3 mb-3 col-md-3">
+                    <label>Payment Type</label>
+                    <select class="form-control form-select payment-type-select" name="payment_type[]" required>
+                        <option value="">-- Select Type --</option>
+                        <option value="Full Payment">Full Payment</option>
+                        <option value="Part Payment">Part Payment</option>
+                    </select>
+                </div>
+
+                <div class="form-group mt-3 mb-3 col-md-3">
+                    <label>Amount Paid</label>
+                    <input type="text" required name="amount_paid[]" class="form-control numberFormat">
+                </div>
+
+                <div class="form-group mt-3 mb-3 col-md-2">
+                    <button type="button" class="btn btn-danger remove-payment-row">Remove</button>
+                </div>
+
+            </div></div>
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <button type="button" id="add_payment_row" class="btn btn-success">Add Another Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button class="btn btn-primary" type="submit">Save Payments</button>
+    </div>
+
+</form>
                                                             </div>
                                                         </div>
                                                         <hr/>

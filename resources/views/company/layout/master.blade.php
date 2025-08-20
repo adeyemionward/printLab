@@ -853,26 +853,131 @@
 </script>
 <script>
     // customer payments --add transaction
-    $(document).ready(function() {
-        $('select[name="customer_id"]').on('change', function() {
-            var customerId = $(this).val();
-            if(customerId) {
-                $.ajax({
-                    url: '/company/finance/transactions/get-job-orders/' + customerId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="order_id"]').empty();
-                        $('select[name="order_id"]').append('<option value="">--Select Job Order--</option>');
+    // $(document).ready(function() {
+    //     $('select[name="customer_id"]').on('change', function() {
+    //         var customerId = $(this).val();
+    //         if(customerId) {
+    //             $.ajax({
+    //                 url: '/company/finance/transactions/get-job-orders/' + customerId,
+    //                 type: "GET",
+    //                 dataType: "json",
+    //                 success:function(data) {
+    //                     $('select[name="order_id"]').empty();
+    //                     $('select[name="order_id"]').append('<option value="">--Select Job Order--</option>');
 
-                        $.each(data, function(key, value) {
-                            $('select[name="order_id"]').append('<option value="' + value + '">#' + value + '</option>');
+    //                     $.each(data, function(key, value) {
+    //                         $('select[name="order_id"]').append('<option value="' + value + '">#' + value + '</option>');
+    //                     });
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
+
+    $(document).ready(function() {
+
+    // This variable will store the current job order options as an HTML string
+    var cachedJobOrderOptions = '<option value="">-- Select a Company First --</option>';
+
+    // --- 1. HANDLE COMPANY SELECTION ---
+    $('#customer_select').on('change', function() {
+        var customerId = $(this).val();
+
+        // Target ALL job order dropdowns on the page
+        var allJobOrderSelects = $('.job-order-select');
+        allJobOrderSelects.empty().append('<option value="">Loading...</option>');
+
+        if (customerId) {
+            $.ajax({
+                url: '/company/finance/transactions/get-job-orders/' + customerId, // Make sure this URL is correct
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    // First, reset the cached options
+                    cachedJobOrderOptions = '<option value="">-- Select Job Order --</option>';
+
+                    if (data && data.length > 0) {
+                        // Build the HTML string for the options
+                        $.each(data, function(key, order) {
+                            cachedJobOrderOptions += '<option value="' + order.id + '">' + order.displayText + '</option>';
                         });
+                    } else {
+                        cachedJobOrderOptions = '<option value="">No Job Orders Found</option>';
                     }
-                });
-            }
-        });
+
+                    // Now, update ALL existing job order dropdowns with the new options
+                    allJobOrderSelects.html(cachedJobOrderOptions);
+                },
+
+                // Inside your <script> tag, update the success part of your AJAX call
+
+
+
+                error: function() {
+                    cachedJobOrderOptions = '<option value="">Could not load data</option>';
+                    allJobOrderSelects.html(cachedJobOrderOptions);
+                }
+            });
+        } else {
+            cachedJobOrderOptions = '<option value="">-- Select a Company First --</option>';
+            allJobOrderSelects.html(cachedJobOrderOptions);
+        }
     });
+
+    // --- 2. HANDLE ADDING A NEW ROW ---
+    // --- HANDLE ADDING A NEW ROW (FINAL VERSION FOR BOTH DROPDOWNS) ---
+$('#add_payment_row').on('click', function() {
+    var container = $('#payment_rows_container');
+    var templateRow = container.find('.payment-row:first');
+    
+    // Step 1: Destroy Select2 on BOTH dropdowns in the template before cloning.
+    templateRow.find('.job-order-select, .payment-type-select').select2('destroy');
+    
+    // Step 2: Now, clone the 'clean' row.
+    var newRow = templateRow.clone();
+    
+    // Step 3: Immediately re-initialize Select2 on BOTH dropdowns in the original template.
+    templateRow.find('.job-order-select, .payment-type-select').select2();
+
+    // Step 4: Prepare the new row...
+    // a) Clear other input values.
+    newRow.find('input[name="amount_paid[]"]').val('');
+    
+    // b) Populate the job order <select> with the cached options.
+    newRow.find('.job-order-select').html(cachedJobOrderOptions);
+    
+    // c) Reset the payment type dropdown to its default.
+    newRow.find('.payment-type-select').val('');
+    
+    // Step 5: Append the new row to the page.
+    container.append(newRow);
+    
+    // Step 6: Finally, initialize Select2 on BOTH dropdowns in the new row.
+    newRow.find('.job-order-select, .payment-type-select').select2();
+    
+    // Step 7: Update the visibility of the remove buttons.
+    toggleRemoveButtons();
+});
+
+    // --- 3. HANDLE REMOVING A ROW ---
+    $('#payment_rows_container').on('click', '.remove-payment-row', function() {
+        $(this).closest('.payment-row').remove();
+        toggleRemoveButtons();
+    });
+
+    // --- Helper function to show/hide remove buttons ---
+    function toggleRemoveButtons() {
+        var rows = $('#payment_rows_container .payment-row');
+        if (rows.length <= 1) {
+            rows.find('.remove-payment-row').hide();
+        } else {
+            rows.find('.remove-payment-row').show();
+        }
+    }
+
+    // Initial check on page load
+    toggleRemoveButtons();
+});
 </script>
 <script>
 $(document).ready(function() {
