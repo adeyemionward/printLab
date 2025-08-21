@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -62,10 +63,15 @@ public function jobOrderUnique()
     // Make sure the keys ('order_no', 'order_no') match your database columns.
     return $this->belongsTo(JobOrderUnique::class, 'order_no', 'order_no');
 }
-    public static function getTotalPaidForUser(int $userId): float
+public static function getTotalPaidForUserInCurrentYear(int $userId): float
 {
-    // This query finds all payments that belong to orders placed by the specified user.
-    return self::whereHas('jobOrderUnique', function ($query) use ($userId) {
+    // Get the current year, e.g., 2025
+    $currentYear = Carbon::now()->year;
+
+    // This query now finds payments made THIS YEAR that belong to orders 
+    // placed by the specified user.
+    return self::whereYear('created_at', $currentYear) // This is the new line
+        ->whereHas('jobOrderUnique', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })
         ->sum('amount');

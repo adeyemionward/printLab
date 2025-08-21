@@ -91,7 +91,11 @@
                                             <td>{{ $entry['name'] }}</td>
                                             <td>{{ $entry['company'] }}</td>
                                             <td>₦{{ number_format($entry['total_cost']) }}</td>
-                                             <td>₦{{ number_format(\App\Models\JobPaymentNewHistory::getTotalPaidForUser($entry['user_id'])) }}</td>
+                                             <!-- In your blade file -->
+
+<td>
+    ₦{{ number_format(\App\Models\JobPaymentNewHistory::getTotalPaidForUserInCurrentYear($entry['user_id'])) }}
+</td>
                                             <td>₦{{ number_format($entry['balance']) }}</td>
                                             <td><a href="{{ route('company.customers.customer_job_orders',[$entry['user_id']])}}"><i class="fa fa-eye"></i></a></td>
                                         </tr>
