@@ -61,54 +61,98 @@ class TransactionController extends Controller
 
     // }
 
-    public function getJobOrders($customerId)
+//     public function getJobOrders($customerId)
+// {
+    
+
+//     // Step 1: Fetch the initial job orders, making sure to include 'total_cost'.
+//     $job_orders = JobOrder::where('cart_order_status', 2)
+//         ->where('user_id', $customerId)
+//         ->where('company_id', app('company_id'))
+//         ->get(['id', 'order_no', 'total_cost','job_order_name']);
+
+//     // Step 2: Use the 'map' function to transform each job order object.
+//     $job_orders_with_status = $job_orders->map(function ($job_order) {
+        
+//         // Step 3: For each job order, calculate the sum of payments made.
+//         $totalPaid = JobPaymentNewHistory::where('order_no', $job_order->order_no)
+//                                          ->sum('amount');
+
+//         // Step 4: Calculate the remaining balance and determine the payment status.
+//         $balance = $job_order->total_cost - $totalPaid;
+//         $status = 'Unpaid'; // Default status
+
+//         // if ($totalPaid >= $job_order->total_cost) {
+//         //     $status = 'Fully Paid';
+//         //     $balance = 0; // Ensure balance doesn't show negative if overpaid
+//         // } elseif ($totalPaid > 0) {
+//         //     $status = 'Partially Paid';
+//         // }
+
+//         if ($totalPaid < $job_order->total_cost) {
+//             $status = 'Partially Paid';
+//         }
+
+//         // Step 5: Create the formatted string for the dropdown display.
+//         $formattedBalance = number_format($balance, 2);
+//         $displayText = "#{$job_order->order_no} - {$job_order->job_order_name} (Balance: {$formattedBalance} - {$status})";
+
+//         // Step 6: Return a new object with the ID and the new display text.
+//         return [
+//             'id' => $job_order->id,
+//             'displayText' => $displayText,
+//         ];
+//     });
+
+//     // Step 7: Return the newly created collection as JSON.
+//     return response()->json($job_orders_with_status);
+
+// }
+
+public function getJobOrders($customerId)
 {
-    // $job_orders = JobOrder::where('cart_order_status', 2)
-    //     ->where('user_id', $customerId)
-    //     ->where('company_id', app('company_id'))
-    //     // Use get() to select specific columns as an object
-    //     ->get(['id', 'order_no']);
-
-    // return response()->json($job_orders);
-
-    // Step 1: Fetch the initial job orders, making sure to include 'total_cost'.
-    $job_orders = JobOrder::where('cart_order_status', 2)
+    // Step 1: Efficiently fetch orders along with the sum of their payments.
+    // This uses `withSum` to avoid running a query for every single order.
+    $job_orders = JobOrder::withSum('jobPaymentHistories as total_paid', 'amount')
+        ->where('cart_order_status', 2)
         ->where('user_id', $customerId)
         ->where('company_id', app('company_id'))
-        ->get(['id', 'order_no', 'total_cost','job_order_name']);
+        ->get();
 
-    // Step 2: Use the 'map' function to transform each job order object.
-    $job_orders_with_status = $job_orders->map(function ($job_order) {
+    // Step 2: Filter the collection to REMOVE any fully paid orders.
+    $unpaid_and_partial_orders = $job_orders->filter(function ($job_order) {
+        // The calculated sum is available as `total_paid`. Default to 0 if null.
+        $totalPaid = $job_order->total_paid ?? 0;
         
-        // Step 3: For each job order, calculate the sum of payments made.
-        $totalPaid = JobPaymentNewHistory::where('order_no', $job_order->order_no)
-                                         ->sum('amount');
+        // Keep the order only if the amount paid is less than the total cost.
+        return $totalPaid < $job_order->total_cost;
+    });
 
-        // Step 4: Calculate the remaining balance and determine the payment status.
+    // Step 3: Map the remaining orders into the final format for the dropdown.
+    $job_orders_with_status = $unpaid_and_partial_orders->map(function ($job_order) {
+        $totalPaid = $job_order->total_paid ?? 0;
+
+        // Step 3a: Determine the correct status. The logic is simple now
+        // because we've already removed the fully paid orders.
+        $status = ($totalPaid > 0) ? 'Partially Paid' : 'Unpaid';
+
+        // Step 3b: Calculate the final balance.
         $balance = $job_order->total_cost - $totalPaid;
-        $status = 'Unpaid'; // Default status
-
-        if ($totalPaid >= $job_order->total_cost) {
-            $status = 'Fully Paid';
-            $balance = 0; // Ensure balance doesn't show negative if overpaid
-        } elseif ($totalPaid > 0) {
-            $status = 'Partially Paid';
-        }
-
-        // Step 5: Create the formatted string for the dropdown display.
+        
+        // Step 3c: Create the formatted string for the display.
         $formattedBalance = number_format($balance, 2);
         $displayText = "#{$job_order->order_no} - {$job_order->job_order_name} (Balance: {$formattedBalance} - {$status})";
 
-        // Step 6: Return a new object with the ID and the new display text.
+        // Step 3d: Return the final array structure.
         return [
             'id' => $job_order->id,
             'displayText' => $displayText,
         ];
     });
 
-    // Step 7: Return the newly created collection as JSON.
-    return response()->json($job_orders_with_status);
-
+    // Step 4: Return the filtered and formatted collection as JSON.
+    // The ->values() call re-indexes the array to prevent JSON objects.
+    return response()->json($job_orders_with_status->values());
 }
 
     public function storeCustomerJobPayment1(Request $request){
