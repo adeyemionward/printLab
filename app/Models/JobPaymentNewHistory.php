@@ -56,36 +56,18 @@ class JobPaymentNewHistory extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
-
-    public function jobOrderUnique()
-    {
-        return $this->belongsTo(JobOrderUnique::class, 'order_no', 'order_no');
-    }
-    
-    public static function getTotalPaidForUserInYear(int $userId, int $year): float
-    {
-        // This query finds payments from a specific year that belong to orders
-        // placed by the specified user.
-        return self::whereYear('created_at', $year)
-            ->whereHas('jobOrderUnique', function ($query) use ($userId) {
-                $query->where('user_id', $userId);
-            })
-            ->sum('amount');
-    }
-
-    /**
-     * Calculates the total amount paid by a specific user in all years BEFORE a given year.
-     *
-     * @param int $userId The ID of the user.
-     * @param int $year The year to use as the cutoff.
-     * @return float
-     */
-    public static function getTotalPaidForUserBeforeYear(int $userId, int $year): float
-    {
-        return self::whereYear('created_at', '<', $year)
-            ->whereHas('jobOrderUnique', function ($query) use ($userId) {
-                $query->where('user_id', $userId);
-            })
-            ->sum('amount');
-    }
+public function jobOrderUnique()
+{
+    // This defines the relationship from the payment back to the order.
+    // Make sure the keys ('order_no', 'order_no') match your database columns.
+    return $this->belongsTo(JobOrderUnique::class, 'order_no', 'order_no');
+}
+    public static function getTotalPaidForUser(int $userId): float
+{
+    // This query finds all payments that belong to orders placed by the specified user.
+    return self::whereHas('jobOrderUnique', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+        ->sum('amount');
+}
 }

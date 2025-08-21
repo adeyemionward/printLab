@@ -312,180 +312,103 @@ class FinanceController extends Controller
     //     return view('company.finance.report.debtors.index', compact('customerDebts','previousYearOrders','previousYearOrders1'));
     // }
 
-    // public function all_debtors(Request $request)
-    // {
-    //     $startDate  = request('date_from');
-    //     $endDate    = request('date_to');
-    //     $customer   = request('customer');
-    //     $currentYear = Carbon::now()->year;
-    //     $previousYear = Carbon::now()->subYear()->year;
-    //     //  dd(app('company_id'));
-    //     if(request()->has('customer')) {
-    //         $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
-    //         // dd($job_pay);
-    //          return view('company.finance.report.debtors.index', compact('job_pay'));
-    //     }else{
+    public function all_debtors(Request $request)
+    {
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+        $customer   = request('customer');
+        $currentYear = Carbon::now()->year;
+        $previousYear = Carbon::now()->subYear()->year;
+        //  dd(app('company_id'));
+        if(request()->has('customer')) {
+            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
+            // dd($job_pay);
+             return view('company.finance.report.debtors.index', compact('job_pay'));
+        }else{
 
-    //         $previousYearOrders1 = JobOrderUnique::with(['jobPaymentHistories' => function ($query) use ($previousYear) {
-    //             // Also filter the loaded payments to the previous year
-    //             $query->whereYear('created_at', $previousYear);
-    //         }])
-    //         ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    //         ->where('company_id', app('company_id'))
-    //         // Filter the orders to the previous year
-    //         ->whereYear('created_at', $previousYear)
-    //         ->get();
+            $previousYearOrders1 = JobOrderUnique::with(['jobPaymentHistories' => function ($query) use ($previousYear) {
+                // Also filter the loaded payments to the previous year
+                $query->whereYear('created_at', $previousYear);
+            }])
+            ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            ->where('company_id', app('company_id'))
+            // Filter the orders to the previous year
+            ->whereYear('created_at', $previousYear)
+            ->get();
 
     
             
 
-    //         $previousYearOrders = JobOrderUnique::with(['jobPaymentHistories' => function ($query) use ($previousYear) {
-    //             // Also filter the loaded payments to the previous year
-    //             $query->whereYear('created_at', $previousYear);
-    //         }])
-    //         ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    //         ->where('company_id', app('company_id'))
-    //         // Filter the orders to the previous year
-    //         ->whereYear('created_at', $previousYear)
-    //         ->get()
-    //         ->groupBy('user_id'); 
-
-    //         $currentYearOrders = JobOrderUnique::with([
-    //             // Correctly filter only the payment histories by the current year
-    //             'jobPaymentHistories' => function ($query) use ($currentYear) {
-    //                 $query->whereYear('created_at', $currentYear);
-    //             },
-    //             // Load the user relationship without any incorrect filters
-    //             'user'
-    //         ])
-    //         ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    //         ->whereYear('created_at', $currentYear)
-    //         ->where('company_id', app('company_id'))
-    //         ->get()
-    //         ->groupBy('user_id');
-
-
-    //         $customerDebts = [];
-
-    //         foreach ($currentYearOrders as $userId => $orders) {
-    //             $user = $orders->first()->user;
-                
-    //             // This year's totals
-    //             $currentTotalCost = $orders->sum('total_cost');
-    //             $currentTotalPaid = $orders->sum(function ($order) {
-    //                 return $order->jobPaymentHistories->sum('amount');
-    //             });
-
-    //             // Previous year's totals
-    //             $previousOrders = $previousYearOrders->get($userId, collect());
-    //             $previousTotalCost = $previousOrders->sum('total_cost');
-    //             $previousTotalPaid = $previousOrders->sum(function ($order) {
-    //                 return $order->jobPaymentHistories->sum('amount');
-    //             });
-
-    //             // Total and balance
-    //             // $totalCost = $currentTotalCost + $previousTotalCost;
-    //             $totalCost = $currentTotalCost;
-    //             $totalPaid = $currentTotalPaid + $previousTotalPaid;
-    //             $balance = $totalCost - $totalPaid;
-
-    //             // Only add if there's an outstanding balance
-    //             if ($balance > 0) {
-    //                 $customerDebts[] = [
-    //                     'user_id'        => $userId,
-    //                     'name'           => $user->firstname . ' ' . $user->lastname,
-    //                     'company'        => $user->company_name,
-    //                     'current_year'   => $currentTotalCost - $currentTotalPaid,
-    //                     'previous_years' => $previousTotalCost - $previousTotalPaid,
-    //                     'total_cost'     => $totalCost,
-    //                     'total_paid'     => $totalPaid,
-    //                     'balance'        => $balance,
-    //                 ];
-    //             }
-
-    //             // dd($customerDebts);
-    //         }
-    //     }
-
-    //     return view('company.finance.report.debtors.index', compact('customerDebts','previousYearOrders','previousYearOrders1'));
-    // }
-    public function all_debtors(Request $request)
-{
-    $startDate  = request('date_from');
-    $endDate    = request('date_to');
-    $customer   = request('customer');
-
-    if (request()->has('customer')) {
-        $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)->where('company_id', app('company_id'))->get();
-        return view('company.finance.report.debtors.index', compact('job_pay'));
-    } else {
-        $currentYear = Carbon::now()->year;
-        $previousYear = Carbon::now()->subYear()->year;
-
-        // Re-create the variables your view expects
-        $previousYearOrders1 = JobOrderUnique::where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            $previousYearOrders = JobOrderUnique::with(['jobPaymentHistories' => function ($query) use ($previousYear) {
+                // Also filter the loaded payments to the previous year
+                $query->whereYear('created_at', $previousYear);
+            }])
+            ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
             ->where('company_id', app('company_id'))
+            // Filter the orders to the previous year
             ->whereYear('created_at', $previousYear)
-            ->get();
+            ->get()
+            ->groupBy('user_id'); 
 
-        $previousYearOrders = JobOrderUnique::where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            $currentYearOrders = JobOrderUnique::with([
+                // Correctly filter only the payment histories by the current year
+                'jobPaymentHistories' => function ($query) use ($currentYear) {
+                    $query->whereYear('created_at', $currentYear);
+                },
+                // Load the user relationship without any incorrect filters
+                'user'
+            ])
+            ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            ->whereYear('created_at', $currentYear)
             ->where('company_id', app('company_id'))
-            ->whereYear('created_at', $previousYear)
             ->get()
             ->groupBy('user_id');
 
-        // Get all unique user IDs that have completed orders in any year
-        $allUserIds = JobOrderUnique::where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-            ->where('company_id', app('company_id'))
-            ->pluck('user_id')
-            ->unique();
 
-        $customerDebts = [];
+            $customerDebts = [];
 
-        foreach ($allUserIds as $userId) {
-            $user = \App\Models\User::find($userId);
-            if (!$user) continue;
+            foreach ($currentYearOrders as $userId => $orders) {
+                $user = $orders->first()->user;
+                
+                // This year's totals
+                $currentTotalCost = $orders->sum('total_cost');
+                $currentTotalPaid = $orders->sum(function ($order) {
+                    return $order->jobPaymentHistories->sum('amount');
+                });
 
-            // Get total costs for current and previous years
-            $currentTotalCost = JobOrderUnique::where('user_id', $userId)
-                ->whereYear('created_at', $currentYear)
-                ->sum('total_cost');
+                // Previous year's totals
+                $previousOrders = $previousYearOrders->get($userId, collect());
+                $previousTotalCost = $previousOrders->sum('total_cost');
+                $previousTotalPaid = $previousOrders->sum(function ($order) {
+                    return $order->jobPaymentHistories->sum('amount');
+                });
 
-            $previousTotalCost = JobOrderUnique::where('user_id', $userId)
-                ->whereYear('created_at', '<', $currentYear)
-                ->sum('total_cost');
+                // Total and balance
+                // $totalCost = $currentTotalCost + $previousTotalCost;
+                $totalCost = $currentTotalCost;
+                $totalPaid = $currentTotalPaid + $previousTotalPaid;
+                $balance = $totalCost - $totalPaid;
 
-            // **Call the new, clean model functions for accurate totals**
-            $currentTotalPaid = \App\Models\JobPaymentNewHistory::getTotalPaidForUserInYear($userId, $currentYear);
-            $previousTotalPaid = \App\Models\JobPaymentNewHistory::getTotalPaidForUserBeforeYear($userId, $currentYear);
+                // Only add if there's an outstanding balance
+                if ($balance > 0) {
+                    $customerDebts[] = [
+                        'user_id'        => $userId,
+                        'name'           => $user->firstname . ' ' . $user->lastname,
+                        'company'        => $user->company_name,
+                        'current_year'   => $currentTotalCost - $currentTotalPaid,
+                        'previous_years' => $previousTotalCost - $previousTotalPaid,
+                        'total_cost'     => $totalCost,
+                        'total_paid'     => $totalPaid,
+                        'balance'        => $balance,
+                    ];
+                }
 
-            // Skip users with no financial history to keep the list clean
-            if ($currentTotalCost == 0 && $previousTotalCost == 0) {
-                continue;
-            }
-
-            // Your original balance logic
-            $totalCost = $currentTotalCost;
-            $totalPaid = $currentTotalPaid + $previousTotalPaid;
-            $balance = $totalCost - $totalPaid;
-
-            if ($balance > 0) {
-                $customerDebts[] = [
-                    'user_id'        => $userId,
-                    'name'           => $user->firstname . ' ' . $user->lastname,
-                    'company'        => $user->company_name,
-                    'current_year'   => $currentTotalCost - $currentTotalPaid,
-                    'previous_years' => $previousTotalCost - $previousTotalPaid,
-                    'total_cost'     => $totalCost,
-                    'total_paid'     => $totalPaid,
-                    'balance'        => $balance,
-                ];
+                // dd($customerDebts);
             }
         }
 
-        return view('company.finance.report.debtors.index', compact('customerDebts', 'previousYearOrders', 'previousYearOrders1'));
+        return view('company.finance.report.debtors.index', compact('customerDebts','previousYearOrders','previousYearOrders1'));
     }
-}
 
 
 
