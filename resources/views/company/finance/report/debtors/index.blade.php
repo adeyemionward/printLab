@@ -69,7 +69,7 @@
                             @endif
                             @if (!request()->has('customer'))
                                 <tbody>
-                                    @php $totalOutstandingDebt = 0; $totalCost = 0; $amountPaid = 0; $currentYearDebt = 0; @endphp
+                                    @php $totalOutstandingDebt = 0; $totalCost = 0; $amountPaid = 0; $paidAmount; $currentYearDebt = 0; @endphp
                                     @foreach ($previousYearOrders1 as $val)
                                         @php
                                             $paid = $val->jobPaymentHistories->sum('amount');
@@ -82,8 +82,9 @@
                                     @foreach ($customerDebts as $entry)
                                         @php
                                             $totalCost += $entry['total_cost'];
-                                            $amountPaid += $entry['total_paid'];
-                                            $currentYearDebt += $entry['balance'];
+                                            $paidAmount = \App\Models\JobPaymentNewHistory::getTotalPaidForUserInCurrentYear($entry['user_id']);
+                                            $amountPaid += $paidAmount;
+                                            $currentYearDebt += $entry['total_cost'] - $paidAmount;
                                             // $previous_years  += $entry['previous_years'];
                                         @endphp
                                         <tr>
@@ -93,10 +94,10 @@
                                             <td>₦{{ number_format($entry['total_cost']) }}</td>
                                              <!-- In your blade file -->
 
-<td>
-    ₦{{ number_format(\App\Models\JobPaymentNewHistory::getTotalPaidForUserInCurrentYear($entry['user_id'])) }}
-</td>
-                                            <td>₦{{ number_format($entry['balance']) }}</td>
+                                            <td>
+                                                ₦{{ number_format($paidAmount) }}
+                                            </td>
+                                            <td>₦{{ number_format($entry['total_cost'] - $paidAmount ) }}</td>
                                             <td><a href="{{ route('company.customers.customer_job_orders',[$entry['user_id']])}}"><i class="fa fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
