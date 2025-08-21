@@ -386,7 +386,7 @@ class FinanceController extends Controller
                 // Total and balance
                 // $totalCost = $currentTotalCost + $previousTotalCost;
                 $totalCost = $currentTotalCost;
-                $totalPaid = $currentTotalPaid + $previousTotalPaid;
+                $totalPaid = $currentTotalPaid;
                 $balance = $totalCost - $totalPaid;
 
                 // Only add if there's an outstanding balance
