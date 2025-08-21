@@ -358,7 +358,7 @@ class FinanceController extends Controller
                 // Load the user relationship without any incorrect filters
                 'user'
             ])
-            ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
+            // ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
             ->whereYear('created_at', $currentYear)
             ->where('company_id', app('company_id'))
             ->get()
