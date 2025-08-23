@@ -336,8 +336,8 @@ class FinanceController extends Controller
             ->whereYear('created_at', $previousYear)
             ->get();
 
-    
-            
+
+
 
             $previousYearOrders = JobOrderUnique::with(['jobPaymentHistories' => function ($query) use ($previousYear) {
                 // Also filter the loaded payments to the previous year
@@ -348,7 +348,7 @@ class FinanceController extends Controller
             // Filter the orders to the previous year
             ->whereYear('created_at', $previousYear)
             ->get()
-            ->groupBy('user_id'); 
+            ->groupBy('user_id');
 
             $currentYearOrders = JobOrderUnique::with([
                 // Correctly filter only the payment histories by the current year
@@ -369,7 +369,7 @@ class FinanceController extends Controller
 
             foreach ($currentYearOrders as $userId => $orders) {
                 $user = $orders->first()->user;
-                
+
                 // This year's totals
                 $currentTotalCost = $orders->sum('total_cost');
                 $currentTotalPaid = $orders->sum(function ($order) {
@@ -532,77 +532,77 @@ public function all_profit_loss(Request $request){
     return view('company.finance.report.profit_loss.index', compact('ordersPayHistory', 'expensesPayHistory'));
 }
 
-//     public function add_commission(){
-//         return view('company.finance.commissions.add_commission');
-//     }
+    public function add_commission(){
+        return view('company.finance.commissions.add_commission');
+    }
 
-//     public function store_commission(Request $request)
-//     {
-//         DB::beginTransaction();
-//         $user = Auth::user();
-//         $validatedData = $request->validate([
-//             'marketer_id' => 'required|integer',
-//             // 'payment_type' => 'required',
-//             'amount_paid' => 'required',
+    public function store_commission(Request $request)
+    {
+        DB::beginTransaction();
+        $user = Auth::user();
+        $validatedData = $request->validate([
+            'marketer_id' => 'required|integer',
+            // 'payment_type' => 'required',
+            'amount_paid' => 'required',
 
-//         ], [
+        ], [
 
-//             'marketer_id.required' => 'Please select marketer.',
-//             // 'payment_type.required' => 'Please select payment type.',
-//             'amount_paid.required' => 'Please enter ampunt paid.',
-//         ]);
+            'marketer_id.required' => 'Please select marketer.',
+            // 'payment_type.required' => 'Please select payment type.',
+            'amount_paid.required' => 'Please enter ampunt paid.',
+        ]);
 
-//        try{
-//             $expense = new Expense();
-//             $expense->company_id    = app('company_id');
-//             $expense->title         = 'Commission';
-//             $expense->marketer_id   = request('marketer_id');
-//             $expense->payment_type  = 'Commission Payment';
-//             $expense->total_cost    = str_replace(',', '',  request('amount_paid'));
-//             $expense->amount_paid   = str_replace(',', '',  request('amount_paid'));
-//             $expense->expense_date  = date('Y-m-d');
-//             $expense->description   = request('description');
-//             $expense->created_by    = $user->id;
-//             $expense->save();
+       try{
+            $expense = new Expense();
+            $expense->company_id    = app('company_id');
+            $expense->title         = 'Commission';
+            $expense->marketer_id   = request('marketer_id');
+            $expense->payment_type  = 'Commission Payment';
+            $expense->total_cost    = str_replace(',', '',  request('amount_paid'));
+            $expense->amount_paid   = str_replace(',', '',  request('amount_paid'));
+            $expense->expense_date  = date('Y-m-d');
+            $expense->description   = request('description');
+            $expense->created_by    = $user->id;
+            $expense->save();
 
-//             //save into expense payment history
-//             $expense_history = new ExpensePaymentHistory();
-//             $expense_history->expense_id    = $expense->id;
-//             $expense_history->company_id    = app('company_id');
-//             $expense_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
-//             $expense_history->payment_type  = 'Commission Payment';
-//             $expense_history->expense_date  = date('Y-m-d');
-//             $expense_history->created_by    = $user->id;
-//             $expense_history->save();
+            //save into expense payment history
+            $expense_history = new ExpensePaymentHistory();
+            $expense_history->expense_id    = $expense->id;
+            $expense_history->company_id    = app('company_id');
+            $expense_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
+            $expense_history->payment_type  = 'Commission Payment';
+            $expense_history->expense_date  = date('Y-m-d');
+            $expense_history->created_by    = $user->id;
+            $expense_history->save();
 
-//             //save into expense payment history
-//             $marketer_history = new MarketerPaymentHistory();
-//             $marketer_history->expense_id    = $expense->id;
-//             $marketer_history->marketer_id   = request('marketer_id');
-//             $marketer_history->company_id    = app('company_id');
-//             $marketer_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
-//             $marketer_history->payment_type  = 'Commission Payment';
-//             $marketer_history->created_by    = $user->id;
-//             $marketer_history->save();
+            //save into expense payment history
+            $marketer_history = new MarketerPaymentHistory();
+            $marketer_history->expense_id    = $expense->id;
+            $marketer_history->marketer_id   = request('marketer_id');
+            $marketer_history->company_id    = app('company_id');
+            $marketer_history->amount_paid   = str_replace(',', '',  request('amount_paid'));
+            $marketer_history->payment_type  = 'Commission Payment';
+            $marketer_history->created_by    = $user->id;
+            $marketer_history->save();
 
-//             DB::commit();
-//             return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense saved successfully');
+            DB::commit();
+            return redirect(route('company.finance.expenses.all_expenses'))->with('flash_success','Expense saved successfully');
 
-//         }catch (\Throwable $th){
-//             DB::rollBack();
-//             ErrorLog::log('expenses', '__METHOD__', $th->getMessage()); //log error
-//             return back()->with("flash_error","There is an error processing this request");
-//         }
-//     }
+        }catch (\Throwable $th){
+            DB::rollBack();
+            ErrorLog::log('expenses', '__METHOD__', $th->getMessage()); //log error
+            return back()->with("flash_error","There is an error processing this request");
+        }
+    }
 
-//     public function all_commission(){
-//         if(request()->date_to && request()->date_from){
-//             $commissions = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
-//         }else{
-//             $commissions = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
-//         }
-//         return view('company.finance.commissions.all_commissions', compact('commissions'));
-//     }
+    public function all_commission(){
+        if(request()->date_to && request()->date_from){
+            $commissions = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+        }else{
+            $commissions = Expense::with('expenseHistories')->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+        }
+        return view('company.finance.commissions.all_commissions', compact('commissions'));
+    }
 
 //     /**
 //      * Remove the specified resource from storage.

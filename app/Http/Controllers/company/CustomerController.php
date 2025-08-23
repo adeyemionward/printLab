@@ -314,9 +314,18 @@ class CustomerController extends Controller
         $customer = $this->find_customer($id);
         $cartCount = $this->countCart($id);
 
-        $job_pay_history =  JobPaymentNewHistory::where('user_id',$id)->where('company_id',app('company_id'))->get();
+        $startDate  = request('date_from');
+        $endDate    = request('date_to');
+
+        if(request()->has('date_from') || request()->has('date_to')) {
+            $job_pay_history = JobPaymentNewHistory::whereBetween('payment_date', [$startDate, $endDate])->where('user_id', $id)->where('company_id',app('company_id'))->orderBy('id','DESC')->get();
+        }else{
+            $job_pay_history =  JobPaymentNewHistory::where('user_id',$id)->where('company_id',app('company_id'))->orderBy('id','DESC')->whereYear('created_at', Carbon::now()->year)->get();
+        }
+
         return view('company.customers.transaction_history', compact('customer','job_pay_history','cartCount'));
     }
+
 
 
     /**
