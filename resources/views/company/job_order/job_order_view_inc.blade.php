@@ -98,7 +98,7 @@
 
 {{-- add pay --}}
 <form method="POST"  action="{{route('company.job_order.transaction_history',request()->id)}}" class="order_status">
-    @csrf 
+    @csrf
     @method('POST')
     <div class="modal fade" id="exampleModal2" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -194,7 +194,7 @@
                <div class="dropdown-divider"></div>
 
                 <a class="nav-link <?php if($page == 'delete_order') echo 'active active_red'  ?>"
-                    onclick="return confirm('Are you sure you want to delete this job order?');"  href="{{route('company.job_order.delete_order',[ request()->id])}}"
+                    onclick="return confirm('Are you sure you want to delete this job order?');"  href="{{route('company.job_order.delete_unique_job_order',[ request()->id])}}"
                 aria-selected="false">Delete Order</a>
                <div class="dropdown-divider"></div>
 

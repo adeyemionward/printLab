@@ -227,6 +227,13 @@ class JobOrderController extends Controller
         return back()->with("flash_success","Order Payment updated successfully");
     }
 
+    public function delete_unique_job_order(Request $request, $id){
+        $job_orders =  JobOrder::all();
+        $job_order =  JobOrderUnique::find($id);
+        $job_order->delete();
+        return redirect(route('company.job_order.all_orders'))->with('flash_success','Job Order deleted successfully');
+    }
+
     public function delete_job_order(Request $request, $id){
         $job_orders =  JobOrder::where('company_id',app('company_id'))->get();
         $job_order =  JobOrder::find($id);

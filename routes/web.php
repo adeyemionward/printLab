@@ -49,6 +49,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::post('/view_order/{id}', 'JobOrderController@changeJobStatus')->name('view_order');
                     Route::post('/approved_design/{job_title}/{id}', 'JobOrderController@uploadApprovedDesign')->name('approved_design');
                     Route::get('/delete_order/{id}', 'JobOrderController@delete_job_order')->name('delete_order');
+                    Route::get('/delete_unique_job_order/{id}', 'JobOrderController@delete_unique_job_order')->name('delete_unique_job_order');
                     Route::get('/track_order/{id}', 'JobOrderController@track_job_order')->name('track_order');
                     Route::get('/transaction_history/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
                     Route::post('/transaction_history/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
@@ -283,7 +284,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::post('/add_customer', 'CustomerController@store')->name('add_customer');
                     Route::get('/all_customers', 'CustomerController@index')->name('all_customers');
                     Route::get('/edit_customer/{id}', 'CustomerController@edit')->name('edit_customer');
-                    Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer'); 
+                    Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer');
                     Route::get('/view_customer/{id}', 'CustomerController@show')->name('view_customer');
                     Route::get('/customer_job_orders/{id}', 'CustomerController@customer_job_orders')->name('customer_job_orders');
                     Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
