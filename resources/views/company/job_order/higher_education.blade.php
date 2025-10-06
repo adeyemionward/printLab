@@ -126,7 +126,7 @@
                                                                             </select>
                                                                         </div>
 
-                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
                                                                             <select class="form-control" name="payment_type" required>
                                                                                 <option value="">--Select Payment Type--</option>
@@ -134,7 +134,12 @@
                                                                                 <option value="Part Payment">Part Payment</option>
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
-                                                                        </div> --}}
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="amount_paid">Amount Paid</label>
+                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
+                                                                                id="amount_paid" placeholder="eg: 10000" required>
+                                                                        </div>
 
                                                                          <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
                                                                             <label for="cheque_number">Posted Cheque Due Date</label>
@@ -182,13 +187,10 @@
                                                                             </tbody>
                                                                         </table>
 
-                                                                        {{-- <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="amount_paid">Amount Paid</label>
-                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
-                                                                                id="amount_paid" placeholder="eg: 10000" required>
-                                                                        </div> --}}
+
 
                                                                     </div>
+                                                                    <br>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">
                                                                         <i class="text-white me-2" data-feather="check-circle"></i>Add to Cart

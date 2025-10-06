@@ -166,7 +166,9 @@
                 $job_order->updated_by          = $user->id;
                 $job_order->save();
 
-                JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+                $job_order_unique_id = $job_order->job_order_unique_id;
+                JobOrder::updateJobUniqueCost($job_order_unique_id);
+                //JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
                 DB::commit();
             }catch(\Exception $th){

@@ -113,7 +113,7 @@
                                                                                 <input type="text" required name="total_cost" class="form-control numberFormat" id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            
+
                                                                             {{-- @if($job_order->jobPaymentHistory->payment_type == 'Posted Cheque')
                                                                                 <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" >
                                                                                     <label for="cheque_number">Posted Cheque Due Date</label>
@@ -134,9 +134,9 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -192,14 +192,14 @@
                                                                                     @endif
                                                                                 </tbody>
                                                                             </table>
-                                                                            
+
                                                                         </div>
                                                                         <div class="row">
                                                                             {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat" id="amount_paid" placeholder="eg: 10000" value="{{$job_order->jobPaymentHistory->amount}}" required>
                                                                             </div> --}}
-                                                                            
+
                                                                         </div>
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
@@ -402,9 +402,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -466,7 +466,7 @@
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat"
                                                                                     id="amount_paid" placeholder="eg: 10000" required>
                                                                             </div> --}}
-                                                                           
+
                                                                         </div>
 
                                                                         <button class="btn btn-sm btn-danger" type="submit">
@@ -482,7 +482,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    
+
                                     @if(request()->job_title == '2A_NoteBook')
                                         <div class="card">
                                             <div class="card-header bg-white">
@@ -509,7 +509,7 @@
                                                                                     <option value="2A NoteBook"  <?php if ($job_order->job_order_name == '2A NoteBook') echo 'selected' ?>>2A NoteBook</option>
                                                                                     <option value="2B NoteBook"  <?php if ($job_order->job_order_name == '2B NoteBook') echo 'selected' ?>>2B NoteBook</option>
                                                                                     <option value="2D NoteBook"  <?php if ($job_order->job_order_name == '2D NoteBook') echo 'selected' ?>>2D NoteBook</option>
-                                                                                   
+
                                                                                 </select>
                                                                             </div>
 
@@ -538,7 +538,7 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
 
                                                                         <div class="row">
@@ -566,7 +566,7 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -587,7 +587,7 @@
                                                                                 </select>
                                                                             </div>
 
-                                                                            
+
                                                                              {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
@@ -608,9 +608,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -690,7 +690,7 @@
                                                                         </div>
 
 
-                                                                        
+
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -732,7 +732,7 @@
                                                                                     <option value="2A NoteBook"  <?php if ($job_order->job_order_name == '2A NoteBook') echo 'selected' ?>>2A NoteBook</option>
                                                                                     <option value="2B NoteBook"  <?php if ($job_order->job_order_name == '2B NoteBook') echo 'selected' ?>>2B NoteBook</option>
                                                                                     <option value="2D NoteBook"  <?php if ($job_order->job_order_name == '2D NoteBook') echo 'selected' ?>>2D NoteBook</option>
-                                                                                   
+
                                                                                 </select>
                                                                             </div>
 
@@ -761,7 +761,7 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
 
                                                                         <div class="row">
@@ -789,7 +789,7 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -831,9 +831,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -909,9 +909,9 @@
                                                                                 <input type="text" required name="total_cost" class="form-control numberFormat"
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                                 </div>
-                                                                               
+
                                                                             </div>
-                                                                        
+
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -952,7 +952,7 @@
                                                                                     <option value="2A NoteBook"  <?php if ($job_order->job_order_name == '2A NoteBook') echo 'selected' ?>>2A NoteBook</option>
                                                                                     <option value="2B NoteBook"  <?php if ($job_order->job_order_name == '2B NoteBook') echo 'selected' ?>>2B NoteBook</option>
                                                                                     <option value="2D NoteBook"  <?php if ($job_order->job_order_name == '2D NoteBook') echo 'selected' ?>>2D NoteBook</option>
-                                                                                   
+
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-3">
@@ -980,7 +980,7 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
 
                                                                         <div class="row">
@@ -1008,7 +1008,7 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -1029,8 +1029,8 @@
                                                                                 </select>
                                                                             </div>
 
-                                                                            
-                             
+
+
 
                                                                                  {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
@@ -1052,9 +1052,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -1110,10 +1110,10 @@
                                                                                     @endif
                                                                                 </tbody>
                                                                             </table>
-                                                                            
+
                                                                         </div>
 
-                                                                        
+
 
                                                                             <div class="row">
                                                                                 {{-- <div class="form-group mt-3 mb-3 col-md-4">
@@ -1135,9 +1135,9 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                                 </div>
 
-                                                                               
+
                                                                             </div>
-                                                                        
+
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -1196,7 +1196,7 @@
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
 
                                                                         <div class="row">
@@ -1224,7 +1224,7 @@
                                                                                     <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
-                                                                            
+
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -1245,7 +1245,7 @@
                                                                                 </select>
                                                                             </div>
 
-                                                                            
+
                                                                              {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control form-select" id="payment_type" name="payment_type" required>
@@ -1268,7 +1268,7 @@
                                                                             @endif
                                                                              --}}
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -1348,7 +1348,7 @@
                                                                         </div>
 
 
-                                                                        
+
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -1469,9 +1469,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -1661,9 +1661,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -1833,7 +1833,7 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            
+
 
 
                                                                              {{-- <div class="form-group mt-3 mb-3 col-md-4">
@@ -1856,9 +1856,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -1947,7 +1947,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    
+
                                     @if(request()->job_title == 'Eighty_Leaves')
                                         <div class="card">
                                             <div class="card-header bg-white">
@@ -2034,7 +2034,7 @@
                                                                                     id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
                                                                             </div>
 
-                                                                            
+
 
                                                                              {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
@@ -2056,9 +2056,9 @@
                                                                                     <input type="date" class="form-control" value="{{$job_order->posted_cheque_due_date}}"  name="posted_cheque_date" id="posted_cheque_date">
                                                                                 </div>
                                                                             @endif --}}
-                                                                            
+
                                                                             <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                             </div>
                                                                             <table id="products" style="margin-top:20px; margin-left:10px">
                                                                                 <thead>
@@ -3358,13 +3358,13 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
-    
+
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlInput1">Quantity </label>
                                                                                 <input type="number" required name="quantity" class="form-control"
                                                                                     id="quantity">
                                                                             </div>
-    
+
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlSelect1">Color
                                                                                     </label>
@@ -3376,20 +3376,20 @@
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-    
+
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="production_time">Production Time (Days)
                                                                                     </label> <input required type="number" name="production_time" class="form-control"
                                                                                     id="quantity" placeholder="eg: 4">
                                                                             </div>
-    
+
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="total_cost">Total Cost</label>
                                                                                 <input type="text" required name="total_cost" class="form-control numberFormat"
                                                                                     id="total_cost" placeholder="eg: 24000">
                                                                             </div>
-    
+
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control" id="payment_type" name="payment_type" required>
@@ -3405,7 +3405,7 @@
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat"
                                                                                     id="amount_paid" placeholder="eg: 10000" required>
                                                                             </div>
-    
+
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="location">Job Location</label>
                                                                                 <select class="form-control" name="location" required>
@@ -3416,7 +3416,7 @@
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-    
+
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
                                                                         </button>
@@ -3442,7 +3442,7 @@
     <script>
             $(document).ready(function() {
 		document.getElementById('payment_type').addEventListener('change', function() {
-		
+
 			var chequeDetails = document.querySelector('.posted_cheque_date');
 			if (this.value === 'Posted Cheque') {
 				chequeDetails.style.display = 'block';
@@ -3458,7 +3458,7 @@
     <script>
 $(document).ready(function() {
     $('#add-product').on('click', function() {
-        
+
         var newRow = $('.product-row-order:first').clone();
         newRow.find('select').val('').prop('required', true); // Clear and make select required
         newRow.find('input').val('').prop('required', true); // Clear and make input required

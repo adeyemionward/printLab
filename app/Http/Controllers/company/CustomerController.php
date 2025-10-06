@@ -210,8 +210,10 @@ class CustomerController extends Controller
             $userDetails    = User::find($id);
 
             // Calculate the sum of total_cost
-            $totalCostSum = JobOrder::whereIn('id', $job_id)
-            ->where('company_id', app('company_id'))->sum('total_cost'); //get the som total of the order
+            $job_order = JobOrder::whereIn('id', $job_id)
+            ->where('company_id', app('company_id'))->get(); //get the som total of the order
+
+            $total_cost = $job_order->sum('total_cost');
 
             //save to job_order_unique
             $job_order_unique = new JobOrderUnique();
@@ -219,7 +221,7 @@ class CustomerController extends Controller
             $job_order_unique->company_id      = $user->company_id;
             $job_order_unique->order_no        = $randomInteger;
             $job_order_unique->order_date      = $order_date;
-            $job_order_unique->total_cost      = $totalCostSum;
+            $job_order_unique->total_cost      = $total_cost;
             $job_order_unique->cart_order_status      = 2; //completed
             $job_order_unique->order_type      = 'internal'; //completed
             $job_order_unique->created_by      = $user->id;
@@ -234,6 +236,23 @@ class CustomerController extends Controller
                     'order_no' =>  $randomInteger,
                 ]
             );
+            // Save payment history for each JobOrder
+            foreach ($job_order as $order) {
+                if (!is_null($order->initial_amount_paid) && $order->initial_amount_paid > 0) {
+                    JobPaymentNewHistory::saveJobPaymentHistory(
+                        $job_order_unique->id,
+                        $id,
+                        $user->company_id,
+                        $job_order_unique->order_no,
+                        $order->initial_amount_paid,
+                        $order->initial_payment_type,
+                        $order_date,
+                        $user->id
+                    );
+                }
+            }
+
+
 
             $userEmail  =  $userDetails->email;
             $userName   =  $userDetails->firstname.' '.$userDetails->lastname;

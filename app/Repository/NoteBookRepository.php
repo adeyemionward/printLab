@@ -9,6 +9,7 @@
     use App\Models\EightyLeavesBook;
     use App\Models\FortyLeavesBook;
 use App\Models\JobOrderUnique;
+use App\Models\JobPaymentNewHistory;
 use App\Models\TwentyLeavesBook;
     use App\Models\User;
     use App\Models\MarketerCommission;
@@ -31,8 +32,8 @@ use App\Models\TwentyLeavesBook;
                 $thickness                  =  $data['thickness'];
                 $proof_needed               =  $data['proof_needed'];
                 $total_cost                 =  str_replace(',', '',$data['total_cost']);
-                $amount_paid                =  '';
-                $payment_type               =  '';
+                $initial_amount_paid        =  str_replace(',', '',$data['amount_paid']);;
+                $initial_payment_type       =  $data['payment_type'];
                 $location                   =  $data['location'];
                 $posted_cheque_due_date     =  $data['posted_cheque_date'];
 
@@ -65,6 +66,8 @@ use App\Models\TwentyLeavesBook;
                 $job_order->thickness       = $thickness;
                 $job_order->proof_needed    = $proof_needed;
                 $job_order->total_cost      = $total_cost;
+                $job_order->initial_amount_paid      = $initial_amount_paid;
+                $job_order->initial_payment_type      = $initial_payment_type;
                 $job_order->order_date      = $order_date;
                 $job_order->order_type      = 'internal';
                 $job_order->cart_order_status      = 1;
@@ -87,7 +90,8 @@ use App\Models\TwentyLeavesBook;
                     );
                 }
 
-                // JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+                // JobPaymentNewHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $job_order->order_no, $amount_paid, $payment_type, $order_date, $user->id);
+
                 //upate marketer wallet
                 //JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
 
@@ -140,6 +144,12 @@ use App\Models\TwentyLeavesBook;
                 $job_order->updated_by      = $user->id;
                 $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
                 $pp = $job_order->save();
+
+                //get the total from the job_order
+                $job_order_unique_id = $job_order->job_order_unique_id;
+                JobOrder::updateJobUniqueCost($job_order_unique_id);
+
+
 
                 $marketer_commission_id = $data['marketer_commission_id'];
                 $marketerId = $data['marketer_id'];

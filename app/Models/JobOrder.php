@@ -22,7 +22,9 @@ class JobOrder extends Model
         'memory',
         'status',
         'cover_paper',
-        'proof_needed'
+        'proof_needed',
+        'amount_paid',
+        'payment_type'
     ];
 
     public function user(){
@@ -73,6 +75,19 @@ class JobOrder extends Model
     public function jobOrderUnique()
     {
         return $this->belongsTo(JobOrderUnique::class, 'job_order_unique_id');
+    }
+
+    public static function updateJobUniqueCost($job_order_unique_id)
+    {
+        $get_job_orders = self::where('job_order_unique_id', $job_order_unique_id)->get();
+
+        $sumTotalCost = $get_job_orders->sum('total_cost');
+
+        if (!is_null($sumTotalCost) && $sumTotalCost > 0) {
+            JobOrderUnique::where('id', $job_order_unique_id)->update([
+                'total_cost' => $sumTotalCost,
+            ]);
+        }
     }
 
 }
