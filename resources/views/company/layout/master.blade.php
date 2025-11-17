@@ -163,6 +163,33 @@
 						<div class="sidebardropdown">
 							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
 								id="dropdown-btn" onclick="myFunction()"><i
+								class="data-feather theme-item" data-feather="grid"></i> <span
+								class="theme-item"> Inventory</span><i
+								class="sidenaviconopen float-end" id="sidenavicon"
+								data-feather="chevron-up"></i></a>
+
+							<div class="dropdown-container">
+
+                                <a href="{{route('company.inventory.add')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Add Stock</span>
+                                </a>
+
+                                <a href="{{route('company.inventory.list')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Items & Stock</span>
+                                </a>
+
+                             
+							</div>
+						</div>
+					</li>
+
+
+                    <li>
+						<div class="sidebardropdown">
+							<a href="javascript:void(0);" class="sidebar-dropdown-btn"
+								id="dropdown-btn" onclick="myFunction()"><i
 								class="data-feather theme-item" data-feather="shopping-cart"></i> <span
 								class="theme-item"> Orders</span><i
 								class="sidenaviconopen float-end" id="sidenavicon"
@@ -364,6 +391,21 @@
                                         <li><a class="dropdown-item" href="{{route('company.finance.report.debtors.all_debtors')}}">Debtors Report</a></li>
                                         <li><a class="dropdown-item" href="{{route('company.finance.report.creditors.all_creditors')}}">Creditors Report</a></li>
                                         <li><a class="dropdown-item" href="{{route('company.finance.report.profit_loss.all_profit_loss')}}">Profit/Loss Report</a></li>
+									</ul>
+								</li>
+
+                                <li class="nav-item dropdown nav-dropdown"><a
+									class="nav-item nav-link dropdown-toggle text-secondary py-0"
+									href="#" id="navbarDropdownMenuLink1" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false"><i
+										class="data-feather theme-item" data-feather="grid"></i> <span
+										class="theme-item">Inventory</span><i
+										class="data-feather theme-item" data-feather="chevron-down"></i></a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink1">
+                                        {{-- <li><a class="dropdown-item" href="{{route('company.finance.requisitions.all_requisitions')}}">Requsitions</a></li> --}}
+										<li><a class="dropdown-item" href="{{route('company.inventory.add')}}">Add Inventory</a></li>
+                                        <li><a class="dropdown-item" href="{{route('company.inventory.list')}}">List Inventory</a></li>
 
 									</ul>
 								</li>
@@ -929,32 +971,32 @@
 $('#add_payment_row').on('click', function() {
     var container = $('#payment_rows_container');
     var templateRow = container.find('.payment-row:first');
-    
+
     // Step 1: Destroy Select2 on BOTH dropdowns in the template before cloning.
     templateRow.find('.job-order-select, .payment-type-select').select2('destroy');
-    
+
     // Step 2: Now, clone the 'clean' row.
     var newRow = templateRow.clone();
-    
+
     // Step 3: Immediately re-initialize Select2 on BOTH dropdowns in the original template.
     templateRow.find('.job-order-select, .payment-type-select').select2();
 
     // Step 4: Prepare the new row...
     // a) Clear other input values.
     newRow.find('input[name="amount_paid[]"]').val('');
-    
+
     // b) Populate the job order <select> with the cached options.
     newRow.find('.job-order-select').html(cachedJobOrderOptions);
-    
+
     // c) Reset the payment type dropdown to its default.
     newRow.find('.payment-type-select').val('');
-    
+
     // Step 5: Append the new row to the page.
     container.append(newRow);
-    
+
     // Step 6: Finally, initialize Select2 on BOTH dropdowns in the new row.
     newRow.find('.job-order-select, .payment-type-select').select2();
-    
+
     // Step 7: Update the visibility of the remove buttons.
     toggleRemoveButtons();
 });

@@ -252,6 +252,21 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                 });
 
 
+
+                Route::group(['prefix' => '/inventory', 'as' => 'inventory.'], function () {
+                        Route::get('/add', 'InventoryController@create')->name('add');
+                        Route::post('/add', 'InventoryController@store')->name('store');
+                        Route::get('/list', 'InventoryController@list')->name('list');
+                        Route::get('/edit/{id}', 'InventoryController@edit')->name('edit');
+                        Route::post('/update/{id}', 'InventoryController@update')->name('update');
+                        Route::get('/logs/{id}', 'InventoryController@logs')->name('logs');
+                        Route::post('/add-stock/{id}', 'InventoryController@addStock')->name('addStock');
+                        Route::post('/remove-stock/{id}', 'InventoryController@removeStock')->name('removeStock');
+
+                        Route::get('/delete/{id}', 'InventoryController@delete')->name('delete');
+                });
+
+
                 Route::group(['prefix' => '/settings', 'as' => 'settings.'], function () {
                     Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
                         Route::get('/add_category', 'SettingController@create_category')->name('add_category');
