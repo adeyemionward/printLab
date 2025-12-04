@@ -271,10 +271,20 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
                         Route::get('/add_category', 'SettingController@create_category')->name('add_category');
                         Route::post('/add_category', 'SettingController@post_category')->name('add_category');
+                        Route::get('/add_inventory', 'SettingController@create_inventory_category')->name('add_inventory_category');
+                        Route::post('/add_inventory', 'SettingController@post_inventory_category')->name('add_inventory_category');
                         Route::get('/all_category', 'SettingController@all_category')->name('all_category');
                         Route::get('/edit_category/{id}', 'SettingController@editCategory')->name('edit_category');
                         Route::post('/edit_category/{id}', 'SettingController@updateCategory')->name('edit_category');
                         Route::get('/delete_category/{id}', 'SettingController@deleteCategory')->name('delete_category');
+
+                        Route::get('/add_inventory', 'SettingController@create_inventory_category')->name('add_inventory_category');
+                        Route::post('/add_inventory', 'SettingController@post_inventory_category')->name('add_inventory_category');
+                        Route::get('/all_inventory', 'SettingController@all_inventory_category')->name('all_inventory_category');
+                        Route::get('/edit_category/{id}', 'SettingController@editInventoryCategory')->name('edit_inventory_category');
+                        Route::post('/edit_category/{id}', 'SettingController@updateInventoryCategory')->name('edit_inventory_category');
+                        Route::get('/delete_category/{id}', 'SettingController@deleteInventoryCategory')->name('delete_inventory_category');
+
                     });
                     //site settings
                     Route::group(['prefix' => '/site', 'as' => 'site.'], function () {

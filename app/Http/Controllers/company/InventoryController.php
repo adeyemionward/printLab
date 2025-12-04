@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\InventoryCategory;
 use App\Models\InventoryItem;
 use App\Models\StockLog;
+use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +16,11 @@ class InventoryController extends Controller
     public function list()
     {
         try {
-            $items = InventoryItem::all();
-            return view('company.inventory.list', compact('items'));
+            $items = InventoryItem::with('category')->where('user_id',Auth::id())->get();
+            $suppliers = Supplier::where('company_id', app('company_id'))->get();
+            $users = User::where('company_id', app('company_id'))->where('user_type',User::COMPANY)->get();
+
+            return view('company.inventory.list', compact('items','suppliers','users'));
         } catch (\Exception $e) {
             return back()->with('flash_error', 'Failed to fetch inventory: ' . $e->getMessage());
         }
@@ -22,7 +28,9 @@ class InventoryController extends Controller
 
     public function create()
     {
-        return view('company.inventory.add');
+          $inventoryCategories =  InventoryCategory::where('company_id', app('company_id'))->get();
+        //   dd($categories);
+        return view('company.inventory.add', compact('inventoryCategories'));
     }
 
     public function store(Request $request)
@@ -42,6 +50,7 @@ class InventoryController extends Controller
             $item->min_stock = $request->min_stock ?? 0;
             $item->description = $request->description;
             $item->current_stock = 0;
+            $item->inventory_category_id = $request->inventory_category_id;
             $item->save();
 
             return redirect()->route('company.inventory.list')
@@ -94,6 +103,7 @@ class InventoryController extends Controller
             StockLog::create([
                 'item_id' => $item->id,
                 'user_id' => Auth::id(),
+                'supplier_id' => $request->supplier_id,
                 'previous_stock' => $previousStock,
                 'qty_change' => $qtyChange,
                 'current_stock' => $item->current_stock,
@@ -126,6 +136,7 @@ class InventoryController extends Controller
             StockLog::create([
                 'item_id' => $item->id,
                 'user_id' => Auth::id(),
+                'receiver_id' => $request->receiver_id, //staff receiver
                 'previous_stock' => $previousStock,
                 'qty_change' => $qtyChange,
                 'current_stock' => $item->current_stock,

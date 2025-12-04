@@ -1,18 +1,18 @@
 
 @extends('company.layout.master')
 @section('content')
-@section('title', 'Add Expense Category')
+@section('title', 'Add Inventory Category')
 @php $page = 'add_location' @endphp
 
     <div class="content">
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-md-6 float-start">
-                    <h4 class="m-0 text-dark text-muted">Expense Category</h4>
+                    <h4 class="m-0 text-dark text-muted">Inventory Category</h4>
                 </div>
                 <div class="col-md-6">
                     <ol class="breadcrumb float-end">
-                        <a href="{{route('company.settings.category.all_category')}}"><li class="active btn btn-primary" style="">All Expense Category</li></a>
+                        <a href="{{route('company.settings.category.all_inventory_category')}}"><li class="active btn btn-primary" style="">All Inventory Category</li></a>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                                 <div class="col-md-12 col-xl-12">
                                     <div class="card">
                                         <div class="card-header bg-white">
-                                            <h5 class="card-title mb-0 text-muted">Create Category</h5>
+                                            <h5 class="card-title mb-0 text-muted">Create Inventory Category</h5>
                                         </div>
                                         <div class="card-body h-100">
                                             <div class="align-items-start">

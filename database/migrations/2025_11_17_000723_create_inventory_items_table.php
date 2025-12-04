@@ -17,7 +17,7 @@ return new class extends Migration
                 $table->id();
 
                 $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-                // Item Name
+                 // Item Name
                 $table->string('item_name');
 
                 // Unit of measurement (pcs, ream, bottle, etc.)

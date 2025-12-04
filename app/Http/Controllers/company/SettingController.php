@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
+use App\Models\InventoryCategory;
 use App\Models\User;
 use App\Models\Testimonial;
 use App\Models\SiteSetting;
@@ -54,11 +55,6 @@ class SettingController extends Controller
         return view('company.settings.category.add_category');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function post_category()
     {
         try{
@@ -104,6 +100,68 @@ class SettingController extends Controller
             $expense_category =  ExpenseCategory::find($id);
             $expense_category->delete();
             return redirect(route('company.settings.category.all_category'))->with('flash_success','Expense category deleted successfully');
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
+    }
+
+    public function all_inventory_category()
+    {
+        $inventory_category =  InventoryCategory::where('company_id', app('company_id'))->get();
+        return view('company.settings.category.all_inventory_category', compact('inventory_category'));
+    }
+
+    public function create_inventory_category()
+    {
+        return view('company.settings.category.add_inventory_category');
+    }
+
+    public function post_inventory_category()
+    {
+        try{
+            $user = Auth::user();
+            //save into locations
+
+            $name                 =  request('name');
+            for ($count=0; $count < count($name); $count++) {
+                $order_location =  InventoryCategory::updateOrCreate(
+                    [
+                        'company_id'    => app('company_id'),
+                        'category_name' => $name[$count],
+                        'created_by'    => $user->id,
+                    ],
+                );
+            }
+            return redirect(route('company.settings.category.all_inventory_category'))->with('flash_success','Inventory category added successfully');
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
+    }
+
+     public function editInventoryCategory($id){
+        $inventory_category =  InventoryCategory::find($id);
+        return view('company.settings.category.edit_inventory_category', compact('inventory_category'));
+    }
+
+    public function updateInventoryCategory($id){
+        try{
+            $inventory_category =  InventoryCategory::find($id);
+            $inventory_category->category_name = request('name');
+            $inventory_category->save();
+            return redirect(route('company.settings.category.all_inventory_category'))->with('flash_success','Inventory category edited successfully');
+        }catch(\Exception $th){
+            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+        }
+
+    }
+
+    public function deleteInventoryCategory($id){
+        try{
+            $inventory_category =  InventoryCategory::find($id);
+            $inventory_category->delete();
+            return redirect(route('company.settings.category.all_inventory_category'))->with('flash_success','Inventory category deleted successfully');
         }catch(\Exception $th){
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }

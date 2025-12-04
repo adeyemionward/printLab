@@ -20,6 +20,9 @@ class StockLog extends Model
         'current_stock',   // stock after change
         'type',            // 'IN' or 'OUT'
         'note',            // optional note or reason
+        'supplier_id',     // reference to supplier (for stock IN)
+        'receiver_id',     // reference to receiver (for stock OUT)
+
     ];
 
     /**
@@ -32,6 +35,11 @@ class StockLog extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'reciever_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'suppliedr_id');
     }
 }

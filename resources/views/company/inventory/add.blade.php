@@ -2,7 +2,6 @@
 @section('content')
 @section('title', 'Add Inventory')
 
-
 <div class="content">
     <div class="container-fluid">
         <div class="row mt-2">
@@ -44,7 +43,7 @@
                                                                 <div class="row">
 
                                                                     <!-- Item Name -->
-                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                    <div class="form-group mt-3 mb-3 col-md-3">
                                                                         <label for="item_name">Item Name:</label>
                                                                         <input type="text" name="item_name" id="item_name"
                                                                                class="form-control{{ $errors->has('item_name') ? ' is-invalid' : '' }}"
@@ -56,7 +55,7 @@
 
 
                                                                     <!-- Unit -->
-                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                    <div class="form-group mt-3 mb-3 col-md-3">
                                                                         <label for="unit">Unit (pcs, box, ream, bottle):</label>
                                                                         <input type="text" name="unit" id="unit"
                                                                                class="form-control{{ $errors->has('unit') ? ' is-invalid' : '' }}"
@@ -67,7 +66,7 @@
                                                                     </div>
 
                                                                     <!-- Minimum Stock -->
-                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                    <div class="form-group mt-3 mb-3 col-md-3">
                                                                         <label for="min_stock">Minimum Stock:</label>
                                                                         <input type="number" name="min_stock" id="min_stock"
                                                                                class="form-control{{ $errors->has('min_stock') ? ' is-invalid' : '' }}"
@@ -76,6 +75,27 @@
                                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                                         @enderror
                                                                     </div>
+
+                                                                    <div class="form-group mt-3 mb-3 col-md-3">
+                                                                        <label for="inventory_category_id">Category:</label>
+                                                                        <select name="inventory_category_id" id="inventory_category_id"
+                                                                                class="form-control{{ $errors->has('inventory_category_id') ? ' is-invalid' : '' }}">
+                                                                            <option value="">-- Select Category --</option>
+                                                                            @forelse ($inventoryCategories as $category)
+                                                                                <option value="{{ $category->id }}"
+                                                                                    {{ old('inventory_category_id') }}>
+                                                                                    {{ $category->category_name }}
+                                                                                </option>
+                                                                            @empty
+                                                                                <option value="">No categories available</option>
+                                                                            @endforelse
+                                                                        </select>
+                                                                        @error('inventory_category_id')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                        @enderror
+                                                                    </div>
+
+
                                                                 </div>
 
 

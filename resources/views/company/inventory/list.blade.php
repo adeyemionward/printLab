@@ -29,6 +29,7 @@
                         <tr>
                             <th>Item Name</th>
                             <th>Unit</th>
+                            <th class="text-center">Category</th>
                             <th class="text-center">Current Stock</th>
                             <th class="text-center">Min Stock</th>
                             <th class="text-center">Status</th>
@@ -41,6 +42,7 @@
                         <tr>
                             <td>{{ $item->item_name }}</td>
                             <td>{{ $item->unit }}</td>
+                            <td>{{ $item->category->category_name  }}</td>
                             <td class="text-center">{{ $item->current_stock }}</td>
                             <td class="text-center">{{ $item->min_stock }}</td>
                             <td class="text-center">
@@ -101,6 +103,25 @@
                                                 <label>Note (optional)</label>
                                                 <input type="text" name="note" class="form-control">
                                             </div>
+
+                                            <div class="mb-3">
+                                                <label for="supplier_id">Supplier:</label>
+                                                <select  name="supplier_id" id="supplier_id"
+                                                        class="form-control{{ $errors->has('supplier_id') ? ' is-invalid' : '' }}">
+                                                    <option value="">-- Select Supplier --</option>
+                                                    @forelse ($suppliers as $row)
+                                                        <option value="{{ $row->id }}"
+                                                            {{ old('supplier_id') }}>
+                                                            {{ $row->company_name }}
+                                                        </option>
+                                                    @empty
+                                                        <option value="">No categories available</option>
+                                                    @endforelse
+                                                </select>
+                                                @error('supplier_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-primary">Add Stock</button>
@@ -129,6 +150,25 @@
                                             <div class="mb-3">
                                                 <label>Note (optional)</label>
                                                 <input type="text" name="note" class="form-control">
+                                            </div>
+
+                                            <div class=" mb-3">
+                                                <label for="receiver_id">Staff Receiver:</label>
+                                                <select name="receiver_id" id="receiver_id"
+                                                        class="form-control{{ $errors->has('receiver_id') ? ' is-invalid' : '' }}">
+                                                    <option value="">-- Select Receiver --</option>
+                                                    @forelse ($users as $row)
+                                                        <option value="{{ $row->id }}"
+                                                            {{ old('receiver_id') }}>
+                                                            {{ $row->firstname.' '.$row->lastname }}
+                                                        </option>
+                                                    @empty
+                                                        <option value="">No categories available</option>
+                                                    @endforelse
+                                                </select>
+                                                @error('receiver_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="modal-footer">

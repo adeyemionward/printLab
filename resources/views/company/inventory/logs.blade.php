@@ -31,6 +31,8 @@
                         <tr>
                             <th>Date & Time</th>
                             <th>Type</th>
+
+                            <th>Supplier / Receiver</th>
                             <th class="text-center">Previous Stock</th>
                             <th class="text-center">Quantity Changed</th>
                             <th class="text-center">Current Stock</th>
@@ -41,11 +43,19 @@
                         @forelse($logs as $log)
                         <tr>
                             <td>{{ $log->created_at->format('Y-m-d H:i') }}</td>
+
                             <td>
                                 @if($log->type === 'IN')
                                     <span class="badge bg-success">Added</span>
                                 @else
                                     <span class="badge bg-danger">Removed</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($log->type === 'IN')
+                                    {{ $log->supplier->company_name ?? '-' }}
+                                @else
+                                    {{ $log->user->firstname.' '.$log->user->lastname ?? '-' }}
                                 @endif
                             </td>
                             <td class="text-center">{{ $log->previous_stock }}</td>

@@ -30,6 +30,15 @@
     nav ul li a span.data-feather.theme-item{
         color: #000 !important;
     }
+
+    .select2-container {
+        z-index: 99999 !important;
+    }
+
+    .select2-dropdown {
+        z-index: 999999 !important;
+    }
+
 </style>
 <body class="d-flex flex-column h-100">
 	<div id="page">
@@ -180,7 +189,7 @@
                                     <span class="data-feather theme-item">Items & Stock</span>
                                 </a>
 
-                             
+
 							</div>
 						</div>
 					</li>
@@ -293,6 +302,11 @@
 								<a href="{{route('company.settings.category.add_category')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Expenses Category</span>
+                                </a>
+
+                                <a href="{{route('company.settings.category.add_inventory_category')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Inventory Category</span>
                                 </a>
 
                                 <a href="{{route('company.job_order.location.add_location')}}" class="text-center">
@@ -485,6 +499,8 @@
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
 										<li><a class="dropdown-item" href="{{route('company.settings.category.add_category')}}">Expenses Category</a></li>
+                                        <li><a class="dropdown-item" href="{{route('company.settings.category.add_inventory_category')}}">Inventory Category</a></li>
+
 										<li><a class="dropdown-item" href="{{route('company.job_order.location.add_location')}}">Locations</a></li>
                                         <li><a class="dropdown-item" href="{{route('company.roles.add_role')}}">Users Roles & Permission</a></li>
                                         <li><a class="dropdown-item" href="{{route('company.settings.site.color_logo')}}">Site Settings</a></li>
