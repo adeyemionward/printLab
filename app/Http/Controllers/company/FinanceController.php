@@ -290,6 +290,8 @@ class FinanceController extends Controller
             ->get()
             ->groupBy('user_id');
 
+            
+
 
             $customerDebts = [];
 
@@ -336,13 +338,13 @@ class FinanceController extends Controller
 
 
     public function all_payment_history($customer_id) //the customer_id
-{
-    $job_pay = JobOrderUnique::with('jobPaymentHistories', 'user')
-        ->where('user_id', $customer_id)
-        ->get();
+    {
+        $job_pay = JobOrderUnique::with('jobPaymentHistories', 'user')
+            ->where('user_id', $customer_id)
+            ->get();
 
-    return view('company.finance.all_payment_history', compact('job_pay'));
-}
+        return view('company.finance.all_payment_history', compact('job_pay'));
+    }
 
 
     public function all_creditors(Request $request)

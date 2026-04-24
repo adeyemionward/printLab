@@ -36,30 +36,39 @@
                             @if (request()->has('customer'))
                                 <tbody>
                                 @php $totalDebt = 0; @endphp
-                                @foreach ($job_pay  as $val)
-                                    @php
-                                        $totalDebt += $val->outstanding;
-                                    @endphp
-                                    @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                @foreach ($job_pay as $val)
 
-                                        <td>{{ $val->user->firstname . ' ' . $val->user->lastname }}</td>
+    @php
+        $outstanding = $val->outstanding ?? 0;
 
-                                        <td>{{ $val->user->company_name }}</td>
+        // 🚨 skip fully paid / no debt
+        if ($outstanding <= 0) continue;
 
-                                        <td>{{ '₦' . number_format($val->total_cost) }}</td>
+        $totalDebt += $outstanding;
+    @endphp
 
-                                        <td>{{ '₦' . number_format($val->total_paid) }}</td>
+    <tr>
+        <td>{{ $loop->iteration }}</td>
 
-                                        <td>{{ '₦' . number_format($val->outstanding) }}</td>
-                                        <td>
-                                            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}" class="btn btn-sm btn-outline-primary">
-                                                Payment History
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+        <td>{{ $val->user->firstname . ' ' . $val->user->lastname }}</td>
+
+        <td>{{ $val->user->company_name }}</td>
+
+        <td>{{ '₦' . number_format($val->total_cost) }}</td>
+
+        <td>{{ '₦' . number_format($val->total_paid) }}</td>
+
+        <td>{{ '₦' . number_format($outstanding) }}</td>
+
+        <td>
+            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}"
+               class="btn btn-sm btn-outline-primary">
+                Payment History
+            </a>
+        </td>
+    </tr>
+
+@endforeach
                                 <tfoot>
                                     <tr>
 
