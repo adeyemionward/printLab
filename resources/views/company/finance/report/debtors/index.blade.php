@@ -38,37 +38,37 @@
                                 @php $totalDebt = 0; @endphp
                                 @foreach ($job_pay as $val)
 
-    @php
-        $outstanding = $val->outstanding ?? 0;
+                                    @php
+                                        $outstanding = $val->outstanding ?? 0;
 
-        // 🚨 skip fully paid / no debt
-        if ($outstanding <= 0) continue;
+                                        // 🚨 skip fully paid / no debt
+                                        if ($outstanding <= 0) continue;
 
-        $totalDebt += $outstanding;
-    @endphp
+                                        $totalDebt += $outstanding;
+                                    @endphp
 
-    <tr>
-        <td>{{ $loop->iteration }}</td>
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
 
-        <td>{{ $val->user->firstname . ' ' . $val->user->lastname }}</td>
+                                        <td>{{ $val->user->firstname . ' ' . $val->user->lastname }}</td>
 
-        <td>{{ $val->user->company_name }}</td>
+                                        <td>{{ $val->user->company_name }}</td>
 
-        <td>{{ '₦' . number_format($val->total_cost) }}</td>
+                                        <td>{{ '₦' . number_format($val->total_cost) }}</td>
 
-        <td>{{ '₦' . number_format($val->total_paid) }}</td>
+                                        <td>{{ '₦' . number_format($val->total_paid) }}</td>
 
-        <td>{{ '₦' . number_format($outstanding) }}</td>
+                                        <td>{{ '₦' . number_format($outstanding) }}</td>
 
-        <td>
-            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}"
-               class="btn btn-sm btn-outline-primary">
-                Payment History
-            </a>
-        </td>
-    </tr>
+                                        <td>
+                                            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}"
+                                            class="btn btn-sm btn-outline-primary">
+                                                Payment History
+                                            </a>
+                                        </td>
+                                    </tr>
 
-@endforeach
+                                @endforeach
                                 <tfoot>
                                     <tr>
 

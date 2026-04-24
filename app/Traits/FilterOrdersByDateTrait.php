@@ -73,8 +73,8 @@ trait FilterOrdersByDateTrait
 
     public function filterFinanceByDate(Request $request = null)
     {
-        $startDate  = request('date_from');
-        $endDate    = request('date_to');
+        $startDate = request('date_from');
+        $endDate   = request('date_to') ?: now()->toDateString();
         $customer   = request('customer');
 
         $payments = DB::table('job_payment_new_histories')
