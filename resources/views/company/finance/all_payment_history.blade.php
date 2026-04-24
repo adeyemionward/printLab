@@ -40,24 +40,34 @@
                             </thead>
                                 <tbody>
                                 @php $totalDebt = 0; @endphp
-                                @foreach ($job_pay  as $val)
+                               @foreach ($job_pay as $val)
+
                                     @php
-                                        // if ($val->total_cost == $val->jobPaymentHistories->sum('amount')) continue;
-                                        $totalDebt += $val->total_cost - $val->jobPaymentHistories->sum('amount')
+                                        $paid = $val->jobPaymentHistories->sum('amount');
+                                        $outstanding = $val->total_cost - $paid;
+
+                                        // Skip fully paid orders
+                                        if ($outstanding <= 0) continue;
+
+                                        $totalDebt += $outstanding;
                                     @endphp
-                                    @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
+
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{'₦'.number_format($val->total_cost)}} </td>
-                                        <td>{{'₦'.number_format($val->jobPaymentHistories->sum('amount'))}}</td>
-                                        <td>{{'₦'.number_format($val->total_cost - $val->jobPaymentHistories->sum('amount'))}}</td>
-                                        {{-- <td>{{$val->status}}</td> --}}
+
+                                        <td>{{ '₦' . number_format($val->total_cost) }}</td>
+
+                                        <td>{{ '₦' . number_format($paid) }}</td>
+
+                                        <td>{{ '₦' . number_format($outstanding) }}</td>
+
                                         <td>
                                             <a href="{{ route('company.job_order.view_order', [$val->id]) }}" class="btn btn-sm btn-outline-primary">
                                                 View Order
                                             </a>
                                         </td>
                                     </tr>
+
                                 @endforeach
                                 <tfoot>
                                     <tr>
