@@ -54,7 +54,9 @@
 
                                         <td>{{ '₦' . number_format($val->outstanding) }}</td>
                                         <td>
-                                            <a href="#"><span><i class="fa fa-eye"></i></span></a>
+                                            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}" class="btn btn-sm btn-outline-primary">
+                                                Payment History
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

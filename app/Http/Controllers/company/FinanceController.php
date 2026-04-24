@@ -334,7 +334,15 @@ class FinanceController extends Controller
         return view('company.finance.report.debtors.index', compact('customerDebts','previousYearOrders','previousYearOrders1'));
     }
 
-    
+
+    public function all_payment_history($customer_id) //the customer_id
+{
+    $job_pay = JobOrderUnique::with('jobPaymentHistories', 'user')
+        ->where('user_id', $customer_id)
+        ->get();
+
+    return view('company.finance.all_payment_history', compact('job_pay'));
+}
 
 
     public function all_creditors(Request $request)

@@ -196,6 +196,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                 Route::group(['prefix' => '/finance', 'as' => 'finance.'], function () {
 
+                    Route::get('/all_payment_history/{customer_id}', 'FinanceController@all_payment_history')->name('all_payment_history');
 
 
                     Route::group(['prefix' => '/requisitions', 'as' => 'requisitions.'], function () {
