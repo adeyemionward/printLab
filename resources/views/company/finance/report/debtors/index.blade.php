@@ -36,17 +36,11 @@
                             @if (request()->has('customer'))
                                 <tbody>
                                 @php $totalDebt = 0; @endphp
-                                @foreach ($job_pay as $val)
-
+                                @foreach ($job_pay  as $val)
                                     @php
-                                        $outstanding = $val->outstanding ?? 0;
-
-                                        // 🚨 skip fully paid / no debt
-                                        if ($outstanding <= 0) continue;
-
-                                        $totalDebt += $outstanding;
+                                        $totalDebt += $val->outstanding;
                                     @endphp
-
+                                    @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
 
@@ -58,16 +52,13 @@
 
                                         <td>{{ '₦' . number_format($val->total_paid) }}</td>
 
-                                        <td>{{ '₦' . number_format($outstanding) }}</td>
-
+                                        <td>{{ '₦' . number_format($val->outstanding) }}</td>
                                         <td>
-                                            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}"
-                                            class="btn btn-sm btn-outline-primary">
+                                            <a href="{{ route('company.finance.all_payment_history', $val->user->id ?? '') }}" class="btn btn-sm btn-outline-primary">
                                                 Payment History
                                             </a>
                                         </td>
                                     </tr>
-
                                 @endforeach
                                 <tfoot>
                                     <tr>

@@ -74,7 +74,7 @@ trait FilterOrdersByDateTrait
     public function filterFinanceByDate(Request $request = null)
     {
         $startDate = request('date_from');
-        $endDate   = request('date_to') ?: now()->toDateString();
+        $endDate   = request('date_to') ? : now()->toDateString();
         $customer   = request('customer');
 
         $payments = DB::table('job_payment_new_histories')
@@ -103,7 +103,6 @@ trait FilterOrdersByDateTrait
             if (!empty($customer)) {
                 $query->where('job_order_uniques.user_id', $customer);
             }
-
             return $query->get();
     }
 
