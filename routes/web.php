@@ -53,6 +53,7 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
                     Route::get('/track_order/{id}', 'JobOrderController@track_job_order')->name('track_order');
                     Route::get('/transaction_history/{id}', 'JobOrderController@transaction_history')->name('transaction_history');
                     Route::post('/transaction_history/{id}', 'JobOrderController@updateJobPayment')->name('transaction_history');
+                    Route::get('/company/{company_id}','JobOrderController@companyJobs')->name('company_jobs');
 
                     Route::get('/view_title_order/{job_title}/{id}', 'JobOrderController@view_title_order')->name('view_title_order');
 

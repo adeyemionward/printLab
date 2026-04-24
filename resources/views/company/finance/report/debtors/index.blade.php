@@ -38,19 +38,24 @@
                                 @php $totalDebt = 0; @endphp
                                 @foreach ($job_pay  as $val)
                                     @php
-                                        // if ($val->total_cost == $val->jobPaymentHistories->sum('amount')) continue;
-                                        $totalDebt += $val->total_cost - $val->jobPaymentHistories->sum('amount')
+                                        $totalDebt += $val->outstanding;
                                     @endphp
                                     @php $job_title = str_replace(' ','_', $val->job_order_name) ; $rr =   0;   @endphp
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$val->user->firstname.' '. $val->user->lastname}}</td>
-                                        <td>{{$val->user->company_name}}</td>
-                                        <td>{{'₦'.number_format($val->total_cost)}} </td>
-                                        <td>{{'₦'.number_format($val->jobPaymentHistories->sum('amount'))}}</td>
-                                        <td>{{'₦'.number_format($val->total_cost - $val->jobPaymentHistories->sum('amount'))}}</td>
-                                        {{-- <td>{{$val->status}}</td> --}}
-                                        <td><a href="{{route('company.job_order.view_order',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                        <td>{{ $loop->iteration }}</td>
+
+                                        <td>{{ $val->user->firstname . ' ' . $val->user->lastname }}</td>
+
+                                        <td>{{ $val->user->company_name }}</td>
+
+                                        <td>{{ '₦' . number_format($val->total_cost) }}</td>
+
+                                        <td>{{ '₦' . number_format($val->total_paid) }}</td>
+
+                                        <td>{{ '₦' . number_format($val->outstanding) }}</td>
+                                        <td>
+                                            <a href="#"><span><i class="fa fa-eye"></i></span></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 <tfoot>
@@ -112,7 +117,7 @@
                                             <td><b>{{'₦'.number_format($currentYearDebt)}}</b></td>
                                             <td>&nbsp;</td>
                                         </tr>
-                                        
+
                                         <tr>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>

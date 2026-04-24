@@ -237,81 +237,6 @@ class FinanceController extends Controller
     }
 
 
-
-    // public function all_debtors(Request $request)
-    // {
-    //     $startDate  = request('date_from');
-    //     $endDate    = request('date_to');
-    //     $customer   = request('customer');
-    //     //  dd(app('company_id'));
-    //     if(request()->has('customer')) {
-    //         $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
-    //         // dd($job_pay);
-    //          return view('company.finance.report.debtors.index', compact('job_pay'));
-    //     }else{
-    //         $previousYearOrders1 = JobOrderUnique::with('jobPaymentHistories')
-    //         ->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)
-    //         ->where('company_id',app('company_id'))
-    //         ->whereYear('created_at', '!=', Carbon::now()->year)
-    //         ->get();
-
-    //         $currentYearOrders = JobOrderUnique::with('jobPaymentHistories', 'user')
-    //         ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    //         ->whereYear('created_at', Carbon::now()->year)
-    //         ->where('company_id', app('company_id'))
-    //         ->get()
-    //         ->groupBy('user_id');
-
-
-    //         $previousYearOrders = JobOrderUnique::with('jobPaymentHistories', 'user')
-    //         ->where('cart_order_status', JobOrderUnique::ORDER_COMPLETED)
-    //         ->where('company_id', app('company_id'))
-    //         ->whereYear('created_at', '!=', Carbon::now()->year)
-    //         ->get()->groupBy('user_id');
-
-
-    //         $customerDebts = [];
-
-    //         foreach ($currentYearOrders as $userId => $orders) {
-    //             $user = $orders->first()->user;
-
-    //             // This year's totals
-    //             $currentTotalCost = $orders->sum('total_cost');
-    //             $currentTotalPaid = $orders->sum(function ($order) {
-    //                 return $order->jobPaymentHistories->sum('amount');
-    //             });
-
-    //             // Previous year's totals
-    //             $previousOrders = $previousYearOrders->get($userId, collect());
-    //             $previousTotalCost = $previousOrders->sum('total_cost');
-    //             $previousTotalPaid = $previousOrders->sum(function ($order) {
-    //                 return $order->jobPaymentHistories->sum('amount');
-    //             });
-
-    //             // Total and balance
-    //             $totalCost = $currentTotalCost ;
-    //             $totalPaid = $currentTotalPaid + $previousTotalPaid;
-    //             $balance = $totalCost - $totalPaid;
-
-    //             // Only add if there's an outstanding balance
-    //             if ($balance > 0) {
-    //                 $customerDebts[] = [
-    //                     'user_id'        => $userId,
-    //                     'name'           => $user->firstname . ' ' . $user->lastname,
-    //                     'company'        => $user->company_name,
-    //                     'current_year'   => $currentTotalCost - $currentTotalPaid,
-    //                     'previous_years' => $previousTotalCost - $previousTotalPaid,
-    //                     'total_cost'     => $totalCost,
-    //                     'total_paid'     => $totalPaid,
-    //                     'balance'        => $balance,
-    //                 ];
-    //             }
-    //         }
-    //     }
-
-    //     return view('company.finance.report.debtors.index', compact('customerDebts','previousYearOrders','previousYearOrders1'));
-    // }
-
     public function all_debtors(Request $request)
     {
         $startDate  = request('date_from');
@@ -321,9 +246,10 @@ class FinanceController extends Controller
         $previousYear = Carbon::now()->subYear()->year;
         //  dd(app('company_id'));
         if(request()->has('customer')) {
-            $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
-            // dd($job_pay);
-             return view('company.finance.report.debtors.index', compact('job_pay'));
+            // $job_pay = $this->filterFinanceByDate()->with('jobPaymentHistories')->where('cart_order_status',JobOrderUnique::ORDER_COMPLETED)->where('company_id',app('company_id'))->get();
+             $job_pay = $this->filterFinanceByDate();
+            //dd($job_pay);
+            return view('company.finance.report.debtors.index', compact('job_pay'));
         }else{
 
             $previousYearOrders1 = JobOrderUnique::with(['jobPaymentHistories' => function ($query) use ($previousYear) {
@@ -402,15 +328,13 @@ class FinanceController extends Controller
                         'balance'        => $balance,
                     ];
                 }
-
-                // dd($customerDebts);
             }
         }
 
         return view('company.finance.report.debtors.index', compact('customerDebts','previousYearOrders','previousYearOrders1'));
     }
 
-
+    
 
 
     public function all_creditors(Request $request)

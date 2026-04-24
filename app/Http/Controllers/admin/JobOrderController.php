@@ -199,7 +199,7 @@ class JobOrderController extends Controller
             );
         }
         return back()->with("flash_success","Design Uploaded successfully");
-    }
+    } 
 
     public function orderInvoicePdf($order_no){
 
