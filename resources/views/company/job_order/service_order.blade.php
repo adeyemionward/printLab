@@ -59,7 +59,7 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="exampleFormControlSelect1">Color
+                                                                            <label for="exampleFormControlSelect1">Ink
                                                                                 </label>
                                                                             <select name="ink" required class="form-control form-select"
                                                                                 id="exampleFormControlSelect1">
@@ -82,7 +82,17 @@
                                                                             <input type="number" required name="total_cost" class="form-control numberFormat"
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
+                                                                        
 
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
                                                                             <select class="form-control" name="payment_type" required>
@@ -92,7 +102,14 @@
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
                                                                         </div>
+                                                                        
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="amount_paid">Amount Paid</label>
+                                                                            <input type="number"  name="amount_paid" class="form-control numberFormat"
+                                                                                id="amount_paid" placeholder="eg: 10000" required>
+                                                                        </div>
                                                                     </div>
+                                                                    
                                                                      <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
                                                                             <label for="cheque_number">Posted Cheque Due Date</label>
                                                                             <input type="date" class="form-control " name="posted_cheque_date" id="posted_cheque_date">
@@ -138,23 +155,7 @@
 
                                                                             </tbody>
                                                                         </table>
-                                                                    <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="amount_paid">Amount Paid</label>
-                                                                            <input type="number"  name="amount_paid" class="form-control numberFormat"
-                                                                                id="amount_paid" placeholder="eg: 10000" required>
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="location">Job Location</label>
-                                                                            <select class="form-control" name="location" required>
-                                                                                <option value="">--Select Job Location--</option>
-                                                                                @foreach ($locations as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+                                                                   
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">
                                                                         <i class="text-white me-2" data-feather="check-circle"></i>Save

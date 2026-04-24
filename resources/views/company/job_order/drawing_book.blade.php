@@ -73,7 +73,7 @@
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        
+
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Ink
@@ -109,7 +109,11 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-
+                                                                         <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Production Time (Days)
+                                                                                </label> <input required type="number" name="production_time" class="form-control"
+                                                                                id="quantity" placeholder="eg: 4">
+                                                                        </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Proof Needed</label>
                                                                             <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
@@ -125,6 +129,16 @@
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
 
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control form-select" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="payment_type">Payment Type</label>
                                                                             <select class="form-control form-select" id="payment_type" name="payment_type" required>
@@ -134,22 +148,26 @@
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
                                                                         </div>
-                                                                        
-                                                                        
+
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="amount_paid">Amount Paid</label>
+                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
+                                                                                id="amount_paid" placeholder="eg: 10000" required>
+                                                                        </div>
 
                                                                         <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
                                                                             <label for="cheque_number">Posted Cheque Due Date</label>
                                                                             <input type="date" class="form-control " name="posted_cheque_date" id="posted_cheque_date">
                                                                         </div>
 
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-12">
-                                                                             <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                         <div class="form-group mt-3 mb-3 col-md-12">
+                                                                             <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                         </div>
-                                                                         
+
                                                                         <table id="products" style="margin-top:20px; display:none; margin-left:10px">
 
-                                                                          
+
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Marketer</th>
@@ -169,7 +187,7 @@
                                                                                         </select>
                                                                                     </td>
                                                                                     <td style="width:28%"><input type="number" required class="form-control percentage"  name="percentage[]" /></td>
-                                                                                
+
                                                                                     <td>
                                                                                         <a class="remove-product btn btn-danger">
                                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -182,30 +200,6 @@
 
                                                                             </tbody>
                                                                         </table>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="amount_paid">Amount Paid</label>
-                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
-                                                                                id="amount_paid" placeholder="eg: 10000" required>
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="location">Job Location</label>
-                                                                            <select class="form-control form-select" name="location" required>
-                                                                                <option value="">--Select Job Location--</option>
-                                                                                @foreach ($locations as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-
-                                                                        
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="production_time">Production Time (Days)
-                                                                                </label> <input required type="number" name="production_time" class="form-control"
-                                                                                id="quantity" placeholder="eg: 4">
-                                                                        </div>
                                                                     </div>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">

@@ -106,8 +106,13 @@
                                                                                     <option value="80g">80g</option>
                                                                                 </select>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row">
+
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="production_time">Production Time (Days)
+                                                                                </label> <input required type="number" name="production_time" class="form-control"
+                                                                                id="quantity" placeholder="eg: 4">
+                                                                        </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Proof Needed</label>
@@ -124,6 +129,23 @@
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
 
+
+
+                                                                    </div>
+                                                                    <div class="row">
+
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control form-select" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+
+
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
                                                                             <select class="form-control form-select" id="payment_type" name="payment_type" required>
@@ -135,6 +157,12 @@
                                                                         </div>
 
 
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="amount_paid">Amount Paid</label>
+                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
+                                                                                id="amount_paid" placeholder="eg: 10000" required>
+                                                                        </div>
 
                                                                         <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
                                                                             <label for="cheque_number">Posted Cheque Due Date</label>
@@ -182,29 +210,6 @@
                                                                             </tbody>
                                                                         </table>
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="amount_paid">Amount Paid</label>
-                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
-                                                                                id="amount_paid" placeholder="eg: 10000" required>
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="location">Job Location</label>
-                                                                            <select class="form-control form-select" name="location" required>
-                                                                                <option value="">--Select Job Location--</option>
-                                                                                @foreach ($locations as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-
-
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="production_time">Production Time (Days)
-                                                                                </label> <input required type="number" name="production_time" class="form-control"
-                                                                                id="quantity" placeholder="eg: 4">
-                                                                        </div>
                                                                     </div>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">

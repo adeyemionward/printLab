@@ -117,6 +117,18 @@
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
 
+                                                                        
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control form-select" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
                                                                             <select class="form-control form-select" name="payment_type" required>
@@ -126,12 +138,19 @@
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
                                                                         </div>
+                                                                        
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="amount_paid">Amount Paid</label>
+                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
+                                                                                id="amount_paid" placeholder="eg: 10000" required>
+                                                                        </div>
                                                                         <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
                                                                             <label for="cheque_number">Posted Cheque Due Date</label>
                                                                             <input type="date" class="form-control " name="posted_cheque_date" id="posted_cheque_date">
                                                                         </div>
 
-
+                                                                        
                                                                         <div class="form-group mt-3 mb-3 col-md-12">
                                                                              <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
                                                                         </div>
@@ -171,22 +190,6 @@
 
                                                                             </tbody>
                                                                         </table>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="amount_paid">Amount Paid</label>
-                                                                            <input type="text"  name="amount_paid" class="form-control numberFormat"
-                                                                                id="amount_paid" placeholder="eg: 10000" required>
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="location">Job Location</label>
-                                                                            <select class="form-control form-select" name="location" required>
-                                                                                <option value="">--Select Job Location--</option>
-                                                                                @foreach ($locations as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
                                                                     </div>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">

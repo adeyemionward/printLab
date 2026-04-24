@@ -60,7 +60,21 @@
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="quantity">Quantity</label> <input required type="number" name="quantity" class="form-control"
                                                                                 id="quantity">
+                                                                        </div>  
+                                                                        
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="ink">Ink</label>
+                                                                            <select name="ink" required class="form-control form-select"
+                                                                                id="exampleFormControlSelect1">
+                                                                                <option value="">--Select Color Type--</option>
+                                                                                <option value="single">Single Color</option>
+                                                                                <option value="full">Full Color</option>
+                                                                            </select>
                                                                         </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="size">Size</label>
@@ -73,19 +87,6 @@
                                                                                 <option value="4.25 x 5.5 - (273)">4.25 x 5.5</option>
                                                                             </select>
                                                                         </div>
-
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="ink">Ink</label>
-                                                                            <select name="ink" required class="form-control form-select"
-                                                                                id="exampleFormControlSelect1">
-                                                                                <option value="">--Select Color Type--</option>
-                                                                                <option value="single">Single Color</option>
-                                                                                <option value="full">Full Color</option>
-                                                                            </select>
-                                                                        </div>
-
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="paper_type">Paper Type</label>
                                                                             <select required name="paper_type" class="form-control form-select" id="exampleFormControlSelect1">
@@ -117,6 +118,17 @@
                                                                             <input type="text" required name="total_cost" class="form-control numberFormat"
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
+                                                                        
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="location">Job Location</label>
+                                                                            <select class="form-control" name="location" required>
+                                                                                <option value="">--Select Job Location--</option>
+                                                                                @foreach ($locations as $val)
+                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
 
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
@@ -128,11 +140,18 @@
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
                                                                         </div>
+                                                                        
 
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="text">Amount Paid</label>
+                                                                            <input type="number" required name="amount_paid" class="form-control numberFormat"
+                                                                                id="amount_paid" placeholder="eg: 10000">
+                                                                        </div>
                                                                          <div class="form-group posted_cheque_date mt-3 mb-3 col-md-12" id="cheque_details" style="display: none;">
                                                                             <label for="cheque_number">Posted Cheque Due Date</label>
                                                                             <input type="date" class="form-control " name="posted_cheque_date" id="posted_cheque_date">
                                                                         </div>
+                                                                        
 
 
                                                                         <div class="form-group mt-3 mb-3 col-md-12">
@@ -174,22 +193,6 @@
 
                                                                             </tbody>
                                                                         </table>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="text">Amount Paid</label>
-                                                                            <input type="number" required name="amount_paid" class="form-control numberFormat"
-                                                                                id="amount_paid" placeholder="eg: 10000">
-                                                                        </div>
-
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
-                                                                            <label for="location">Job Location</label>
-                                                                            <select class="form-control" name="location" required>
-                                                                                <option value="">--Select Job Location--</option>
-                                                                                @foreach ($locations as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
                                                                     </div>
 
                                                                     <button class="btn btn-sm btn-danger" type="submit">
