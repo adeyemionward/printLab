@@ -50,32 +50,52 @@
                                                     <tbody>
                                                     @php $total_commission = 0; @endphp
                                                         @foreach ($job_orders as $index => $val)
-                                                        @php $job_title = str_replace(' ','_', $val->jobDetails->job_order_name); $total_commission += ($val->percentage/100)*$val->jobDetails->total_cost   @endphp
+                                                            @php 
+                                                                // 1. Safely pull data from jobDetails relations, fall back cleanly if missing
+                                                                $job_detail_name = $val->jobDetails->job_order_name ?? 'Unknown Job';
+                                                                $job_title = str_replace(' ', '_', $job_detail_name);
+                                                                
+                                                                // 2. Clean and cast the total cost to numeric format
+                                                                $raw_cost = $val->jobDetails->total_cost ?? 0;
+                                                                $clean_cost = (float) str_replace(',', '', $raw_cost);
+                                                                
+                                                                // 3. Compute commission amounts
+                                                                $item_commission = ($val->percentage / 100) * $clean_cost;
+                                                                $total_commission += $item_commission;
+                                                            @endphp
+
                                                             <tr>
-                                                                <td>{{$index+1}}</td>
-                                                                {{-- <td>{{$val->user->firstname.' '. $val->user->lastname}}</td> --}}
-                                                                <td>{{$val->jobDetails->job_order_name}}</td>
-                                                                {{-- <td>
-                                                                    @if($val->cart_order_status == 1)
-                                                                    <span style="color:blue; ">In cart </span>
-                                                                    @elseif($val->cart_order_status ==2)
-                                                                    <span style="color:green;">Completed </span>
-                                                                    @endif
-
-                                                                </td> --}}
-                                                                <td>{{$val->jobDetails->quantity}}</td>
-                                                                {{-- <td>{{$val->jobDetails->ink}}</td>
-                                                                <td>{{$val->jobDetails->paper_type}}</td> --}}
-                                                                {{-- <td>{{$val->jobDetails->production_days}}</td> --}}
-                                                                <td>{{'₦'.$val->jobDetails->total_cost}} </td>
-                                                                <td>{{$val->percentage}}</td>
+                                                                <td>{{ $index + 1 }}</td>
+                                                                
+                                                                {{-- Job Order Name --}}
+                                                                <td>{{ $job_detail_name }}</td>
+                                                                
+                                                                {{-- Quantity --}}
+                                                                <td>{{ $val->jobDetails->quantity ?? 0 }}</td>
+                                                                
+                                                                {{-- Total Cost Column --}}
                                                                 <td>
-                                                                {{'₦'.($val->percentage/100)*$val->jobDetails->total_cost}}
+                                                                    ₦{{ number_format($clean_cost, 2) }}
                                                                 </td>
-                                                                <td>{{$val->jobDetails->status}}</td>
-                                                                <td><a href="{{route('company.job_order.view_order',[$job_title, $val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                
+                                                                {{-- Percentage --}}
+                                                                <td>{{ $val->percentage }}%</td>
+                                                                
+                                                                {{-- Commission Column --}}
+                                                                <td>
+                                                                    ₦{{ number_format($item_commission, 2) }}
+                                                                </td>
+                                                                
+                                                                {{-- Status --}}
+                                                                <td>{{ $val->jobDetails->status ?? 'N/A' }}</td>
+                                                                
+                                                                {{-- View Link --}}
+                                                                <td>
+                                                                    <a href="{{ route('company.job_order.view_order', [$job_title, $val->id]) }}">
+                                                                        <span><i class="fa fa-eye"></i></span>
+                                                                    </a>
+                                                                </td>
                                                             </tr>
-
                                                         @endforeach
                                                          <tfoot>
                                                                 <tr>

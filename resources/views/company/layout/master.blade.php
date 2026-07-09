@@ -1059,6 +1059,21 @@ $(document).ready(function() {
         'width': '100%'
     });
 });
+
+
+$(document).ready(function() {
+    $('#payment_type').on('change', function() {
+        let value = $(this).val();
+        
+        if (value === 'No Payment' || value === '') {
+            $('#amount_paid_container').hide();
+            $('#amount_paid').removeAttr('required').val('');
+        } else {
+            $('#amount_paid_container').show();
+            $('#amount_paid').attr('required', true);
+        }
+    }).trigger('change'); // Trigger on load
+});
 </script>
 
     @yield('scripts')

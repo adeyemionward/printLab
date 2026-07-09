@@ -168,7 +168,7 @@
 
 
 
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <div class="form-group mt-3 mb-3 col-md-4" id="amount_paid_container">
                                                                             <label for="amount_paid">Amount Paid</label>
                                                                             <input type="text"  name="amount_paid" class="form-control numberFormat"
                                                                                 id="amount_paid" placeholder="eg: 10000" required>

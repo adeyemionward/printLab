@@ -22,7 +22,7 @@ class JobPaymentHistory extends Model
         $job_pay->job_order_id    = $job_order_id;
         $job_pay->user_id         = $customer_id;
         $job_pay->company_id     = $company_id;
-        $job_pay->amount          = $amount_paid;
+        $job_pay->amount          = $amount_paid ?? 0;
         $job_pay->payment_type    = $payment_type;
         $job_pay->payment_date    = $order_date;
         $job_pay->created_by      = $user_id;

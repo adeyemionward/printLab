@@ -198,114 +198,204 @@ class CustomerController extends Controller
           return redirect()->back()->with('flash_success','Cart order has been deleted');
     }
 
+    // public function checkout($id)
+    // {
+    //     DB::beginTransaction();
+    //     try {
+    //         $user = Auth::user();
+    //         $customer = $this->find_customer($id);
+    //         $order_date = date('Y-m-d');
+    //         $job_id  = request('job_id');
+    //         $randomInteger = random_int(100000, 999999);
+    //         $userDetails    = User::find($id);
+
+    //         // Calculate the sum of total_cost
+    //         $job_order = JobOrder::whereIn('id', $job_id)
+    //         ->where('company_id', app('company_id'))->get(); //get the som total of the order
+
+    //         $total_cost = $job_order->sum('total_cost');
+
+    //         //save to job_order_unique
+    //         $job_order_unique = new JobOrderUnique();
+    //         $job_order_unique->user_id         = $id;
+    //         $job_order_unique->company_id      = $user->company_id;
+    //         $job_order_unique->order_no        = $randomInteger;
+    //         $job_order_unique->order_date      = $order_date;
+    //         $job_order_unique->total_cost      = $total_cost;
+    //         $job_order_unique->cart_order_status      = 2; //completed
+    //         $job_order_unique->order_type      = 'internal'; //completed
+    //         $job_order_unique->created_by      = $user->id;
+    //         $job_order_unique->save();
+
+    //         // JobOrderTracking::saveJobOrderTracking($job_order_unique->id, $order_date);
+
+    //         $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
+    //             [
+    //                 'cart_order_status' =>  2,
+    //                 'job_order_unique_id' =>  $job_order_unique->id,
+    //                 'order_no' =>  $randomInteger,
+    //             ]
+    //         );
+    //         // Save payment history for each JobOrder
+    //         foreach ($job_order as $order) {
+    //             if (!is_null($order->initial_amount_paid) && $order->initial_amount_paid > 0) {
+    //                 JobPaymentNewHistory::saveJobPaymentHistory(
+    //                     $job_order_unique->id,
+    //                     $id,
+    //                     $user->company_id,
+    //                     $job_order_unique->order_no,
+    //                     $order->initial_amount_paid,
+    //                     $order->initial_payment_type,
+    //                     $order_date,
+    //                     $user->id
+    //                 );
+    //             }
+    //         }
+
+
+
+    //         $userEmail  =  $userDetails->email;
+    //         $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+
+    //         $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
+
+    //         $payment_type =  0;
+    //         $amount_paid = 0;
+    //         $data = [
+    //             'payment_type' =>'',
+    //             'amount_paid'  => '',
+    //             'userDetails'  => $userDetails,
+    //             'orderDetails' => $orderDetails, // Collection of orders, for example
+    //         ];
+    //         $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
+
+           
+    //         // Try sending the email and handle failure gracefully
+    //         $emailSent = true;
+    //         try {
+    //             Mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
+    //         } catch (\Exception $e) {
+    //             Log::error('Failed to send email: ' . $e->getMessage());
+    //             $emailSent = false; // Mark email as not sent
+    //         }
+
+    //         DB::commit();
+
+    //         // Redirect with success and email status
+    //         if ($emailSent) {
+    //             return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success', 'Order processed successfully, and email sent!');
+    //         } else {
+    //             return redirect(route('company.customers.customer_job_orders', $id))->with('flash_warning', 'Order processed successfully, but email failed to send.');
+    //         }
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         // Log the error for debugging
+    //         Log::error('Failed to send order: ' . $e->getMessage());
+
+    //         // Optionally, you can set a flash message to notify the user of the issue
+    //         return redirect()->back()->with('flash_error', 'There is an error processing this order');
+    //     }
+    //     // return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
+    // }
+
     public function checkout($id)
-    {
-        DB::beginTransaction();
-        try {
-            $user = Auth::user();
-            $customer = $this->find_customer($id);
-            $order_date = date('Y-m-d');
-            $job_id  = request('job_id');
-            $randomInteger = random_int(100000, 999999);
-            $userDetails    = User::find($id);
+{
+    DB::beginTransaction();
+    try {
+        $user = Auth::user();
+        $customer = $this->find_customer($id);
+        $order_date = date('Y-m-d');
+        $job_id  = request('job_id');
+        $randomInteger = random_int(100000, 999999);
+        $userDetails    = User::find($id);
 
-            // Calculate the sum of total_cost
-            $job_order = JobOrder::whereIn('id', $job_id)
-            ->where('company_id', app('company_id'))->get(); //get the som total of the order
+        // Calculate the sum of total_cost
+        $job_order = JobOrder::whereIn('id', $job_id)
+            ->where('company_id', app('company_id'))->get(); 
 
-            $total_cost = $job_order->sum('total_cost');
+        // Ensure total cost calculation is purely numeric
+        $total_cost = $job_order->sum(function ($order) {
+            return is_numeric($order->total_cost) ? (float)$order->total_cost : 0;
+        });
 
-            //save to job_order_unique
-            $job_order_unique = new JobOrderUnique();
-            $job_order_unique->user_id         = $id;
-            $job_order_unique->company_id      = $user->company_id;
-            $job_order_unique->order_no        = $randomInteger;
-            $job_order_unique->order_date      = $order_date;
-            $job_order_unique->total_cost      = $total_cost;
-            $job_order_unique->cart_order_status      = 2; //completed
-            $job_order_unique->order_type      = 'internal'; //completed
-            $job_order_unique->created_by      = $user->id;
-            $job_order_unique->save();
+        // Save to job_order_unique
+        $job_order_unique = new JobOrderUnique();
+        $job_order_unique->user_id         = $id;
+        $job_order_unique->company_id      = $user->company_id;
+        $job_order_unique->order_no        = $randomInteger;
+        $job_order_unique->order_date      = $order_date;
+        $job_order_unique->total_cost      = $total_cost;
+        $job_order_unique->cart_order_status = 2; // completed
+        $job_order_unique->order_type      = 'internal'; 
+        $job_order_unique->created_by      = $user->id;
+        $job_order_unique->save();
+        
+        $checkout = JobOrder::whereIn('id', $job_id)->where('company_id', app('company_id'))->update(
+            [
+                'cart_order_status' =>  2,
+                'job_order_unique_id' =>  $job_order_unique->id,
+                'order_no' =>  $randomInteger,
+            ]
+        );
 
-            // JobOrderTracking::saveJobOrderTracking($job_order_unique->id, $order_date);
-
-            $checkout =  JobOrder::whereIn('id', $job_id)->where('company_id',app('company_id'))->update(
-                [
-                    'cart_order_status' =>  2,
-                    'job_order_unique_id' =>  $job_order_unique->id,
-                    'order_no' =>  $randomInteger,
-                ]
-            );
-            // Save payment history for each JobOrder
-            foreach ($job_order as $order) {
-                if (!is_null($order->initial_amount_paid) && $order->initial_amount_paid > 0) {
-                    JobPaymentNewHistory::saveJobPaymentHistory(
-                        $job_order_unique->id,
-                        $id,
-                        $user->company_id,
-                        $job_order_unique->order_no,
-                        $order->initial_amount_paid,
-                        $order->initial_payment_type,
-                        $order_date,
-                        $user->id
-                    );
-                }
+        // Save payment history for each JobOrder
+        foreach ($job_order as $order) {
+            // Type-cast the amount paid dynamically to prevent non-numeric string exceptions
+            $amountPaidClean = is_numeric($order->initial_amount_paid) ? (float)$order->initial_amount_paid : 0;
+         
+            if ($amountPaidClean > 0) {
+                JobPaymentNewHistory::saveJobPaymentHistory(
+                    $job_order_unique->id,
+                    $id,
+                    $user->company_id,
+                    $job_order_unique->order_no,
+                    $amountPaidClean,
+                    $order->initial_payment_type ?? 'No Payment',
+                    $order_date,
+                    $user->id
+                );
             }
-
-
-
-            $userEmail  =  $userDetails->email;
-            $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
-
-            $orderDetails   = JobOrder::whereIn('id',$job_id)->where('company_id',app('company_id'))->get();
-
-            $payment_type =  0;
-            $amount_paid = 0;
-            $data = [
-                'payment_type' =>'',
-                'amount_paid'  => '',
-                'userDetails'  => $userDetails,
-                'orderDetails' => $orderDetails, // Collection of orders, for example
-            ];
-            $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
-
-            // try {
-            //     Mail::to($userEmail)->send(new CustomerOrderReceipt ($orderDetails,$amount_paid,$userName,$pdf_attachment));
-            // } catch (\Exception $emailException) {
-            //     // Handle the email exception separately
-            //     Log::error('Failed to send order email: ' . $emailException->getMessage());
-
-            //     // Optionally inform the user
-            //     return redirect(route('company.customers.customer_job_orders', $id))
-            //         ->with('flash_error', 'Order processed but email sending failed.');
-            // }
-            // Try sending the email and handle failure gracefully
-            $emailSent = true;
-            try {
-                Mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
-            } catch (\Exception $e) {
-                Log::error('Failed to send email: ' . $e->getMessage());
-                $emailSent = false; // Mark email as not sent
-            }
-
-            DB::commit();
-
-            // Redirect with success and email status
-            if ($emailSent) {
-                return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success', 'Order processed successfully, and email sent!');
-            } else {
-                return redirect(route('company.customers.customer_job_orders', $id))->with('flash_warning', 'Order processed successfully, but email failed to send.');
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            // Log the error for debugging
-            Log::error('Failed to send order: ' . $e->getMessage());
-
-            // Optionally, you can set a flash message to notify the user of the issue
-            return redirect()->back()->with('flash_error', 'There is an error processing this order');
         }
-        // return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success','Product Order Successful');
+
+        $userEmail  =  $userDetails->email;
+        $userName   =  $userDetails->firstname.' '.$userDetails->lastname;
+
+        $orderDetails   = JobOrder::whereIn('id', $job_id)->where('company_id', app('company_id'))->get();
+
+        $payment_type =  0;
+        $amount_paid = 0;
+        $data = [
+            'payment_type' => '',
+            'amount_paid'  => '',
+            'userDetails'  => $userDetails,
+            'orderDetails' => $orderDetails, 
+        ];
+        $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
+
+        // Try sending the email and handle failure gracefully
+        $emailSent = true;
+        try {
+            Mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
+        } catch (\Exception $e) {
+            Log::error('Failed to send email: ' . $e->getMessage());
+            $emailSent = false; 
+        }
+
+        DB::commit();
+
+        // Redirect with success and email status
+        if ($emailSent) {
+            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_success', 'Order processed successfully, and email sent!');
+        } else {
+            return redirect(route('company.customers.customer_job_orders', $id))->with('flash_warning', 'Order processed successfully, but email failed to send.');
+        }
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error('Failed to send order: ' . $e->getMessage());
+
+        return redirect()->back()->with('flash_error', 'There is an error processing this order: ' . $e->getMessage());
     }
+}
 
     public function customer_job_orders($id)
     {
@@ -321,7 +411,6 @@ class CustomerController extends Controller
         }else{
             $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->whereYear('created_at', Carbon::now()->year)->get();
         }
-
 
         return view('company.customers.customer_job_orders', compact('customer','job_orders','cartCount'));
     }

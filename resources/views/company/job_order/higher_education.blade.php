@@ -137,7 +137,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Payment Type</label>
-                                                                            <select class="form-control" name="payment_type" required>
+                                                                            <select class="form-control" name="payment_type" id="payment_type" required>
                                                                                 <option value="">--Select Payment Type--</option>
                                                                                 <option value="Full Payment">Full Payment</option>
                                                                                 <option value="Part Payment">Part Payment</option>
@@ -145,7 +145,7 @@
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
                                                                         </div>
-                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                        <div class="form-group mt-3 mb-3 col-md-4" id="amount_paid_container">
                                                                             <label for="amount_paid">Amount Paid</label>
                                                                             <input type="text"  name="amount_paid" class="form-control numberFormat"
                                                                                 id="amount_paid" placeholder="eg: 10000" required>

@@ -21,12 +21,22 @@ class ServiceOrderRepository
             $quantity                   =  $data['quantity'];
             $ink                        =  $data['ink'];
             $production_time            =  $data['production_time'];
-            $total_cost                 =  $data['total_cost'];
-            $amount_paid                =  $data['amount_paid'];
-            $payment_type               =  $data['payment_type'];
-            $location                   =  $data['location'];
+            
+            $total_cost             =  (!isset($data['total_cost']) || $data['total_cost'] === '') ? 0 : (float) str_replace(',', '', $data['total_cost']);
+            $initial_amount_paid    =  (!isset($data['amount_paid']) || $data['amount_paid'] === '') ? 0 : (float) str_replace(',', '', $data['amount_paid']);
+           
+            $initial_payment_type   =  $data['payment_type'];
+            $location               =  $data['location'];
 
-            $marketerId = User::find($customer_id)->marketer_id;
+            
+            $posted_cheque_due_date =  $data['posted_cheque_date'] ?? null;
+            $marketerId = $data['marketer_id'] ?? [];
+            $percentage = $data['percentage'] ?? [];
+
+            // $amount_paid                =  $data['amount_paid'];
+            // $payment_type               =  $data['payment_type'];
+
+            // $marketerId = User::find($customer_id)->marketer_id;
             //save to job
             $job_order = new JobOrder();
             $job_order->user_id         = $customer_id;
@@ -37,16 +47,16 @@ class ServiceOrderRepository
             $job_order->ink             = $ink;
             $job_order->production_days = $production_time;
             $job_order->total_cost      = $total_cost;
+            $job_order->initial_amount_paid      = $initial_amount_paid; // Will successfully pass 0 instead of ''
+            $job_order->initial_payment_type     = $initial_payment_type;
             $job_order->order_date      = $order_date;
             $job_order->order_type      = 'internal';
             $job_order->cart_order_status      = 1;
             $job_order->job_location_id        = $location;
-            $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
+            $job_order->posted_cheque_due_date   = $posted_cheque_due_date;
             $job_order->created_by      = $user->id;
             $job_order->save();
 
-            $marketerId = $data['marketer_id'];
-            $percentage = $data['percentage'];
 
             for ($count=0; $count < count($marketerId); $count++) {
                 $marketer_comm =  MarketerCommission::updateOrCreate(
@@ -59,11 +69,11 @@ class ServiceOrderRepository
                 );
             }
 
-            JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
-            JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+           
             DB::commit();
 
         }catch(\Exception $th){
+            \Log::error($th->getMessage());
             DB::rollBack();
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
