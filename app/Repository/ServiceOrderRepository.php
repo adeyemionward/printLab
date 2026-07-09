@@ -110,16 +110,47 @@ class ServiceOrderRepository
             $job_order->total_cost      = $total_cost;
             $job_order->job_location_id = $location;
             $job_order->created_by      = $user->id;
-            $job_order->save();
+            $job_order->posted_cheque_due_date      = $data['posted_cheque_date'] ?? null;
+            $pp = $job_order->save();
 
-            JobPaymentHistory::updateJobPaymentHistory($id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
+                // Get the total from the job_order
+                $job_order_unique_id = $job_order->job_order_unique_id;
+                JobOrder::updateJobUniqueCost($job_order_unique_id);
+
+                $marketer_commission_id = $data['marketer_commission_id'];
+                $marketerId = $data['marketer_id'] ?? [];
+                $percentage = $data['percentage'] ?? [];
+
+                $comm_id = MarketerCommission::where('job_order_id', request()->id);
+                $comm_id->delete();
+
+                if ($pp) {
+                    if (!empty($marketerId) && !empty($percentage)) {
+                        for ($count = 0; $count < count($marketerId); $count++) {
+                            if (!empty($marketerId[$count]) && !empty($percentage[$count])) {
+                                MarketerCommission::updateOrCreate(
+                                    [
+                                        'job_order_id' => $job_order->id,
+                                        'company_id'   => $user->company_id,
+                                        'marketer_id'  => $marketerId[$count],
+                                    ],
+                                    [
+                                        'percentage'   => $percentage[$count],
+                                    ]
+                                );
+                            }
+                        }
+                    }
+                }
             DB::commit();
 
         }catch(\Exception $th){
+            \Log::error($th->getMessage());
             DB::rollBack();
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
-        return redirect(route('company.job_order.view_order',[request()->job_title,$id]))->with('flash_success', 'Service order updated successfully');
+        return redirect(route('company.job_order.view_title_order',[request()->job_title,$id]))->with('flash_success', 'Service order updated successfully');
+        // return redirect(route('company.job_order.view_title_order',[$trimmedNoteType,$id]))->with('flash_success', $data["note_type"].' Book order updated successfully');
 
     }
 }

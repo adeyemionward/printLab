@@ -534,8 +534,8 @@ class JobOrderController extends Controller
     //         // creation failed
     //         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
     //     }
-     
     // }
+
     public function post_service_order(Request $request)
     {
         // The repository handles the redirect logic internally
@@ -695,6 +695,9 @@ class JobOrderController extends Controller
             }elseif(request()->job_title == 'Stickers'){
 
                 $response = $this->stickersRepository->updateStickersOrder($request);
+            }elseif(request()->job_title == 'Service'){
+
+                $response = $this->serviceOrderRepository->updateserviceOrder($request);
             }
             DB::commit();
         }catch(\Exception $th){

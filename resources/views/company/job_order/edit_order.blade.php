@@ -3358,27 +3358,25 @@
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="customer_name">Customer Name</label>
                                                                                 <select name="customer_id" required class="form-control form-select" id="customer_name">
-                                                                                    <option >--Select Customer Name--</option>
+                                                                                    <option value="">--Select Customer--</option>
                                                                                     @foreach ($customers as $val)
-                                                                                        <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname }}</option>
+                                                                                        <option value="{{$val->id}}" <?php if ($job_order->user_id == $val->id) echo 'selected' ?> >{{$val->firstname.' '.$val->lastname}}</option>
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
 
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlInput1">Quantity </label>
-                                                                                <input type="number" required name="quantity" class="form-control"
-                                                                                    id="quantity">
+                                                                                <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">
                                                                             </div>
 
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="exampleFormControlSelect1">Color
                                                                                     </label>
-                                                                                <select name="ink" required class="form-control form-select"
-                                                                                    id="exampleFormControlSelect1">
+                                                                                <select name="ink" class="form-control form-select" id="exampleFormControlSelect1" >
                                                                                     <option value="">--Select Color Type--</option>
-                                                                                    <option value="single">Single Color</option>
-                                                                                    <option value="full">Full Color</option>
+                                                                                    <option value="single" <?php if ($job_order->ink == 'single') echo 'selected' ?>>Single Color</option>
+                                                                                    <option value="full" <?php if ($job_order->ink == 'full') echo 'selected' ?>>Full Color</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -3386,17 +3384,25 @@
                                                                         <div class="row">
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="production_time">Production Time (Days)
-                                                                                    </label> <input required type="number" name="production_time" class="form-control"
-                                                                                    id="quantity" placeholder="eg: 4">
+                                                                                    </label> 
+                                                                                    <input required type="number" name="production_time" class="form-control" id="quantity" value="{{$job_order->production_days}}" placeholder="eg: 4">
                                                                             </div>
 
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="total_cost">Total Cost</label>
-                                                                                <input type="text" required name="total_cost" class="form-control numberFormat"
-                                                                                    id="total_cost" placeholder="eg: 24000">
+                                                                                <input type="text" required name="total_cost" class="form-control numberFormat" id="total_cost" placeholder="eg: 24000" value="{{$job_order->total_cost}}">
+                                                                            </div>
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="location">Job Location</label>
+                                                                                <select class="form-control form-select" name="location" required>
+                                                                                    <option value="">--Select Job Location--</option>
+                                                                                    @foreach ($locations as $val)
+                                                                                        <option value="{{$val->id}}" <?php if ($job_order->job_location_id == $val->id) echo 'selected' ?>>{{$val->city}}</option>
+                                                                                    @endforeach
+                                                                                </select>
                                                                             </div>
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="proof_needed">Payment Type</label>
                                                                                 <select class="form-control" id="payment_type" name="payment_type" required>
                                                                                     <option value="">--Select Payment Type--</option>
@@ -3404,25 +3410,75 @@
                                                                                     <option value="Part Payment">Part Payment</option>
                                                                                     <option value="No Payment">No Payment</option>
                                                                                 </select>
-                                                                            </div>
+                                                                            </div> --}}
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            {{-- <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="amount_paid">Amount Paid</label>
                                                                                 <input type="text"  name="amount_paid" class="form-control numberFormat"
                                                                                     id="amount_paid" placeholder="eg: 10000" required>
-                                                                            </div>
+                                                                            </div> --}}
 
-                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                <label for="location">Job Location</label>
-                                                                                <select class="form-control" name="location" required>
-                                                                                    <option value="">--Select Job Location--</option>
-                                                                                    @foreach ($locations as $val)
-                                                                                        <option value="{{$val->id}}">{{$val->city}}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
+                                                                            
                                                                         </div>
+
+                                                                        <div class="form-group mt-3 mb-3 col-md-12">
+                                                                                <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
+                                                                            </div>
+                                                                            <table id="products" style="margin-top:20px; margin-left:10px">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Marketer</th>
+                                                                                        <th>Percentage</th>
+                                                                                        <th></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @if(count($job_marketers_commission) != 0)
+                                                                                        @foreach($job_marketers_commission as $row1)
+                                                                                            <tr class="product-row-order" style="margin-top:20px;">
+                                                                                                <td style="width:60%">
+                                                                                                    <select required class="form-control form-select mt-2" name="marketer_id[]" id="thickness">
+                                                                                                        <option value="">--Select Marketer--</option>
+                                                                                                        @foreach($marketers as $row)
+                                                                                                            <option value="{{$row->id}}" {{ $row1->marketer_id == $row->id ? 'selected' : '' }}>{{$row->firstname. ' '. $row->lastname}}</option>
+                                                                                                        @endforeach
+                                                                                                    </select>
+                                                                                                </td>
+                                                                                                <td style="width:28%"><input type="number" value="{{$row1->percentage}}" required class="form-control percentage mt-2" name="percentage[]" /></td>
+                                                                                                <td>
+                                                                                                    <a class="remove-product btn btn-danger mt-2">
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                                                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                                                                                        </svg>
+                                                                                                    </a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        @endforeach
+                                                                                    @else
+                                                                                        <tr class="product-row-order" style="margin-top:20px; display:none;">
+                                                                                            <td style="width:60%">
+                                                                                                <select  class="form-control form-select mt-2" name="marketer_id[]" id="thickness">
+                                                                                                    <option value="">--Select Marketer--</option>
+                                                                                                    @foreach($marketers as $row)
+                                                                                                        <option value="{{$row->id}}">{{$row->firstname. ' '. $row->lastname}}</option>
+                                                                                                    @endforeach
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td style="width:28%"><input type="number"  class="form-control percentage mt-2" name="percentage[]" /></td>
+                                                                                            <td>
+                                                                                                <a class="remove-product btn btn-danger mt-2">
+                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                                                                                    </svg>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                </tbody>
+                                                                            </table>
 
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="text-white me-2" data-feather="check-circle"></i>Save
