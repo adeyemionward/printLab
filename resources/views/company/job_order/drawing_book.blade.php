@@ -145,6 +145,7 @@
                                                                                 <option value="">--Select Payment Type--</option>
                                                                                 <option value="Full Payment">Full Payment</option>
                                                                                 <option value="Part Payment">Part Payment</option>
+                                                                                <option value="No Payment">No Payment</option>
                                                                                 <option value="Posted Cheque">Posted Cheque</option>
                                                                             </select>
                                                                         </div>

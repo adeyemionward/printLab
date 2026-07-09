@@ -59,56 +59,93 @@ Route::group(['middleware' => 'checkSubdomain'], function () {
 
                     // Route::get('/order_invoice/{job_title}/{id}', 'JobOrderController@orderInvoice')->name('order_invoice');
                     Route::get('/order_invoice_pdf/{order_no?}', 'JobOrderController@orderInvoicePdf')->name('order_invoice_pdf');
+                    Route::get('/higher_education/{id?}', 'JobOrderController@higher_education')->name('higher_education');
+Route::post('/higher_education/{id?}', 'JobOrderController@post_higher_education')->name('higher_education');
+Route::get('/edit_order/{job_title}/{id}', 'JobOrderController@edit_order')->name('edit_order');
+Route::post('/edit_order/{job_title}/{id}', 'JobOrderController@update_order')->name('edit_order');
 
+Route::get('/add_2A_notebook', 'JobOrderController@create_2A_notebook')->name('add_2A_notebook');
+Route::post('/add_2A_notebook', 'JobOrderController@post_2A_notebook')->name('add_2A_notebook');
 
-                    Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
-                    Route::post('/higher_education', 'JobOrderController@post_higher_education')->name('higher_education');
-                    Route::get('/edit_order/{job_title}/{id}', 'JobOrderController@edit_order')->name('edit_order');
-                    Route::post('/edit_order/{job_title}/{id}', 'JobOrderController@update_order')->name('edit_order');
+Route::get('/add_2B_notebook', 'JobOrderController@create_2B_notebook')->name('add_2B_notebook');
+Route::post('/add_2B_notebook', 'JobOrderController@post_2B_notebook')->name('add_2B_notebook');
 
-                    Route::get('/add_2A_notebook', 'JobOrderController@create_2A_notebook')->name('add_2A_notebook');
-                    Route::post('/add_2A_notebook', 'JobOrderController@post_2A_notebook')->name('add_2A_notebook');
+Route::get('/add_2D_notebook', 'JobOrderController@create_2D_notebook')->name('add_2D_notebook');
+Route::post('/add_2D_notebook', 'JobOrderController@post_2D_notebook')->name('add_2D_notebook');
 
-                    Route::get('/add_2B_notebook', 'JobOrderController@create_2B_notebook')->name('add_2B_notebook');
-                    Route::post('/add_2B_notebook', 'JobOrderController@post_2B_notebook')->name('add_2B_notebook');
+Route::get('/add_drawing_book', 'JobOrderController@create_drawing_book')->name('add_drawing_book');
+Route::post('/add_drawing_book', 'JobOrderController@post_drawing_book')->name('add_drawing_book');
 
-                    Route::get('/add_2D_notebook', 'JobOrderController@create_2D_notebook')->name('add_2D_notebook');
-                    Route::post('/add_2D_notebook', 'JobOrderController@post_2D_notebook')->name('add_2D_notebook');
+Route::get('/20_leaves_book', 'JobOrderController@twenty_leaves')->name('20_leaves_book');
+Route::post('/20_leaves_book', 'JobOrderController@post_twenty_leaves')->name('20_leaves_book');
+Route::get('/40_leaves_book', 'JobOrderController@forty_leaves')->name('40_leaves_book');
+Route::post('/40_leaves_book', 'JobOrderController@post_forty_leaves')->name('40_leaves_book');
+Route::get('/60_leaves_book', 'JobOrderController@sixty_leaves')->name('60_leaves_book');
+Route::post('/60_leaves_book', 'JobOrderController@post_sixty_leaves')->name('60_leaves_book');
+Route::get('/80_leaves_book', 'JobOrderController@eighty_leaves')->name('80_leaves_book');
+Route::post('/80_leaves_book', 'JobOrderController@post_eighty_leaves')->name('80_leaves_book');
+Route::get('/booklets', 'JobOrderController@booklets')->name('booklets');
+Route::post('/booklets', 'JobOrderController@post_booklets')->name('booklets');
+Route::get('/bronchures', 'JobOrderController@bronchures')->name('bronchures');
+Route::post('/bronchures', 'JobOrderController@post_bronchures')->name('bronchures');
+Route::get('/business_cards', 'JobOrderController@business_cards')->name('business_cards');
+Route::post('/business_cards', 'JobOrderController@post_business_cards')->name('business_cards');
+Route::get('/envelopes', 'JobOrderController@envelopes')->name('envelopes');
+Route::post('/envelopes', 'JobOrderController@post_envelopes')->name('envelopes');
+Route::get('/flyers', 'JobOrderController@flyers')->name('flyers');
+Route::post('/flyers', 'JobOrderController@post_flyers')->name('flyers');
+Route::get('/notepads', 'JobOrderController@notepads')->name('notepads');
+Route::post('/notepads', 'JobOrderController@post_notepads')->name('notepads');
+Route::get('/small_invoice', 'JobOrderController@small_invoice')->name('small_invoice');
+Route::post('/small_invoice', 'JobOrderController@post_small_invoice')->name('small_invoice');
+Route::get('/stickers', 'JobOrderController@stickers')->name('stickers');
+Route::post('/stickers', 'JobOrderController@post_stickers')->name('stickers');
+Route::get('/service_order', 'JobOrderController@service_order')->name('service_order');
+Route::post('/service_order', 'JobOrderController@post_service_order')->name('service_order');
 
+                    // Route::get('/higher_education', 'JobOrderController@higher_education')->name('higher_education');
+                    // Route::post('/higher_education', 'JobOrderController@post_higher_education')->name('higher_education');
+                    // Route::get('/edit_order/{job_title}/{id}', 'JobOrderController@edit_order')->name('edit_order');
+                    // Route::post('/edit_order/{job_title}/{id}', 'JobOrderController@update_order')->name('edit_order');
 
-                    Route::get('/add_drawing_book', 'JobOrderController@create_drawing_book')->name('add_drawing_book');
-                    Route::post('/add_drawing_book', 'JobOrderController@post_drawing_book')->name('add_drawing_book');
+                    // Route::get('/add_2A_notebook', 'JobOrderController@create_2A_notebook')->name('add_2A_notebook');
+                    // Route::post('/add_2A_notebook', 'JobOrderController@post_2A_notebook')->name('add_2A_notebook');
 
+                    // Route::get('/add_2B_notebook', 'JobOrderController@create_2B_notebook')->name('add_2B_notebook');
+                    // Route::post('/add_2B_notebook', 'JobOrderController@post_2B_notebook')->name('add_2B_notebook');
 
+                    // Route::get('/add_2D_notebook', 'JobOrderController@create_2D_notebook')->name('add_2D_notebook');
+                    // Route::post('/add_2D_notebook', 'JobOrderController@post_2D_notebook')->name('add_2D_notebook');
 
-                    Route::get('/20_leaves_book', 'JobOrderController@twenty_leaves')->name('20_leaves_book');
-                    Route::post('/20_leaves_book', 'JobOrderController@post_twenty_leaves')->name('20_leaves_book');
+                    // Route::get('/add_drawing_book', 'JobOrderController@create_drawing_book')->name('add_drawing_book');
+                    // Route::post('/add_drawing_book', 'JobOrderController@post_drawing_book')->name('add_drawing_book');
 
-
-                    Route::get('/40_leaves_book', 'JobOrderController@forty_leaves')->name('40_leaves_book');
-                    Route::post('/40_leaves_book', 'JobOrderController@post_forty_leaves')->name('40_leaves_book');
-                    Route::get('/60_leaves_book', 'JobOrderController@sixty_leaves')->name('60_leaves_book');
-                    Route::post('/60_leaves_book', 'JobOrderController@post_sixty_leaves')->name('60_leaves_book');
-                    Route::get('/80_leaves_book', 'JobOrderController@eighty_leaves')->name('80_leaves_book');
-                    Route::post('/80_leaves_book', 'JobOrderController@post_eighty_leaves')->name('80_leaves_book');
-                    Route::get('/booklets', 'JobOrderController@booklets')->name('booklets');
-                    Route::post('/booklets', 'JobOrderController@post_booklets')->name('booklets');
-                    Route::get('/bronchures', 'JobOrderController@bronchures')->name('bronchures');
-                    Route::post('/bronchures', 'JobOrderController@post_bronchures')->name('bronchures');
-                    Route::get('/business_cards', 'JobOrderController@business_cards')->name('business_cards');
-                    Route::post('/business_cards', 'JobOrderController@post_business_cards')->name('business_cards');
-                    Route::get('/envelopes', 'JobOrderController@envelopes')->name('envelopes');
-                    Route::post('/envelopes', 'JobOrderController@post_envelopes')->name('envelopes');
-                    Route::get('/flyers', 'JobOrderController@flyers')->name('flyers');
-                    Route::post('/flyers', 'JobOrderController@post_flyers')->name('flyers');
-                    Route::get('/notepads', 'JobOrderController@notepads')->name('notepads');
-                    Route::post('/notepads', 'JobOrderController@post_notepads')->name('notepads');
-                    Route::get('/small_invoice', 'JobOrderController@small_invoice')->name('small_invoice');
-                    Route::post('/small_invoice', 'JobOrderController@post_small_invoice')->name('small_invoice');
-                    Route::get('/stickers', 'JobOrderController@stickers')->name('stickers');
-                    Route::post('/stickers', 'JobOrderController@post_stickers')->name('stickers');
-                    Route::get('/service_order', 'JobOrderController@service_order')->name('service_order');
-                    Route::post('/service_order', 'JobOrderController@post_service_order')->name('service_order');
+                    // Route::get('/20_leaves_book', 'JobOrderController@twenty_leaves')->name('20_leaves_book');
+                    // Route::post('/20_leaves_book', 'JobOrderController@post_twenty_leaves')->name('20_leaves_book');
+                    // Route::get('/40_leaves_book', 'JobOrderController@forty_leaves')->name('40_leaves_book');
+                    // Route::post('/40_leaves_book', 'JobOrderController@post_forty_leaves')->name('40_leaves_book');
+                    // Route::get('/60_leaves_book', 'JobOrderController@sixty_leaves')->name('60_leaves_book');
+                    // Route::post('/60_leaves_book', 'JobOrderController@post_sixty_leaves')->name('60_leaves_book');
+                    // Route::get('/80_leaves_book', 'JobOrderController@eighty_leaves')->name('80_leaves_book');
+                    // Route::post('/80_leaves_book', 'JobOrderController@post_eighty_leaves')->name('80_leaves_book');
+                    // Route::get('/booklets', 'JobOrderController@booklets')->name('booklets');
+                    // Route::post('/booklets', 'JobOrderController@post_booklets')->name('booklets');
+                    // Route::get('/bronchures', 'JobOrderController@bronchures')->name('bronchures');
+                    // Route::post('/bronchures', 'JobOrderController@post_bronchures')->name('bronchures');
+                    // Route::get('/business_cards', 'JobOrderController@business_cards')->name('business_cards');
+                    // Route::post('/business_cards', 'JobOrderController@post_business_cards')->name('business_cards');
+                    // Route::get('/envelopes', 'JobOrderController@envelopes')->name('envelopes');
+                    // Route::post('/envelopes', 'JobOrderController@post_envelopes')->name('envelopes');
+                    // Route::get('/flyers', 'JobOrderController@flyers')->name('flyers');
+                    // Route::post('/flyers', 'JobOrderController@post_flyers')->name('flyers');
+                    // Route::get('/notepads', 'JobOrderController@notepads')->name('notepads');
+                    // Route::post('/notepads', 'JobOrderController@post_notepads')->name('notepads');
+                    // Route::get('/small_invoice', 'JobOrderController@small_invoice')->name('small_invoice');
+                    // Route::post('/small_invoice', 'JobOrderController@post_small_invoice')->name('small_invoice');
+                    // Route::get('/stickers', 'JobOrderController@stickers')->name('stickers');
+                    // Route::post('/stickers', 'JobOrderController@post_stickers')->name('stickers');
+                    // Route::get('/service_order', 'JobOrderController@service_order')->name('service_order');
+                    // Route::post('/service_order', 'JobOrderController@post_service_order')->name('service_order');
 
                     Route::group(['prefix' => '/location', 'as' => 'location.'], function () {
                         Route::get('/add_location', 'JobOrderController@add_location')->name('add_location');

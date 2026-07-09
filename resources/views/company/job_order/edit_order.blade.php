@@ -2312,6 +2312,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                    <option value="No Payment" {{ $job_order->jobPaymentHistory->payment_type == 'No Payment' ? 'selected' : '' }}>No Payment</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -2451,6 +2452,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                    <option value="No Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'No Payment') echo 'selected' ?>>No Payment</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -2576,6 +2578,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                    <option value="No Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'No Payment') echo 'selected' ?>>No Payment</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -2952,6 +2955,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                    <option value="No Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'No Payment') echo 'selected' ?>>No Payment</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -3172,6 +3176,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Full Payment') echo 'selected' ?>>Full Payment</option>
                                                                                     <option value="Part Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'Part Payment') echo 'selected' ?>>Part Payment</option>
+                                                                                    <option value="No Payment" <?php if ($job_order->jobPaymentHistory->payment_type == 'No Payment') echo 'selected' ?>>No Payment</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
@@ -3297,6 +3302,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment">Full Payment</option>
                                                                                     <option value="Part Payment">Part Payment</option>
+                                                                                    <option value="No Payment">No Payment</option>
                                                                                 </select>
                                                                             </div>
 
@@ -3396,6 +3402,7 @@
                                                                                     <option value="">--Select Payment Type--</option>
                                                                                     <option value="Full Payment">Full Payment</option>
                                                                                     <option value="Part Payment">Part Payment</option>
+                                                                                    <option value="No Payment">No Payment</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>

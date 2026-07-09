@@ -74,7 +74,7 @@
                                                     <div class="checkout_btn_inner float-right">
                                                         <p >NOTE: You will be contacted on delivery processes as soon as we receive your order</p>
 
-                                                        <a href="{{route('company.job_order.higher_education')}}" class="btn btn-sm btn-danger">
+                                                       <a href="{{ route('company.job_order.higher_education', $val->id ?? null) }}" class="btn btn-sm btn-danger">
                                                             <i class="text-white me-2" data-feather="check-circle"></i>Continue Shopping
                                                         </a>
                                                         <button class="btn btn-sm btn-danger" type="submit" style="background: black">

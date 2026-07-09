@@ -99,11 +99,11 @@
                                                                                         <label for="production_time">Production Time (Days)</label>
                                                                                          <input type="number" name="production_time" class="form-control"  id="quantity" placeholder="eg: 4">
                                                                                     </div>
-                                                            
+
                                                                                 </div>
-                                                                                
+
                                                                                 <div class="row">
-                                                                                                            
+
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="proof_needed">Proof Needed</label>
@@ -194,9 +194,9 @@
                                                                                         <input type="text" name="total_cost" class="form-control"  id="total_cost numberFormat" placeholder="eg:24000">
                                                                                     </div>
 
-                                                                                    
 
-                                                                                    
+
+
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="location">Job Location</label>
                                                                                         <select class="form-control" name="location" required>
@@ -206,7 +206,7 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                     </div>
-                                                                                    
+
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="proof_needed">Payment Type</label>
@@ -214,6 +214,7 @@
                                                                                             <option value="">--Select Payment Type--</option>
                                                                                             <option value="Full Payment">Full Payment</option>
                                                                                             <option value="Part Payment">Part Payment</option>
+                                                                                            <option value="No Payment">No Payment</option>
                                                                                             <option value="Posted Cheque">Posted Cheque</option>
                                                                                         </select>
                                                                                     </div>
@@ -231,12 +232,12 @@
                                                                                     </div>
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                        <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                        <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                                     </div>
-                                                                                    
+
                                                                                     <table id="products" style="margin-top:20px; display:none; margin-left:10px">
 
-                                                                                    
+
                                                                                         <thead>
                                                                                             <tr>
                                                                                                 <th>Marketer</th>
@@ -256,7 +257,7 @@
                                                                                                     </select>
                                                                                                 </td>
                                                                                                 <td style="width:28%"><input type="number" required class="form-control percentage"  name="percentage[]" /></td>
-                                                                                            
+
                                                                                                 <td>
                                                                                                     <a class="remove-product btn btn-danger">
                                                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

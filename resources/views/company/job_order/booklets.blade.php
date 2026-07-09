@@ -56,7 +56,7 @@
                                                                                             </label> <input required name="required" type="number" class="form-control"
                                                                                             id="quantity">
                                                                                     </div>
-                                                                                    
+
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlSelect1">Ink
                                                                                             </label>
@@ -70,8 +70,8 @@
 
                                                                                 </div>
 																				<div class="row">
-                                                                                    
-                                                                                    
+
+
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="size">Size</label>
                                                                                         <select required name="size" class="form-control form-select" id="size">
@@ -115,7 +115,7 @@
                                                                                             <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                    
+
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="production_time">Production Time (Days)
@@ -133,7 +133,7 @@
                                                                                 </div>
 
                                                                                 <div class="row">
-                                                                                    
+
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="binding">Binding</label>
@@ -193,10 +193,11 @@
                                                                                             <option value="">--Select Payment Type--</option>
                                                                                             <option value="Full Payment">Full Payment</option>
                                                                                             <option value="Part Payment">Part Payment</option>
+                                                                                            <option value="No Payment">No Payment</option>
                                                                                             <option value="Posted Cheque">Posted Cheque</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                    
+
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="location">Job Location</label>
@@ -220,12 +221,12 @@
                                                                                 </div>
 
                                                                                 <div class="form-group mt-3 mb-3 col-md-12">
-                                                                                    <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a> 
+                                                                                    <a id="add-product" class="btn btn-primary"  style="width:200px">Add Marketer</a>
                                                                                 </div>
-                                                                                
+
                                                                                 <table id="products" style="margin-top:20px; display:none; margin-left:10px">
 
-                                                                                
+
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>Marketer</th>
@@ -245,7 +246,7 @@
                                                                                                 </select>
                                                                                             </td>
                                                                                             <td style="width:28%"><input type="number" required class="form-control percentage"  name="percentage[]" /></td>
-                                                                                        
+
                                                                                             <td>
                                                                                                 <a class="remove-product btn btn-danger">
                                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
