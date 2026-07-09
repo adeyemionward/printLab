@@ -44,10 +44,19 @@
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="customer_name">Customer Name</label>
-                                                                            <select name="customer_id" required class="form-control form-select" id="customer_name">
+                                                                            {{-- <select name="customer_id" required class="form-control form-select" id="customer_name">
                                                                                 <option >--Select Customer Name--</option>
                                                                                 @foreach ($customers as $val)
                                                                                     <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname }}</option>
+                                                                                @endforeach
+                                                                            </select> --}}
+                                                                            <select name="customer_id" required class="form-control form-select" id="customer_name">
+                                                                                <option value="">--Select Customer Name--</option>
+                                                                                @foreach ($customers as $val)
+                                                                                    <option value="{{ $val->id }}"
+                                                                                        {{ (isset($selectedCustomerId) && $selectedCustomerId == $val->id) ? 'selected' : '' }}>
+                                                                                        {{ $val->firstname . ' ' . $val->lastname }}
+                                                                                    </option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

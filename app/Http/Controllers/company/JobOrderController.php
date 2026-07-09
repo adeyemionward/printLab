@@ -60,6 +60,7 @@ class JobOrderController extends Controller
     private $brochureRepository;
     private $businessCardRepository;
     private $envelopeRepository;
+    private $serviceOrderRepository;
 
     public function __construct(
         NoteBookRepository $noteBookRepository,
@@ -70,7 +71,8 @@ class JobOrderController extends Controller
         FlyerRepository $flyerRepository,
         BrochureRepository $brochureRepository,
         BusinessCardRepository $businessCardRepository,
-        EnvelopeRepository $envelopeRepository
+        EnvelopeRepository $envelopeRepository,
+        ServiceOrderRepository $serviceOrderRepository
     )
 
     {
@@ -84,6 +86,7 @@ class JobOrderController extends Controller
         $this->brochureRepository = $brochureRepository;
         $this->businessCardRepository = $businessCardRepository;
         $this->envelopeRepository = $envelopeRepository;
+        $this->serviceOrderRepository = $serviceOrderRepository;
 
 
         $this->middleware('permission:job-list', ['only' => ['index']]);
@@ -503,26 +506,40 @@ class JobOrderController extends Controller
         return $response;
     }
 
-    public function service_order()
+    public function service_order($id = null)
     {
         $customers  =  User::getCustomers();
         $locations  =  JobLocation::getLocations();
-        
-        return view('company.job_order.service_order', compact('customers','locations'));
+        $selectedCustomerId = null;
+
+        // If a Job ID is provided in the URL, find the job and get its user_id
+        if ($id) {
+            $job = JobOrder::find($id);
+            if ($job) {
+                $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
+            }
+        }
+        return view('company.job_order.service_order', compact('customers','locations','selectedCustomerId'));
     }
 
 
+    // public function post_service_order(Request $request)
+    // {
+    //     $result = $this->serviceOrderRepository->serviceOrder($request->all());
+
+    //     if ($result['success']) {
+    //         // creation was successful
+    //         return redirect(route('company.customers.customer_cart', $request->customer_id))->with('flash_success','Product added to Cart');
+    //     }else{
+    //         // creation failed
+    //         return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+    //     }
+     
+    // }
     public function post_service_order(Request $request)
     {
-        $result = $this->serviceOrderRepository->serviceOrder($request->all());
-
-        if ($result['success']) {
-            // creation was successful
-            return redirect(route('company.customers.customer_cart', $request->customer_id))->with('flash_success','Product added to Cart');
-        }else{
-            // creation failed
-            return redirect()->back()->with('flash_error','An Error Occured: Please try later');
-        }
+        // The repository handles the redirect logic internally
+        return $this->serviceOrderRepository->serviceOrder($request->all());
     }
 
     public function booklets()

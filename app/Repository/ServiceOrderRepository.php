@@ -7,6 +7,8 @@ use App\Models\JobPaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\MarketerCommission;
+use Illuminate\Support\Facades\DB;
+
 class ServiceOrderRepository
 {
     public function serviceOrder($data)
