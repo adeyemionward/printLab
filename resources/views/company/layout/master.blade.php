@@ -304,6 +304,11 @@
                                     <span class="data-feather theme-item">Expenses Category</span>
                                 </a>
 
+                                <a href="{{route('company.settings.category.add_product_pricing')}}" class="text-center">
+                                    <i class="data-feather theme-item"></i>
+                                    <span class="data-feather theme-item">Product Catalog</span>
+                                </a>
+
                                 <a href="{{route('company.settings.category.add_inventory_category')}}" class="text-center">
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Inventory Category</span>
@@ -313,7 +318,6 @@
                                     <i class="data-feather theme-item"></i>
                                     <span class="data-feather theme-item">Locations</span>
                                 </a>
-
 
                                 <a href="{{route('company.roles.add_role')}}" class="text-center">
                                     <i class="data-feather theme-item" ></i>
@@ -499,6 +503,7 @@
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink1">
 										<li><a class="dropdown-item" href="{{route('company.settings.category.add_category')}}">Expenses Category</a></li>
+                                        <li><a class="dropdown-item" href="{{route('company.settings.category.add_product_pricing')}}">Product Pricing</a></li>
                                         <li><a class="dropdown-item" href="{{route('company.settings.category.add_inventory_category')}}">Inventory Category</a></li>
 
 										<li><a class="dropdown-item" href="{{route('company.job_order.location.add_location')}}">Locations</a></li>

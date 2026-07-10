@@ -309,8 +309,6 @@ Route::post('/service_order/{id?}', 'JobOrderController@post_service_order')->na
                     Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
                         Route::get('/add_category', 'SettingController@create_category')->name('add_category');
                         Route::post('/add_category', 'SettingController@post_category')->name('add_category');
-                        Route::get('/add_inventory', 'SettingController@create_inventory_category')->name('add_inventory_category');
-                        Route::post('/add_inventory', 'SettingController@post_inventory_category')->name('add_inventory_category');
                         Route::get('/all_category', 'SettingController@all_category')->name('all_category');
                         Route::get('/edit_category/{id}', 'SettingController@editCategory')->name('edit_category');
                         Route::post('/edit_category/{id}', 'SettingController@updateCategory')->name('edit_category');
@@ -319,9 +317,18 @@ Route::post('/service_order/{id?}', 'JobOrderController@post_service_order')->na
                         Route::get('/add_inventory', 'SettingController@create_inventory_category')->name('add_inventory_category');
                         Route::post('/add_inventory', 'SettingController@post_inventory_category')->name('add_inventory_category');
                         Route::get('/all_inventory', 'SettingController@all_inventory_category')->name('all_inventory_category');
-                        Route::get('/edit_category/{id}', 'SettingController@editInventoryCategory')->name('edit_inventory_category');
-                        Route::post('/edit_category/{id}', 'SettingController@updateInventoryCategory')->name('edit_inventory_category');
-                        Route::get('/delete_category/{id}', 'SettingController@deleteInventoryCategory')->name('delete_inventory_category');
+                        Route::get('/edit_inventory_category/{id}', 'SettingController@editInventoryCategory')->name('edit_inventory_category');
+                        Route::post('/edit_inventory_category/{id}', 'SettingController@updateInventoryCategory')->name('edit_inventory_category');
+                        Route::get('/delete_inventory_category/{id}', 'SettingController@deleteInventoryCategory')->name('delete_inventory_category');
+
+
+                        // PRODUCT CATALOGUE SETTINGS
+                        Route::get('/add_product_pricing', 'SettingController@create_product_pricing')->name('add_product_pricing');
+                        Route::post('/add_product_pricing', 'SettingController@post_product_pricing')->name('add_product_pricing');
+                        Route::get('/all_product_pricing', 'SettingController@all_product_pricing')->name('all_product_pricing');
+                        Route::get('/edit_product_pricing/{id}', 'SettingController@editProductPricing')->name('edit_product_pricing');
+                        Route::post('/edit_product_pricing/{id}', 'SettingController@updateProductPricing')->name('edit_product_pricing');
+                        Route::get('/delete_product_pricing/{id}', 'SettingController@deleteProductPricing')->name('delete_product_pricing');
 
                     });
                     //site settings

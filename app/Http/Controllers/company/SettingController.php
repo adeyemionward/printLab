@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ExpenseCategory;
 use App\Models\InventoryCategory;
-use App\Models\User;
+use App\Models\ProductPricingVolume;
+use App\Models\ProductType;
 use App\Models\Testimonial;
 use App\Models\SiteSetting;
 use App\Models\SiteTheme;
@@ -16,6 +17,9 @@ use App\Services\Company\AddressService;
 use App\Services\Company\HeroTextService;
 use App\Services\Company\EmailService;
 use App\Services\Company\PhoneService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 class SettingController extends Controller
 {
     /**
@@ -54,6 +58,134 @@ class SettingController extends Controller
     {
         return view('company.settings.category.add_category');
     }
+
+    public function create_product_pricing()
+    {
+        $productTypes = ProductType::where('company_id', app('company_id'))->get();
+        return view('company.settings.category.add_product_pricing', compact('productTypes'));
+    }
+
+    public function all_product_pricing()
+    {
+        $productPricingVolumes = ProductPricingVolume::with('productType')
+            ->where('company_id', app('company_id'))
+            ->get();
+
+        return view('company.settings.category.all_product_pricing', compact('productPricingVolumes'));
+    }
+
+    public function post_product_pricing(Request $request)
+    {
+        // 1. Validate the incoming array data
+        $request->validate([
+            'name'       => 'required|array',
+            'name.*'     => 'required|exists:product_types,id', // Validates against product_types table
+            'min_qty'    => 'required|array',
+            'min_qty.*'  => 'required|integer|min:1',
+            'max_qty'    => 'required|array',
+            'max_qty.*'  => 'required|integer|min:1',
+            'cost'       => 'required|array',
+            'cost.*'     => 'required|numeric|min:0',
+        ]);
+
+        // 2. Use a database transaction to ensure all rows save successfully together
+        DB::beginTransaction();
+
+        // dd($request->name, $request->min_qty, $request->max_qty, $request->cost);
+
+        try {
+            // Loop through one of the arrays using its index keys
+            foreach ($request->name as $index => $productTypeId) {
+                
+                // Create a new catalogue entry for each row added in the view
+                $catalogue = new ProductPricingVolume();
+                // dd($catalogue);
+                
+                // Mapping form inputs to table columns
+                $catalogue->company_id      = app('company_id'); 
+                $catalogue->product_type_id = $productTypeId; 
+                $catalogue->min_qty         = $request->min_qty[$index];
+                $catalogue->max_qty         = $request->max_qty[$index];
+                $catalogue->cost            = $request->cost[$index];
+                
+                // Optional: Link to a company or brand if needed for context
+                // $catalogue->brand_identity = 'YourBrandName'; 
+
+                $catalogue->save();
+            }
+
+            DB::commit();
+
+            return redirect()->route('company.settings.category.all_product_pricing')
+                             ->with('flash_success', 'Product Pricing Volume saved successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Error saving product pricing: ' . $e->getMessage());
+            DB::rollBack();
+            
+            return redirect()->back()
+                             ->withInput()
+                             ->with('flash_error', 'Something went wrong. Please try again.');
+        }
+    }
+
+    public function editProductPricing($id)
+    {
+        $productPricingVolume = ProductPricingVolume::findOrFail($id);
+        $productTypes = ProductType::where('company_id', app('company_id'))->get();
+        return view('company.settings.category.edit_product_pricing', compact('productPricingVolume', 'productTypes'));
+    }
+
+    public function updateProductPricing(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'name'       => 'required|exists:product_types,id',
+            'min_qty'    => 'required|integer|min:1',
+            'max_qty'    => 'required|integer|min:1',
+            'cost'       => 'required|numeric|min:0',
+        ]);
+
+        try {
+            $productPricingVolume = ProductPricingVolume::findOrFail($id);
+            
+            // Update the fields with new values from the request
+            $productPricingVolume->product_type_id = $request->name;
+            $productPricingVolume->min_qty         = $request->min_qty;
+            $productPricingVolume->max_qty         = $request->max_qty;
+            $productPricingVolume->cost            = $request->cost;
+
+            $productPricingVolume->save();
+
+            return redirect()->route('company.settings.category.all_product_pricing')
+                             ->with('flash_success', 'Product Pricing Volume updated successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Error updating product pricing: ' . $e->getMessage());
+            
+            return redirect()->back()
+                             ->withInput()
+                             ->with('flash_error', 'Something went wrong. Please try again.');
+        }
+    }
+
+    public function deleteProductPricing($id)
+    {
+        try {
+            $productPricingVolume = ProductPricingVolume::findOrFail($id);
+            $productPricingVolume->delete();
+
+            return redirect()->route('company.settings.category.all_product_pricing')
+                             ->with('flash_success', 'Product Pricing Volume deleted successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Error deleting product pricing: ' . $e->getMessage());
+            
+            return redirect()->back()
+                             ->with('flash_error', 'Something went wrong. Please try again.');
+        }
+    }
+
 
     public function post_category()
     {
