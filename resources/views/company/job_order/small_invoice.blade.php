@@ -47,6 +47,7 @@
 																			<form method="POST"  id="small_invoice" class="small_invoice">
                                                                                 @csrf
                                                                                 @method('POST')
+                                                                                <input type="hidden" name="note_type" value="Small Invoice">
                                                                                 <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="customer_name">Customer Name</label>

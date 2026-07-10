@@ -45,6 +45,7 @@
 																			<form method="POST"  id="add_notepads" class="add_notepads">
                                                                                 @csrf
                                                                                 @method('POST')
+                                                                                <input type="hidden" name="note_type" value="Notepads">
                                                                                 <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="customer_name">Customer Name </label>

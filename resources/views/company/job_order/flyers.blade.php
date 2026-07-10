@@ -47,6 +47,7 @@
 																			<form method="POST"  id="add_bronchure" class="add_bronchure">
                                                                                 @csrf
                                                                                 @method('POST')
+                                                                                <input type="hidden" name="note_type" value="Flyers">
                                                                                 <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="customer_name">Customer Name </label>

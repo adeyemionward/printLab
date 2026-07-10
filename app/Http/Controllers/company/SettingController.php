@@ -131,7 +131,7 @@ class SettingController extends Controller
 
     public function editProductPricing($id)
     {
-        $productPricingVolume = ProductPricingVolume::findOrFail($id);
+        $productPricingVolume = ProductPricingVolume::findOrFail($id)->where('company_id', app('company_id'));
         $productTypes = ProductType::where('company_id', app('company_id'))->get();
         return view('company.settings.category.edit_product_pricing', compact('productPricingVolume', 'productTypes'));
     }
@@ -147,7 +147,7 @@ class SettingController extends Controller
         ]);
 
         try {
-            $productPricingVolume = ProductPricingVolume::findOrFail($id);
+            $productPricingVolume = ProductPricingVolume::findOrFail($id)->where('company_id', app('company_id'));
             
             // Update the fields with new values from the request
             $productPricingVolume->product_type_id = $request->name;
@@ -172,7 +172,7 @@ class SettingController extends Controller
     public function deleteProductPricing($id)
     {
         try {
-            $productPricingVolume = ProductPricingVolume::findOrFail($id);
+            $productPricingVolume = ProductPricingVolume::findOrFail($id)->where('company_id', app('company_id'));
             $productPricingVolume->delete();
 
             return redirect()->route('company.settings.category.all_product_pricing')
@@ -184,6 +184,48 @@ class SettingController extends Controller
             return redirect()->back()
                              ->with('flash_error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function getProductPrice(Request $request)
+    {
+        $quantity = (int) $request->input('quantity');
+        $slug = $request->input('slug');
+
+        // Find the product type matching your notebook/item slug
+        $productType = ProductType::where('slug', $slug)
+            ->orWhere('name', $slug) // Fallback support for name matching
+            ->first();
+
+        if (!$productType) {
+            return response()->json(['success' => false, 'message' => 'Product Type not found.']);
+        }
+
+        // Find the record where the quantity falls squarely within the min and max thresholds
+        // $pricingTier = ProductPricingVolume::where('product_type_id', $productType->id)
+        //     ->where('min_qty', '<=', $quantity)
+        //     ->where('max_qty', '>=', $quantity)
+        //     ->first();
+     $pricingTier = ProductPricingVolume::where('product_type_id', $productType->id)
+        ->where('company_id', app('company_id'))
+        ->where('min_qty', '<=', $quantity)
+        ->where('max_qty', '>=', $quantity) 
+        ->first();
+
+        // 2. Strict enforcement check
+        if (!$pricingTier) {
+            return response()->json([
+                'success' => false,
+                'cost' => 0,
+                'message' => 'Quantity falls outside valid pricing brackets.'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'cost' => $pricingTier->cost
+        ]);
+
+        // return response()->json(['success' => false, 'message' => 'No matching pricing tier bracket found.']);
     }
 
 

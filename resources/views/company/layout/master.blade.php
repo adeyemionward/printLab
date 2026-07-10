@@ -1079,6 +1079,43 @@ $(document).ready(function() {
         }
     }).trigger('change'); // Trigger on load
 });
+
+
+// TOTAL COST FETCH
+$('#quantity').on('keyup change', function() {
+    let qty = $(this).val();
+    let productSlug = $('input[name="note_type"]').val(); 
+
+    if (qty > 0 && productSlug !== '') {
+        $.ajax({
+            url: "{{ route('company.settings.category.get_product_price') }}",
+            method: "GET",
+            data: {
+                quantity: parseInt(qty),
+                slug: productSlug
+            },
+            success: function(response) {
+                if (response.success) {
+                    let unitCost = parseFloat(response.cost);
+                    let totalCost = unitCost * parseInt(qty);
+                    
+                    // Format number with commas dynamically (e.g., 24000 -> 24,000)
+                    let formattedCost = new Intl.NumberFormat('en-US').format(totalCost);
+                    
+                    $('#total_cost').val(formattedCost).trigger('change');
+                } else {
+                    $('#total_cost').val('0').trigger('change');
+                }
+            },
+            error: function() {
+                console.log('Error fetching product pricing volume values.');
+                $('#total_cost').val('0').trigger('change');
+            }
+        });
+    } else {
+        $('#total_cost').val('').trigger('change');
+    }
+});
 </script>
 
     @yield('scripts')

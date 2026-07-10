@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -329,6 +330,7 @@ Route::post('/service_order/{id?}', 'JobOrderController@post_service_order')->na
                         Route::get('/edit_product_pricing/{id}', 'SettingController@editProductPricing')->name('edit_product_pricing');
                         Route::post('/edit_product_pricing/{id}', 'SettingController@updateProductPricing')->name('edit_product_pricing');
                         Route::get('/delete_product_pricing/{id}', 'SettingController@deleteProductPricing')->name('delete_product_pricing');
+                        Route::get('/get-product-price','SettingController@getProductPrice')->name('get_product_price');
 
                     });
                     //site settings

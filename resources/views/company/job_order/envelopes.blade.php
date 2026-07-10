@@ -44,6 +44,7 @@
                                                                 <form method="POST"  id="add_business_card" class="add_business_card">
                                                                     @csrf
                                                                     @method('POST')
+                                                                    <input type="hidden" name="note_type" value="Envelopes">
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="customer_name">Customer Name </label>
