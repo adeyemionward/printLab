@@ -1069,7 +1069,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#payment_type').on('change', function() {
         let value = $(this).val();
-        
+
         if (value === 'No Payment' || value === '') {
             $('#amount_paid_container').hide();
             $('#amount_paid').removeAttr('required').val('');
@@ -1079,42 +1079,75 @@ $(document).ready(function() {
         }
     }).trigger('change'); // Trigger on load
 });
+// Tracks whether the user has manually changed the unit cost
+let unitCostModified = false;
 
+// Calculate total cost
+function calculateTotal() {
+    let qty = parseInt($('#quantity').val()) || 0;
+    let unitCost = parseFloat($('#unit_cost').val()) || 0;
 
-// TOTAL COST FETCH
-$('#quantity').on('keyup change', function() {
-    let qty = $(this).val();
-    let productSlug = $('input[name="note_type"]').val(); 
+    let totalCost = qty * unitCost;
+
+    $('#total_cost').val(
+        new Intl.NumberFormat('en-US').format(totalCost)
+    );
+}
+
+// User manually edits the unit cost
+$('#unit_cost').on('input', function () {
+    unitCostModified = true;
+    calculateTotal();
+});
+
+// Quantity changes
+$('#quantity').on('input', function () {
+    calculateTotal();
+});
+
+// Fetch unit cost from database when quantity changes
+$('#quantity').on('change', function () {
+
+    let qty = parseInt($(this).val()) || 0;
+    let productSlug = $('input[name="note_type"]').val();
 
     if (qty > 0 && productSlug !== '') {
+
         $.ajax({
             url: "{{ route('company.settings.category.get_product_price') }}",
             method: "GET",
             data: {
-                quantity: parseInt(qty),
+                quantity: qty,
                 slug: productSlug
             },
             success: function(response) {
-                if (response.success) {
-                    let unitCost = parseFloat(response.cost);
-                    let totalCost = unitCost * parseInt(qty);
-                    
-                    // Format number with commas dynamically (e.g., 24000 -> 24,000)
-                    let formattedCost = new Intl.NumberFormat('en-US').format(totalCost);
-                    
-                    $('#total_cost').val(formattedCost).trigger('change');
-                } else {
-                    $('#total_cost').val('0').trigger('change');
+
+                if (
+                    response.success &&
+                    !unitCostModified &&
+                    response.cost !== null &&
+                    response.cost !== ''
+                ) {
+
+                    let apiCost = parseFloat(response.cost);
+
+                    if (!isNaN(apiCost)) {
+                        $('#unit_cost').val(apiCost);
+                    }
                 }
+
+                calculateTotal();
             },
             error: function() {
-                console.log('Error fetching product pricing volume values.');
-                $('#total_cost').val('0').trigger('change');
+                console.log('Error fetching product pricing.');
+                calculateTotal();
             }
         });
+
     } else {
-        $('#total_cost').val('').trigger('change');
+        calculateTotal();
     }
+
 });
 </script>
 

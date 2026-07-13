@@ -68,7 +68,7 @@
                                                                     </tr>
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Customer Name :</td>
-                                                                        <td> 
+                                                                        <td>
                                                                             @if(isset($job_order->user_id))
                                                                                 <a style="text-decoration:underline; color:blue" href="{{ route('company.customers.view_customer', $job_order->user_id) }}">
                                                                                     {{ ($job_order->user->firstname ?? '') . ' ' . ($job_order->user->lastname ?? 'N/A') }}
@@ -85,8 +85,8 @@
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Total Cost :</td>
                                                                         <td>
-                                                                            @php 
-                                                                                $order_cost = (float) str_replace(',', '', $job_order->total_cost ?? 0); 
+                                                                            @php
+                                                                                $order_cost = (float) str_replace(',', '', $job_order->total_cost ?? 0);
                                                                             @endphp
                                                                             &#8358;{{ number_format($order_cost, 2) }}
                                                                         </td>
@@ -94,8 +94,8 @@
                                                                     <tr class="det">
                                                                         <td width="10%" class="question">Current Amount Paid:</td>
                                                                         <td>
-                                                                            @php 
-                                                                                $amount_paid = (float) str_replace(',', '', $job_order_pay->amount ?? 0); 
+                                                                            @php
+                                                                                $amount_paid = (float) str_replace(',', '', $job_order_pay->amount ?? 0);
                                                                             @endphp
                                                                             &#8358;{{ number_format($amount_paid, 2) }}
                                                                         </td>
@@ -120,6 +120,7 @@
                                                                                 <tr>
                                                                                     <th>S/N</th>
                                                                                     <th>Job&nbsp;Type</th>
+                                                                                    <th>Unit Cost</th>
                                                                                     <th>Quantity</th>
                                                                                     <th>Ink</th>
                                                                                     <th>Paper&nbsp;Type</th>
@@ -131,14 +132,15 @@
                                                                             </thead>
                                                                             <tbody>
                                                                                 @foreach ($job_orders as $index => $val)
-                                                                                    @php 
+                                                                                    @php
                                                                                         $job_name = $val->job_order_name ?? 'unknown_job';
-                                                                                        $job_title = str_replace(' ', '_', $job_name); 
+                                                                                        $job_title = str_replace(' ', '_', $job_name);
                                                                                         $item_cost = (float) str_replace(',', '', $val->total_cost ?? 0);
                                                                                     @endphp
                                                                                     <tr>
                                                                                         <td>{{ $index + 1 }}</td>
                                                                                         <td>{{ $job_name }}</td>
+                                                                                        <td>{{ $val->unit_cost ?? 'N/A' }}</td>
                                                                                         <td>{{ $val->quantity ?? 0 }}</td>
                                                                                         <td>{{ $val->ink ?? 'N/A' }}</td>
                                                                                         <td>{{ $val->paper_type ?? 'N/A' }}</td>

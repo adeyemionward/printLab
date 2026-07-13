@@ -46,7 +46,7 @@
                                                                 <form method="POST"  id="add_bronchure" class="add_bronchure">
                                                                     @csrf
                                                                     @method('POST')
-                                                                    
+
                                                                     <input type="hidden" name="note_type" value="Business Cards">
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
@@ -58,11 +58,19 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
-
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                            <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                        </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlInput1">Quantity </label>
                                                                                 <input required name="quantity" type="number" class="form-control" id="quantity">
                                                                         </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+
+
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="ink">Ink </label>
@@ -73,11 +81,6 @@
                                                                                 <option value="full">Full Color</option>
                                                                             </select>
                                                                         </div>
-
-                                                                    </div>
-                                                                    <div class="row">
-
-
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Size  </label>
                                                                             <select required name="size" class="form-control form-select" id="size">
@@ -93,15 +96,15 @@
                                                                                 <option value="80# Cover Uncoated (9pt)">80# Cover Uncoated (9pt)</option>
                                                                             </select>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="row">
+
+
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Production Time (Days)</label>
                                                                             <input type="number" required name="production_time" class="form-control" id="quantity" placeholder="eg: 4">
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row">
-
-
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Proof Needed</label>
                                                                             <select  class="form-control form-select"  name="proof_needed" id="proof_needed">
@@ -121,7 +124,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="total_cost">Total Cost</label>
-                                                                            <input type="text" required name="total_cost" class="form-control numberFormat"
+                                                                            <input type="text" required name="total_cost" readonly class="form-control numberFormat"
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
 

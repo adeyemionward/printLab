@@ -45,12 +45,6 @@
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="customer_name">Customer Name</label>
-                                                                            {{-- <select name="customer_id" required class="form-control form-select" id="customer_name">
-                                                                                <option >--Select Customer Name--</option>
-                                                                                @foreach ($customers as $val)
-                                                                                    <option value="{{$val->id}}">{{$val->firstname.' '.$val->lastname }}</option>
-                                                                                @endforeach
-                                                                            </select> --}}
                                                                             <select name="customer_id" required class="form-control form-select" id="customer_name">
                                                                                 <option value="">--Select Customer Name--</option>
                                                                                 @foreach ($customers as $val)
@@ -61,12 +55,20 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
+                                                                         <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                            <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                        </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlInput1">Quantity </label>
                                                                             <input type="number" required name="quantity" class="form-control"
                                                                                 id="quantity">
                                                                         </div>
+
+                                                                    </div>
+
+                                                                    <div class="row">
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Ink
@@ -78,9 +80,6 @@
                                                                                 <option value="full">Full Color</option>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
-
-                                                                    <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="thickness"> Cover Thickness</label>
                                                                             <select class="form-control form-select" required  name="thickness" id="thickness">
@@ -103,14 +102,14 @@
                                                                                 </select>
                                                                         </div>
 
+                                                                    </div>
+                                                                    <div class="row">
+
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Production Time (Days)
                                                                                 </label> <input required type="number" name="production_time" class="form-control"
                                                                                 id="quantity" placeholder="eg: 4">
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row">
-
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="proof_needed">Proof Needed</label>
                                                                             <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
@@ -122,7 +121,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="total_cost">Total Cost</label>
-                                                                            <input type="text" required name="total_cost" class="form-control numberFormat"
+                                                                            <input type="text" required name="total_cost" readonly class="form-control numberFormat"
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
 

@@ -19,6 +19,7 @@
                 $order_date = date('Y-m-d');
                 $customer_id                =  request('customer_id');
                 $quantity                   =  request('quantity');
+                $unit_cost                  =  request('unit_cost');
                 $size                       =  request('size');
                 $ink                        =  request('ink');
                 $paper_type                 =  request('paper_type');
@@ -80,7 +81,7 @@
                         ],
                     );
                 }
-                
+
                 JobOrderTracking::saveJobOrderTracking($job_order->id, $order_date);
                 JobPaymentHistory::saveJobPaymentHistory($job_order->id, $customer_id, $user->company_id, $amount_paid, $payment_type, $order_date, $user->id);
                 DB::commit();

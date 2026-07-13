@@ -59,11 +59,18 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                     </div>
+                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                        <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                                        <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                                    </div>
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlInput1">Quantity
                                                                                             </label> <input required name="quantity" type="number" class="form-control"  id="quantity">
                                                                                     </div>
+
+                                                                                </div>
+																				<div class="row">
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlSelect1">Ink </label>
@@ -74,9 +81,6 @@
                                                                                             <option value="full">Full Color</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-																				<div class="row">
-
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="size">Size  </label>
@@ -107,16 +111,16 @@
                                                                                             <option value="80# Cover Uncoated (9pt)">80# Cover Uncoated (9pt)</option>
                                                                                         </select>
                                                                                     </div>
+                                                                                </div>
+                                                                                <div class="row">
+
+
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="production_time">Production Time (Days)
                                                                                             </label> <input type="number" required name="production_time" class="form-control"
                                                                                             id="quantity" placeholder="eg: 4">
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="row">
-
-
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="proof_needed">Proof Needed</label>
                                                                                         <select class="form-control form-select"  name="proof_needed" id="proof_needed">
@@ -133,6 +137,12 @@
                                                                                             <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
+                                                                                </div>
+
+
+
+                                                                                <div class="row">
+
 
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
@@ -144,14 +154,9 @@
                                                                                             <option value="Yes">Yes</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="total_cost">Total Cost</label>
-                                                                                        <input type="text" required name="total_cost" class="form-control numberFormat"
+                                                                                        <input type="text" required name="total_cost" readonly class="form-control numberFormat"
                                                                                             id="total_cost" placeholder="eg: 24000">
                                                                                     </div>
 

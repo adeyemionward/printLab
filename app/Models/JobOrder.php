@@ -17,6 +17,7 @@ class JobOrder extends Model
         'ink',
         'paper_type',
         'quantity',
+        'unit_cost',
         'thickness',
         'total_cost',
         'memory',

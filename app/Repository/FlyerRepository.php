@@ -18,6 +18,7 @@
 
                 $customer_id                =  request('customer_id');
                 $quantity                   =  request('quantity');
+                $unit_cost                   =  request('unit_cost');
                 $size                       =  request('size');
                 $ink                        =  request('ink');
                 $paper_type                 =  request('paper_type');
@@ -37,6 +38,7 @@
                 $job_order->company_id     = $user->company_id;
                 // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = 'Flyer';
+                $job_order->unit_cost        = $unit_cost;
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;
                 $job_order->ink             = $ink;
@@ -125,7 +127,7 @@
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
             return redirect(route('company.job_order.view_order',[request()->job_title,$id]))->with('flash_success', 'Flyer order updated successfully');
-           
+
         }
 
          public function updateCartFlyer($data){
@@ -174,7 +176,7 @@
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
             }
             return redirect(route('company.customers.view_cart_order',[$job_order->user_id, $id]))->with('flash_success', 'Cart order updated successfully');
-           
+
         }
 
     }

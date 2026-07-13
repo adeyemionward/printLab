@@ -51,6 +51,10 @@
                                                                                                 @endforeach
                                                                                             </select>
                                                                                     </div>
+                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                        <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                                        <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                                    </div>
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlInput1">Quantity
@@ -184,7 +188,7 @@
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="total_cost">Total Cost</label>
-                                                                                        <input type="text" name="total_cost" class="form-control numberFormat"
+                                                                                        <input type="text" name="total_cost" readonly class="form-control numberFormat"
                                                                                             id="total_cost" placeholder="eg: 24000">
                                                                                     </div>
 

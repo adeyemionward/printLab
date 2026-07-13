@@ -41,6 +41,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\FilterOrdersByDateTrait;
 use App\Traits\HandleFileUpload;
 use App\Models\MarketerCommission;
+use App\Models\ProductPricingVolume;
+use App\Models\ProductType;
+
 class JobOrderController extends Controller
 {
     use FilterOrdersByDateTrait;
@@ -293,6 +296,9 @@ class JobOrderController extends Controller
     {
         $customers = User::getCustomers();
         $locations = JobLocation::getLocations();
+        $product_type = ProductType::select('id')->where('slug','higher-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
 
         // Initialize the selected customer ID as null
         $selectedCustomerId = null;
@@ -305,7 +311,7 @@ class JobOrderController extends Controller
             }
         }
 
-        return view('company.job_order.higher_education', compact('customers', 'locations', 'id', 'selectedCustomerId'));
+        return view('company.job_order.higher_education', compact('customers', 'locations', 'id', 'selectedCustomerId','pricing'));
     }
 
     public function post_higher_education(Request $request)

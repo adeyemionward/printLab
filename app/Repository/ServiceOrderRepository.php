@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\MarketerCommission;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ServiceOrderRepository
 {
@@ -19,16 +20,17 @@ class ServiceOrderRepository
             $order_date = date('Y-m-d');
             $customer_id                =  $data['customer_id'];
             $quantity                   =  $data['quantity'];
+            $unit_cost              =  $data['unit_cost'];
             $ink                        =  $data['ink'];
             $production_time            =  $data['production_time'];
-            
+
             $total_cost             =  (!isset($data['total_cost']) || $data['total_cost'] === '') ? 0 : (float) str_replace(',', '', $data['total_cost']);
             $initial_amount_paid    =  (!isset($data['amount_paid']) || $data['amount_paid'] === '') ? 0 : (float) str_replace(',', '', $data['amount_paid']);
-           
+
             $initial_payment_type   =  $data['payment_type'];
             $location               =  $data['location'];
 
-            
+
             $posted_cheque_due_date =  $data['posted_cheque_date'] ?? null;
             $marketerId = $data['marketer_id'] ?? [];
             $percentage = $data['percentage'] ?? [];
@@ -43,6 +45,7 @@ class ServiceOrderRepository
             // $job_order->marketer_id     = $marketerId ?? null;
             $job_order->company_id      = $user->company_id;
             $job_order->job_order_name  = 'Service';
+            $job_order->unit_cost        = $unit_cost;
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;
             $job_order->production_days = $production_time;
@@ -69,11 +72,11 @@ class ServiceOrderRepository
                 );
             }
 
-           
+
             DB::commit();
 
         }catch(\Exception $th){
-            \Log::error($th->getMessage());
+            Log::error($th->getMessage());
             DB::rollBack();
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
@@ -145,7 +148,7 @@ class ServiceOrderRepository
             DB::commit();
 
         }catch(\Exception $th){
-            \Log::error($th->getMessage());
+            Log::error($th->getMessage());
             DB::rollBack();
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }

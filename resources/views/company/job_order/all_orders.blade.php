@@ -57,7 +57,7 @@
                                         </td>
                                         {{-- <td>{{ $val->jobOrders->sum('quantity') }}</td> --}}
                                         {{-- <td>{{$val->production_days}}</td> --}}
-                                        <td>{{'₦'.$val->total_cost}} </td>
+                                        <td>₦{{number_format($val->total_cost)}} </td>
                                         <td>{{$val->status}}</td>
                                         <td><a href="{{route('company.job_order.view_order',$val->id)}}"><span><i class="fa fa-eye"></i></span></a></td>
                                     </tr>

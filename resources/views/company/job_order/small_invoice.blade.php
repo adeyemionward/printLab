@@ -58,11 +58,19 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                     </div>
+                                                                                      <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                            <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                                            <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                                        </div>
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="quantity">Quantity </label>
                                                                                             <input name="quantity" type="number" class="form-control" id="quantity">
                                                                                     </div>
+
+
+                                                                                </div>
+																				<div class="row">
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="size">Size</label>
@@ -71,9 +79,6 @@
                                                                                             <option value="5.5 x 8.5">5.5 x 8.5</option>
                                                                                         </select>
                                                                                     </div>
-
-                                                                                </div>
-																				<div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlSelect1">Ink
                                                                                             </label>
@@ -96,15 +101,15 @@
                                                                                         </select>
                                                                                     </div>
 
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                        <label for="production_time">Production Time (Days)</label>
-                                                                                         <input type="number" name="production_time" class="form-control"  id="quantity" placeholder="eg: 4">
-                                                                                    </div>
+
 
                                                                                 </div>
 
                                                                                 <div class="row">
-
+                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                        <label for="production_time">Production Time (Days)</label>
+                                                                                         <input type="number" name="production_time" class="form-control"  id="quantity" placeholder="eg: 4">
+                                                                                    </div>
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="proof_needed">Proof Needed</label>
@@ -123,6 +128,10 @@
                                                                                         </select>
                                                                                     </div>
 
+
+                                                                                </div>
+
+                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="hole_drilling">Hole Drilling</label>
                                                                                         <select class="form-control form-select"  name="hole_drilling" id="hole_drilling">
@@ -131,9 +140,6 @@
                                                                                             <option value="no">No</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="backsided">Perforating</label>
                                                                                         <select class="form-control form-select"  name="perforating" id="perforating">
@@ -152,6 +158,10 @@
                                                                                         </select>
                                                                                     </div>
 
+                                                                                </div>
+
+                                                                                <div class="row">
+
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="books_with_covers">Books with Covers</label>
                                                                                         <select class="form-control form-select"  name="books_with_covers" id="books_with_covers">
@@ -163,9 +173,6 @@
                                                                                             <option value="YES - Books of 50's w/perf+stapled* (Recommended)">YES - Books of 50's w/perf+stapled* (Recommended)</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="backsided">Numbering Needed</label>
                                                                                         <select class="form-control form-select"  name="numbering_needed" id="numbering_needed">

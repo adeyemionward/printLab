@@ -18,6 +18,7 @@
 
                 $customer_id                =  request('customer_id');
                 $quantity                   =  request('quantity');
+                // $unit_cost                  =  request('unit_cost');
                 $size                       =  request('size');
                 $ink                        =  request('ink');
                 $paper_type                 =  request('paper_type');
@@ -43,6 +44,7 @@
                 $job_order->company_id     = $user->company_id;
                 ////////$job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = 'Booklet';
+
                 $job_order->quantity        = $quantity;
                 $job_order->size            = $size;
                 $job_order->ink             = $ink;
