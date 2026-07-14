@@ -63,10 +63,12 @@
                                                                                             <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
                                                                                         </div>
 
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                        <label for="quantity">Quantity </label>
-                                                                                            <input name="quantity" type="number" class="form-control" id="quantity">
+                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                        <label for="exampleFormControlInput1">Quantity </label>
+                                                                                        <input type="number" required name="quantity" class="form-control"
+                                                                                            id="quantity">
                                                                                     </div>
+
 
 
                                                                                 </div>
@@ -108,7 +110,7 @@
                                                                                 <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="production_time">Production Time (Days)</label>
-                                                                                         <input type="number" name="production_time" class="form-control"  id="quantity" placeholder="eg: 4">
+                                                                                         <input type="number" name="production_time" class="form-control"  placeholder="eg: 4">
                                                                                     </div>
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
@@ -199,8 +201,10 @@
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="total_cost">Total Cost</label>
-                                                                                        <input type="text" name="total_cost" class="form-control"  id="total_cost numberFormat" placeholder="eg:24000">
+                                                                                        <input type="text" required name="total_cost" readonly class="form-control numberFormat"
+                                                                                            id="total_cost" placeholder="eg: 24000">
                                                                                     </div>
+
 
 
 

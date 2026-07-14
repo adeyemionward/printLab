@@ -57,11 +57,19 @@
                                                                         </div>
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
+                                                                            <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                            <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                        </div>
+                                                                        <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="quantity">Quantity
                                                                                 </label> <input name="quantity" required type="number" class="form-control"
                                                                                 id="quantity">
                                                                         </div>
 
+
+
+                                                                    </div>
+                                                                    <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="ink">Ink</label>
                                                                             <select required name="ink" class="form-control form-select" id="ink">
@@ -70,10 +78,6 @@
                                                                                 <option value="Full Ink">Full Ink</option>
                                                                             </select>
                                                                         </div>
-
-                                                                    </div>
-                                                                    <div class="row">
-
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="size">Size </label>
@@ -98,13 +102,14 @@
                                                                             </select>
                                                                         </div>
 
+
+                                                                    </div>
+                                                                    <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Production Time (Days)
                                                                                 </label> <input required type="number" name="production_time" class="form-control"
-                                                                                id="quantity" placeholder="eg: 4">
+                                                                                 placeholder="eg: 4">
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="backsided">Back Sided Print</label>
                                                                             <select class="form-control form-select"  name="back_sided_print" id="back_sided_print">
@@ -125,7 +130,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="total_cost">Total Cost</label>
-                                                                            <input type="number" required name="total_cost" class="form-control numberFormat"
+                                                                            <input type="text" required name="total_cost" readonly class="form-control numberFormat"
                                                                                 id="total_cost" placeholder="eg: 24000">
                                                                         </div>
 

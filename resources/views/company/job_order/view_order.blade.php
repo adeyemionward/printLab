@@ -140,7 +140,7 @@
                                                                                     <tr>
                                                                                         <td>{{ $index + 1 }}</td>
                                                                                         <td>{{ $job_name }}</td>
-                                                                                        <td>{{ $val->unit_cost ?? 'N/A' }}</td>
+                                                                                        <td>&#8358;{{ number_format($val->unit_cost,2 ?? 'N/A') }}</td>
                                                                                         <td>{{ $val->quantity ?? 0 }}</td>
                                                                                         <td>{{ $val->ink ?? 'N/A' }}</td>
                                                                                         <td>{{ $val->paper_type ?? 'N/A' }}</td>

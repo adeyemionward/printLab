@@ -19,6 +19,7 @@
                 $order_date = date('Y-m-d');
 
                 $customer_id                =  request('customer_id');
+                $unit_cost                  =  request('unit_cost');
                 $quantity                   =  request('quantity');
                 $size                       =  request('size');
                 $ink                        =  request('ink');
@@ -46,6 +47,7 @@
                 // $job_order->marketer_id     = $marketerId ?? null;
                 $job_order->job_order_name  = 'Notepads';
                 $job_order->quantity        = $quantity;
+                $job_order->unit_cost        = $unit_cost;
                 $job_order->size            = $size;
                 $job_order->ink             = $ink;
                 $job_order->paper_type      = $paper_type;

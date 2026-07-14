@@ -62,6 +62,11 @@
                                                                                             id="quantity">
                                                                                     </div>
 
+
+
+                                                                                </div>
+																				<div class="row">
+
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlSelect1">Ink
                                                                                             </label>
@@ -72,11 +77,6 @@
                                                                                             <option value="full">Full Color</option>
                                                                                         </select>
                                                                                     </div>
-
-                                                                                </div>
-																				<div class="row">
-
-
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="size">Size</label>
                                                                                         <select required name="size" class="form-control form-select" id="size">
@@ -97,6 +97,11 @@
                                                                                         </select>
                                                                                     </div>
 
+
+
+
+                                                                                </div>
+                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="exampleFormControlSelect1">Paper Type </label>
                                                                                             <select name="paper_type" class="form-control form-select"
@@ -108,10 +113,6 @@
                                                                                             <option value="4 Part White | Canary | Pink | Goldenrod">4 Part White | Canary | Pink | Goldenrod</option>
                                                                                         </select>
                                                                                     </div>
-
-
-                                                                                </div>
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="backsided">Back Sided Print</label>
                                                                                         <select class="form-control form-select"  name="back_sided_print" id="back_sided_print">
@@ -127,7 +128,12 @@
                                                                                             </label> <input type="number" name="production_time" class="form-control"
                                                                                             id="quantity" placeholder="eg: 4">
                                                                                     </div>
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+
+                                                                                </div>
+
+                                                                                <div class="row">
+
+                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="proof_needed">Proof Needed</label>
                                                                                         <select required class="form-control form-select"  name="proof_needed" id="proof_needed">
                                                                                             <option >--Select Proof Needed--</option>
@@ -135,11 +141,6 @@
                                                                                             <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-
-
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="binding">Binding</label>
                                                                                         <select class="form-control form-select"  name="bilding" id="binding">
@@ -157,7 +158,11 @@
                                                                                         </select>
                                                                                     </div>
 
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                      <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="books_with_covers">Books with Covers</label>
                                                                                         <select class="form-control form-select"  name="books_with_cover" id="books_with_cover">
                                                                                             <option >--Select--</option>
@@ -165,9 +170,6 @@
                                                                                             <option value="60# White Text Uncoated">60# White Text Uncoated</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="hole_drilling">Books with Covers</label>
                                                                                         <select class="form-control form-select"  name="hole_drilling" id="hole_drilling">

@@ -56,11 +56,19 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                     </div>
-
+                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                            <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                                            <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                                        </div>
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="quantity">Quantity </label>
                                                                                         <input name="quantity" required type="number" class="form-control" id="quantity">
                                                                                     </div>
+
+
+
+                                                                                </div>
+																				<div class="row">
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="ink">Ink </label>
@@ -71,11 +79,6 @@
                                                                                             <option value="full">Full Color</option>
                                                                                         </select>
                                                                                     </div>
-
-                                                                                </div>
-																				<div class="row">
-
-
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="size">Size </label>
                                                                                         <select required name="size" class="form-control form-select" id="size">
@@ -102,6 +105,10 @@
 
                                                                                     </div>
 
+
+
+                                                                                </div>
+                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="page_count">Page Count </label>
                                                                                             <select  name="page_count" required class="form-control form-select" id="page_count">
@@ -111,9 +118,6 @@
                                                                                                 <option value="25 sheets">25 sheets</option>
                                                                                             </select>
                                                                                     </div>
-
-                                                                                </div>
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="backsided">Back Sided Print</label>
                                                                                         <select class="form-control form-select" required  name="back_sided_print" id="back_sided_print">
@@ -134,6 +138,10 @@
                                                                                         </select>
                                                                                     </div>
 
+                                                                                </div>
+
+                                                                                <div class="row">
+
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="hole_drilling">Hole Drilling</label>
                                                                                         <select class="form-control form-select"  name="hole_drilling" id="hole_drilling">
@@ -142,9 +150,6 @@
                                                                                             <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="backsided">Perforating</label>
                                                                                         <select required class="form-control form-select"  name="perforating" id="Perforating">
@@ -163,7 +168,11 @@
                                                                                         </select>
                                                                                     </div>
 
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="books_with_cover">Books with Covers</label>
                                                                                         <select class="form-control form-select" required  name="books_with_cover" id="books_with_cover">
                                                                                             <option value="">--Select Books with Covers--</option>
@@ -171,9 +180,6 @@
                                                                                             <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="shrink_wrap">Shrink Wrap</label>
                                                                                         <select required class="form-control form-select"  name="shrink_wrap" id="shrink_wrap">
@@ -191,7 +197,11 @@
                                                                                             id="quantity" placeholder="eg: 4" >
                                                                                     </div>
 
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                      <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="numbering_needed">Numbering Needed</label>
                                                                                         <select required class="form-control  form-select"  name="numbering_needed" id="numbering_needed">
                                                                                             <option value="">--Select Numbering Needed-- </option>
@@ -200,9 +210,6 @@
                                                                                             <option value="Not Needed">Not Needed</option>
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>
-
-                                                                                <div class="row">
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="start_number">Start Number</label>
                                                                                         <input type="number" required name="start_number" class="form-control"
@@ -211,7 +218,7 @@
 
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="total_cost">Total Cost</label>
-                                                                                        <input type="text" required name="total_cost" class="form-control numberFormat"
+                                                                                        <input type="text" required name="total_cost" readonly class="form-control numberFormat"
                                                                                             id="total_cost" placeholder="eg: 24000">
                                                                                     </div>
 
@@ -227,7 +234,7 @@
                                                                                     </div>
                                                                                     <div class="form-group mt-3 mb-3 col-md-4">
                                                                                         <label for="proof_needed">Payment Type</label>
-                                                                                        <select class="form-control" name="payment_type" required>
+                                                                                        <select class="form-control" name="payment_type" id="payment_type" required>
                                                                                             <option value="">--Select Payment Type--</option>
                                                                                             <option value="Full Payment">Full Payment</option>
                                                                                             <option value="Part Payment">Part Payment</option>
@@ -238,9 +245,9 @@
 
 
 
-                                                                                    <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                    <div class="form-group mt-3 mb-3 col-md-4" id="amount_paid_container">
                                                                                         <label for="amount_paid">Amount Paid</label>
-                                                                                        <input type="text" required name="amount_paid" class="form-control numberFormat"
+                                                                                        <input type="text" required name="amount_paid" class="form-control"
                                                                                             id="amount_paid" placeholder="eg: 10000">
                                                                                     </div>
 

@@ -102,6 +102,9 @@
                                                                             </select>
                                                                         </div>
 
+
+                                                                    </div>
+                                                                    <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlSelect1">Paper Type
                                                                                 </label>
@@ -113,8 +116,6 @@
                                                                                     <option value="80g">80g</option>
                                                                                 </select>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row">
                                                                          <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="production_time">Production Time (Days)
                                                                                 </label> <input required type="number" name="production_time" class="form-control"
