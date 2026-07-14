@@ -1066,18 +1066,38 @@ $(document).ready(function() {
 });
 
 
+// $(document).ready(function() {
+//     $('#payment_type').on('change', function() {
+//         let value = $(this).val();
+
+//         if (value === 'No Payment' || value === '') {
+//             $('#amount_paid_container').hide();
+//             $('#amount_paid').removeAttr('required').val('');
+//         } else {
+//             $('#amount_paid_container').show();
+//             $('#amount_paid').attr('required', true);
+//         }
+//     }).trigger('change'); // Trigger on load
+// });
 $(document).ready(function() {
     $('#payment_type').on('change', function() {
         let value = $(this).val();
+        let $amountInput = $('#amount_paid');
+        let originalValue = $amountInput.data('original') || '';
 
         if (value === 'No Payment' || value === '') {
             $('#amount_paid_container').hide();
-            $('#amount_paid').removeAttr('required').val('');
+            $amountInput.removeAttr('required').val('');
         } else {
             $('#amount_paid_container').show();
-            $('#amount_paid').attr('required', true);
+            $amountInput.attr('required', true);
+
+            // Restore the original database value if it exists and the field is currently empty
+            if ($amountInput.val() === '') {
+                $amountInput.val(originalValue);
+            }
         }
-    }).trigger('change'); // Trigger on load
+    }); // Removed .trigger('change') on load to respect Bootstrap's server-side 'd-none' class
 });
 // Tracks whether the user has manually changed the unit cost
 let unitCostModified = false;

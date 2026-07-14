@@ -58,9 +58,9 @@
                                                                             </select>
                                                                         </div>
                                                                            <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                        <label for="exampleFormControlInput1">Unit Cost </label>
-                                                                                        <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
-                                                                                    </div>
+                                                                                <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                                <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{$pricing->cost ?? 0.00}}">
+                                                                            </div>
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="quantity">Quantity</label> <input required type="number" name="quantity" class="form-control"
                                                                                 id="quantity">

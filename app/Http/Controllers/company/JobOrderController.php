@@ -286,12 +286,7 @@ class JobOrderController extends Controller
         return view('company.job_order.transaction_history', compact('job_order','job_pay_history','approved_design'));
     }
 
-    // public function higher_education($id = null)
-    // {
-    //     $customers = User::getCustomers();
-    //     $locations =  JobLocation::getLocations();
-    //     return view('company.job_order.higher_education', compact('customers','locations','id'));
-    // }
+
     public function higher_education($id = null)
     {
         $customers = User::getCustomers();
@@ -324,6 +319,9 @@ class JobOrderController extends Controller
     public function create_2A_notebook($id = null){
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','2a-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -333,7 +331,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.2A_notebook', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.2A_notebook', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_2A_notebook(Request $request)
@@ -346,6 +344,9 @@ class JobOrderController extends Controller
     public function create_2B_notebook($id = null){
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','2b-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -355,7 +356,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.2B_notebook', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.2B_notebook', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_2B_notebook(Request $request)
@@ -369,6 +370,9 @@ class JobOrderController extends Controller
     public function create_2D_notebook($id = null){
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','2d-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -378,7 +382,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.2D_notebook', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.2D_notebook', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_2D_notebook(Request $request)
@@ -391,6 +395,9 @@ class JobOrderController extends Controller
     public function create_drawing_book($id = null){
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','drawing-book')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -400,7 +407,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.drawing_book', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.drawing_book', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_drawing_book(Request $request)
@@ -416,6 +423,9 @@ class JobOrderController extends Controller
     {
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','20-leaves-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -425,7 +435,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.20_leaves_book', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.20_leaves_book', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_twenty_leaves(Request $request)
@@ -446,6 +456,9 @@ class JobOrderController extends Controller
     {
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','40-leaves-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -455,7 +468,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.40_leaves_book', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.40_leaves_book', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_forty_leaves(Request $request)
@@ -470,6 +483,9 @@ class JobOrderController extends Controller
     {
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+         $product_type = ProductType::select('id')->where('slug','60-leaves-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -479,7 +495,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.60_leaves_book', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.60_leaves_book', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_sixty_leaves(Request $request)
@@ -493,6 +509,9 @@ class JobOrderController extends Controller
     {
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+        $product_type = ProductType::select('id')->where('slug','80-leaves-notebook')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -502,7 +521,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.80_leaves_book', compact('customers','locations', 'selectedCustomerId'));
+        return view('company.job_order.80_leaves_book', compact('customers','locations', 'selectedCustomerId','pricing'));
     }
 
     public function post_eighty_leaves(Request $request)
@@ -516,6 +535,9 @@ class JobOrderController extends Controller
     {
         $customers  =  User::getCustomers();
         $locations  =  JobLocation::getLocations();
+        $product_type = ProductType::select('id')->where('slug','service-order')->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
         $selectedCustomerId = null;
 
         // If a Job ID is provided in the URL, find the job and get its user_id
@@ -525,7 +547,7 @@ class JobOrderController extends Controller
                 $selectedCustomerId = $job->user_id; // Grabbing the user_id column from the job_orders table
             }
         }
-        return view('company.job_order.service_order', compact('customers','locations','selectedCustomerId'));
+        return view('company.job_order.service_order', compact('customers','locations','selectedCustomerId','pricing'));
     }
 
 
@@ -664,13 +686,59 @@ class JobOrderController extends Controller
         $job_order =  JobOrder::find($id);
         $customers =  User::getCustomers();
         $locations =  JobLocation::getLocations();
+        $slug =  '';
+
+        if($job_title == 'Higher_NoteBook'){
+            $slug = 'higher-notebook';
+        }elseif($job_title == '2A_NoteBook'){
+            $slug = '2a-notebook';
+        }elseif($job_title == '2B_NoteBook'){
+            $slug = '2b-notebook';
+        }elseif($job_title == '2D_NoteBook'){
+            $slug = '2d-notebook';
+        }elseif($job_title == 'Twenty_Leaves'){
+            $slug = '20-leaves-notebook';
+        }elseif($job_title == 'Forty_Leaves'){
+            $slug = '40-leaves-notebook';
+        }elseif($job_title == 'Sixty_Leaves'){
+            $slug = '60-leaves-notebook';
+        }elseif($job_title == 'Eighty_Leaves'){
+            $slug = '80-leaves-notebook';
+        }elseif($job_title == 'Drawing_Book'){
+            $slug = 'drawing-book';
+        }elseif($job_title == 'Booklet'){
+            $slug = 'booklet';
+        }elseif($job_title == 'Business_Cards'){
+            $slug = 'business-cards';
+        }elseif($job_title == 'Envelopes'){
+            $slug = 'envelopes';
+        }elseif($job_title == 'Brochures'){
+            $slug = 'brochures';
+        }elseif($job_title == 'Flyer'){
+            $slug = 'flyers';
+        }elseif($job_title == 'Notepads'){
+            $slug = 'notepads';
+        }elseif($job_title == 'Stickers'){
+            $slug = 'stickers';
+        }elseif($job_title == 'Small_Invoice'){
+            $slug = 'small-invoice';
+        }elseif($job_title == 'Service'){
+            $slug = 'service-order';
+        }
+
+
+
+        $product_type = ProductType::select('id')->where('slug',$slug)->where('company_id', app('company_id'))->first();
+        $pricing = ProductPricingVolume::select('cost')->where('product_type_id',$product_type->id)
+                    ->where('company_id', app('company_id'))->first();
 
         $job_marketers_commission = MarketerCommission::where('job_order_id', $id)->get();
-        return view('company.job_order.edit_order', compact('job_order','customers','locations','approved_design','job_marketers_commission'));
+        return view('company.job_order.edit_order', compact('job_order','customers','locations','approved_design','job_marketers_commission','pricing'));
     }
 
     public function update_order(Request $request, $job_title, $id){
         $user = Auth::user();
+
         DB::beginTransaction();
         try{
 

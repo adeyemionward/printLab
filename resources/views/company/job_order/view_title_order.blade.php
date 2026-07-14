@@ -85,6 +85,10 @@
                                                                         <td>{{$job_order->job_order_name ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
+                                                                        <td width="10%" class="question">Unit Cost :</td>
+                                                                        <td>&#8358;{{$job_order->unit_cost ?? 'N/A'}}</td>
+                                                                    </tr>
+                                                                    <tr class="det">
                                                                         <td width="10%" class="question">Quantity :</td>
                                                                         <td>{{$job_order->quantity ?? 'N/A'}}</td>
                                                                     </tr>

@@ -94,9 +94,10 @@ class ServiceOrderRepository
             $order_date = date('Y-m-d');
             $customer_id                =  $data['customer_id'];
             $quantity                   =  $data['quantity'];
+            $unit_cost                  =  $data['unit_cost'];
             $ink                        =  $data['ink'];
             $production_time            =  $data['production_time'];
-            $total_cost                 =  $data['total_cost'];
+            $total_cost                 =  (!isset($data['total_cost']) || $data['total_cost'] === '') ? 0 : (float) str_replace(',', '', $data['total_cost']);
             $amount_paid                =  $data['amount_paid'];
             $payment_type               =  $data['payment_type'];
             $location                   =  $data['location'];
@@ -107,6 +108,7 @@ class ServiceOrderRepository
             $job_order->user_id         = $customer_id;
             // $job_order->marketer_id     = $marketerId ?? null;
             $job_order->job_order_name  = 'Service';
+            $job_order->unit_cost       = $unit_cost;
             $job_order->quantity        = $quantity;
             $job_order->ink             = $ink;
             $job_order->production_days = $production_time;
