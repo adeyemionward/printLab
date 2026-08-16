@@ -56,11 +56,11 @@
                                                                 {{-- <td>{{$val->user->firstname.' '. $val->user->lastname}}</td> --}}
                                                                 <td>{{$val->job_order_name}}</td>
                                                                 <td>{{$val->quantity}}</td>
-                                                                <td>{{'₦'.$val->unit_cost}}</td>
+                                                                <td>{{'₦'.number_format($val->unit_cost, 2)}}</td>
                                                                 <td>{{$val->ink}}</td>
                                                                 <td>{{$val->paper_type}}</td>
                                                                 <td>{{$val->production_days}}</td>
-                                                                <td>{{'₦'.$val->total_cost}} </td>
+                                                                <td>{{'₦'.number_format($val->total_cost, 2)}} </td>
                                                                 <td>{{$val->status}}</td>
                                                                 <td>
                                                                     <a href="{{route('company.customers.edit_cart_order',[$val->user_id, $val->id])}}"><span><i class="fa fa-pen"></i></span></a>
