@@ -14,6 +14,7 @@
     use App\Models\User;
     use App\Models\MarketerCommission;
     use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
     class NoteBookRepository
     {
@@ -258,6 +259,7 @@
                 DB::commit();
              }catch(\Exception $th){
                 DB::rollBack();
+                Log::error('Error updating cart notebook order: ' . $th->getMessage(), ['exception' => $th]);
                 return redirect()->back()->with('flash_error','An Error Occured: Please try later');
              }
             // return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
