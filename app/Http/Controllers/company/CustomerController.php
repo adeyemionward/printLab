@@ -184,6 +184,7 @@ class CustomerController extends Controller
             DB::commit();
         }catch(\Exception $th){
             DB::rollBack();
+            Log::error('Error updating cart order: ' . $th->getMessage(), ['exception' => $th]);
             return redirect()->back()->with('flash_error','An Error Occured: Please try later');
         }
         return $response;
@@ -269,7 +270,7 @@ class CustomerController extends Controller
     //         ];
     //         $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
 
-           
+
     //         // Try sending the email and handle failure gracefully
     //         $emailSent = true;
     //         try {
@@ -311,7 +312,7 @@ class CustomerController extends Controller
 
         // Calculate the sum of total_cost
         $job_order = JobOrder::whereIn('id', $job_id)
-            ->where('company_id', app('company_id'))->get(); 
+            ->where('company_id', app('company_id'))->get();
 
         // Ensure total cost calculation is purely numeric
         $total_cost = $job_order->sum(function ($order) {
@@ -326,10 +327,10 @@ class CustomerController extends Controller
         $job_order_unique->order_date      = $order_date;
         $job_order_unique->total_cost      = $total_cost;
         $job_order_unique->cart_order_status = 2; // completed
-        $job_order_unique->order_type      = 'internal'; 
+        $job_order_unique->order_type      = 'internal';
         $job_order_unique->created_by      = $user->id;
         $job_order_unique->save();
-        
+
         $checkout = JobOrder::whereIn('id', $job_id)->where('company_id', app('company_id'))->update(
             [
                 'cart_order_status' =>  2,
@@ -342,7 +343,7 @@ class CustomerController extends Controller
         foreach ($job_order as $order) {
             // Type-cast the amount paid dynamically to prevent non-numeric string exceptions
             $amountPaidClean = is_numeric($order->initial_amount_paid) ? (float)$order->initial_amount_paid : 0;
-         
+
             if ($amountPaidClean > 0) {
                 JobPaymentNewHistory::saveJobPaymentHistory(
                     $job_order_unique->id,
@@ -368,7 +369,7 @@ class CustomerController extends Controller
             'payment_type' => '',
             'amount_paid'  => '',
             'userDetails'  => $userDetails,
-            'orderDetails' => $orderDetails, 
+            'orderDetails' => $orderDetails,
         ];
         $pdf_attachment =   Pdf::loadView('front.invoice_attachment', $data );
 
@@ -378,7 +379,7 @@ class CustomerController extends Controller
             Mail::to($userEmail)->send(new CustomerOrderReceipt($orderDetails, $amount_paid, $userName, $pdf_attachment));
         } catch (\Exception $e) {
             Log::error('Failed to send email: ' . $e->getMessage());
-            $emailSent = false; 
+            $emailSent = false;
         }
 
         DB::commit();

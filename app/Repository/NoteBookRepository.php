@@ -101,8 +101,8 @@ use Illuminate\Support\Facades\Log;
                 $order_date = date('Y-m-d');
 
                 $customer_id                =  $data['customer_id'];
-                $quantity                   =  $data['quantity'];
-                 $unit_cost                 =  $data['unit_cost'];
+                $quantity                   =  str_replace(',', '', $data['quantity']);
+                $unit_cost                 =  str_replace(',', '', $data['unit_cost']);
                 $ink                        =  $data['ink'];
                 $leaves                     =  $data['leaves'];
                 $paper_type                 =  $data['paper_type'];
@@ -219,7 +219,7 @@ use Illuminate\Support\Facades\Log;
                 $job_order->total_cost      = $total_cost;
                 $job_order->job_location_id = $location;
                 $job_order->updated_by      = $user->id;
-                $job_order->posted_cheque_due_date      = $data['posted_cheque_date'];
+                $job_order->posted_cheque_due_date  = $data['posted_cheque_date'];
                 $pp = $job_order->save();
 
                 $marketer_commission_id = $data['marketer_commission_id'];
@@ -259,8 +259,7 @@ use Illuminate\Support\Facades\Log;
                 DB::commit();
              }catch(\Exception $th){
                 DB::rollBack();
-                Log::error('Error updating cart notebook order: ' . $th->getMessage(), ['exception' => $th]);
-                return redirect()->back()->with('flash_error','An Error Occured: Please try later');
+                return redirect()->back()->with('flash_error','An Error Occured: Please try later 1');
              }
             // return redirect(route('job_order.view_order',['Eighty_Leaves',$id]))->with('flash_success','Eighty Leaves Book order updated successfully');
             return redirect(route('company.customers.view_cart_order',[$job_order->user_id, $id]))->with('flash_success', 'Cart order updated successfully');
