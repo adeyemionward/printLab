@@ -150,7 +150,7 @@ class CustomerController extends Controller
         $user = Auth::user();
         DB::beginTransaction();
         try{
-            $job_order = JobOrder::where('id', $id)->where('company_id',app('company_id'))->first();
+            $job_order = JobOrder::where('id', $job_id)->where('company_id',app('company_id'))->first();
 
 
             if($job_order->job_order_name == 'Eighty Leaves' || $job_order->job_order_name == 'Higher NoteBook' || $job_order->job_order_name == 'Twenty Leaves'|| $job_order->job_order_name == 'Forty Leaves'|| $job_order->job_order_name == 'Sixty Leaves' || $job_order->job_order_name == '2A NoteBook' || $job_order->job_order_name == '2B NoteBook'|| $job_order->job_order_name == '2D NoteBook' || $job_order->job_order_name == 'Drawing Book'){
