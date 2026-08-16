@@ -1611,10 +1611,10 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
-                                                                             <div class="form-group mt-3 mb-3 col-md-4">
-                                                                                    <label for="exampleFormControlInput1">Unit Cost </label>
-                                                                                    <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{ $job_order->unit_cost ?? $pricing?->cost ?? 0 }}">
-                                                                                </div>
+                                                                            <div class="form-group mt-3 mb-3 col-md-4">
+                                                                                <label for="exampleFormControlInput1">Unit Cost </label>
+                                                                                <input type="number" required name="unit_cost" class="form-control" id="unit_cost" value="{{ $job_order->unit_cost ?? $pricing?->cost ?? 0 }}">
+                                                                            </div>
                                                                             <div class="form-group mt-3 mb-3 col-md-4">
                                                                                 <label for="quantity">Quantity</label>
                                                                                 <input type="number" required name="quantity" class="form-control" id="quantity" value="{{$job_order->quantity}}">

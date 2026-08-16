@@ -187,6 +187,7 @@
 
                 $customer_id                =  $data['customer_id'];
                 $quantity                   =  $data['quantity'];
+                $unit_cost                 =  $data['unit_cost'];
                 $ink                        =  $data['ink'];
                 $leaves                     =  $data['leaves'];
                 $paper_type                 =  $data['paper_type'];
@@ -208,6 +209,7 @@
                 $job_order->job_order_name  = $data['note_type'] ?? null;
                 $job_order->leaves          = $leaves;
                 $job_order->quantity        = $quantity;
+                $job_order->unit_cost       = $unit_cost;
                 $job_order->ink             = $ink;
                 $job_order->paper_type      = $paper_type;
                 $job_order->production_days = $production_time;

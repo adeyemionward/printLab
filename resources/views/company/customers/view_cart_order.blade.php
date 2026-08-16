@@ -41,127 +41,131 @@
                                                                       <td width="10%" class="question">Job Id :</td>
                                                                       <td>{{$job_order->id ?? 'N/A'}}</td>
                                                                     </tr>
-                                                                  
+
                                                                     <tr>
-                                                                        <td width="10%" class="question">Created By :</td>
+                                                                        <td width="30%" class="question">Created By :</td>
                                                                         <td>{{@$job_order->createdBy->firstname.' '.@$job_order->createdBy->lastname ?? 'N/A'}}</td>
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td width="10%" class="question">Created At :</td>
+                                                                        <td width="30%" class="question">Created At :</td>
                                                                         <td>{{$job_order->created_at ?? 'N/A'}}</td>
                                                                     </tr>
 
 
                                                                     <tr>
-                                                                        <td width="10%" class="question">Updated By :</td>
+                                                                        <td width="30%" class="question">Updated By :</td>
                                                                         <td>{{@$job_order->updatedBy->firstname.' '.@$job_order->updatedBy->lastname ?? 'N/A'}}</td>
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td width="10%" class="question">Updated At :</td>
+                                                                        <td width="30%" class="question">Updated At :</td>
                                                                         <td>{{$job_order->updated_at ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Customer Name :</td>
+                                                                        <td width="30%" class="question">Customer Name :</td>
                                                                        <td> <a style="text-decoration:underline; color:blue" href="{{route('company.customers.view_customer',$job_order->user_id)}}">{{$job_order->user->firstname.' '.$job_order->user->lastname ?? 'N/A'}}</a></td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Job Order Type :</td>
+                                                                        <td width="30%" class="question">Job Order Type :</td>
                                                                         <td>{{$job_order->job_order_name ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Quantity :</td>
+                                                                        <td width="30%" class="question">Quantity :</td>
                                                                         <td>{{$job_order->quantity ?? 'N/A'}}</td>
+                                                                    </tr>
+                                                                    <tr class="det">
+                                                                        <td width="30%" class="question">Unit Cost :</td>
+                                                                        <td>{{'₦'.$job_order->unit_cost ?? 'N/A'}}</td>
                                                                     </tr>
 
 
 
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Total Cost :</td>
+                                                                        <td width="30%" class="question">Total Cost :</td>
                                                                         <td>&#8358;{{number_format($job_order->total_cost) ?? 'N/A'}}</td>
                                                                     </tr>
 
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Production Days :</td>
+                                                                        <td width="30%" class="question">Production Days :</td>
                                                                         <td>{{$job_order->production_days ?? 'N/A'}}</td>
                                                                     </tr class="det">
 
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Ink :</td>
+                                                                        <td width="30%" class="question">Ink :</td>
                                                                         <td>{{$job_order->ink ?? 'N/A'}}</td>
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td width="10%" class="question">Status :</td>
+                                                                        <td width="30%" class="question">Status :</td>
                                                                         <td>{{$job_order->status ?? 'N/A'}}</td>
                                                                     </tr>
 
 
 
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Paper Type :</td>
+                                                                        <td width="30%" class="question">Paper Type :</td>
                                                                         <td>{{$job_order->paper_type ?? 'N/A'}}</td>
                                                                     </tr>
 
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Bleed :</td>
+                                                                        <td width="30%" class="question">Bleed :</td>
                                                                         <td>{{$job_order->bleed ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Page Count :</td>
+                                                                        <td width="30%" class="question">Page Count :</td>
                                                                         <td>{{$job_order->page_count ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Folding :</td>
+                                                                        <td width="30%" class="question">Folding :</td>
                                                                         <td>{{$job_order->folding ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Shrink Wrap :</td>
+                                                                        <td width="30%" class="question">Shrink Wrap :</td>
                                                                         <td>{{$job_order->shrink_wrap ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Back Sided Print :</td>
+                                                                        <td width="30%" class="question">Back Sided Print :</td>
                                                                         <td>{{$job_order->back_sided_print ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Proof Needed :</td>
+                                                                        <td width="30%" class="question">Proof Needed :</td>
                                                                         <td>{{$job_order->proof_needed ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Hole Drilling :</td>
+                                                                        <td width="30%" class="question">Hole Drilling :</td>
                                                                         <td>{{$job_order->hole_drilling ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Perforating :</td>
+                                                                        <td width="30%" class="question">Perforating :</td>
                                                                         <td>{{$job_order->perforating ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Edge to Glue :</td>
+                                                                        <td width="30%" class="question">Edge to Glue :</td>
                                                                         <td>{{$job_order->edge_to_glue ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Binding :</td>
+                                                                        <td width="30%" class="question">Binding :</td>
                                                                         <td>{{$job_order->binding ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Binding Edge :</td>
+                                                                        <td width="30%" class="question">Binding Edge :</td>
                                                                         <td>{{$job_order->binding_edge ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Cut to Size :</td>
+                                                                        <td width="30%" class="question">Cut to Size :</td>
                                                                         <td>{{$job_order->cut_to_size ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Books with Cover :</td>
+                                                                        <td width="30%" class="question">Books with Cover :</td>
                                                                         <td>{{$job_order->books_with_covers ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Numbering Needed :</td>
+                                                                        <td width="30%" class="question">Numbering Needed :</td>
                                                                         <td>{{$job_order->numbering_needed ?? 'N/A'}}</td>
                                                                     </tr>
                                                                     <tr class="det">
-                                                                        <td width="10%" class="question">Start Number :</td>
+                                                                        <td width="30%" class="question">Start Number :</td>
                                                                         <td>{{$job_order->start_number ?? 'N/A'}}</td>
                                                                     </tr>
                                                                 </table>

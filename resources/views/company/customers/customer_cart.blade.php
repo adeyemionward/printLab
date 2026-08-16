@@ -36,6 +36,7 @@
                                                             {{-- <th>Customer&nbsp;Name</th> --}}
                                                             <th>Job&nbsp;Type</th>
                                                             <th>Quantity</th>
+                                                            <th>Unit&nbsp;Cost</th>
                                                             <th>Ink</th>
                                                             <th>Paper&nbsp;Type</th>
                                                             <th>Production&nbsp;Days</th>
@@ -55,6 +56,7 @@
                                                                 {{-- <td>{{$val->user->firstname.' '. $val->user->lastname}}</td> --}}
                                                                 <td>{{$val->job_order_name}}</td>
                                                                 <td>{{$val->quantity}}</td>
+                                                                <td>{{'₦'.$val->unit_cost}}</td>
                                                                 <td>{{$val->ink}}</td>
                                                                 <td>{{$val->paper_type}}</td>
                                                                 <td>{{$val->production_days}}</td>
