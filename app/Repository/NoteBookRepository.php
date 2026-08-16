@@ -186,8 +186,8 @@
                 $order_date = date('Y-m-d');
 
                 $customer_id                =  $data['customer_id'];
-                $quantity                   =  $data['quantity'];
-                $unit_cost                 =  $data['unit_cost'];
+                $quantity                   =  str_replace(',', '', $data['quantity']);
+                $unit_cost                  =  str_replace(',', '', $data['unit_cost']);
                 $ink                        =  $data['ink'];
                 $leaves                     =  $data['leaves'];
                 $paper_type                 =  $data['paper_type'];
