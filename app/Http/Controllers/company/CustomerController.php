@@ -542,6 +542,7 @@ class CustomerController extends Controller
             'lastname'  => 'required|string',
             'phone'     => 'required|string',
             'address'   => 'required|string',
+            'company_name'   => 'required|string',
             'email'     => [
                 'required',
                 'string',
@@ -564,7 +565,7 @@ class CustomerController extends Controller
             $customer->email        = request('email');
             $customer->phone        = request('phone');
             $customer->address      = request('address');
-            // $customer->company_name      = request('company_school_name');
+            $customer->company_name = request('company_name');
 
             $customer->update();
             return back()->with("flash_success","Customer updated successfully");

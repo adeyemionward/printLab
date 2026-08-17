@@ -57,8 +57,6 @@
                                                                             @enderror
                                                                         </div>
 
-
-
                                                                         <div class="form-group mt-3 mb-3 col-md-3">
                                                                             <label for="email">Email:</label>
                                                                             <input type="text" name="email" id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{$customer->email}}">
@@ -75,6 +73,13 @@
                                                                             @enderror
                                                                         </div>
                                                                     </div>
+                                                                      <div class="form-group mt-3 mb-3 col-md-12">
+                                                                            <label for="company_name">Company Name:</label>
+                                                                            <input type="text" name="company_name" id="company_name" class="form-control{{ $errors->has('company_name') ? ' is-invalid' : '' }}" value="{{$customer->company_name}}">
+                                                                            @error('company_name')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
 
                                                                     <div class="row">
                                                                         <div class="form-group mt-3 mb-3 col-md-12">
