@@ -34,7 +34,7 @@
                                                         <tr>
                                                             <th>S/N</th>
                                                             <th>Order&nbsp;No</th>
-                                                            <th>Customer</th>
+                                                            {{-- <th>Customer</th> --}}
                                                             <th>Total</th>
                                                             <th>Status</th>
                                                             <th>Date</th>
@@ -50,7 +50,7 @@
                                                                 <td>{{ $index + 1 }}</td>
                                                                 <td><a style="color: blue" href="{{route('company.job_order.view_order',[$val->job_order_unique_id])}}">#{{ $val->order_no }}</a></td>
                                                                 {{-- <td></td> --}}
-                                                                <td>{{ $val->user->company_name ?? 'N/A' }}</td>
+                                                                {{-- <td>{{ $val->user->company_name ?? 'N/A' }}</td> --}}
                                                                 <td>₦{{ number_format($val->total_cost, 2) }}</td>
                                                                 <td>
                                                                     @if($val->cart_order_status == 1)
