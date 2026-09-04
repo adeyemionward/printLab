@@ -34,7 +34,6 @@
                                                         <tr>
                                                             <th>S/N</th>
                                                             <th>Order&nbsp;No</th>
-                                                            {{-- <th>Customer</th> --}}
                                                             <th>Total</th>
                                                             <th>Status</th>
                                                             <th>Date</th>
@@ -48,9 +47,11 @@
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $index + 1 }}</td>
-                                                                <td><a style="color: blue" href="{{route('company.job_order.view_order',[$val->job_order_unique_id])}}">#{{ $val->order_no }}</a></td>
-                                                                {{-- <td></td> --}}
-                                                                {{-- <td>{{ $val->user->company_name ?? 'N/A' }}</td> --}}
+                                                                <td>
+                                                                    <a style="color: blue" href="{{ route('company.job_order.view_order', [$val->job_order_unique_id]) }}">
+                                                                        #{{ $val->order_no }}
+                                                                    </a>
+                                                                </td>
                                                                 <td>₦{{ number_format($val->total_cost, 2) }}</td>
                                                                 <td>
                                                                     @if($val->cart_order_status == 1)
@@ -67,15 +68,14 @@
                                                                 </td>
                                                             </tr>
                                                         @endforeach
-                                                        </tbody>
-
-                                                        <tfoot>
-                                                            <tr style="font-weight: bold; background-color: #f8f9fa;">
-                                                                <td colspan="2" class="text-right" style="text-align: right;">Total:</td>
-                                                                <td>₦{{ number_format($job_orders->sum('total_cost'), 2) }}</td>
-                                                                <td colspan="2"></td>
-                                                            </tr>
-                                                        </tfoot>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr style="font-weight: bold; background-color: #f8f9fa;">
+                                                            <td colspan="2" class="text-right" style="text-align: right;">Total:</td>
+                                                            <td>₦{{ number_format($job_orders->sum('total_cost'), 2) }}</td>
+                                                            <td colspan="3"></td> <!-- Changed from colspan="2" to colspan="3" -->
+                                                        </tr>
+                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>
