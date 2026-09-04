@@ -71,9 +71,9 @@
 
                                                         <tfoot>
                                                             <tr style="font-weight: bold; background-color: #f8f9fa;">
-                                                                <td colspan="3" class="text-right" style="text-align: right;">Total:</td>
+                                                                <td colspan="2" class="text-right" style="text-align: right;">Total:</td>
                                                                 <td>₦{{ number_format($job_orders->sum('total_cost'), 2) }}</td>
-                                                                <td colspan="3"></td>
+                                                                <td colspan="2"></td>
                                                             </tr>
                                                         </tfoot>
                                                 </table>
