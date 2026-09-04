@@ -358,6 +358,7 @@ Route::post('/service_order/{id?}', 'JobOrderController@post_service_order')->na
                     Route::get('/edit_customer/{id}', 'CustomerController@edit')->name('edit_customer');
                     Route::post('/edit_customer/{id}', 'CustomerController@update')->name('edit_customer');
                     Route::get('/view_customer/{id}', 'CustomerController@show')->name('view_customer');
+                    Route::get('/consolidated_job_orders/{id}', 'CustomerController@consolidated_job_orders')->name('consolidated_job_orders');
                     Route::get('/customer_job_orders/{id}', 'CustomerController@customer_job_orders')->name('customer_job_orders');
                     Route::get('/customer_cart/{id}', 'CustomerController@customer_cart')->name('customer_cart');
                     Route::post('/customer_cart/{id}', 'CustomerController@checkout')->name('customer_cart');

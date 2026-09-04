@@ -20,7 +20,7 @@
                 aria-selected="false">Edit Customer </a>
                <div class="dropdown-divider"></div>
                 @if(!is_null(request()->job_id))
-                        
+
                     <a class="nav-link <?php if($page == 'edit_cart') echo 'active active_red'  ?>" id="nav-database-tab"
                         href="{{route('company.customers.edit_cart_order', [request()->id, request()->job_id])}}"
                         aria-selected="false">Edit Cart Order </a>
@@ -37,12 +37,17 @@
                 aria-selected="false"> Customer Job Orders </a>
                <div class="dropdown-divider"></div>
 
+                <a class="nav-link <?php if($page == 'consolidated_orders') echo 'active active_red'  ?>" id="nav-database-tab"
+                href="{{route('company.customers.consolidated_job_orders', request()->id)}}"
+                aria-selected="false"> Consolidated Job Orders </a>
+               <div class="dropdown-divider"></div>
+
                <a class="nav-link <?php if($page == 'transaction') echo 'active active_red'  ?>" id="nav-database-tab"
                 href="{{route('company.customers.transaction_history', request()->id)}}"
                 aria-selected="false"> Customer Transaction History </a>
                <div class="dropdown-divider"></div>
 
-                @if( App\Models\JobOrder::jobOrderCount(request()->id) > 0) 
+                @if( App\Models\JobOrder::jobOrderCount(request()->id) > 0)
                     <a class="nav-link" id="nav-database-tab" onclick="return confirm('Are you sure you want to deactivate this customer?');"
                     href="{{route('company.customers.deactivate_customer', request()->id)}}"
                     aria-selected="false">Deactivate Customer </a>
