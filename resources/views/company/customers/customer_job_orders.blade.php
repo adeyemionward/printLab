@@ -46,8 +46,8 @@
                                                         @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp
                                                             <tr>
                                                                 <td>{{$index+1}}</td>
+                                                                <td><a style="color: blue" href="{{route('company.job_order.view_order',[$val->id])}}">#{{ $val->order_no }}</a></td>
 
-                                                                <td>#{{$val->order_no}}</td>
                                                                 <td>{{$val->user->company_name}}</td>
                                                                 <td>{{'₦'.$val->total_cost}} </td>
                                                                 <td>

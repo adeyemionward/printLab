@@ -43,25 +43,39 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($job_orders as $index => $val)
-                                                        @php $job_title = str_replace(' ','_', $val->job_order_name)   @endphp
+                                                            @php
+                                                                $job_title = str_replace(' ', '_', $val->job_order_name);
+                                                            @endphp
                                                             <tr>
-                                                                <td>{{$index+1}}</td>
-
-                                                                <td>#{{$val->order_no}}</td>
-                                                                <td>{{$val->user->company_name}}</td>
-                                                                <td>{{'₦'.$val->total_cost}} </td>
+                                                                <td>{{ $index + 1 }}</td>
+                                                                <td><a style="color: blue" href="{{route('company.job_order.view_order',[$val->job_order_unique_id])}}">#{{ $val->order_no }}</a></td>
+                                                                {{-- <td></td> --}}
+                                                                <td>{{ $val->user->company_name ?? 'N/A' }}</td>
+                                                                <td>₦{{ number_format($val->total_cost, 2) }}</td>
                                                                 <td>
-                                                                    {{-- {{$val->cart_order_status}} --}}
                                                                     @if($val->cart_order_status == 1)
-                                                                        <span style="color:blue; ">In cart </span>
-                                                                    @elseif($val->cart_order_status ==2)
-                                                                        <span style="color:green;">Completed </span>
+                                                                        <span style="color: blue;">In cart</span>
+                                                                    @elseif($val->cart_order_status == 2)
+                                                                        <span style="color: green;">Completed</span>
                                                                     @endif
                                                                 </td>
-                                                                <td>{{$val->created_at}}</td>
-                                                                <td><a href="{{route('company.job_order.view_order',[$val->id])}}"><span><i class="fa fa-eye"></i></span></a></td>
+                                                                <td>{{ $val->created_at->format('d M, Y') }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('company.job_order.view_title_order', [$job_title, $val->id]) }}">
+                                                                        <span><i class="fa fa-eye"></i></span>
+                                                                    </a>
+                                                                </td>
                                                             </tr>
                                                         @endforeach
+                                                        </tbody>
+
+                                                        <tfoot>
+                                                            <tr style="font-weight: bold; background-color: #f8f9fa;">
+                                                                <td colspan="3" class="text-right" style="text-align: right;">Total:</td>
+                                                                <td>₦{{ number_format($job_orders->sum('total_cost'), 2) }}</td>
+                                                                <td colspan="3"></td>
+                                                            </tr>
+                                                        </tfoot>
                                                 </table>
                                             </div>
                                         </div>
