@@ -319,26 +319,110 @@ class CustomerController extends Controller
     }
 
 
-    public function consolidated_job_orders($id)
-    {
+    // public function consolidated_job_orders($id)
+    // {
 
-        $customer = $this->find_customer($id);
-        $cartCount = $this->countCart($id);
-        // $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
-         $startDate  = request('date_from');
-        $endDate    = request('date_to');
-        // $locations =  JobLocation::getLocations();
-        if(request()->has('date_from') || request()->has('date_to')) {
-            $job_orders = JobOrder::whereBetween('order_date', [$startDate, $endDate])->where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->get();
-        }else{
-            $job_orders =  JobOrder::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->whereYear('created_at', Carbon::now()->year)->get();
-        }
+    //     $customer = $this->find_customer($id);
+    //     $cartCount = $this->countCart($id);
+    //     // $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->get();
+    //      $startDate  = request('date_from');
+    //     $endDate    = request('date_to');
+    //     // $locations =  JobLocation::getLocations();
+    //     if(request()->has('date_from') || request()->has('date_to')) {
+    //         $job_orders = JobOrderUnique::whereBetween('order_date', [$startDate, $endDate])->where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->get();
+    //     }else{
+    //         $job_orders =  JobOrderUnique::where('user_id', $id)->where('company_id',app('company_id'))->where('cart_order_status',2)->orderBy('id','DESC')->whereYear('created_at', Carbon::now()->year)->get();
+    //     }
 
-        return view('company.customers.consolidated_job_orders', compact('customer','job_orders','cartCount'));
+    //     return view('company.customers.consolidated_job_orders', compact('customer','job_orders','cartCount'));
+    // }
+
+public function consolidated_job_orders($id)
+{
+    $customer = $this->find_customer($id);
+    $cartCount = $this->countCart($id);
+    $startDate = request('date_from');
+    $endDate   = request('date_to');
+
+    // 1. Subquery payment sums per job order
+    $paymentsSubquery = \App\Models\JobPaymentNewHistory::select(
+            'job_order_unique_id',
+            \Illuminate\Support\Facades\DB::raw('SUM(CAST(REPLACE(amount, ",", "") AS DECIMAL(15,2))) as total_paid')
+        )
+        ->where('company_id', app('company_id'))
+        ->groupBy('job_order_unique_id');
+
+    // 2. Subquery total child jobs per unique order
+    // (Ensure 'job_order_unique_id' matches the foreign key column in your job_orders table)
+    $jobsCountSubquery = \App\Models\JobOrder::select(
+            'job_order_unique_id',
+            \Illuminate\Support\Facades\DB::raw('COUNT(id) as total_jobs_count')
+        )
+        ->where('company_id', app('company_id'))
+        ->groupBy('job_order_unique_id');
+
+    // 3. Main query joining both subqueries
+    $query = JobOrderUnique::where('job_order_uniques.user_id', $id)
+        ->where('job_order_uniques.company_id', app('company_id'))
+        ->where('job_order_uniques.cart_order_status', 2)
+        ->leftJoinSub($paymentsSubquery, 'payments', function ($join) {
+            $join->on('job_order_uniques.id', '=', 'payments.job_order_unique_id');
+        })
+        ->leftJoinSub($jobsCountSubquery, 'child_jobs', function ($join) {
+            $join->on('job_order_uniques.id', '=', 'child_jobs.job_order_unique_id');
+        })
+        ->select(
+            'job_order_uniques.*',
+            \Illuminate\Support\Facades\DB::raw('COALESCE(payments.total_paid, 0) as amount_paid'),
+            \Illuminate\Support\Facades\DB::raw('COALESCE(child_jobs.total_jobs_count, 0) as total_jobs')
+        );
+
+    if ($startDate && $endDate) {
+        $query->whereBetween('job_order_uniques.order_date', [$startDate, $endDate]);
+    } else {
+        $query->whereYear('job_order_uniques.created_at', \Carbon\Carbon::now()->year);
     }
 
+    $job_orders = $query->orderBy('job_order_uniques.id', 'DESC')->get();
+
+    return view('company.customers.consolidated_job_orders', compact('customer', 'job_orders', 'cartCount'));
+}
 
 
+
+    // public function consolidated_job_orders(Request $request, $id)
+    // {
+    //     $customer = $this->find_customer($id);
+    //     $startDate = $request->input('date_from');
+    //     $endDate = $request->input('date_to');
+
+    //     $query = JobOrderUnique::where('user_id', $id)
+    //         ->where('company_id', app('company_id'))
+    //         ->where('cart_order_status', 2);
+
+    //     if ($startDate && $endDate) {
+    //         $query->whereBetween('order_date', [$startDate, $endDate]);
+    //     } else {
+    //         $query->whereYear('created_at', now()->year);
+    //     }
+
+    //     $job_orders = $query->orderBy('id', 'DESC')->get();
+
+    //     // Financial summaries
+    //     $totalBilled = $job_orders->sum(fn($order) => (float) str_replace(',', '', $order->total_cost ?? 0));
+    //     $totalPaid = $job_orders->sum(fn($order) => (float) str_replace(',', '', $order->payment->amount ?? 0));
+    //     $balanceDue = $totalBilled - $totalPaid;
+
+    //     return view('company.customers.consolidated_job_orders', compact(
+    //         'customer',
+    //         'job_orders',
+    //         'totalBilled',
+    //         'totalPaid',
+    //         'balanceDue',
+    //         'startDate',
+    //         'endDate'
+    //     ));
+    // }
 
     public function transaction_history($id){
         $customer = $this->find_customer($id);

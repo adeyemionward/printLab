@@ -206,8 +206,42 @@ class JobOrderController extends Controller
         $order1 =  JobOrder::where('order_no', $order_no)->where('company_id',app('company_id'))->first();
 
         $pdf = PDF::loadView('company.job_order.order_invoice_pdf',compact('orderDetails','order1','totalAmountPaid'));
-        return $pdf->stream('order_invoice.pdf');
+        return $pdf->stream('order_invoice_' . $order_no . '.pdf');
     }
+
+//     public function consolidatedOrderInvoicePdf($customer_id)
+// {
+//     $customer = User::findOrFail($customer_id);
+//         // dd($customer);
+
+//     // 1. Subquery payment totals per order
+//     $paymentsSubquery = JobPaymentNewHistory::select(
+//             'job_order_unique_id',
+//             DB::raw('SUM(CAST(REPLACE(amount, ",", "") AS DECIMAL(15,2))) as total_paid')
+//         )
+//         ->where('company_id', app('company_id'))
+//         ->groupBy('job_order_unique_id');
+//          dd($paymentsSubquery);
+
+//     // 2. Fetch all completed orders for this customer
+//     $query = JobOrderUnique::where('user_id', $customer_id)
+//         ->where('company_id', app('company_id'))
+//         ->where('cart_order_status', 2)
+//         ->leftJoinSub($paymentsSubquery, 'payments', function ($join) {
+//             $join->on('job_order_uniques.id', '=', 'payments.job_order_unique_id');
+//         })
+//         ->select(
+//             'job_order_uniques.*',
+//             DB::raw('COALESCE(payments.total_paid, 0) as amount_paid')
+//         );
+
+  
+//     $job_orders = $query->orderBy('id', 'DESC')->get();
+
+
+//     // $pdf = PDF::loadView('company.customers.consolidated_invoice_pdf', compact('customer', 'job_orders'));
+//     // return $pdf->stream('consolidated_invoice_' . $customer->id . '.pdf');
+// }
 
     //remember do  perm here
     public function updateJobPayment(Request $request, $id){

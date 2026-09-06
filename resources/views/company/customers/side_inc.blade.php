@@ -39,7 +39,7 @@
 
                 <a class="nav-link <?php if($page == 'consolidated_orders') echo 'active active_red'  ?>" id="nav-database-tab"
                 href="{{route('company.customers.consolidated_job_orders', request()->id)}}"
-                aria-selected="false"> Consolidated Job Orders </a>
+                aria-selected="false"> Consolidated Invoice </a>
                <div class="dropdown-divider"></div>
 
                <a class="nav-link <?php if($page == 'transaction') echo 'active active_red'  ?>" id="nav-database-tab"
