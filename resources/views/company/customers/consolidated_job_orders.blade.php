@@ -46,10 +46,11 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Order&nbsp;No</th>
+                                                        
+                                                        <th>Date</th>
                                                         <th>Total Cost</th>
                                                         <th>Amount Paid</th>
                                                         <th>Outstanding</th>
-                                                        <th>Date</th>
                                                         <th class="text-center" style="width: 10%;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -81,13 +82,14 @@
                                                                     {{ $val->total_jobs }} {{ \Illuminate\Support\Str::plural('Job', $val->total_jobs) }}
                                                                 </span>
                                                             </td>
+                                                            <td>{{ $val->created_at ? \Carbon\Carbon::parse($val->created_at)->format('d M, Y') : 'N/A' }}</td>
+                                                           
                                                             <td>&#8358;{{ number_format($order_cost, 2) }}</td>
                                                             <td class="text-success">&#8358;{{ number_format($paid_amount, 2) }}</td>
                                                             <td class="{{ $outstanding > 0 ? 'text-danger fw-bold' : 'text-muted' }}">
                                                                 &#8358;{{ number_format($outstanding, 2) }}
                                                             </td>
-                                                            <td>{{ $val->created_at ? \Carbon\Carbon::parse($val->created_at)->format('d M, Y') : 'N/A' }}</td>
-                                                            <td class="text-center">
+                                                             <td class="text-center">
                                                                 <!-- View Details Link -->
                                                                 <a href="{{ route('company.job_order.view_order', [$val->id]) }}"
                                                                    class="text-secondary me-2"

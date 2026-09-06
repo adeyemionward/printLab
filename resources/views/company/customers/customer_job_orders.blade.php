@@ -35,10 +35,11 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Order&nbsp;No</th>
-                                                        <th>Customer</th>
+                                                        
+                                                        <th>Date</th>
+                                                        {{-- <th>Customer</th> --}}
                                                         <th>Total</th>
                                                         <th>Status</th>
-                                                        <th>Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -60,7 +61,9 @@
                                                                     {{ $jobCount }} {{ \Illuminate\Support\Str::plural('Job', $jobCount) }}
                                                                 </span>
                                                             </td>
-                                                            <td>{{ $val->user->company_name ?? ($customer->firstname . ' ' . $customer->lastname) }}</td>
+                                                            <td>{{ $val->created_at ? \Carbon\Carbon::parse($val->created_at)->format('d M, Y') : 'N/A' }}</td>
+                                                           
+                                                            {{-- <td>{{ $val->user->company_name ?? ($customer->firstname . ' ' . $customer->lastname) }}</td> --}}
                                                             <td>&#8358;{{ number_format($order_cost, 2) }}</td>
                                                             <td>
                                                                 @if($val->cart_order_status == 1)
@@ -71,8 +74,7 @@
                                                                     <span class="text-muted">N/A</span>
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $val->created_at ? \Carbon\Carbon::parse($val->created_at)->format('d M, Y') : 'N/A' }}</td>
-                                                            <td>
+                                                             <td>
                                                                 <a href="{{ route('company.job_order.view_order', [$val->id]) }}">
                                                                     <span><i class="fa fa-eye"></i></span>
                                                                 </a>
