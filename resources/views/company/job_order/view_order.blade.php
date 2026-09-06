@@ -100,6 +100,17 @@
                                                                             &#8358;{{ number_format($amount_paid, 2) }}
                                                                         </td>
                                                                     </tr>
+                                                                    <tr class="det">
+                                                                        <td width="10%" class="question">Outstanding :</td>
+                                                                        <td>
+                                                                            @php
+                                                                                $outstanding = max(0, $order_cost - $amount_paid);
+                                                                            @endphp
+                                                                            <span style="{{ $outstanding > 0 ? 'color: red; font-weight: bold;' : 'color: green;' }}">
+                                                                                &#8358;{{ number_format($outstanding, 2) }}
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
                                                                 </table>
                                                             </div>
                                                         </div>
