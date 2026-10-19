@@ -36,6 +36,7 @@
         <tr>
             <th>S/N</th>
             <th>Order No.</th>
+            <th>Order Date</th>
             <th>Payment Type</th>
             <th>Amount</th>
             <th>Payment Date</th>
@@ -51,6 +52,14 @@
                         <a style="color: blue; font-weight: 600;" href="{{ route('company.job_order.view_order', [$val->jobOrderUnique->id]) }}">
                             #{{ $val->jobOrderUnique->order_no }}
                         </a>
+                    @else
+                        <span class="text-muted">N/A</span>
+                    @endif
+                </td>
+                <td>
+                    @if(isset($val->jobOrderUnique) && $val->jobOrderUnique->created_at)
+                        {{-- {{ \Carbon\Carbon::parse($val->jobOrderUnique->created_at)->format('d M, Y') }} --}}
+                        {{ date('D M d, Y', strtotime($val->jobOrderUnique->created_at)) }}
                     @else
                         <span class="text-muted">N/A</span>
                     @endif
@@ -72,7 +81,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="3" style="text-align: right;">Total Amount:</th>
+            <th colspan="4" style="text-align: right;">Total Amount:</th>
             <th>&#8358;{{ number_format($job_pay_history->sum('amount'), 2) }}</th>
             <th colspan="2"></th>
         </tr>
