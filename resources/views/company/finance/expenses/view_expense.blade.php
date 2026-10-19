@@ -47,69 +47,56 @@
 
                                                         <div class="row g-3 ">
                                                             <div class="col-md-12">
-                                                                <table width="100%"  class="details">
-                                                                    <tr class="det">
-                                                                      <td width="10%" class="question">Expense Id :</td>
-                                                                      <td>{{$expense->id ?? 'N/A'}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td width="10%" class="question">Created By :</td>
-                                                                        <td>{{@$expense->createdBy->firstname.' '.@$product->createdBy->lastname ?? 'N/A'}}</td>
-                                                                    </tr>
-
-                                                                    <tr>
-                                                                        <td width="10%" class="question">Created At :</td>
-                                                                        <td>{{$expense->created_at ?? 'N/A'}}</td>
-                                                                    </tr>
-
-
-                                                                    <tr>
-                                                                        <td width="10%" class="question">Updated By :</td>
-                                                                        <td>{{@$expense->updatedBy->firstname.' '.@$product->updatedBy->lastname ?? 'N/A'}}</td>
-                                                                    </tr>
-
-                                                                    <tr>
-                                                                        <td width="10%" class="question">Updated At :</td>
-                                                                        <td>{{$expense->updated_at ?? 'N/A'}}</td>
-                                                                    </tr>
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Expense Title :</td>
-                                                                        <td>{{$expense->title ?? 'N/A'}}</td>
-                                                                    </tr>
-
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Category :</td>
-                                                                        <td>{{$expense->categoryName->category_name ?? 'N/A'}}</td>
-                                                                    </tr>
-
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Supplier :</td>
-                                                                        <td>{{$expense->supplierCompany->company_name ?? 'N/A'}}</td>
-                                                                    </tr>
-
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Total Cost :</td>
-                                                                        <td>&#8358;{{$expense->amount_paid ?? 'N/A'}} </td>
-                                                                    </tr>
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Payment Type :</td>
-                                                                        <td>{{$expense->payment_type ?? 'N/A'}}</td>
-                                                                    </tr>
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Amount Paid :</td>
-                                                                        <td>&#8358;{{$expense_history->amount_paid ?? 'N/A'}}</td>
-                                                                    </tr>
-
-                                                                    <tr class="det">
-                                                                        <td width="10%" class="question">Expense Date :</td>
-                                                                        <td>{{date('D M d, Y', strtotime($expense->expense_date))}}</td>
-                                                                    </tr>
-
-
-
-
-
-                                                                </table>
+                                                               <table width="100%" class="details">
+    <tr class="det">
+        <td width="15%" class="question">Expense Id :</td>
+        <td>{{ $expense->id ?? 'N/A' }}</td>
+    </tr>
+    <tr>
+        <td width="15%" class="question">Created By :</td>
+        <td>{{ optional($expense->createdBy)->firstname . ' ' . optional($expense->createdBy)->lastname ?? 'N/A' }}</td>
+    </tr>
+    <tr>
+        <td width="15%" class="question">Created At :</td>
+        <td>{{ $expense->created_at ?? 'N/A' }}</td>
+    </tr>
+    <tr>
+        <td width="15%" class="question">Updated By :</td>
+        <td>{{ optional($expense->updatedBy)->firstname . ' ' . optional($expense->updatedBy)->lastname ?? 'N/A' }}</td>
+    </tr>
+    <tr>
+        <td width="15%" class="question">Updated At :</td>
+        <td>{{ $expense->updated_at ?? 'N/A' }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Expense Title :</td>
+        <td>{{ $expense->title ?? 'N/A' }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Category :</td>
+        <td>{{ optional($expense->categoryName)->category_name ?? 'N/A' }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Supplier :</td>
+        <td>{{ optional($expense->supplierCompany)->company_name ?? 'N/A' }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Total Cost :</td>
+        <td>&#8358;{{ isset($expense->total_cost) ? number_format($expense->total_cost, 2) : 'N/A' }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Payment Type :</td>
+        <td>{{ $expense->payment_type ?? 'N/A' }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Amount Paid :</td>
+        <td>&#8358;{{ number_format(optional($expense->expenseHistories)->sum('amount_paid') ?? $expense->amount_paid ?? 0, 2) }}</td>
+    </tr>
+    <tr class="det">
+        <td width="15%" class="question">Expense Date :</td>
+        <td>{{ $expense->expense_date ? date('D M d, Y', strtotime($expense->expense_date)) : 'N/A' }}</td>
+    </tr>
+</table>
                                                             </div>
                                                         </div>
                                                         <hr/>

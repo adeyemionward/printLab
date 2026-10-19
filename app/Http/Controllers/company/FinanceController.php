@@ -72,12 +72,7 @@ class FinanceController extends Controller
         return view('company.finance.expenses.add_expense', compact('categories','suppliers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store_expense(Request $request)
     {
         DB::beginTransaction();
@@ -121,8 +116,8 @@ class FinanceController extends Controller
             $expense_history = new ExpensePaymentHistory();
             $expense_history->expense_id    = $expense->id;
             $expense_history->company_id    = app('company_id');
-            $expense_history->amount_paid   = str_replace(',', '',request('total_cost'));
-            $expense_history->payment_type  = str_replace(',', '',request('amount_paid'));
+            $expense_history->amount_paid   = str_replace(',', '',request('amount_paid'));
+            $expense_history->payment_type  = request('payment_type');
             $expense_history->expense_date  = request('expense_date');
             $expense_history->created_by    = $user->id;
             $expense_history->save();
@@ -137,12 +132,6 @@ class FinanceController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
 
     public function view_expense($id)
@@ -205,7 +194,7 @@ class FinanceController extends Controller
 
     public function update_expense_payment(Request $request, $id){
         $user = Auth::user();
-        $amount_paid                =  rstr_replace(',', '',request('amount_paid'));
+        $amount_paid                =  str_replace(',', '',request('amount_paid'));
         $payment_type               =  request('payment_type');
         $order_date = date('Y-m-d');
         $job_order =  Expense::find($id);
@@ -412,20 +401,43 @@ class FinanceController extends Controller
     }
 
 
+    // public function all_creditors(Request $request)
+    // {
+
+
+    //     if(request()->date_to && request()->date_from){
+    //         $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
+    //     }else{
+    //         $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))
+    //         ->whereYear('created_at', Carbon::now()->year)->get();
+
+    //     }
+
+    //     return view('company.finance.report.creditors.index',compact('expenses'));
+    // }
+
     public function all_creditors(Request $request)
-    {
-
-
-        if(request()->date_to && request()->date_from){
-            $expenses = Expense::with('expenseHistories')->whereBetween('expense_date', [$this->startDate, $this->endDate])->where('company_id',app('company_id'))->get();
-        }else{
-            $expenses = Expense::with('expenseHistories')->where('company_id',app('company_id'))
-            ->whereYear('created_at', Carbon::now()->year)->get();
-
-        }
-
-        return view('company.finance.report.creditors.index',compact('expenses'));
+{
+    if (request()->date_to && request()->date_from) {
+        $expenses = Expense::with('expenseHistories', 'supplierCompany', 'categoryName')
+            ->whereBetween('expense_date', [$request->date_from, $request->date_to])
+            ->where('company_id', app('company_id'))
+            ->get();
+    } else {
+        $expenses = Expense::with('expenseHistories', 'supplierCompany', 'categoryName')
+            ->where('company_id', app('company_id'))
+            ->whereYear('created_at', Carbon::now()->year)
+            ->get();
     }
+
+    // Filter out expenses that are fully paid (Remaining Balance <= 0)
+    $expenses = $expenses->filter(function ($val) {
+        $totalPaid = $val->expenseHistories->sum('amount_paid');
+        return $val->total_cost > $totalPaid;
+    });
+
+    return view('company.finance.report.creditors.index', compact('expenses'));
+}
 
 
 // public function all_profit_loss(Request $request){

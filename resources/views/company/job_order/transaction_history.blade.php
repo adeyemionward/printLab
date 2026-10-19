@@ -39,7 +39,6 @@
                                         <div class="content" id="tableContent">
 
                                             <div class="canvas-wrapper">
-
                                                 <table id="example" class="table no-margin" style="width:100%">
                                                     <thead>
                                                         <tr>
@@ -50,14 +49,22 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($job_pay_history as  $val)
+                                                        @foreach ($job_pay_history as $val)
                                                             <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$val->payment_type}}</td>
-                                                                <td>&#8358;{{number_format($val->amount)}}</td>
-                                                                <td>{{date('D M d, Y', strtotime($val->payment_date))}}</td>
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $val->payment_type }}</td>
+                                                                <td>&#8358;{{ number_format($val->amount, 2) }}</td>
+                                                                <td>{{ date('D M d, Y', strtotime($val->payment_date)) }}</td>
                                                             </tr>
                                                         @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="2" style="text-align: right;">Total Amount Paid:</th>
+                                                            <th>&#8358;{{ number_format($job_pay_history->sum('amount'), 2) }}</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>

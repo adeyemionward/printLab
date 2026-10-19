@@ -89,7 +89,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlInput1">Total Cost </label>
-                                                                            <input type="number" required name="total_cost" class="form-control {{ $errors->has('total_cost') ? ' is-invalid' : '' }}" value="{{$expense->total_cost}}"  id="total_cost">
+                                                                            <input type="text" required name="total_cost" class="form-control numberFormat {{ $errors->has('total_cost') ? ' is-invalid' : '' }}" value="{{$expense->total_cost}}"  id="total_cost">
                                                                             @error('total_cost')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
@@ -109,7 +109,7 @@
 
                                                                         <div class="form-group mt-3 mb-3 col-md-4">
                                                                             <label for="exampleFormControlInput1"> Amount Paid </label>
-                                                                            <input type="number" required name="amount_paid" class="form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }}" value="{{$expense->amount_paid}}"  id="amount_paid">
+                                                                            <input type="text" required name="amount_paid" class="numberFormat form-control{{ $errors->has('amount_paid') ? ' is-invalid' : '' }}" value="{{$expense->amount_paid}}"  id="amount_paid">
                                                                             @error('amount_paid')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror

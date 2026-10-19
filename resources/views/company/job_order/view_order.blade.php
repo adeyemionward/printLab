@@ -126,47 +126,58 @@
                                                             <div class="card">
                                                                 <div class="content" id="tableContent">
                                                                     <div class="canvas-wrapper">
-                                                                        <table id="example" class="table no-margin" style="width:100%">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>S/N</th>
-                                                                                    <th>Job&nbsp;Type</th>
-                                                                                    <th>Unit Cost</th>
-                                                                                    <th>Quantity</th>
-                                                                                    <th>Ink</th>
-                                                                                    <th>Paper&nbsp;Type</th>
-                                                                                    <th>Production&nbsp;Days</th>
-                                                                                    <th>Cost</th>
-                                                                                    <th>Status</th>
-                                                                                    <th>Action</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                @foreach ($job_orders as $index => $val)
-                                                                                    @php
-                                                                                        $job_name = $val->job_order_name ?? 'unknown_job';
-                                                                                        $job_title = str_replace(' ', '_', $job_name);
-                                                                                        $item_cost = (float) str_replace(',', '', $val->total_cost ?? 0);
-                                                                                    @endphp
-                                                                                    <tr>
-                                                                                        <td>{{ $index + 1 }}</td>
-                                                                                        <td>{{ $job_name }}</td>
-                                                                                        <td>&#8358;{{ number_format($val->unit_cost,2 ?? 'N/A') }}</td>
-                                                                                        <td>{{ $val->quantity ?? 0 }}</td>
-                                                                                        <td>{{ $val->ink ?? 'N/A' }}</td>
-                                                                                        <td>{{ $val->paper_type ?? 'N/A' }}</td>
-                                                                                        <td>{{ $val->production_days ?? 0 }}</td>
-                                                                                        <td>&#8358;{{ number_format($item_cost, 2) }}</td>
-                                                                                        <td>{{ $val->status ?? 'N/A' }}</td>
-                                                                                        <td>
-                                                                                            <a href="{{ route('company.job_order.view_title_order', [$job_title, $val->id]) }}">
-                                                                                                <span><i class="fa fa-eye"></i></span>
-                                                                                            </a>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                            </tbody>
-                                                                        </table>
+                                                                       <table id="example" class="table no-margin" style="width:100%">
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Job&nbsp;Type</th>
+            <th>Unit Cost</th>
+            <th>Quantity</th>
+            <th>Ink</th>
+            <th>Paper&nbsp;Type</th>
+            <th>Production&nbsp;Days</th>
+            <th>Cost</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($job_orders as $index => $val)
+            @php
+                $job_name = $val->job_order_name ?? 'unknown_job';
+                $job_title = str_replace(' ', '_', $job_name);
+                $item_cost = (float) str_replace(',', '', $val->total_cost ?? 0);
+            @endphp
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $job_name }}</td>
+                <td>&#8358;{{ number_format($val->unit_cost ?? 0, 2) }}</td>
+                <td>{{ $val->quantity ?? 0 }}</td>
+                <td>{{ $val->ink ?? 'N/A' }}</td>
+                <td>{{ $val->paper_type ?? 'N/A' }}</td>
+                <td>{{ $val->production_days ?? 0 }}</td>
+                <td>&#8358;{{ number_format($item_cost, 2) }}</td>
+                <td>{{ $val->status ?? 'N/A' }}</td>
+                <td>
+                    <a href="{{ route('company.job_order.view_title_order', [$job_title, $val->id]) }}">
+                        <span><i class="fa fa-eye"></i></span>
+                    </a>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3" style="text-align: right;">Total:</th>
+            <th>{{ $job_orders->sum('quantity') }}</th>
+            <th colspan="3"></th>
+            <th>&#8358;{{ number_format($job_orders->sum(function($item) {
+                return (float) str_replace(',', '', $item->total_cost ?? 0);
+            }), 2) }}</th>
+            <th colspan="2"></th>
+        </tr>
+    </tfoot>
+</table>
                                                                     </div>
                                                                 </div>
                                                             </div>

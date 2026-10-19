@@ -40,25 +40,33 @@
 
                                             <div class="canvas-wrapper">
 
-                                                <table id="example" class="table no-margin" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>S/N</th>
-                                                            <th>Payment Type</th>
-                                                            <th>Amount</th>
-                                                            <th>Payment Date</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($expense_pay_history as  $val)
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$val->payment_type}}</td>
-                                                                <td>&#8358;{{$val->amount_paid}}</td>
-                                                                <td>{{date('D M d, Y', strtotime($val->expense_date))}}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                </table>
+                                               <table id="example" class="table no-margin" style="width:100%">
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Payment Type</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($expense_pay_history as $val)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $val->payment_type }}</td>
+                <td>&#8358;{{ number_format($val->amount_paid, 2) }}</td>
+                <td>{{ $val->expense_date ? date('D M d, Y', strtotime($val->expense_date)) : 'N/A' }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="2" style="text-align: right;">Total Amount Paid:</th>
+            <th>&#8358;{{ number_format($expense_pay_history->sum('amount_paid'), 2) }}</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
                                             </div>
                                         </div>
                                     </div>
