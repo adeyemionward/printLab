@@ -32,33 +32,52 @@
                                             @include('company.customers.order_date_range')
 
                                             <table id="example" class="table no-margin" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>Payment Type</th>
-                                                        <th>Amount</th>
-                                                        <th>Payment Date</th>
-                                                        {{-- <th>Action</th> --}}
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($job_pay_history as $index => $val)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $val->payment_type }}</td>
-                                                            <td>&#8358;{{ number_format($val->amount, 2) }}</td>
-                                                            <td>{{ date('D M d, Y', strtotime($val->payment_date)) }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colspan="2" style="text-align: right;">Total Amount:</th>
-                                                        <th>&#8358;{{ number_format($job_pay_history->sum('amount'), 2) }}</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Order No.</th>
+            <th>Payment Type</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($job_pay_history as $index => $val)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>
+                    @if(isset($val->jobOrderUnique))
+                        <a style="color: blue; font-weight: 600;" href="{{ route('company.job_order.view_order', [$val->jobOrderUnique->id]) }}">
+                            #{{ $val->jobOrderUnique->order_no }}
+                        </a>
+                    @else
+                        <span class="text-muted">N/A</span>
+                    @endif
+                </td>
+                <td>{{ $val->payment_type }}</td>
+                <td>&#8358;{{ number_format($val->amount, 2) }}</td>
+                <td>{{ date('D M d, Y', strtotime($val->payment_date)) }}</td>
+                <td>
+                    @if(isset($val->jobOrderUnique))
+                        <a href="{{ route('company.job_order.view_order', [$val->jobOrderUnique->id]) }}">
+                            <span><i class="fa fa-eye"></i></span>
+                        </a>
+                    @else
+                        <span class="text-muted">N/A</span>
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3" style="text-align: right;">Total Amount:</th>
+            <th>&#8358;{{ number_format($job_pay_history->sum('amount'), 2) }}</th>
+            <th colspan="2"></th>
+        </tr>
+    </tfoot>
+</table>
                                         </div>
                                     </div>
                                 </div>
