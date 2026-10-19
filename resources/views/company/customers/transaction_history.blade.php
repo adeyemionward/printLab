@@ -48,21 +48,16 @@
                                                             <td>{{ $val->payment_type }}</td>
                                                             <td>&#8358;{{ number_format($val->amount, 2) }}</td>
                                                             <td>{{ date('D M d, Y', strtotime($val->payment_date)) }}</td>
-                                                            {{-- <td>
-                                                                <!-- Edit icon -->
-                                                                <a href="#"
-                                                                    class="text-primary edit-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal"
-                                                                    data-id="{{ $val->id }}"
-                                                                    data-amount="{{ $val->amount }}"
-                                                                    data-payment-type="{{ $val->payment_type }}">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                            </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2" style="text-align: right;">Total Amount:</th>
+                                                        <th>&#8358;{{ number_format($job_pay_history->sum('amount'), 2) }}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
