@@ -46,7 +46,7 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Order&nbsp;No</th>
-                                                        
+
                                                         <th>Date</th>
                                                         <th>Total Cost</th>
                                                         <th>Amount Paid</th>
@@ -83,7 +83,7 @@
                                                                 </span>
                                                             </td>
                                                             <td>{{ $val->created_at ? \Carbon\Carbon::parse($val->created_at)->format('d M, Y') : 'N/A' }}</td>
-                                                           
+
                                                             <td>&#8358;{{ number_format($order_cost, 2) }}</td>
                                                             <td class="text-success">&#8358;{{ number_format($paid_amount, 2) }}</td>
                                                             <td class="{{ $outstanding > 0 ? 'text-danger fw-bold' : 'text-muted' }}">
@@ -110,13 +110,13 @@
                                                 </tbody>
                                                 <tfoot style="font-weight: bold; background-color: #f8f9fa;">
                                                     <tr>
-                                                        <td colspan="2" class="text-end" style="text-align: right;">Cumulative Summary:</td>
+                                                        <td colspan="3" class="text-end" style="text-align: right;">Cumulative Summary:</td>
                                                         <td>&#8358;{{ number_format($grandTotalCost, 2) }}</td>
                                                         <td class="text-success">&#8358;{{ number_format($grandTotalPaid, 2) }}</td>
                                                         <td class="{{ $grandTotalOutstanding > 0 ? 'text-danger' : 'text-muted' }}">
                                                             &#8358;{{ number_format($grandTotalOutstanding, 2) }}
                                                         </td>
-                                                        <td colspan="2"></td>
+                                                        <td colspan="1"></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
