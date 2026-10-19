@@ -1,10 +1,7 @@
-
 @extends('company.layout.master')
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-
-
+  {{-- <style>
     canvas {
       max-width: 800px;
       width: 100%;
@@ -12,11 +9,37 @@
     }
 
     #marketerChart {
-  max-width: 100%;
-  width: 100px;
-  height: 100px;
-}
-  </style>
+      max-width: 100%;
+      width: 100px;
+      height: 100px;
+    }
+  </style> --}}
+ <style>
+    /* Scope height-matching strictly to the chart row so it doesn't affect the filter form */
+    .chart-row > [class*="col-md-"] {
+        display: flex;
+        flex-direction: column;
+    }
+    .chart-row > [class*="col-md-"] > .card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .chart-row > [class*="col-md-"] > .card > .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .canvas-wrapper {
+        flex: 1;
+        position: relative;
+        min-height: 300px;
+    }
+    canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+</style>
 @section('title', 'Dashboard')
     {{-- MAIN BODY CONTENT --}}
     <div class="content">
@@ -32,7 +55,6 @@
                     </ol>
                 </div>
             </div>
-
 
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3">
@@ -52,7 +74,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -73,11 +94,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-sm-6 col-md-6 col-lg-3">
                     <div class="card card-rounded">
@@ -96,7 +115,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -117,139 +135,75 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="row">
+            <!-- Date Range Filter Form -->
+            <div class="row mb-4">
                 <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{-- <div class="card">
-                                <div class="content">
-                                    <div class="head">
-                                        <h5 class="mb-0">Top Job Orders</h5>
-                                    </div>
-                                    <div class="canvas-wrapper">
-                                        <table class="table no-margin">
-                                            <thead class="success">
-                                                <tr>
-                                                    <th>S/N</th>
-                                                    <th>Jobs</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($top_job_orders as $val)
-                                                    <tr>
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td>{{$val->job_order_name}}</td>
-                                                        <td class="text-right">{{$val->total_orders}}</td>
-                                                    </tr>
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                             <div class="card">
-                                <div class="content">
-                                    <div class="canvas-wrapper">
-                                        <canvas id="topCompaniesChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card card-rounded">
+                        <div class="content">
+                            <form method="GET" action="{{ route('company.dashboard') }}" class="row g-3 align-items-end">
+    <div class="col-md-4">
+        <label for="date_from" class="form-label fw-bold">Date From:</label>
+        <input type="date" id="date_from" name="date_from" value="{{ request('date_from') }}" class="form-control">
+    </div>
+    <div class="col-md-4">
+        <label for="date_to" class="form-label fw-bold">Date To:</label>
+        <input type="date" id="date_to" name="date_to" value="{{ request('date_to') }}" class="form-control">
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2 w-50">
+            <i class="fa fa-filter"></i> Filter
+        </button>
+        <a href="{{ route('company.dashboard') }}" class="btn btn-secondary w-50 text-center" style="display: inline-flex; align-items: center; justify-content: center;">
+            <i class="fa fa-refresh me-1"></i> Reset
+        </a>
+    </div>
+</form>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="content">
-                                    <div class="canvas-wrapper">
-                                        <canvas id="marketerChart"></canvas>
-                                    </div>
-                                </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Charts Row 1: Top Customer & Best Marketers -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="canvas-wrapper">
+                                <canvas id="topCompaniesChart"></canvas>
                             </div>
                         </div>
                     </div>
-                     <div class="card">
-                                <div class="content">
-                                    <div class="head">
-                                        <h5 class="mb-0">Top Orders By Date</h5>
-                                        <p class="text-muted">Today's job order</p>
-                                        <form  action="{{ route('company.dashboard') }}" method="get">
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label for="from_date">From Date:</label>
-                                                        <input type="date" name="date_from" class="form-control" value="{{request()->date_from}}" required>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="to_date">To Date:</label>
-                                                        <input type="date" name="date_to" class="form-control" value="{{request()->date_to}}" required>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <label for="">Search</label>
-                                                        <button type="submit" class="btn" style="color:white; background:gray; padding:3px 20px 3px 20px; ">Search</button>
-                                                        {{-- <button class="btn"><a href="{{route('dashboard')}}" style=" text-decoration: underline; color:rgb(5, 15, 64); padding:3px 20px 3px 20px">Clear</a> --}}
-                                                    </div>
+                </div>
 
-                                                    <div class="col-md-2">
-                                                        {{-- <button type="submit" class="btn " style=" text-decoration: underline; color:green; padding:3px 20px 3px 20px">Search Sales</button> --}}
-                                                        <button class="btn"><a href="{{route('company.dashboard')}}" style=" text-decoration: underline; color:rgb(5, 15, 64); padding:3px 20px 3px 20px">Clear</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    <div class="canvas-wrapper">
-                                        <table class="table no-margin">
-                                            <thead class="success">
-                                                <tr>
-                                                    <th>S/N</th>
-                                                    <th>Jobs</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if (!empty(request()->date_from) && !empty(request()->date_to))
-                                                    @foreach ($previous_orders as $val)
-                                                        <tr>
-                                                            <td>{{$loop->iteration}}</td>
-                                                            <td>{{$val->job_order_name}}</td>
-                                                            <td class="text-right">{{$val->total_orders}}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($today_orders as $val)
-                                                        <tr>
-                                                            <td>{{$loop->iteration}}</td>
-                                                            <td>{{$val->job_order_name}}</td>
-                                                            <td class="text-right">{{$val->total_orders}}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
-
-                                            </tbody>
-                                        </table>
-
-
-
-                                    </div>
-
-                                    <div class="ui hidden divider"></div>
-                                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="content">
+                            <div class="canvas-wrapper">
+                                <canvas id="marketerChart"></canvas>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="content">
+                            <div class="canvas-wrapper">
+                                <canvas id="revenueExpenseChart" style="height: 350px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
+            <!-- Charts Row 2: Revenue vs Expenditure Chart -->
+            {{-- <div class="row mt-4">
+
+            </div> --}}
+        </div>
     </div>
 
 <script>
@@ -258,7 +212,7 @@ function generateColors(count) {
     const borderColors = [];
 
     for (let i = 0; i < count; i++) {
-        const r = Math.floor(Math.random() * 156 + 100); // Brighter color
+        const r = Math.floor(Math.random() * 156 + 100);
         const g = Math.floor(Math.random() * 156 + 100);
         const b = Math.floor(Math.random() * 156 + 100);
 
@@ -273,9 +227,8 @@ function generateColors(count) {
 const marketers = [
     @foreach ($commissions as $item)
         {
-            name: '{{ $item->firstname . ' ' . $item->lastname }}',
-            total_sales: {{ round($item->total_commission, 2) }}
-        }{{ !$loop->last ? ',' : '' }}
+            name: '{{ $item->firstname . ' ' .$item->lastname }}',
+            total_sales: {{ round($item->total_commission, 2) }} }{{ !$loop->last ? ',' : '' }}
     @endforeach
 ];
 
@@ -300,13 +253,6 @@ const marketerConfig = {
     options: {
         responsive: true,
         maintainAspectRatio: false,
-        aspectRatio: 2.0, // Try 0.8, 1, 1.2, etc. to adjust size
-        animation: {
-            duration: 0
-        },
-        hover: {
-            animationDuration: 0
-        },
         plugins: {
             legend: { display: false },
             title: {
@@ -317,19 +263,16 @@ const marketerConfig = {
     }
 };
 
-
-
 const marketerCtx = document.getElementById('marketerChart').getContext('2d');
 new Chart(marketerCtx, marketerConfig);
 
 
-// ========== COMPANY CHART ==========
+// ========== TOP 1 CUSTOMER CHART (Current Year) ==========
 const topCompanies = [
     @foreach ($topCompanies as $item)
         {
-            name: '{{ $item->firstname . ' ' . $item->lastname }}',
-            total_sales: {{ round($item->total_spent, 2) }}
-        }{{ !$loop->last ? ',' : '' }}
+            name: '{{ $item->firstname . ' ' .$item->lastname }}',
+            total_sales: {{ round($item->total_spent, 2) }} }{{ !$loop->last ? ',' : '' }}
     @endforeach
 ];
 
@@ -340,7 +283,7 @@ const companyColors = generateColors(topCompanies.length);
 const companyData = {
     labels: companyLabels,
     datasets: [{
-        label: 'Total Sales (₦)',
+        label: 'Total Spent (₦)',
         data: companyDataValues,
         backgroundColor: companyColors.bgColors,
         borderColor: companyColors.borderColors,
@@ -354,18 +297,11 @@ const companyConfig = {
     options: {
         responsive: true,
         maintainAspectRatio: false,
-        // aspectRatio: 3.0, // Try 0.8, 1, 1.2, etc. to adjust size
-        animation: {
-            duration: 0
-        },
-        hover: {
-            animationDuration: 0
-        },
         plugins: {
             legend: { display: false },
             title: {
                 display: true,
-                text: 'Top 5 Best Performing Customers'
+                text: 'Top 10 Best Performing Customer (This Year)'
             }
         },
         scales: {
@@ -382,7 +318,62 @@ const companyConfig = {
 const companyCtx = document.getElementById('topCompaniesChart').getContext('2d');
 new Chart(companyCtx, companyConfig);
 
+
+// ========== MONTHLY REVENUE VS EXPENDITURE CHART ==========
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const revenueByMonth = @json($monthlyRevenue);
+const expenseByMonth = @json($monthlyExpenses);
+
+const revData = months.map((_, index) => revenueByMonth[index + 1] || 0);
+const expData = months.map((_, index) => expenseByMonth[index + 1] || 0);
+
+const revExpConfig = {
+    type: 'line',
+    data: {
+        labels: months,
+        datasets: [
+            {
+                label: 'Revenue (₦)',
+                data: revData,
+                borderColor: 'rgba(40, 167, 69, 1)',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            },
+            {
+                label: 'Expenditure (₦)',
+                data: expData,
+                borderColor: 'rgba(220, 53, 69, 1)',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthly Revenue vs Expenditure (This Year)'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: value => '₦' + value.toLocaleString()
+                }
+            }
+        }
+    }
+};
+
+const revExpCtx = document.getElementById('revenueExpenseChart').getContext('2d');
+new Chart(revExpCtx, revExpConfig);
 </script>
 
 @endsection
-
