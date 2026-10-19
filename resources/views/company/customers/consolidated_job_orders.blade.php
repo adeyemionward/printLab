@@ -41,12 +41,23 @@
                                         <div class="canvas-wrapper">
                                             @include('company.customers.order_date_range')
 
+                                           @if(request('filter') === 'previous')
+                                                <div class="alert alert-warning d-flex justify-content-between align-items-center mb-3">
+                                                    <span>
+                                                        {{-- <i class="fa fa-exclamation-triangle me-2"></i> --}}
+                                                        <strong>Viewing Previous Years' Outstanding Orders</strong> for {{ $customer->firstname ?? '' }} {{ $customer->lastname ?? '' }}
+                                                    </span>
+                                                    <a href="{{ route('company.customers.consolidated_job_orders', [$customer->id]) }}" class="btn btn-sm btn-dark">
+                                                        <i class="fa fa-times"></i> Clear Filter (Show Current Year)
+                                                    </a>
+                                                </div>
+                                            @endif
+
                                             <table id="example" class="table no-margin table-bordered align-middle" style="width:100%">
                                                 <thead class="table-light">
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Order&nbsp;No</th>
-
                                                         <th>Date</th>
                                                         <th>Total Cost</th>
                                                         <th>Amount Paid</th>
@@ -89,19 +100,16 @@
                                                             <td class="{{ $outstanding > 0 ? 'text-danger fw-bold' : 'text-muted' }}">
                                                                 &#8358;{{ number_format($outstanding, 2) }}
                                                             </td>
-                                                             <td class="text-center">
-                                                                <!-- View Details Link -->
+                                                            <td class="text-center">
                                                                 <a href="{{ route('company.job_order.view_order', [$val->id]) }}"
-                                                                   class="text-secondary me-2"
-                                                                   title="View Order Details">
+                                                                class="text-secondary me-2"
+                                                                title="View Order Details">
                                                                     <span><i class="fa fa-eye"></i></span>
-                                                                {{-- </a> {{ route('company.job_order.consolidated_invoice_pdf', [$customer->id, 'date_from' => request('date_from'), 'date_to' => request('date_to')]) }} --}}
-
-                                                                <!-- Single Order Invoice PDF -->
-                                                                <a href="{{route('company.job_order.order_invoice_pdf',[$val->order_no])}}"
-                                                                   target="_blank"
-                                                                   class="text-danger"
-                                                                   title="Download Single Order PDF">
+                                                                </a>
+                                                                <a href="{{ route('company.job_order.order_invoice_pdf', [$val->order_no]) }}"
+                                                                target="_blank"
+                                                                class="text-danger"
+                                                                title="Download Single Order PDF">
                                                                     <i class="fas fa-file-pdf"></i>
                                                                 </a>
                                                             </td>

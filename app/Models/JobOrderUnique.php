@@ -65,6 +65,12 @@ class JobOrderUnique extends Model
     public static function jobOrderCount($user_id){
         return $jobOrderCount = JobOrder::where('user_id',$user_id)->count();
     }
+    
+    public function jobs()
+    {
+        // Adjust 'order_no' if your foreign key uses an ID column instead
+        return $this->hasMany(JobOrder::class, 'order_no', 'order_no');
+    }
 
     public function jobOrderUnique()
     {

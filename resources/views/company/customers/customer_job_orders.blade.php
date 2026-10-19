@@ -44,9 +44,11 @@
                                                     <tbody>
                                                         @foreach ($job_orders as $index => $val)
                                                             @php
-                                                                $job_title = str_replace(' ', '_', $val->job_order_name);
+                                                                $job_title = str_replace(' ', '_', $val->job_order_name ?? '');
                                                                 $order_cost = (float) str_replace(',', '', $val->total_cost ?? 0);
-                                                                $jobCount = $val->total_jobs ?? ($val->jobs ? $val->jobs->count() : 1);
+
+                                                                // Count the actual related items/jobs from the model relationship
+                                                                $jobCount = $val->jobs ? $val->jobs->count() : 1;
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $index + 1 }}</td>
