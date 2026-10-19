@@ -58,8 +58,8 @@
                 </td>
                 <td>
                     @if(isset($val->jobOrderUnique) && $val->jobOrderUnique->created_at)
-                        {{-- {{ \Carbon\Carbon::parse($val->jobOrderUnique->created_at)->format('d M, Y') }} --}}
-                        {{ date('D M d, Y', strtotime($val->jobOrderUnique->created_at)) }}
+                        {{ \Carbon\Carbon::parse($val->jobOrderUnique->created_at)->format('d M, Y') }}
+                        {{-- {{ date('D M d, Y', strtotime($val->jobOrderUnique->created_at)) }} --}}
                     @else
                         <span class="text-muted">N/A</span>
                     @endif
